@@ -71,6 +71,7 @@ function MEE6Levels(props) {
     }
 
     const deleteBot = (botSettings) => {
+        setBotSettings({settingsVisible: false});
         axios.post("https://beta.rudolphaio.com/api/deleteBot", {userToken: props.cookies.userToken, botData: botSettings})
           .then(res => {
               if(res.data.state == 'success') {
