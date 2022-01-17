@@ -68,22 +68,22 @@ function App(props) {
             <div className="logo" />
             <Menu theme="dark" mode="inline">
               <Menu.Item key="1" style={{ marginTop: '0px'}} icon={<UserOutlined />}>
-                <Link to="/RudolphDashboardFront/">
+                <Link to="/dashboard/">
                   Home
                 </Link>
               </Menu.Item>
               <Menu.Item key="2" icon={<RobotOutlined />}>
-                <Link to="/RudolphDashboardFront/mee6levels">
+                <Link to="/dashboard/mee6levels">
                   MEE6 Levels
                 </Link>
               </Menu.Item>
               {/* <Menu.Item key="3" icon={<DollarOutlined />}>
-                <Link to="/RudolphDashboardFront/quickmint">
+                <Link to="/dashboard/quickmint">
                   Quick Mint
                 </Link>
               </Menu.Item>
               <Menu.Item key="4" icon={<DollarOutlined />}>
-                <Link to="/RudolphDashboardFront/nftstealer">
+                <Link to="/dashboard/nftstealer">
                   NFT Stealer
                 </Link>
               </Menu.Item> */}
