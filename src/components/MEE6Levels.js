@@ -17,6 +17,7 @@ function MEE6Levels(props) {
     const [bots, setBots] = useState([]);
     const [activeBot, setActiveBot] = useState({});
     const [startFarmingLoading, setStartFarmingLoading] = useState(false);
+    const [dataLoading, setDataLoading] = useState(false);
     const [botSettings, setBotSettings] = useState({settingsVisible: false});
 
     const startFarming = (e) => {
@@ -103,6 +104,7 @@ function MEE6Levels(props) {
     }
 
     const fetchMoreData = () => {
+        setDataLoading(true);
         axios.post("https://rudolphaio.gomez0015.repl.co/api/getFarmingData", {userToken: props.cookies.userToken})
             .then(res => {
               for (let i = 0; i < res.data.length; i++) {
@@ -112,6 +114,7 @@ function MEE6Levels(props) {
                 res.data[i].settingsVisible = false;
               }
               setBots(res.data.sort((a, b) => b - a));
+              setDataLoading(false);
             }).catch(err => {
                 console.error(err);
             });
@@ -178,10 +181,10 @@ function MEE6Levels(props) {
         ))
         : <p>No Bots :(</p>}
         <div style={{textAlign: 'right'}}>
-          {startFarmingLoading ? 
-          <LoadingOutlined style={{fontSize: '26px', cursor: 'pointer', position: 'absolute', top: '110px', right: '21vw'}}/> 
+          {dataLoading ? 
+          <LoadingOutlined style={{fontSize: '26px', cursor: 'pointer', position: 'absolute', top: '110px', right: '6vw'}}/> 
           : 
-          <ReloadOutlined style={{fontSize: '26px', cursor: 'pointer', position: 'absolute', top: '110px', right: '21vw'}} onClick={() => {fetchMoreData();}}/>}
+          <ReloadOutlined style={{fontSize: '26px', cursor: 'pointer', position: 'absolute', top: '110px', right: '6vw'}} onClick={() => {fetchMoreData();}}/>}
         </div>
         <Divider orientation="left">Chat Logs</Divider>
         <div
