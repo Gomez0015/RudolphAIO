@@ -24,7 +24,7 @@ function LoginPage(props) {
     // Similar to componentDidMount and componentDidUpdate:
     useEffect(() => {
         if(props.cookies.userToken != 'none' && props.cookies.userToken != undefined && props.cookies.userToken != null && newKey == 'false') {
-            axios.post('https://rudolph-backend.gomez0015.repl.co/api/checkAuthDiscord', {discordId: props.cookies.userToken})
+            axios.post('https://rudolphaio.gomez0015.repl.co/api/checkAuthDiscord', {discordId: props.cookies.userToken})
                 .then(res => {
                     
                     if(res.data.state == 'success') {
@@ -45,7 +45,7 @@ function LoginPage(props) {
     const Login = async (e) => {
         e.preventDefault();
         const discordAuth = await CallBack(code);
-        axios.post('https://rudolph-backend.gomez0015.repl.co/api/checkAuthDiscord', {discordId: discordAuth.data.id, discordLogin: true})
+        axios.post('https://rudolphaio.gomez0015.repl.co/api/checkAuthDiscord', {discordId: discordAuth.data.id, discordLogin: true})
             .then(res => {
 
                 if(res.data.state === 'success') {
@@ -69,7 +69,7 @@ function LoginPage(props) {
         e.preventDefault();
         const discordAuth = await CallBack(code);
         if (discordAuth.data.error) return;
-        axios.post('https://rudolph-backend.gomez0015.repl.co/api/linkKeyDiscord', {discordId: discordAuth.data.id, authKey: e.target.authKey.value})
+        axios.post('https://rudolphaio.gomez0015.repl.co/api/linkKeyDiscord', {discordId: discordAuth.data.id, authKey: e.target.authKey.value})
             .then(res => {
                 if(res.data.state === 'success') {
                     props.successMessage(res.data.message);
@@ -90,13 +90,13 @@ function LoginPage(props) {
     }
 
     const CallBack = async (code) => {
-        const result = await axios.post('https://rudolph-backend.gomez0015.repl.co/api/getDiscordAuthInfo', {code: code});
+        const result = await axios.post('https://rudolphaio.gomez0015.repl.co/api/getDiscordAuthInfo', {code: code});
 
         return result;
     }
 
     const DiscordLogin = () => {
-        window.open(`https://rudolph-backend.gomez0015.repl.co/api/discordLogin`);
+        window.open(`https://rudolphaio.gomez0015.repl.co/api/discordLogin`);
     }
 
 

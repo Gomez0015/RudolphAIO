@@ -15,7 +15,7 @@ function QuickMint() {
     const Mint = (e) => {
         e.preventDefault();
         setMintLoading(true);
-        axios.post('https://rudolph-backend.gomez0015.repl.co/api/mint', {seed: e.target[0].value, url: e.target[1].value, amountToMint: e.target[2].value})
+        axios.post('https://rudolphaio.gomez0015.repl.co/api/mint', {seed: e.target[0].value, url: e.target[1].value, amountToMint: e.target[2].value})
             .then(res => {
                 console.log(res.data);
                 setMintLoading(false);
