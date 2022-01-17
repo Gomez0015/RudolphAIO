@@ -60,6 +60,7 @@ function MEE6Levels(props) {
           .then(res => {
               if(res.data.state == 'success') {
                   props.successMessage(res.data.message);
+                  setActiveBot({});
               } else if(res.data.state == 'error'){
                   props.errorMessage(res.data.message);
               }
