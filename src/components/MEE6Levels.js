@@ -182,9 +182,9 @@ function MEE6Levels(props) {
         : <p>No Bots :(</p>}
         <div style={{textAlign: 'right'}}>
           {dataLoading ? 
-          <LoadingOutlined style={{fontSize: '26px', cursor: 'pointer', position: 'absolute', top: '110px', right: '6vw'}}/> 
+          <LoadingOutlined style={{fontSize: '26px', cursor: 'pointer', position: 'absolute', right: '6vw'}}/> 
           : 
-          <ReloadOutlined style={{fontSize: '26px', cursor: 'pointer', position: 'absolute', top: '110px', right: '6vw'}} onClick={() => {fetchMoreData();}}/>}
+          <ReloadOutlined style={{fontSize: '26px', cursor: 'pointer', position: 'absolute', right: '6vw'}} onClick={() => {fetchMoreData();}}/>}
         </div>
         <Divider orientation="left">Chat Logs</Divider>
         <div
