@@ -93,10 +93,10 @@ function App(props) {
           <Content style={{ margin: '0 16px' }}>
               <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
                   <Routes>
-                    <Route path="/RudolphDashboardFront/" element={<Title>Home</Title>} />
-                    <Route path="/RudolphDashboardFront/quickmint" element={<QuickMint />} />
-                    <Route path="/RudolphDashboardFront/nftstealer" element={<NFTStealer />} />
-                    <Route path="/RudolphDashboardFront/mee6levels" element={<MEE6Levels cookies={cookies} successMessage={successMessage} errorMessage={errorMessage}/>} />
+                    <Route path="/dashboard/" element={<Title>Home</Title>} />
+                    <Route path="/dashboard/quickmint" element={<QuickMint />} />
+                    <Route path="/dashboard/nftstealer" element={<NFTStealer />} />
+                    <Route path="/dashboard/mee6levels" element={<MEE6Levels cookies={cookies} successMessage={successMessage} errorMessage={errorMessage}/>} />
                     <Route
                       path="*"
                       element={
