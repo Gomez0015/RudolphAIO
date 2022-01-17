@@ -153,7 +153,7 @@ exports.startFarming = async function(res, req) {
                                 }
                                 lastResponse = response.answer.toLowerCase().trim();
                                 let data = checkIfBotRunning.messages;
-                                data.push(('Replying to: ' + message.author.tag + ', with message: ' + message.content + ', response: ' + response.answer));
+                                data.push({ messageAuthor: message.author.tag, message: message.content, response: response.answer });
                                 if (data.length > 20) {
                                     data.shift();
                                 }
