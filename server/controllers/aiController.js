@@ -164,10 +164,8 @@ exports.startFarming = async function(res, req) {
                                     return;
                                 } else if (isEmoji(response.answer)) {
                                     message.react(response.answer);
-                                } else if ((Math.random() < 0.80)) {
-                                    message.channel.send(`${response.answer}`);
                                 } else {
-                                    message.reply(`${response.answer}`);
+                                    message.channel.send(`${response.answer}`);
                                 }
                                 lastResponse = response.answer.toLowerCase().trim();
                                 let data = checkIfBotRunning.messages;
