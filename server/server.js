@@ -6,6 +6,7 @@ const aiController = require('./controllers/aiController');
 const userAuthController = require('./controllers/userAuthController');
 const axios = require('axios');
 const mongoose = require('mongoose');
+const path = require("path");
 const db = mongoose.connection;
 const dotenv = require('dotenv')
 dotenv.config()
