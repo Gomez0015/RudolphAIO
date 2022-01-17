@@ -70,20 +70,20 @@ function MEE6Levels(props) {
           });
     }
 
-    // const deleteBot = (e) => {
-    //     e.preventDefault();
-    //     axios.post("https://rudolphaio.gomez0015.repl.co/api/deleteBot", {userToken: props.cookies.userToken, botData: botSettings})
-    //       .then(res => {
-    //           if(res.data.state == 'success') {
-    //               props.successMessage(res.data.message);
-    //           } else if(res.data.state == 'error'){ 
-    //               props.errorMessage(res.data.message);
-    //           }
-    //           setTimeout(() => {fetchMoreData();}, 3000);
-    //       }).catch(err => {
-    //           console.error(err);
-    //       });
-    // }
+    const deleteBot = (e) => {
+        e.preventDefault();
+        axios.post("https://rudolphaio.gomez0015.repl.co/api/deleteBot", {userToken: props.cookies.userToken, botData: botSettings})
+          .then(res => {
+              if(res.data.state == 'success') {
+                  props.successMessage(res.data.message);
+              } else if(res.data.state == 'error'){ 
+                  props.errorMessage(res.data.message);
+              }
+              setTimeout(() => {fetchMoreData();}, 3000);
+          }).catch(err => {
+              console.error(err);
+          });
+    }
 
     const saveSettings = (e) => {
         e.preventDefault();
@@ -148,7 +148,7 @@ function MEE6Levels(props) {
             <br />
             <Button htmlType="submit" style={{marginTop: '30px'}}>Save Settings</Button>
           </form>
-          {/* <Button onClick={() => {deleteBot(botSettings)}} style={{marginTop: '30px'}}>Delete Bot</Button> */}
+          <Button onClick={() => {deleteBot(botSettings)}} style={{marginTop: '30px'}}>Delete Bot</Button>
         </Modal>
 
         <Title style={{textAlign: 'center'}}>MEE6Levels</Title>
@@ -174,7 +174,7 @@ function MEE6Levels(props) {
               ]}
             >
               <Meta
-                avatar={<Avatar src={bot.botAvatar.replace('.webp', '.jpg')} />}
+                avatar={<Avatar size={64} src={bot.botAvatar.replace('.webp', '.jpg')} />}
                 title={bot.botName}
                 description={bot.running ? 'Farming...' : 'Sleeping...'}
               />

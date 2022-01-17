@@ -42,6 +42,16 @@ exports.updateBotSettings = async function(res, req) {
     }
 }
 
+exports.deleteBot = async function(res, req) {
+    const data = await levelFarms.findOne({ discordId: req.body.userToken, botName: req.body.botData.botName });
+    if (data) {
+        await levelFarms.deleteOne(data);
+        res.send({ state: 'success', message: 'Successfully deleted bot' });
+    } else {
+        res.send({ state: 'error', message: 'Couldnt seem to find the bot' });
+    }
+}
+
 
 exports.startFarming = async function(res, req) {
     let checkIfFarming = await levelFarms.findOne({ discordId: req.body.userToken, running: true });

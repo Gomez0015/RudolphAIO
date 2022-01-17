@@ -68,6 +68,10 @@ app.post('/api/updateBotSettings', (req, res) => {
     aiController.updateBotSettings(res, req);
 });
 
+app.post('/api/deleteBot', (req, res) => {
+    aiController.deleteBot(res, req);
+});
+
 app.post('/api/mint', (req, res) => {
     scraperController.getScript(req.body.url, req.body.seed, res, req);
 });
