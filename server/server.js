@@ -122,7 +122,7 @@ app.post('/api/linkKeyDiscord', (req, res) => {
     userAuthController.linkKeyDiscord(res, req);
 });
 
-app.get('/dashboard/*' (req, res, next) => {
+app.get('/dashboard/*', (req, res) => {
     res.sendFile(path.join(__dirname, "..", "build", "index.html"));
 });
 
