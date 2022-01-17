@@ -209,7 +209,7 @@ function MEE6Levels(props) {
                   renderItem={item => (
                     <List.Item key={item.id}>
                       <List.Item.Meta
-                        title={<><p style={{textAlign: 'left'}}>{item.author}: {item.message}</p><p style={{textAlign: 'right'}}>{item.response} :{activeBot.botName}</p><Divider /></>}
+                        title={<><p style={{textAlign: 'left'}}>{item.messageAuthor}: {item.message}</p><p style={{textAlign: 'right'}}>{item.response} :{activeBot.botName}</p></>}
                       />
                     </List.Item>
                   )}
