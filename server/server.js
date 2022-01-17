@@ -131,7 +131,7 @@ app.get('/dashboard/*', (req, res) => {
 });
 
 app.get('/', (req, res) => {
-    res.redirect('/dashboard');
+    res.send('Spooky, Scary Skeletons Shivering Down Your Spine!');
 });
 
 process.on('uncaughtException', function(err) {
