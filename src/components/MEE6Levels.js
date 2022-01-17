@@ -70,8 +70,7 @@ function MEE6Levels(props) {
           });
     }
 
-    const deleteBot = (e) => {
-        e.preventDefault();
+    const deleteBot = (botSettings) => {
         axios.post("https://beta.rudolphaio.com/api/deleteBot", {userToken: props.cookies.userToken, botData: botSettings})
           .then(res => {
               if(res.data.state == 'success') {
