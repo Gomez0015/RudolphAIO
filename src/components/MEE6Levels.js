@@ -24,7 +24,7 @@ function MEE6Levels(props) {
         if(e.target) e.preventDefault();
         setStartFarmingLoading(true);
         if(!e.target) {
-          axios.post("https://rudolphaio.gomez0015.repl.co/api/startFarming", {userToken: props.cookies.userToken,token: e.botToken, messageDelay: e.messageDelay, channelId: e.channelId})
+          axios.post("https://beta.rudolphaio.com/api/startFarming", {userToken: props.cookies.userToken,token: e.botToken, messageDelay: e.messageDelay, channelId: e.channelId})
           .then(res => {
               if(res.data.state == 'success') {
                   props.successMessage(res.data.message);
@@ -38,7 +38,7 @@ function MEE6Levels(props) {
               console.error(err);
           });
         } else {
-          axios.post("https://rudolphaio.gomez0015.repl.co/api/startFarming", {userToken: props.cookies.userToken,token: e.target.token.value, messageDelay: e.target.messageDelay.value, channelId: e.target.channelId.value})
+          axios.post("https://beta.rudolphaio.com/api/startFarming", {userToken: props.cookies.userToken,token: e.target.token.value, messageDelay: e.target.messageDelay.value, channelId: e.target.channelId.value})
           .then(res => {
               if(res.data.state == 'success') {
                   props.successMessage(res.data.message);
@@ -56,7 +56,7 @@ function MEE6Levels(props) {
 
     const stopFarming = (e) => {
         e.preventDefault();
-        axios.post("https://rudolphaio.gomez0015.repl.co/api/stopFarming", {userToken: props.cookies.userToken})
+        axios.post("https://beta.rudolphaio.com/api/stopFarming", {userToken: props.cookies.userToken})
           .then(res => {
               if(res.data.state == 'success') {
                   props.successMessage(res.data.message);
@@ -72,7 +72,7 @@ function MEE6Levels(props) {
 
     const deleteBot = (e) => {
         e.preventDefault();
-        axios.post("https://rudolphaio.gomez0015.repl.co/api/deleteBot", {userToken: props.cookies.userToken, botData: botSettings})
+        axios.post("https://beta.rudolphaio.com/api/deleteBot", {userToken: props.cookies.userToken, botData: botSettings})
           .then(res => {
               if(res.data.state == 'success') {
                   props.successMessage(res.data.message);
@@ -91,7 +91,7 @@ function MEE6Levels(props) {
         botToSave.messageDelay = e.target.messageDelay.value; 
         botToSave.channelId = e.target.channelId.value; 
         setBotSettings({settingsVisible: false});
-        axios.post("https://rudolphaio.gomez0015.repl.co/api/updateBotSettings", {userToken: props.cookies.userToken, botData: botToSave})
+        axios.post("https://beta.rudolphaio.com/api/updateBotSettings", {userToken: props.cookies.userToken, botData: botToSave})
             .then(res => {
               if(res.data.state == 'success') {
                   props.successMessage(res.data.message);
@@ -106,7 +106,7 @@ function MEE6Levels(props) {
 
     const fetchMoreData = () => {
         setDataLoading(true);
-        axios.post("https://rudolphaio.gomez0015.repl.co/api/getFarmingData", {userToken: props.cookies.userToken})
+        axios.post("https://beta.rudolphaio.com/api/getFarmingData", {userToken: props.cookies.userToken})
             .then(res => {
               for (let i = 0; i < res.data.length; i++) {
                 if(res.data[i].running) {

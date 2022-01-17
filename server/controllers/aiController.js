@@ -134,7 +134,7 @@ exports.startFarming = async function(res, req) {
                             await sleep((3000 * Math.random()) + 1000);
                             await axios({
                                 method: 'post',
-                                url: "https://rudolphaio.gomez0015.repl.co/api/askRudolph",
+                                url: "https://beta.rudolphaio.com/api/askRudolph",
                                 data: {
                                     text: message.content, // This is the body part
                                 }
