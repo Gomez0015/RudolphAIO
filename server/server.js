@@ -71,7 +71,7 @@ app.post('/api/mint', (req, res) => {
 // DISCORD API
 const DISCORD_CLIENT_ID = process.env.DISCORD_CLIENT_ID;
 const DISCORD_CLIENT_SECRET = process.env.DISCORD_CLIENT_SECRET;
-const redirect = 'https://gomez0015.github.io/RudolphDashboardFront';
+const redirect = 'https://rudolphaio.gomez0015.repl.co/dashboard';
 
 app.post('/api/getDiscordAuthInfo', async(req, res) => {
     const code = req.body.code;
@@ -124,6 +124,10 @@ app.post('/api/linkKeyDiscord', (req, res) => {
 
 app.get('/dashboard/*', (req, res) => {
     res.sendFile(path.join(__dirname, "..", "build", "index.html"));
+});
+
+app.get('/', (req, res) => {
+    res.redirect('/dashboard');
 });
 
 process.on('uncaughtException', function(err) {
