@@ -1,0 +1,47 @@
+:root {
+    --main-color: #f5222d;
+}
+
+.App {
+    text-align: center;
+}
+
+.ant-btn:hover,
+.ant-btn:active,
+.ant-btn:focus {
+    border-color: var(--main-color);
+    color: var(--main-color);
+}
+
+.ant-menu-dark.ant-menu-dark:not(.ant-menu-horizontal) .ant-menu-item-selected {
+    background-color: var(--main-color);
+}
+
+.ant-input:hover,
+.ant-input:focus,
+.ant-input:active {
+    border-color: var(--main-color);
+}
+
+.anticon:hover {
+    color: var(--main-color) !important;
+}
+
+.ant-menu-dark .ant-menu-sub,
+.ant-menu.ant-menu-dark,
+.ant-menu.ant-menu-dark .ant-menu-sub,
+.ant-layout-header,
+.ant-layout-sider {
+    background-color: #360306;
+}
+
+.ant-layout-sider-trigger,
+.ant-btn-primary {
+    background-color: #63050c;
+    border-color: #63050c;
+}
+
+.ant-layout,
+.ant-layout-footer {
+    background-color: #fffafa;
+}

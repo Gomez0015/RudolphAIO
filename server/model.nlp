@@ -1,0 +1,2034 @@
+{
+  "settings": {
+    "languages": [
+      "en"
+    ],
+    "tag": "nlp",
+    "threshold": 0.5,
+    "autoLoad": true,
+    "autoSave": true,
+    "modelFileName": "model.nlp",
+    "calculateSentiment": true
+  },
+  "nluManager": {
+    "settings": {
+      "tag": "nlu-manager"
+    },
+    "locales": [
+      "en"
+    ],
+    "languageNames": {},
+    "domainManagers": {
+      "en": {
+        "settings": {
+          "locale": "en",
+          "trainByDomain": false,
+          "tag": "domain-manager-en",
+          "nluByDomain": {
+            "default": {
+              "className": "NeuralNlu",
+              "settings": {}
+            }
+          },
+          "useStemDict": true
+        },
+        "stemDict": {
+          "goodby": {
+            "intent": "greetings.bye",
+            "domain": "default"
+          },
+          "bye,care,take": {
+            "intent": "greetings.bye",
+            "domain": "default"
+          },
+          "later,see,you": {
+            "intent": "greetings.bye",
+            "domain": "default"
+          },
+          "bye,for,now": {
+            "intent": "greetings.bye",
+            "domain": "default"
+          },
+          "go,i,must": {
+            "intent": "greetings.bye",
+            "domain": "default"
+          },
+          "hello": {
+            "intent": "greetings.hello",
+            "domain": "default"
+          },
+          "hi": {
+            "intent": "greetings.hello",
+            "domain": "default"
+          },
+          "howdi": {
+            "intent": "greetings.hello",
+            "domain": "default"
+          },
+          "greet": {
+            "intent": "greetings.hello",
+            "domain": "default"
+          },
+          "good,moorn": {
+            "intent": "greetings.hello",
+            "domain": "default"
+          },
+          "and,balown,chicken,wing": {
+            "intent": "memes.top10",
+            "domain": "default"
+          },
+          "bruh": {
+            "intent": "memes.top10",
+            "domain": "default"
+          },
+          "sike,thought,you": {
+            "intent": "memes.top10",
+            "domain": "default"
+          },
+          "ahahahhah,at,head,his,look,of,the,top": {
+            "intent": "memes.top10",
+            "domain": "default"
+          },
+          "rip": {
+            "intent": "nft.lose",
+            "domain": "default"
+          },
+          "rug": {
+            "intent": "nft.lose",
+            "domain": "default"
+          },
+          "project,suck,this": {
+            "intent": "nft.lose",
+            "domain": "default"
+          },
+          "are,go,it,make,not,to,we": {
+            "intent": "nft.lose",
+            "domain": "default"
+          },
+          "ani,here,mod": {
+            "intent": "nft.lose",
+            "domain": "default"
+          },
+          "off": {
+            "intent": "nft.lose",
+            "domain": "default"
+          },
+          "mint,wen": {
+            "intent": "nft.questions",
+            "domain": "default"
+          },
+          "lfg": {
+            "intent": "nft.win",
+            "domain": "default"
+          },
+          "fuck,go,let": {
+            "intent": "nft.win",
+            "domain": "default"
+          },
+          "gooo,let": {
+            "intent": "nft.win",
+            "domain": "default"
+          },
+          "wagmi": {
+            "intent": "nft.win",
+            "domain": "default"
+          },
+          "keep,push": {
+            "intent": "nft.win",
+            "domain": "default"
+          },
+          "grind,hard": {
+            "intent": "nft.win",
+            "domain": "default"
+          },
+          "a,a5,balenciaga,drive,eat,lambo,to,wagu,wear": {
+            "intent": "nft.win",
+            "domain": "default"
+          },
+          "a,drive,lambo": {
+            "intent": "nft.win",
+            "domain": "default"
+          },
+          "woooo": {
+            "intent": "nft.win",
+            "domain": "default"
+          },
+          "parti,yacht": {
+            "intent": "nft.win",
+            "domain": "default"
+          },
+          "get,it,les": {
+            "intent": "nft.win",
+            "domain": "default"
+          },
+          "for,is,sleep,the,weak": {
+            "intent": "nft.win",
+            "domain": "default"
+          },
+          "are,go,it,make,to,we": {
+            "intent": "nft.win",
+            "domain": "default"
+          },
+          "are,be,go,rich,soon,to,we": {
+            "intent": "nft.win",
+            "domain": "default"
+          },
+          "at,bull,lfg,my,where": {
+            "intent": "nft.win",
+            "domain": "default"
+          },
+          "anyway,floor,go,im,sweep,the,to": {
+            "intent": "nft.win",
+            "domain": "default"
+          },
+          "cant,drop,for,this,wait": {
+            "intent": "nft.win",
+            "domain": "default"
+          },
+          "are,bull,fire,on": {
+            "intent": "nft.win",
+            "domain": "default"
+          },
+          "all,love,moon,the,to,u": {
+            "intent": "nft.win",
+            "domain": "default"
+          }
+        },
+        "intentDict": {
+          "greetings.bye": "default",
+          "greetings.hello": "default",
+          "memes.top10": "default",
+          "nft.lose": "default",
+          "nft.questions": "default",
+          "nft.win": "default"
+        },
+        "sentences": [
+          {
+            "domain": "default",
+            "utterance": "goodbye",
+            "intent": "greetings.bye"
+          },
+          {
+            "domain": "default",
+            "utterance": "bye take care",
+            "intent": "greetings.bye"
+          },
+          {
+            "domain": "default",
+            "utterance": "see you later",
+            "intent": "greetings.bye"
+          },
+          {
+            "domain": "default",
+            "utterance": "bye for now",
+            "intent": "greetings.bye"
+          },
+          {
+            "domain": "default",
+            "utterance": "i must go",
+            "intent": "greetings.bye"
+          },
+          {
+            "domain": "default",
+            "utterance": "hello",
+            "intent": "greetings.hello"
+          },
+          {
+            "domain": "default",
+            "utterance": "hi",
+            "intent": "greetings.hello"
+          },
+          {
+            "domain": "default",
+            "utterance": "howdy",
+            "intent": "greetings.hello"
+          },
+          {
+            "domain": "default",
+            "utterance": "Greetings",
+            "intent": "greetings.hello"
+          },
+          {
+            "domain": "default",
+            "utterance": "Good moorning!!",
+            "intent": "greetings.hello"
+          },
+          {
+            "domain": "default",
+            "utterance": "hi",
+            "intent": "greetings.hello"
+          },
+          {
+            "domain": "default",
+            "utterance": "chicken wings and balowne",
+            "intent": "memes.top10"
+          },
+          {
+            "domain": "default",
+            "utterance": "bruh",
+            "intent": "memes.top10"
+          },
+          {
+            "domain": "default",
+            "utterance": "sike you thought",
+            "intent": "memes.top10"
+          },
+          {
+            "domain": "default",
+            "utterance": "look at the top of his head ahahahhah",
+            "intent": "memes.top10"
+          },
+          {
+            "domain": "default",
+            "utterance": "rip",
+            "intent": "nft.lose"
+          },
+          {
+            "domain": "default",
+            "utterance": "rug",
+            "intent": "nft.lose"
+          },
+          {
+            "domain": "default",
+            "utterance": "this project sucks",
+            "intent": "nft.lose"
+          },
+          {
+            "domain": "default",
+            "utterance": "we are not gonna make it",
+            "intent": "nft.lose"
+          },
+          {
+            "domain": "default",
+            "utterance": "any mods here",
+            "intent": "nft.lose"
+          },
+          {
+            "domain": "default",
+            "utterance": "off",
+            "intent": "nft.lose"
+          },
+          {
+            "domain": "default",
+            "utterance": "wen mint?",
+            "intent": "nft.questions"
+          },
+          {
+            "domain": "default",
+            "utterance": "LFG",
+            "intent": "nft.win"
+          },
+          {
+            "domain": "default",
+            "utterance": "lets fucking go!",
+            "intent": "nft.win"
+          },
+          {
+            "domain": "default",
+            "utterance": "Lets gooo",
+            "intent": "nft.win"
+          },
+          {
+            "domain": "default",
+            "utterance": "wagmi",
+            "intent": "nft.win"
+          },
+          {
+            "domain": "default",
+            "utterance": "keep pushing",
+            "intent": "nft.win"
+          },
+          {
+            "domain": "default",
+            "utterance": "grind hard",
+            "intent": "nft.win"
+          },
+          {
+            "domain": "default",
+            "utterance": "wear a balenciaga drive a lambo to eat A5 wagu",
+            "intent": "nft.win"
+          },
+          {
+            "domain": "default",
+            "utterance": "drive a lambo",
+            "intent": "nft.win"
+          },
+          {
+            "domain": "default",
+            "utterance": "woooo",
+            "intent": "nft.win"
+          },
+          {
+            "domain": "default",
+            "utterance": "Yacht party!",
+            "intent": "nft.win"
+          },
+          {
+            "domain": "default",
+            "utterance": "les get it",
+            "intent": "nft.win"
+          },
+          {
+            "domain": "default",
+            "utterance": "Sleep is for the weak",
+            "intent": "nft.win"
+          },
+          {
+            "domain": "default",
+            "utterance": "we are gonna make it",
+            "intent": "nft.win"
+          },
+          {
+            "domain": "default",
+            "utterance": "we are gonna be rich soon!",
+            "intent": "nft.win"
+          },
+          {
+            "domain": "default",
+            "utterance": "Where my bulls where my bulls at ?LFG LFG",
+            "intent": "nft.win"
+          },
+          {
+            "domain": "default",
+            "utterance": "Anyways im gonna sweep the floor",
+            "intent": "nft.win"
+          },
+          {
+            "domain": "default",
+            "utterance": "cant wait for this drop",
+            "intent": "nft.win"
+          },
+          {
+            "domain": "default",
+            "utterance": "bulls are on fire",
+            "intent": "nft.win"
+          },
+          {
+            "domain": "default",
+            "utterance": "to the moon love u all",
+            "intent": "nft.win"
+          }
+        ],
+        "domains": {
+          "master_domain": {
+            "settings": {
+              "locale": "en",
+              "tag": "nlu-en",
+              "keepStopwords": true,
+              "nonefeatureValue": 1,
+              "nonedeltaMultiplier": 1.2,
+              "spellCheck": false,
+              "spellCheckDistance": 1,
+              "filterZeros": true,
+              "log": true
+            },
+            "features": {
+              "goodby": 1,
+              "bye": 1,
+              "take": 1,
+              "care": 1,
+              "see": 1,
+              "you": 1,
+              "later": 1,
+              "for": 1,
+              "now": 1,
+              "i": 1,
+              "must": 1,
+              "go": 1,
+              "hello": 1,
+              "hi": 1,
+              "howdi": 1,
+              "greet": 1,
+              "good": 1,
+              "moorn": 1,
+              "chicken": 1,
+              "wing": 1,
+              "and": 1,
+              "balown": 1,
+              "bruh": 1,
+              "sike": 1,
+              "thought": 1,
+              "look": 1,
+              "at": 1,
+              "the": 1,
+              "top": 1,
+              "of": 1,
+              "his": 1,
+              "head": 1,
+              "ahahahhah": 1,
+              "rip": 1,
+              "rug": 1,
+              "this": 1,
+              "project": 1,
+              "suck": 1,
+              "we": 1,
+              "are": 1,
+              "not": 1,
+              "to": 1,
+              "make": 1,
+              "it": 1,
+              "ani": 1,
+              "mod": 1,
+              "here": 1,
+              "off": 1,
+              "wen": 1,
+              "mint": 1,
+              "lfg": 1,
+              "let": 1,
+              "fuck": 1,
+              "gooo": 1,
+              "wagmi": 1,
+              "keep": 1,
+              "push": 1,
+              "grind": 1,
+              "hard": 1,
+              "wear": 1,
+              "a": 1,
+              "balenciaga": 1,
+              "drive": 1,
+              "lambo": 1,
+              "eat": 1,
+              "a5": 1,
+              "wagu": 1,
+              "woooo": 1,
+              "yacht": 1,
+              "parti": 1,
+              "les": 1,
+              "get": 1,
+              "sleep": 1,
+              "is": 1,
+              "weak": 1,
+              "be": 1,
+              "rich": 1,
+              "soon": 1,
+              "where": 1,
+              "my": 1,
+              "bull": 1,
+              "anyway": 1,
+              "im": 1,
+              "sweep": 1,
+              "floor": 1,
+              "cant": 1,
+              "wait": 1,
+              "drop": 1,
+              "on": 1,
+              "fire": 1,
+              "moon": 1,
+              "love": 1,
+              "u": 1,
+              "all": 1
+            },
+            "intents": {
+              "greetings.bye": 1,
+              "greetings.hello": 1,
+              "memes.top10": 1,
+              "nft.lose": 1,
+              "nft.questions": 1,
+              "nft.win": 1
+            },
+            "intentFeatures": {
+              "greetings.bye": {
+                "goodby": 1,
+                "bye": 1,
+                "take": 1,
+                "care": 1,
+                "see": 1,
+                "you": 1,
+                "later": 1,
+                "for": 1,
+                "now": 1,
+                "i": 1,
+                "must": 1,
+                "go": 1
+              },
+              "greetings.hello": {
+                "hello": 1,
+                "hi": 1,
+                "howdi": 1,
+                "greet": 1,
+                "good": 1,
+                "moorn": 1
+              },
+              "memes.top10": {
+                "chicken": 1,
+                "wing": 1,
+                "and": 1,
+                "balown": 1,
+                "bruh": 1,
+                "sike": 1,
+                "you": 1,
+                "thought": 1,
+                "look": 1,
+                "at": 1,
+                "the": 1,
+                "top": 1,
+                "of": 1,
+                "his": 1,
+                "head": 1,
+                "ahahahhah": 1
+              },
+              "nft.lose": {
+                "rip": 1,
+                "rug": 1,
+                "this": 1,
+                "project": 1,
+                "suck": 1,
+                "we": 1,
+                "are": 1,
+                "not": 1,
+                "go": 1,
+                "to": 1,
+                "make": 1,
+                "it": 1,
+                "ani": 1,
+                "mod": 1,
+                "here": 1,
+                "off": 1
+              },
+              "nft.questions": {
+                "wen": 1,
+                "mint": 1
+              },
+              "nft.win": {
+                "lfg": 1,
+                "let": 1,
+                "fuck": 1,
+                "go": 1,
+                "gooo": 1,
+                "wagmi": 1,
+                "keep": 1,
+                "push": 1,
+                "grind": 1,
+                "hard": 1,
+                "wear": 1,
+                "a": 1,
+                "balenciaga": 1,
+                "drive": 1,
+                "lambo": 1,
+                "to": 1,
+                "eat": 1,
+                "a5": 1,
+                "wagu": 1,
+                "woooo": 1,
+                "yacht": 1,
+                "parti": 1,
+                "les": 1,
+                "get": 1,
+                "it": 1,
+                "sleep": 1,
+                "is": 1,
+                "for": 1,
+                "the": 1,
+                "weak": 1,
+                "we": 1,
+                "are": 1,
+                "make": 1,
+                "be": 1,
+                "rich": 1,
+                "soon": 1,
+                "where": 1,
+                "my": 1,
+                "bull": 1,
+                "at": 1,
+                "anyway": 1,
+                "im": 1,
+                "sweep": 1,
+                "floor": 1,
+                "cant": 1,
+                "wait": 1,
+                "this": 1,
+                "drop": 1,
+                "on": 1,
+                "fire": 1,
+                "moon": 1,
+                "love": 1,
+                "u": 1,
+                "all": 1
+              }
+            },
+            "featuresToIntent": {
+              "goodby": [
+                "greetings.bye"
+              ],
+              "bye": [
+                "greetings.bye"
+              ],
+              "take": [
+                "greetings.bye"
+              ],
+              "care": [
+                "greetings.bye"
+              ],
+              "see": [
+                "greetings.bye"
+              ],
+              "you": [
+                "greetings.bye",
+                "memes.top10"
+              ],
+              "later": [
+                "greetings.bye"
+              ],
+              "for": [
+                "greetings.bye",
+                "nft.win"
+              ],
+              "now": [
+                "greetings.bye"
+              ],
+              "i": [
+                "greetings.bye"
+              ],
+              "must": [
+                "greetings.bye"
+              ],
+              "go": [
+                "greetings.bye",
+                "nft.lose",
+                "nft.win"
+              ],
+              "hello": [
+                "greetings.hello"
+              ],
+              "hi": [
+                "greetings.hello"
+              ],
+              "howdi": [
+                "greetings.hello"
+              ],
+              "greet": [
+                "greetings.hello"
+              ],
+              "good": [
+                "greetings.hello"
+              ],
+              "moorn": [
+                "greetings.hello"
+              ],
+              "chicken": [
+                "memes.top10"
+              ],
+              "wing": [
+                "memes.top10"
+              ],
+              "and": [
+                "memes.top10"
+              ],
+              "balown": [
+                "memes.top10"
+              ],
+              "bruh": [
+                "memes.top10"
+              ],
+              "sike": [
+                "memes.top10"
+              ],
+              "thought": [
+                "memes.top10"
+              ],
+              "look": [
+                "memes.top10"
+              ],
+              "at": [
+                "memes.top10",
+                "nft.win"
+              ],
+              "the": [
+                "memes.top10",
+                "nft.win"
+              ],
+              "top": [
+                "memes.top10"
+              ],
+              "of": [
+                "memes.top10"
+              ],
+              "his": [
+                "memes.top10"
+              ],
+              "head": [
+                "memes.top10"
+              ],
+              "ahahahhah": [
+                "memes.top10"
+              ],
+              "rip": [
+                "nft.lose"
+              ],
+              "rug": [
+                "nft.lose"
+              ],
+              "this": [
+                "nft.lose",
+                "nft.win"
+              ],
+              "project": [
+                "nft.lose"
+              ],
+              "suck": [
+                "nft.lose"
+              ],
+              "we": [
+                "nft.lose",
+                "nft.win"
+              ],
+              "are": [
+                "nft.lose",
+                "nft.win"
+              ],
+              "not": [
+                "nft.lose"
+              ],
+              "to": [
+                "nft.lose",
+                "nft.win"
+              ],
+              "make": [
+                "nft.lose",
+                "nft.win"
+              ],
+              "it": [
+                "nft.lose",
+                "nft.win"
+              ],
+              "ani": [
+                "nft.lose"
+              ],
+              "mod": [
+                "nft.lose"
+              ],
+              "here": [
+                "nft.lose"
+              ],
+              "off": [
+                "nft.lose"
+              ],
+              "wen": [
+                "nft.questions"
+              ],
+              "mint": [
+                "nft.questions"
+              ],
+              "lfg": [
+                "nft.win"
+              ],
+              "let": [
+                "nft.win"
+              ],
+              "fuck": [
+                "nft.win"
+              ],
+              "gooo": [
+                "nft.win"
+              ],
+              "wagmi": [
+                "nft.win"
+              ],
+              "keep": [
+                "nft.win"
+              ],
+              "push": [
+                "nft.win"
+              ],
+              "grind": [
+                "nft.win"
+              ],
+              "hard": [
+                "nft.win"
+              ],
+              "wear": [
+                "nft.win"
+              ],
+              "a": [
+                "nft.win"
+              ],
+              "balenciaga": [
+                "nft.win"
+              ],
+              "drive": [
+                "nft.win"
+              ],
+              "lambo": [
+                "nft.win"
+              ],
+              "eat": [
+                "nft.win"
+              ],
+              "a5": [
+                "nft.win"
+              ],
+              "wagu": [
+                "nft.win"
+              ],
+              "woooo": [
+                "nft.win"
+              ],
+              "yacht": [
+                "nft.win"
+              ],
+              "parti": [
+                "nft.win"
+              ],
+              "les": [
+                "nft.win"
+              ],
+              "get": [
+                "nft.win"
+              ],
+              "sleep": [
+                "nft.win"
+              ],
+              "is": [
+                "nft.win"
+              ],
+              "weak": [
+                "nft.win"
+              ],
+              "be": [
+                "nft.win"
+              ],
+              "rich": [
+                "nft.win"
+              ],
+              "soon": [
+                "nft.win"
+              ],
+              "where": [
+                "nft.win"
+              ],
+              "my": [
+                "nft.win"
+              ],
+              "bull": [
+                "nft.win"
+              ],
+              "anyway": [
+                "nft.win"
+              ],
+              "im": [
+                "nft.win"
+              ],
+              "sweep": [
+                "nft.win"
+              ],
+              "floor": [
+                "nft.win"
+              ],
+              "cant": [
+                "nft.win"
+              ],
+              "wait": [
+                "nft.win"
+              ],
+              "drop": [
+                "nft.win"
+              ],
+              "on": [
+                "nft.win"
+              ],
+              "fire": [
+                "nft.win"
+              ],
+              "moon": [
+                "nft.win"
+              ],
+              "love": [
+                "nft.win"
+              ],
+              "u": [
+                "nft.win"
+              ],
+              "all": [
+                "nft.win"
+              ]
+            },
+            "neuralNetwork": {
+              "settings": {
+                "locale": "en",
+                "tag": "nlu-en",
+                "keepStopwords": true,
+                "nonefeatureValue": 1,
+                "nonedeltaMultiplier": 1.2,
+                "spellCheck": false,
+                "spellCheckDistance": 1,
+                "filterZeros": true,
+                "log": true
+              },
+              "features": [
+                "goodby",
+                "bye",
+                "take",
+                "care",
+                "see",
+                "you",
+                "later",
+                "for",
+                "now",
+                "i",
+                "must",
+                "go",
+                "hello",
+                "hi",
+                "howdi",
+                "greet",
+                "good",
+                "moorn",
+                "chicken",
+                "wing",
+                "and",
+                "balown",
+                "bruh",
+                "sike",
+                "thought",
+                "look",
+                "at",
+                "the",
+                "top",
+                "of",
+                "his",
+                "head",
+                "ahahahhah",
+                "rip",
+                "rug",
+                "this",
+                "project",
+                "suck",
+                "we",
+                "are",
+                "not",
+                "to",
+                "make",
+                "it",
+                "ani",
+                "mod",
+                "here",
+                "off",
+                "wen",
+                "mint",
+                "lfg",
+                "let",
+                "fuck",
+                "gooo",
+                "wagmi",
+                "keep",
+                "push",
+                "grind",
+                "hard",
+                "wear",
+                "a",
+                "balenciaga",
+                "drive",
+                "lambo",
+                "eat",
+                "a5",
+                "wagu",
+                "woooo",
+                "yacht",
+                "parti",
+                "les",
+                "get",
+                "sleep",
+                "is",
+                "weak",
+                "be",
+                "rich",
+                "soon",
+                "where",
+                "my",
+                "bull",
+                "anyway",
+                "im",
+                "sweep",
+                "floor",
+                "cant",
+                "wait",
+                "drop",
+                "on",
+                "fire",
+                "moon",
+                "love",
+                "u",
+                "all"
+              ],
+              "intents": [
+                "greetings.bye",
+                "greetings.hello",
+                "memes.top10",
+                "nft.lose",
+                "nft.questions",
+                "nft.win"
+              ],
+              "perceptrons": [
+                [
+                  12.856217384338379,
+                  6.864915370941162,
+                  3.041796922683716,
+                  3.041796922683716,
+                  5.022700309753418,
+                  2.9022891521453857,
+                  5.022700309753418,
+                  2.2585511207580566,
+                  3.8230769634246826,
+                  5.261148929595947,
+                  5.261148929595947,
+                  2.424546718597412,
+                  -1.3399475812911987,
+                  -1.4448251724243164,
+                  -1.3377207517623901,
+                  -1.3365124464035034,
+                  -0.7322388887405396,
+                  -0.7322388887405396,
+                  -0.432066410779953,
+                  -0.432066410779953,
+                  -0.432066410779953,
+                  -0.432066410779953,
+                  -1.3342392444610596,
+                  -2.1203887462615967,
+                  -2.1203887462615967,
+                  -0.190034881234169,
+                  -0.30737969279289246,
+                  -1.3169357776641846,
+                  -0.190034881234169,
+                  -0.190034881234169,
+                  -0.190034881234169,
+                  -0.190034881234169,
+                  -0.190034881234169,
+                  -1.3309893608093262,
+                  -1.3289328813552856,
+                  -1.1730170249938965,
+                  -0.32930299639701843,
+                  -0.32930299639701843,
+                  -0.7525082230567932,
+                  -0.8770340085029602,
+                  -0.3138051927089691,
+                  -1.1545565128326416,
+                  -0.4076371490955353,
+                  -0.7294623851776123,
+                  -0.4539047181606293,
+                  -0.4539047181606293,
+                  -0.4539047181606293,
+                  -1.3261555433273315,
+                  -0.6680352687835693,
+                  -0.6680352687835693,
+                  -1.3237296342849731,
+                  -1.9973355531692505,
+                  -1.7624398469924927,
+                  -0.21160884201526642,
+                  -1.3189713954925537,
+                  -0.666835606098175,
+                  -0.666835606098175,
+                  -0.6667659878730774,
+                  -0.6667659878730774,
+                  -0.05526416748762131,
+                  -0.44476044178009033,
+                  -0.05526416748762131,
+                  -0.44476044178009033,
+                  -0.44476044178009033,
+                  -0.05526416748762131,
+                  -0.05526416748762131,
+                  -0.05526416748762131,
+                  -1.3139930963516235,
+                  -0.6658795475959778,
+                  -0.6658795475959778,
+                  -0.3017006516456604,
+                  -0.3017006516456604,
+                  -0.7583285570144653,
+                  -0.7583285570144653,
+                  -0.7583285570144653,
+                  -0.32474642992019653,
+                  -0.32474642992019653,
+                  -0.32474642992019653,
+                  -0.07256103307008743,
+                  -0.07256103307008743,
+                  -0.20713557302951813,
+                  -0.32167327404022217,
+                  -0.32167327404022217,
+                  -0.32167327404022217,
+                  -0.32167327404022217,
+                  -0.8062449097633362,
+                  -0.8062449097633362,
+                  -0.8062449097633362,
+                  -0.12447603046894073,
+                  -0.12447603046894073,
+                  0,
+                  0,
+                  0,
+                  0,
+                  1.333689982674819
+                ],
+                [
+                  -3.0486271381378174,
+                  -1.4125831127166748,
+                  -0.8434928059577942,
+                  -0.8434928059577942,
+                  -0.6907070875167847,
+                  -1.7171550989151,
+                  -0.6907070875167847,
+                  -1.1176526546478271,
+                  -0.5688916444778442,
+                  -0.7315356731414795,
+                  -0.7315356731414795,
+                  -1.6352089643478394,
+                  11.125100135803223,
+                  11.177745819091797,
+                  11.111871719360352,
+                  11.092986106872559,
+                  5.586063861846924,
+                  5.586063861846924,
+                  -0.9199620485305786,
+                  -0.9199620485305786,
+                  -0.9199620485305786,
+                  -0.9199620485305786,
+                  -3.105720281600952,
+                  -0.985988199710846,
+                  -0.985988199710846,
+                  -0.4035836160182953,
+                  -0.6282197833061218,
+                  -1.0750501155853271,
+                  -0.4035836160182953,
+                  -0.4035836160182953,
+                  -0.4035836160182953,
+                  -0.4035836160182953,
+                  -0.4035836160182953,
+                  -3.1008784770965576,
+                  -3.096245050430298,
+                  -1.2512820959091187,
+                  -0.9936074018478394,
+                  -0.9936074018478394,
+                  -0.2964059114456177,
+                  -0.9879446029663086,
+                  -0.24159584939479828,
+                  -0.851268470287323,
+                  -0.2703283131122589,
+                  -1.2507150173187256,
+                  -1.0687111616134644,
+                  -1.0687111616134644,
+                  -1.0687111616134644,
+                  -3.089935779571533,
+                  -1.5583373308181763,
+                  -1.5583373308181763,
+                  -3.0846712589263916,
+                  -1.8225657939910889,
+                  -0.5111998915672302,
+                  -1.284642219543457,
+                  -3.0760014057159424,
+                  -1.5523364543914795,
+                  -1.5523364543914795,
+                  -1.5522700548171997,
+                  -1.5522700548171997,
+                  -0.15317243337631226,
+                  -1.0350652933120728,
+                  -0.15317243337631226,
+                  -1.0350652933120728,
+                  -1.0350652933120728,
+                  -0.15317243337631226,
+                  -0.15317243337631226,
+                  -0.15317243337631226,
+                  -3.065420389175415,
+                  -1.5506007671356201,
+                  -1.5506007671356201,
+                  -0.9259316325187683,
+                  -0.9259316325187683,
+                  -0.3037024438381195,
+                  -0.3037024438381195,
+                  -0.3037024438381195,
+                  -0.011098217219114304,
+                  -0.011098217219114304,
+                  -0.011098217219114304,
+                  -0.16334767639636993,
+                  -0.16334767639636993,
+                  -0.8331097960472107,
+                  -0.013951868750154972,
+                  -0.013951868750154972,
+                  -0.013951868750154972,
+                  -0.013951868750154972,
+                  -0.2448669821023941,
+                  -0.2448669821023941,
+                  -0.2448669821023941,
+                  -0.640964925289154,
+                  -0.640964925289154,
+                  -0.2942538559436798,
+                  -0.2942538559436798,
+                  -0.2942538559436798,
+                  -0.2942538559436798,
+                  3.1036364506277154
+                ],
+                [
+                  -1.0833334922790527,
+                  -0.4058293402194977,
+                  -0.3441140353679657,
+                  -0.3441140353679657,
+                  -2.0588037967681885,
+                  3.0240182876586914,
+                  -2.0588037967681885,
+                  -0.6423012614250183,
+                  -0.058202821761369705,
+                  -0.133772611618042,
+                  -0.133772611618042,
+                  -0.8264637589454651,
+                  -1.0785211324691772,
+                  -1.0901201963424683,
+                  -1.0744822025299072,
+                  -1.0713207721710205,
+                  -0.5446106195449829,
+                  -0.5446106195449829,
+                  3.298745632171631,
+                  3.298745632171631,
+                  3.298745632171631,
+                  3.298745632171631,
+                  13.103910446166992,
+                  5.082832336425781,
+                  5.082832336425781,
+                  1.8493232727050781,
+                  1.3257057666778564,
+                  0.7686925530433655,
+                  1.8493232727050781,
+                  1.8493232727050781,
+                  1.8493232727050781,
+                  1.8493232727050781,
+                  1.8493232727050781,
+                  -1.0952610969543457,
+                  -1.0942268371582031,
+                  -0.5094632506370544,
+                  -0.40994828939437866,
+                  -0.40994828939437866,
+                  -0.17320208251476288,
+                  -0.30967459082603455,
+                  -0.12588852643966675,
+                  -0.873512864112854,
+                  -0.1521347463130951,
+                  -0.4986693859100342,
+                  -0.4482908546924591,
+                  -0.4482908546924591,
+                  -0.4482908546924591,
+                  -1.0925489664077759,
+                  -0.559181809425354,
+                  -0.559181809425354,
+                  -1.0974229574203491,
+                  -0.6850300431251526,
+                  -0.2156599909067154,
+                  -0.4347986578941345,
+                  -1.0901803970336914,
+                  -0.5488597750663757,
+                  -0.5488597750663757,
+                  -0.548750638961792,
+                  -0.548750638961792,
+                  -0.07989903539419174,
+                  -0.37648090720176697,
+                  -0.07989903539419174,
+                  -0.37648090720176697,
+                  -0.37648090720176697,
+                  -0.07989903539419174,
+                  -0.07989903539419174,
+                  -0.07989903539419174,
+                  -1.087702989578247,
+                  -0.5474205017089844,
+                  -0.5474205017089844,
+                  -0.2985706627368927,
+                  -0.2985706627368927,
+                  -0.4473615288734436,
+                  -0.4473615288734436,
+                  -0.4473615288734436,
+                  -0.0075196772813797,
+                  -0.0075196772813797,
+                  -0.0075196772813797,
+                  -0.4849525988101959,
+                  -0.4849525988101959,
+                  -0.6167336106300354,
+                  -0.1700621247291565,
+                  -0.1700621247291565,
+                  -0.1700621247291565,
+                  -0.1700621247291565,
+                  -0.06790366768836975,
+                  -0.06790366768836975,
+                  -0.06790366768836975,
+                  -0.0976925939321518,
+                  -0.0976925939321518,
+                  -0.30895012617111206,
+                  -0.30895012617111206,
+                  -0.30895012617111206,
+                  -0.30895012617111206,
+                  1.0946255129575717
+                ],
+                [
+                  -2.4186174869537354,
+                  -0.9090740084648132,
+                  -0.7681494355201721,
+                  -0.7681494355201721,
+                  -0.6368120908737183,
+                  -1.2364100217819214,
+                  -0.6368120908737183,
+                  -1.7256797552108765,
+                  -0.11767715215682983,
+                  -0.6288006901741028,
+                  -0.6288006901741028,
+                  -1.5199400186538696,
+                  -2.410863161087036,
+                  -2.4367167949676514,
+                  -2.4016239643096924,
+                  -2.394362688064575,
+                  -1.217329740524292,
+                  -1.217329740524292,
+                  -0.6093554496765137,
+                  -0.6093554496765137,
+                  -0.6093554496765137,
+                  -0.6093554496765137,
+                  -2.382493734359741,
+                  -0.5984564423561096,
+                  -0.5984564423561096,
+                  -0.17125895619392395,
+                  -0.39151567220687866,
+                  -1.016326904296875,
+                  -0.17125895619392395,
+                  -0.17125895619392395,
+                  -0.17125895619392395,
+                  -0.17125895619392395,
+                  -0.17125895619392395,
+                  11.78801441192627,
+                  11.77902889251709,
+                  3.0956954956054688,
+                  4.374440670013428,
+                  4.374440670013428,
+                  0.18234388530254364,
+                  -0.532705545425415,
+                  13.123580932617188,
+                  -0.7210991382598877,
+                  1.0654100179672241,
+                  -0.3741719424724579,
+                  3.938100814819336,
+                  3.938100814819336,
+                  3.938100814819336,
+                  11.704686164855957,
+                  -1.3495177030563354,
+                  -1.3495177030563354,
+                  -2.505864143371582,
+                  -1.7547825574874878,
+                  -0.7879011631011963,
+                  -0.9129266142845154,
+                  -2.4920597076416016,
+                  -1.2993836402893066,
+                  -1.2993836402893066,
+                  -1.297408103942871,
+                  -1.297408103942871,
+                  -0.2996102571487427,
+                  -0.8752065300941467,
+                  -0.2996102571487427,
+                  -0.8752065300941467,
+                  -0.8752065300941467,
+                  -0.2996102571487427,
+                  -0.2996102571487427,
+                  -0.2996102571487427,
+                  -2.4826934337615967,
+                  -1.28084135055542,
+                  -1.28084135055542,
+                  -1.4208245277404785,
+                  -1.4208245277404785,
+                  -0.26856663823127747,
+                  -0.26856663823127747,
+                  -0.26856663823127747,
+                  -0.8270951509475708,
+                  -0.8270951509475708,
+                  -0.8270951509475708,
+                  -0.19058404862880707,
+                  -0.19058404862880707,
+                  -0.9277682304382324,
+                  -0.18531100451946259,
+                  -0.18531100451946259,
+                  -0.18531100451946259,
+                  -0.18531100451946259,
+                  -1.2773350477218628,
+                  -1.2773350477218628,
+                  -1.2773350477218628,
+                  -0.7074040174484253,
+                  -0.7074040174484253,
+                  -0.30367133021354675,
+                  -0.30367133021354675,
+                  -0.30367133021354675,
+                  -0.30367133021354675,
+                  2.4448567887956196
+                ],
+                [
+                  -0.31533947587013245,
+                  -0.18598181009292603,
+                  -0.1213521808385849,
+                  -0.1213521808385849,
+                  -0.11845620721578598,
+                  -0.20345550775527954,
+                  -0.11845620721578598,
+                  -0.20262010395526886,
+                  -0.059022411704063416,
+                  -0.07889087498188019,
+                  -0.07889087498188019,
+                  -0.2680681347846985,
+                  -0.3083909749984741,
+                  -0.345369428396225,
+                  -0.3039860129356384,
+                  -0.30145999789237976,
+                  -0.17396427690982819,
+                  -0.17396427690982819,
+                  -0.09655202925205231,
+                  -0.09655202925205231,
+                  -0.09655202925205231,
+                  -0.09655202925205231,
+                  -0.2980336546897888,
+                  -0.07973920553922653,
+                  -0.07973920553922653,
+                  -0.02215653844177723,
+                  -0.08218230307102203,
+                  -0.15675614774227142,
+                  -0.02215653844177723,
+                  -0.02215653844177723,
+                  -0.02215653844177723,
+                  -0.02215653844177723,
+                  -0.02215653844177723,
+                  -0.2968001365661621,
+                  -0.29632139205932617,
+                  -0.16192424297332764,
+                  -0.09013061225414276,
+                  -0.09013061225414276,
+                  -0.045158591121435165,
+                  -0.14185544848442078,
+                  0,
+                  -0.16600468754768372,
+                  -0.020769288763403893,
+                  -0.1697276383638382,
+                  -0.11358394473791122,
+                  -0.11358394473791122,
+                  -0.11358394473791122,
+                  -0.2957487404346466,
+                  6.994515419006348,
+                  6.994515419006348,
+                  -0.364475280046463,
+                  -0.29676464200019836,
+                  -0.10203241556882858,
+                  -0.17611587047576904,
+                  -0.34033486247062683,
+                  -0.2153657227754593,
+                  -0.2153657227754593,
+                  -0.21464480459690094,
+                  -0.21464480459690094,
+                  -0.03823697194457054,
+                  -0.15977944433689117,
+                  -0.03823697194457054,
+                  -0.15977944433689117,
+                  -0.15977944433689117,
+                  -0.03823697194457054,
+                  -0.03823697194457054,
+                  -0.03823697194457054,
+                  -0.3276319205760956,
+                  -0.20284193754196167,
+                  -0.20284193754196167,
+                  -0.14121605455875397,
+                  -0.14121605455875397,
+                  -0.062074851244688034,
+                  -0.062074851244688034,
+                  -0.062074851244688034,
+                  -0.016606176272034645,
+                  -0.016606176272034645,
+                  -0.016606176272034645,
+                  -0.04608466848731041,
+                  -0.04608466848731041,
+                  -0.15059904754161835,
+                  -0.012654026970267296,
+                  -0.012654026970267296,
+                  -0.012654026970267296,
+                  -0.012654026970267296,
+                  -0.06604256480932236,
+                  -0.06604256480932236,
+                  -0.06604256480932236,
+                  -0.09044454991817474,
+                  -0.09044454991817474,
+                  -0.041150275617837906,
+                  -0.041150275617837906,
+                  -0.041150275617837906,
+                  -0.041150275617837906,
+                  0.29641910689369105
+                ],
+                [
+                  -4.32708740234375,
+                  -3.9606528282165527,
+                  -1.3529349565505981,
+                  -1.3529349565505981,
+                  -1.5084607601165771,
+                  -2.539608955383301,
+                  -1.5084607601165771,
+                  1.891141414642334,
+                  -2.4845163822174072,
+                  -2.943279504776001,
+                  -2.943279504776001,
+                  1.1357170343399048,
+                  -4.315950870513916,
+                  -4.390633583068848,
+                  -4.3087663650512695,
+                  -4.3025407791137695,
+                  -2.197753667831421,
+                  -2.197753667831421,
+                  -1.1639569997787476,
+                  -1.1639569997787476,
+                  -1.1639569997787476,
+                  -1.1639569997787476,
+                  -4.292496681213379,
+                  -0.9361317753791809,
+                  -0.9361317753791809,
+                  -1.1765846014022827,
+                  -1.5360060930252075,
+                  2.706883192062378,
+                  -1.1765846014022827,
+                  -1.1765846014022827,
+                  -1.1765846014022827,
+                  -1.1765846014022827,
+                  -1.1765846014022827,
+                  -4.283478260040283,
+                  -4.274855136871338,
+                  0.29208987951278687,
+                  -2.302236318588257,
+                  -2.302236318588257,
+                  0.5279747247695923,
+                  2.95182728767395,
+                  -12.978828430175781,
+                  2.289590835571289,
+                  -0.5372858047485352,
+                  2.99041485786438,
+                  -1.4265310764312744,
+                  -1.4265310764312744,
+                  -1.4265310764312744,
+                  -4.207573890686035,
+                  -2.134493589401245,
+                  -2.134493589401245,
+                  9.826313018798828,
+                  6.301675796508789,
+                  2.618325710296631,
+                  3.6849610805511475,
+                  9.951519012451172,
+                  5.00108003616333,
+                  5.00108003616333,
+                  5.0012431144714355,
+                  5.0012431144714355,
+                  -0.4489876925945282,
+                  3.3296186923980713,
+                  -0.4489876925945282,
+                  3.3296186923980713,
+                  3.3296186923980713,
+                  -0.4489876925945282,
+                  -0.4489876925945282,
+                  -0.4489876925945282,
+                  9.927501678466797,
+                  4.998384475708008,
+                  4.998384475708008,
+                  3.5355823040008545,
+                  3.5355823040008545,
+                  1.7992359399795532,
+                  1.7992359399795532,
+                  1.7992359399795532,
+                  1.0527989864349365,
+                  1.0527989864349365,
+                  1.0527989864349365,
+                  -0.23743070662021637,
+                  -0.23743070662021637,
+                  2.1797032356262207,
+                  0.962984561920166,
+                  0.962984561920166,
+                  0.962984561920166,
+                  0.962984561920166,
+                  2.5943312644958496,
+                  2.5943312644958496,
+                  2.5943312644958496,
+                  2.419517993927002,
+                  2.419517993927002,
+                  1.243800401687622,
+                  1.243800401687622,
+                  1.243800401687622,
+                  1.243800401687622,
+                  4.318103274344188
+                ]
+              ]
+            }
+          }
+        }
+      }
+    },
+    "intentDomains": {},
+    "extraSentences": [
+      [
+        "en",
+        "goodbye"
+      ],
+      [
+        "en",
+        "bye take care"
+      ],
+      [
+        "en",
+        "see you later"
+      ],
+      [
+        "en",
+        "bye for now"
+      ],
+      [
+        "en",
+        "i must go"
+      ],
+      [
+        "en",
+        "hello"
+      ],
+      [
+        "en",
+        "hi"
+      ],
+      [
+        "en",
+        "howdy"
+      ],
+      [
+        "en",
+        "Greetings"
+      ],
+      [
+        "en",
+        "Good moorning!!"
+      ],
+      [
+        "en",
+        "hi"
+      ],
+      [
+        "en",
+        "chicken wings and balowne"
+      ],
+      [
+        "en",
+        "bruh"
+      ],
+      [
+        "en",
+        "sike you thought"
+      ],
+      [
+        "en",
+        "look at the top of his head ahahahhah"
+      ],
+      [
+        "en",
+        "rip"
+      ],
+      [
+        "en",
+        "rug"
+      ],
+      [
+        "en",
+        "this project sucks"
+      ],
+      [
+        "en",
+        "we are not gonna make it"
+      ],
+      [
+        "en",
+        "any mods here"
+      ],
+      [
+        "en",
+        "off"
+      ],
+      [
+        "en",
+        "wen mint?"
+      ],
+      [
+        "en",
+        "LFG"
+      ],
+      [
+        "en",
+        "lets fucking go!"
+      ],
+      [
+        "en",
+        "Lets gooo"
+      ],
+      [
+        "en",
+        "wagmi"
+      ],
+      [
+        "en",
+        "keep pushing"
+      ],
+      [
+        "en",
+        "grind hard"
+      ],
+      [
+        "en",
+        "wear a balenciaga drive a lambo to eat A5 wagu"
+      ],
+      [
+        "en",
+        "drive a lambo"
+      ],
+      [
+        "en",
+        "woooo"
+      ],
+      [
+        "en",
+        "Yacht party!"
+      ],
+      [
+        "en",
+        "les get it"
+      ],
+      [
+        "en",
+        "Sleep is for the weak"
+      ],
+      [
+        "en",
+        "we are gonna make it"
+      ],
+      [
+        "en",
+        "we are gonna be rich soon!"
+      ],
+      [
+        "en",
+        "Where my bulls where my bulls at ?LFG LFG"
+      ],
+      [
+        "en",
+        "Anyways im gonna sweep the floor"
+      ],
+      [
+        "en",
+        "cant wait for this drop"
+      ],
+      [
+        "en",
+        "bulls are on fire"
+      ],
+      [
+        "en",
+        "to the moon love u all"
+      ]
+    ]
+  },
+  "ner": {
+    "settings": {
+      "tag": "ner",
+      "entityPreffix": "%",
+      "entitySuffix": "%"
+    },
+    "rules": {}
+  },
+  "nlgManager": {
+    "settings": {
+      "tag": "nlg-manager"
+    },
+    "responses": {
+      "en": {
+        "greetings.bye": [
+          {
+            "answer": "see you soon!"
+          },
+          {
+            "answer": "Till next time"
+          },
+          {
+            "answer": "bye bye"
+          },
+          {
+            "answer": "have a great day"
+          }
+        ],
+        "greetings.hello": [
+          {
+            "answer": "Hey there!"
+          },
+          {
+            "answer": "Hello"
+          },
+          {
+            "answer": "Hi"
+          },
+          {
+            "answer": "Greetings"
+          },
+          {
+            "answer": "Good Morninggg! LFG"
+          },
+          {
+            "answer": "gm"
+          },
+          {
+            "answer": "Whats up"
+          },
+          {
+            "answer": "Whats news boss ?"
+          },
+          {
+            "answer": "it's a new day! how are you ?"
+          },
+          {
+            "answer": "Good morning bro"
+          }
+        ],
+        "memes.top10": [
+          {
+            "answer": "😂"
+          },
+          {
+            "answer": "🤣"
+          },
+          {
+            "answer": "😝"
+          },
+          {
+            "answer": "💯"
+          },
+          {
+            "answer": "🤡"
+          }
+        ],
+        "nft.lose": [
+          {
+            "answer": "Nope"
+          },
+          {
+            "answer": "loser lol"
+          },
+          {
+            "answer": "lmao"
+          },
+          {
+            "answer": "you mad bro?"
+          },
+          {
+            "answer": "oof"
+          },
+          {
+            "answer": "rug for sure"
+          },
+          {
+            "answer": "🤡"
+          }
+        ],
+        "nft.questions": [
+          {
+            "answer": "never lol."
+          },
+          {
+            "answer": "u missed it"
+          },
+          {
+            "answer": "wen mint?!"
+          }
+        ],
+        "nft.win": [
+          {
+            "answer": "Thats right!"
+          },
+          {
+            "answer": "thats right"
+          },
+          {
+            "answer": "Fuck yeah!"
+          },
+          {
+            "answer": "fuck yeah"
+          },
+          {
+            "answer": "LFGG"
+          },
+          {
+            "answer": "lfgg"
+          },
+          {
+            "answer": "WAGMI"
+          },
+          {
+            "answer": "wagmi"
+          },
+          {
+            "answer": "grind hard"
+          },
+          {
+            "answer": "Grind Hard!"
+          },
+          {
+            "answer": "we got this"
+          },
+          {
+            "answer": "10 SOL FLOOR"
+          },
+          {
+            "answer": "100 SOL FLOOR"
+          },
+          {
+            "answer": "20 SOL FLOOR"
+          },
+          {
+            "answer": "69 SOL FLOOR"
+          },
+          {
+            "answer": "420 SOL FLOOR"
+          },
+          {
+            "answer": "lets fucking go!"
+          },
+          {
+            "answer": "lets FUCKING GO"
+          },
+          {
+            "answer": "lambo owners are the holders of this project"
+          },
+          {
+            "answer": "ima drive that lambo soon!"
+          },
+          {
+            "answer": "we will all own yachts soon ahahahah"
+          },
+          {
+            "answer": "💯"
+          },
+          {
+            "answer": "🚀"
+          },
+          {
+            "answer": "diamond bulls to the moon"
+          },
+          {
+            "answer": "Where my bulls where my bulls at ?LFG LFG"
+          },
+          {
+            "answer": "Anyways im gonna sweep the floor"
+          },
+          {
+            "answer": "cant wait for this drop"
+          },
+          {
+            "answer": "neeeed this whitelist lol"
+          },
+          {
+            "answer": "don't forget to drink water chat! And eat !"
+          },
+          {
+            "answer": "bulls are on fire"
+          },
+          {
+            "answer": "to the moon love u all"
+          }
+        ]
+      }
+    }
+  },
+  "actionManager": {
+    "settings": {
+      "tag": "action-manager"
+    },
+    "actions": {}
+  },
+  "slotManager": {}
+}
