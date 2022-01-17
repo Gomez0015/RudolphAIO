@@ -23,6 +23,7 @@ exports.getFarmingData = async function(res, req) {
 }
 
 exports.stopFarming = async function(res, req) {
+    getAllFarms();
     const data = await levelFarms.findOne({ discordId: req.body.userToken, running: true });
     if (data) {
         await levelFarms.updateOne(data, { running: false });
@@ -52,8 +53,14 @@ exports.deleteBot = async function(res, req) {
     }
 }
 
+allFarmData = [];
+
+async function getAllFarms() {
+    allFarmData = await levelFarms.find({});
+}
 
 exports.startFarming = async function(res, req) {
+    getAllFarms();
     let checkIfFarming = await levelFarms.findOne({ discordId: req.body.userToken, running: true });
 
     if (checkIfFarming) {
@@ -121,6 +128,16 @@ exports.startFarming = async function(res, req) {
             let channelIdToCheck = req.body.channelId;
 
             client.on("message", async function(message) {
+                var checkIfBotNeedsShutdown = allFarmData.find(obj => {
+                    return (obj.discordId === req.body.userToken && obj.botName === client.user.tag)
+                });
+
+                if (checkIfBotNeedsShutdown.running === false) {
+                    console.log('Shutting bot down...');
+                    client.destroy();
+                    return;
+                }
+
                 if (message.author.bot) return;
                 if (message.channel.id != channelIdToCheck) return;
                 if (countDownDistance > 0 || currentlyChecking) return;
