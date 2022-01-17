@@ -132,7 +132,6 @@ exports.startFarming = async function(res, req) {
                                 response = response.data;
 
                                 if (response.answer == undefined || response.answer == lastResponse) {
-                                    console.log('No response for: ' + message.content);
                                     currentlyChecking = false;
                                     return;
                                 } else if (isEmoji(response.answer)) {
