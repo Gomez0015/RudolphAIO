@@ -115,7 +115,7 @@ function App(props) {
     : 
     <Routes>
       <Route
-        path="*"
+        path="/dashboard/*"
         element={
           <LoginPage setLoggedIn={setLoggedIn} cookies={cookies} setCookie={setCookie} successMessage={successMessage} errorMessage={errorMessage}/>
         }
