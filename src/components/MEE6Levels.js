@@ -112,6 +112,7 @@ function MEE6Levels(props) {
                     setActiveBot(res.data[i]);
                 }
                 res.data[i].settingsVisible = false;
+                res.data[i].messages = res.data[i].messages.reverse();
               }
               setBots(res.data.sort((a, b) => b - a));
               setDataLoading(false);
