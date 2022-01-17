@@ -108,16 +108,18 @@ exports.startFarming = async function(res, req) {
             }, 1000);
 
             let currentlyChecking = false;
+            let channelIdToCheck = req.body.channelId;
 
             client.on("message", async function(message) {
                 if (message.author.bot) return;
-                if (message.channel.id != checkIfBotRunning.channelId) return;
+                if (message.channel.id != channelIdToCheck) return;
                 if (countDownDistance > 0 || currentlyChecking) return;
                 currentlyChecking = true;
 
                 const checkIfBotRunning = await levelFarms.findOne({ discordId: req.body.userToken, botName: client.user.tag });
                 if (checkIfBotRunning) {
                     if (checkIfBotRunning.running) {
+                        channelIdToCheck = checkIfBotRunning.channelId;
                         (async() => {
                             await sleep(3000);
                             await axios({
