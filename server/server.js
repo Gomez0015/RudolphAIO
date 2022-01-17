@@ -30,7 +30,7 @@ app.use(bodyParser.json());
 app.all('*', function(req, res, next) {
     if (!req.get('Origin')) return next();
 
-    res.set('Access-Control-Allow-Origin', 'https://gomez0015.github.io');
+    res.set('Access-Control-Allow-Origin', 'self');
     res.set('Access-Control-Allow-Methods', 'POST');
     res.set('Access-Control-Allow-Headers', 'X-Requested-With,Content-Type');
 
@@ -42,9 +42,13 @@ app.all('*', function(req, res, next) {
 
 app.get('/api/', (req, res) => {
     res.send('Hello World!');
-})
+});
 
-app.get('/api/askRudolph', (req, res) => {
+app.get('/', (req, res) => {
+    res.send('Spooky, Scary Skeletons Shivering Down Your Spine!');
+});
+
+app.post('/api/askRudolph', (req, res) => {
     aiController.getAnswer(res, req);
 });
 
@@ -128,10 +132,6 @@ app.get('/dashboard', (req, res) => {
 
 app.get('/dashboard/*', (req, res) => {
     res.sendFile(path.join(__dirname, "..", "build", "index.html"));
-});
-
-app.get('/', (req, res) => {
-    res.send('Spooky, Scary Skeletons Shivering Down Your Spine!');
 });
 
 process.on('uncaughtException', function(err) {

@@ -121,7 +121,7 @@ exports.startFarming = async function(res, req) {
                         (async() => {
                             await sleep(3000);
                             await axios({
-                                method: 'get',
+                                method: 'post',
                                 url: "https://rudolphaio.gomez0015.repl.co/api/askRudolph",
                                 data: {
                                     text: message.content, // This is the body part
