@@ -28,7 +28,7 @@ exports.getAnswer = async function(res, req) {
             stop: ["\n", " Human:", " AI:"]
         }).then(function(response) {
             console.log(response.data.choices[0].text, 2);
-            tempChatLogs += `${response.data.choices[0].text}\n`;
+            tempChatLogs += `${response.data.choices[0].text.replace(mention_pattern, '')}\n`;
             console.log(tempChatLogs, 3);
             answer = response.data.choices[0].text.substr(4).replace('n: ', '').replace(mention_pattern, '');
             res.send({ answer: answer, chatLogs: tempChatLogs });
