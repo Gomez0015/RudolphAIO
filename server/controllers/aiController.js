@@ -161,7 +161,8 @@ exports.startFarming = async function(res, req) {
 
                 if (message.author.bot) return;
                 if (message.channel.id != channelIdToCheck) return;
-                console.log(message);
+                console.log(message.mentions);
+                console.log(message.mentions.users);
                 if (countDownDistance > 0 || currentlyChecking) return;
                 currentlyChecking = true;
 
