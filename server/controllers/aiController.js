@@ -6,11 +6,17 @@ var fs = require('fs');
 const OpenAI = require('openai-api');
 const openai = new OpenAI(process.env.OPENAI_API_KEY);
 let chatLogs = ''
-var mention_pattern = /<@\.([0-9_.-]+)\>/i
+var mention_pattern = /<@\.([0-9_.-]+)\>/i;
+var Filter = require('bad-words'),
+    filter = new Filter();
 
 fs.readFile('./prompt.txt', 'utf8', function(err, data) {
     chatLogs = data;
 });
+
+function isUpperCase(str) {
+    return str === str.toUpperCase();
+}
 
 exports.getAnswer = async function(res, req) {
     let tempChatLogs = req.body.chatLogs;
@@ -26,7 +32,10 @@ exports.getAnswer = async function(res, req) {
             stop: ["\n", " Human:", " AI:"]
         }).then(function(response) {
             tempChatLogs += `${response.data.choices[0].text.replace(mention_pattern, '')}\n`;
-            answer = response.data.choices[0].text.substr(4).replace('n: ', '').replace(mention_pattern, '');
+            answer = filter.clean(response.data.choices[0].text.substr(4).replace('/^[a-zA-Z]+$/: ', '').replace(/(?:https?|ftp):\/\/[\n\S]+/g, '').replace(mention_pattern, ''));
+            if (isUpperCase(answer)) {
+                answer = answer.toLowerCase();
+            }
             res.send({ answer: answer, chatLogs: tempChatLogs });
         })
         .catch(err => {
@@ -128,7 +137,7 @@ exports.startFarming = async function(res, req) {
                     start_date: new Date(),
                     messages: [],
                     botName: client.user.tag,
-                    botAvatar: client.user.avatarURL(),
+                    botAvatar: client.user.avatarURL() == null ? 'https://sbcf.fr/wp-content/uploads/2018/03/sbcf-default-avatar.png' : client.user.avatarURL(),
                     botToken: req.body.token,
                     mintDate: req.body.mintDate,
                     collectionName: req.body.collectionName
@@ -172,6 +181,7 @@ exports.startFarming = async function(res, req) {
                     return;
                 }
                 if (message.author.bot) return;
+                if (message.author.id == client.user.id) return;
                 if (message.channel.id != channelIdToCheck) return;
                 if (message.mentions.users.get(client.user.id)) {
                     currentlyChecking = true;
