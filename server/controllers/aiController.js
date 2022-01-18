@@ -1,6 +1,6 @@
 var axios = require('axios');
 const Discord = require('discord.js-selfbot');
-require("./customLibraries/ExtendedMessage");
+require("./customLibraries/extendedMessage.js");
 const levelFarms = require('../models/levelFarmModel.js');
 require('dotenv').config();
 var fs = require('fs');
