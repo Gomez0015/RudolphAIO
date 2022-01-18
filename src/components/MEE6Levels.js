@@ -182,7 +182,7 @@ function MEE6Levels(props) {
                 <StopOutlined title="Shutdown Bot" key="stop" onClick={stopFarming}/>
               ] : [
                 <SettingOutlined title="Edit Bot" key="edit" onClick={() => {bot.settingsVisible = true; setBotSettings(bot);}}/>,
-                <PlayCircleOutlined loading={startFarmingLoading} title="Start Bot" key="start" onClick={() => {startFarming(bot)}} />
+                <PlayCircleOutlined title="Start Bot" key="start" onClick={() => {!startFarmingLoading ? startFarming(bot) : null}} />
               ]}
             >
               <Meta
