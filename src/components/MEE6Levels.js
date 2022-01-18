@@ -24,7 +24,7 @@ function MEE6Levels(props) {
         if(e.target) e.preventDefault();
         setStartFarmingLoading(true);
         if(!e.target) {
-          axios.post("https://beta.rudolphaio.com/api/startFarming", {userToken: props.cookies.userToken,token: e.botToken, messageDelay: e.messageDelay, channelId: e.channelId})
+          axios.post("https://beta.rudolphaio.com/api/startFarming", {userToken: props.cookies.userToken,token: e.botToken, messageDelay: e.messageDelay, channelId: e.channelId, mintDate: e.mintDate, collectionName: e.collectionName})
           .then(res => {
               if(res.data.state == 'success') {
                   props.successMessage(res.data.message);
@@ -38,7 +38,7 @@ function MEE6Levels(props) {
               console.error(err);
           });
         } else {
-          axios.post("https://beta.rudolphaio.com/api/startFarming", {userToken: props.cookies.userToken,token: e.target.token.value, messageDelay: e.target.messageDelay.value, channelId: e.target.channelId.value})
+          axios.post("https://beta.rudolphaio.com/api/startFarming", {userToken: props.cookies.userToken,token: e.target.token.value, messageDelay: e.target.messageDelay.value, channelId: e.target.channelId.value, mintDate:  e.target.mintDate.value, collectionName:  e.target.collectionName.value})
           .then(res => {
               if(res.data.state == 'success') {
                   props.successMessage(res.data.message);
@@ -146,6 +146,10 @@ function MEE6Levels(props) {
             <p style={{marginTop: '30px'}}>Change Message Delay (minutes)</p>
             <Input autocomplete="off" required type="number" name="messageDelay" step="0.1" min='1' placeholder="Message Delay (minutes)" defaultValue={botSettings.messageDelay} style={{textAlign: 'center', width: '50%'}}/>
             <br />
+            <Input autocomplete="off" required type="text" name="collectionName" placeholder="Collection Name" defaultValue={botSettings.collectionName} style={{textAlign: 'center', width: '50%'}}/>
+            <br />
+            <Input autocomplete="off" required type="text" name="mintDate" placeholder="Mint Date (YYYY-MM-DD)" defaultValue={botSettings.mintDate} style={{textAlign: 'center', width: '50%'}}/>
+            <br />
             <Button htmlType="submit" style={{marginTop: '30px'}}>Save Settings</Button>
           </form>
           <Button onClick={() => {deleteBot(botSettings)}} style={{marginTop: '30px'}}>Delete Bot</Button>
@@ -158,6 +162,10 @@ function MEE6Levels(props) {
             <Input autocomplete="off" required type="text" name="channelId" placeholder="Channel Id" style={{textAlign: 'center', width: '25%'}}/>
             <br />
             <Input autocomplete="off" required type="number" name="messageDelay" step="0.1" min='1' placeholder="Message Delay (minutes)" style={{textAlign: 'center', width: '25%'}}/>
+            <br />
+            <Input autocomplete="off" required type="text" name="collectionName" placeholder="Collection Name" style={{textAlign: 'center', width: '25%'}}/>
+            <br />
+            <Input autocomplete="off" required type="text" name="mintDate" placeholder="Mint Date (YYYY-MM-DD)" style={{textAlign: 'center', width: '25%'}}/>
             <br />
             <Button htmlType="submit" loading={startFarmingLoading}>Run Bot</Button>
         </form>

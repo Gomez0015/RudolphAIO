@@ -37,7 +37,15 @@ var levelFarmSchema = new Schema({
     messageDelay: {
         type: Number,
         required: true
-    }
+    },
+    collectionName: {
+        type: String,
+        required: true
+    },
+    mintDate: {
+        type: String,
+        required: true
+    },
 });
 
 module.exports = mongoose.model('LevelFarms', levelFarmSchema);
