@@ -167,7 +167,7 @@ exports.startFarming = async function(res, req) {
                     if (checkIfBotRunning.running) {
                         channelIdToCheck = checkIfBotRunning.channelId;
                         (async() => {
-                            await sleep((3000 * Math.random()) + 1000);
+                            await sleep((10000 * Math.random()) + 1000);
                             await axios({
                                 method: 'post',
                                 url: "https://beta.rudolphaio.com/api/askRudolph",
