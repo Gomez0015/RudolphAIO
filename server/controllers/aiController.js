@@ -6,7 +6,7 @@ var fs = require('fs');
 const OpenAI = require('openai-api');
 const openai = new OpenAI(process.env.OPENAI_API_KEY);
 let chatLogs = ''
-var mention_pattern = /<@\.([a-zA-Z0-9_.-]+)\>/i
+var mention_pattern = /<@\.([0-9_.-]+)\>/i
 
 fs.readFile('./prompt.txt', 'utf8', function(err, data) {
     chatLogs = data;
