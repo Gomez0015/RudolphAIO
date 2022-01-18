@@ -14,8 +14,7 @@ fs.readFile('./prompt.txt', 'utf8', function(err, data) {
 
 exports.getAnswer = async function(res, req) {
     let tempChatLogs = req.body.chatLogs;
-    tempChatLogs += `Human: ${req.body.text}\n`;
-    tempChatLogs = tempChatLogs.replace(mention_pattern, '');
+    tempChatLogs += `Human: ${req.body.text.replace(mention_pattern, '')}\n`;
     await openai.complete({
             engine: 'babbage',
             prompt: tempChatLogs,
