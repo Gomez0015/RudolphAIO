@@ -24,7 +24,9 @@ exports.getAnswer = async function(res, req) {
             frequencyPenalty: 0,
             stop: ["\n", " Human:", " AI:"]
         }).then(function(response) {
+            console.log(response.data.choices[0].text);
             chatLogs += `${response.data.choices[0].text.replace(req.body.botData.botName.split('#')[0], '{botName}').replace(req.body.botData.collectionName, '{collectionName}').replace(req.body.botData.mintDate, '{mintDate}')}\n`;
+            console.log(chatLogs);
             answer = response.data.choices[0].text.substr(4).replace('n: ', '');
             res.send(answer);
         })
