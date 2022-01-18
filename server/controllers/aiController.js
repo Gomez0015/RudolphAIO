@@ -22,6 +22,8 @@ exports.getAnswer = async function(res, req) {
         presencePenalty: 0.6,
         frequencyPenalty: 0,
         stop: ["\n", " Human:", " AI:"]
+    }).catch(err => {
+        console.log(err, 1);
     });
 
     chatLogs += `${gptResponse.data.choices[0].text}\n`;
