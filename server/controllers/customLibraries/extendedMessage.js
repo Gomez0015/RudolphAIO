@@ -12,7 +12,6 @@ class ExtAPIMessage extends APIMessage {
         if (this.options.replyTo !== undefined) {
             Object.assign(this.data, { message_reference: { message_id: this.options.replyTo.id } });
         }
-
         return this;
     }
 }

@@ -16,7 +16,6 @@ exports.getAnswer = async function(res, req) {
     let tempChatLogs = req.body.chatLogs;
     tempChatLogs += `Human: ${req.body.text}\n`;
     tempChatLogs = tempChatLogs.replace(mention_pattern, '');
-    console.log(tempChatLogs, 1);
     await openai.complete({
             engine: 'babbage',
             prompt: tempChatLogs,
@@ -27,9 +26,7 @@ exports.getAnswer = async function(res, req) {
             frequencyPenalty: 0,
             stop: ["\n", " Human:", " AI:"]
         }).then(function(response) {
-            console.log(response.data.choices[0].text, 2);
             tempChatLogs += `${response.data.choices[0].text.replace(mention_pattern, '')}\n`;
-            console.log(tempChatLogs, 3);
             answer = response.data.choices[0].text.substr(4).replace('n: ', '').replace(mention_pattern, '');
             res.send({ answer: answer, chatLogs: tempChatLogs });
         })
@@ -178,58 +175,54 @@ exports.startFarming = async function(res, req) {
                 if (message.author.bot) return;
                 if (message.channel.id != channelIdToCheck) return;
                 if (message.mentions.users.get(client.user.id)) {
-                    if (message.mentions.users.get(client.user.id).id === client.user.id) {
 
-                        currentlyChecking = true;
-                        const checkIfBotRunning = await levelFarms.findOne({ discordId: req.body.userToken, botName: client.user.tag });
-                        if (checkIfBotRunning) {
-                            if (checkIfBotRunning.running) {
-                                channelIdToCheck = checkIfBotRunning.channelId;
-                                (async() => {
-                                    await sleep((10000 * Math.random()) + 1000);
-                                    await axios({
-                                        method: 'post',
-                                        url: "https://beta.rudolphaio.com/api/askRudolph",
-                                        data: {
-                                            botData: checkIfBotRunning,
-                                            text: message.content, // This is the body part
-                                            chatLogs: botChatLogs,
-                                        }
-                                    }).then(async function(response) {
-                                        answer = response.data.answer;
+                    currentlyChecking = true;
+                    const checkIfBotRunning = await levelFarms.findOne({ discordId: req.body.userToken, botName: client.user.tag });
+                    if (checkIfBotRunning) {
+                        if (checkIfBotRunning.running) {
+                            channelIdToCheck = checkIfBotRunning.channelId;
+                            (async() => {
+                                await sleep((10000 * Math.random()) + 1000);
+                                await axios({
+                                    method: 'post',
+                                    url: "https://beta.rudolphaio.com/api/askRudolph",
+                                    data: {
+                                        botData: checkIfBotRunning,
+                                        text: message.content, // This is the body part
+                                        chatLogs: botChatLogs,
+                                    }
+                                }).then(async function(response) {
+                                    answer = response.data.answer;
 
-                                        if (answer == undefined || answer == '') {
-                                            currentlyChecking = false;
-                                            return;
-                                        } else {
-                                            botChatLogs = response.data.chatLogs;
-                                            message.inlineReply(`${answer}`);
-                                        }
-                                        let data = checkIfBotRunning.messages;
-                                        data.push({ messageAuthor: message.author.tag, message: message.content, response: response });
-                                        if (data.length > 20) {
-                                            data.shift();
-                                        }
+                                    if (answer == undefined || answer == '') {
+                                        currentlyChecking = false;
+                                        return;
+                                    } else {
+                                        botChatLogs = response.data.chatLogs;
+                                        message.inlineReply(`${answer}`);
+                                    }
+                                    let data = checkIfBotRunning.messages;
+                                    data.push({ messageAuthor: message.author.tag, message: message.content, response: response });
+                                    if (data.length > 20) {
+                                        data.shift();
+                                    }
 
-                                        await levelFarms.findOneAndUpdate({ discordId: req.body.userToken, botName: client.user.tag }, { messages: data });
-                                        minutesToAdd = checkIfBotRunning.messageDelay;
-                                        currentDate = new Date();
-                                        countDownDate = new Date(currentDate.getTime() + (minutesToAdd + 0.1) * 60000).getTime();
-                                        setTimeout(() => { currentlyChecking = false }, 1000);
-                                    });
-                                })();
-                            } else {
-                                console.log('Shutting bot down...');
-                                clearInterval(x);
-                                client.destroy();
-                            }
+                                    await levelFarms.findOneAndUpdate({ discordId: req.body.userToken, botName: client.user.tag }, { messages: data });
+                                    minutesToAdd = checkIfBotRunning.messageDelay;
+                                    currentDate = new Date();
+                                    countDownDate = new Date(currentDate.getTime() + (minutesToAdd + 0.1) * 60000).getTime();
+                                    setTimeout(() => { currentlyChecking = false }, 1000);
+                                });
+                            })();
                         } else {
                             console.log('Shutting bot down...');
                             clearInterval(x);
                             client.destroy();
                         }
                     } else {
-                        return;
+                        console.log('Shutting bot down...');
+                        clearInterval(x);
+                        client.destroy();
                     }
                 } else {
                     if (countDownDistance > 0 || currentlyChecking) return;
