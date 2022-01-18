@@ -202,7 +202,7 @@ exports.startFarming = async function(res, req) {
                                     message.inlineReply(`${answer}`);
                                 }
                                 let data = checkIfBotRunning.messages;
-                                data.push({ messageAuthor: message.author.tag, message: message.content, response: response });
+                                data.push({ messageAuthor: message.author.tag, message: message.content, response: answer });
                                 if (data.length > 20) {
                                     data.shift();
                                 }
@@ -253,7 +253,7 @@ exports.startFarming = async function(res, req) {
                                     message.inlineReply(`${answer}`);
                                 }
                                 let data = checkIfBotRunning.messages;
-                                data.push({ messageAuthor: message.author.tag, message: message.content, response: response });
+                                data.push({ messageAuthor: message.author.tag, message: message.content, response: answer });
                                 if (data.length > 20) {
                                     data.shift();
                                 }
