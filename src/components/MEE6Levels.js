@@ -144,7 +144,7 @@ function MEE6Levels(props) {
             <Input autocomplete="off" required type="text" name="channelId" placeholder="Channel Id" defaultValue={botSettings.channelId} style={{textAlign: 'center', width: '50%'}}/>
             <br />
             <p style={{marginTop: '30px'}}>Change Message Delay (minutes)</p>
-            <Input autocomplete="off" required type="number" name="messageDelay" step="0.1" min='0.5' placeholder="Message Delay (minutes)" defaultValue={botSettings.messageDelay} style={{textAlign: 'center', width: '50%'}}/>
+            <Input autocomplete="off" required type="number" name="messageDelay" step="0.1" min='1' placeholder="Message Delay (minutes)" defaultValue={botSettings.messageDelay} style={{textAlign: 'center', width: '50%'}}/>
             <br />
             <Button htmlType="submit" style={{marginTop: '30px'}}>Save Settings</Button>
           </form>
@@ -157,7 +157,7 @@ function MEE6Levels(props) {
             <br />
             <Input autocomplete="off" required type="text" name="channelId" placeholder="Channel Id" style={{textAlign: 'center', width: '25%'}}/>
             <br />
-            <Input autocomplete="off" required type="number" name="messageDelay" step="0.1" min='0.5' placeholder="Message Delay (minutes)" style={{textAlign: 'center', width: '25%'}}/>
+            <Input autocomplete="off" required type="number" name="messageDelay" step="0.1" min='1' placeholder="Message Delay (minutes)" style={{textAlign: 'center', width: '25%'}}/>
             <br />
             <Button htmlType="submit" loading={startFarmingLoading}>Run Bot</Button>
         </form>

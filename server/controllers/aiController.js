@@ -1,15 +1,33 @@
 var axios = require('axios');
-const { NlpManager } = require("node-nlp");
 const Discord = require('discord.js-selfbot');
 const levelFarms = require('../models/levelFarmModel.js');
+require('dotenv').config();
+var fs = require('fs');
+const OpenAI = require('openai-api');
+const openai = new OpenAI(process.env.OPENAI_API_KEY);
+let chatLogs = ''
 
-// Creating new Instance of NlpManager class.
-const manager = new NlpManager({ languages: ["en"] });
-// Loading our saved model
-manager.load();
+fs.readFile('./prompt.txt', 'utf8', function(err, data) {
+    chatLogs = data;
+});
 
 exports.getAnswer = async function(res, req) {
-    const answer = await manager.process("en", req.body.text)
+    chatLogs += `Human: ${req.body.text}\n`;
+    const gptResponse = await openai.complete({
+        engine: 'babbage',
+        prompt: chatLogs,
+        maxTokens: 25,
+        temperature: 0.9,
+        topP: 1,
+        presencePenalty: 0.6,
+        frequencyPenalty: 0,
+        stop: ["\n", " Human:", " AI:"]
+    });
+
+    chatLogs += `${gptResponse.data.choices[0].text}\n`;
+
+    answer = gptResponse.data.choices[0].text.substr(4);
+
     res.send(answer);
 }
 
@@ -66,7 +84,6 @@ exports.startFarming = async function(res, req) {
         res.send({ state: 'error', message: 'Already farming' });
     } else {
         let channelId = req.body.channelId;
-        let lastResponse = '';
 
         function sleep(ms) {
             return new Promise((resolve) => {
@@ -160,17 +177,14 @@ exports.startFarming = async function(res, req) {
                             }).then(async function(response) {
                                 response = response.data;
 
-                                if (response.answer == undefined || response.answer == lastResponse) {
+                                if (response == undefined) {
                                     currentlyChecking = false;
                                     return;
-                                } else if (isEmoji(response.answer)) {
-                                    message.react(response.answer);
                                 } else {
-                                    message.channel.send(`${response.answer}`);
+                                    message.channel.send(`${response}`);
                                 }
-                                lastResponse = response.answer.toLowerCase().trim();
                                 let data = checkIfBotRunning.messages;
-                                data.push({ messageAuthor: message.author.tag, message: message.content, response: response.answer });
+                                data.push({ messageAuthor: message.author.tag, message: message.content, response: response });
                                 if (data.length > 20) {
                                     data.shift();
                                 }
