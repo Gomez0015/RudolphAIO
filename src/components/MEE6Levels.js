@@ -148,8 +148,10 @@ function MEE6Levels(props) {
             <p style={{marginTop: '30px'}}>Change Message Delay (minutes)</p>
             <Input autocomplete="off" required type="number" name="messageDelay" step="0.1" min='1' placeholder="Message Delay (minutes)" defaultValue={botSettings.messageDelay} style={{textAlign: 'center', width: '50%'}}/>
             <br />
+            <p style={{marginTop: '30px'}}>Change Collection Name</p>
             <Input autocomplete="off" required type="text" name="collectionName" placeholder="Collection Name" defaultValue={botSettings.collectionName} style={{textAlign: 'center', width: '50%'}}/>
             <br />
+            <p style={{marginTop: '30px'}}>Change Mint Date (YYYY-MM-DD)</p>
             <Input autocomplete="off" required type="text" name="mintDate" placeholder="Mint Date (YYYY-MM-DD)" defaultValue={botSettings.mintDate} style={{textAlign: 'center', width: '50%'}}/>
             <br />
             <Button htmlType="submit" style={{marginTop: '30px'}}>Save Settings</Button>
