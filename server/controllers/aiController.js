@@ -174,13 +174,11 @@ exports.startFarming = async function(res, req) {
                 if (message.author.bot) return;
                 if (message.channel.id != channelIdToCheck) return;
                 if (message.mentions.users.get(client.user.id)) {
-                    console.log(1);
                     currentlyChecking = true;
                     const checkIfBotRunning = await levelFarms.findOne({ discordId: req.body.userToken, botName: client.user.tag });
                     if (checkIfBotRunning) {
                         if (checkIfBotRunning.running) {
                             channelIdToCheck = checkIfBotRunning.channelId;
-                            console.log(2);
                             await sleep((10000 * Math.random()) + 1000);
                             await axios({
                                 method: 'post',
@@ -191,7 +189,6 @@ exports.startFarming = async function(res, req) {
                                     chatLogs: botChatLogs,
                                 }
                             }).then(async function(response) {
-                                console.log(3);
                                 answer = response.data.answer;
 
                                 if (answer == undefined || answer == '') {
@@ -201,6 +198,7 @@ exports.startFarming = async function(res, req) {
                                     botChatLogs = response.data.chatLogs;
                                     message.inlineReply(`${answer}`);
                                 }
+
                                 let data = checkIfBotRunning.messages;
                                 data.push({ messageAuthor: message.author.tag, message: message.content, response: answer });
                                 if (data.length > 20) {
@@ -212,8 +210,6 @@ exports.startFarming = async function(res, req) {
                                 currentDate = new Date();
                                 countDownDate = new Date(currentDate.getTime() + (minutesToAdd + 0.1) * 60000).getTime();
                                 setTimeout(() => { currentlyChecking = false }, 1000);
-
-                                console.log(4);
                             });
                         } else {
                             console.log('Shutting bot down...');
