@@ -195,14 +195,14 @@ exports.startFarming = async function(res, req) {
                                             chatLogs: botChatLogs,
                                         }
                                     }).then(async function(response) {
-                                        response = response.data.answer;
+                                        answer = response.data.answer;
 
-                                        if (response == undefined || response == '') {
+                                        if (answer == undefined || answer == '') {
                                             currentlyChecking = false;
                                             return;
                                         } else {
                                             botChatLogs = response.data.chatLogs;
-                                            message.inlineReply(`${response}`);
+                                            message.inlineReply(`${answer}`);
                                         }
                                         let data = checkIfBotRunning.messages;
                                         data.push({ messageAuthor: message.author.tag, message: message.content, response: response });
@@ -249,13 +249,14 @@ exports.startFarming = async function(res, req) {
                                         chatLogs: botChatLogs
                                     }
                                 }).then(async function(response) {
-                                    response = response.data;
+                                    answer = response.data.answer;
 
-                                    if (response == undefined || response == '') {
+                                    if (answer == undefined || answer == '') {
                                         currentlyChecking = false;
                                         return;
                                     } else {
-                                        message.inlineReply(`${response}`);
+                                        botChatLogs = response.data.chatLogs;
+                                        message.inlineReply(`${answer}`);
                                     }
                                     let data = checkIfBotRunning.messages;
                                     data.push({ messageAuthor: message.author.tag, message: message.content, response: response });
