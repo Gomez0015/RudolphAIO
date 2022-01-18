@@ -1,6 +1,5 @@
 var axios = require('axios');
 const Discord = require('discord.js-selfbot');
-require("./customLibraries/extendedMessage.js");
 const levelFarms = require('../models/levelFarmModel.js');
 require('dotenv').config();
 var fs = require('fs');
@@ -105,6 +104,8 @@ exports.startFarming = async function(res, req) {
                 return false;
             }
         }
+
+        require("./customLibraries/extendedMessage");
 
         const client = new Discord.Client({
             allowedMentions: {
