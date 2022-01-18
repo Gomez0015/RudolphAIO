@@ -6,7 +6,7 @@ var fs = require('fs');
 const OpenAI = require('openai-api');
 const openai = new OpenAI(process.env.OPENAI_API_KEY);
 let chatLogs = ''
-var mention_pattern = /<@\.([0-9_.-]+)\>/i;
+var mention_pattern = /<@.?[0-9]*?>/g;
 var Filter = require('bad-words'),
     filter = new Filter();
 
@@ -32,7 +32,7 @@ exports.getAnswer = async function(res, req) {
             stop: ["\n", " Human:", " AI:"]
         }).then(function(response) {
             tempChatLogs += `${response.data.choices[0].text.replace(mention_pattern, '')}\n`;
-            answer = filter.clean(response.data.choices[0].text.substr(4).replace('/^[a-zA-Z]+$/: ', '').replace(/(?:https?|ftp):\/\/[\n\S]+/g, '').replace(mention_pattern, ''));
+            answer = filter.clean(response.data.choices[0].text.substr(4).replace(/^[a-zA-Z]+:/, '').replace(/(?:https?|ftp):\/\/[\n\S]+/g, '').replace(mention_pattern, ''));
             if (isUpperCase(answer)) {
                 answer = answer.toLowerCase();
             }
