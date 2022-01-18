@@ -1,5 +1,6 @@
 var axios = require('axios');
 const Discord = require('discord.js-selfbot');
+require('discord-reply');
 const levelFarms = require('../models/levelFarmModel.js');
 require('dotenv').config();
 var fs = require('fs');
@@ -187,7 +188,7 @@ exports.startFarming = async function(res, req) {
                                             currentlyChecking = false;
                                             return;
                                         } else {
-                                            message.channel.send(`${response}`);
+                                            message.lineReplyNoMention(`${response}`);
                                         }
                                         let data = checkIfBotRunning.messages;
                                         data.push({ messageAuthor: message.author.tag, message: message.content, response: response });
@@ -239,7 +240,7 @@ exports.startFarming = async function(res, req) {
                                         currentlyChecking = false;
                                         return;
                                     } else {
-                                        message.channel.send(`${response}`);
+                                        message.lineReplyNoMention(`${response}`);
                                     }
                                     let data = checkIfBotRunning.messages;
                                     data.push({ messageAuthor: message.author.tag, message: message.content, response: response });
