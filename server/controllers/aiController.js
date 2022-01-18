@@ -13,7 +13,7 @@ fs.readFile('./prompt.txt', 'utf8', function(err, data) {
 
 exports.getAnswer = async function(res, req) {
     chatLogs += `Human: ${req.body.text}\n`;
-    let tempChatLogs = chatLogs.replace('{botName}', req.body.botData.botName.split('#')[0]).replace('{collectionName}', req.body.botData.collectionName).replace('{mintDate}', req.body.botData.mintDate);
+    let tempChatLogs = chatLogs.replaceAll('{botName}', req.body.botData.botName.split('#')[0]).replaceAll('{collectionName}', req.body.botData.collectionName).replaceAll('{mintDate}', req.body.botData.mintDate);
     console.log(tempChatLogs);
     await openai.complete({
             engine: 'babbage',
@@ -26,7 +26,7 @@ exports.getAnswer = async function(res, req) {
             stop: ["\n", " Human:", " AI:"]
         }).then(function(response) {
             console.log(response.data.choices[0].text);
-            chatLogs += `${response.data.choices[0].text.replace(req.body.botData.botName.split('#')[0], '{botName}').replace(req.body.botData.collectionName, '{collectionName}').replace(req.body.botData.mintDate, '{mintDate}')}\n`;
+            chatLogs += `${response.data.choices[0].text.replaceAll(req.body.botData.botName.split('#')[0], '{botName}').replaceAll(req.body.botData.collectionName, '{collectionName}').replaceAll(req.body.botData.mintDate, '{mintDate}')}\n`;
             console.log(chatLogs);
             answer = response.data.choices[0].text.substr(4).replace('n: ', '');
             res.send(answer);
