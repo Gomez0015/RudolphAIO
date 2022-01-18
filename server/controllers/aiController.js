@@ -197,7 +197,7 @@ exports.startFarming = async function(res, req) {
                                             currentlyChecking = false;
                                             return;
                                         } else {
-                                            message.inlineReply(`${response}`);
+                                            message.reply(`${response}`);
                                         }
                                         let data = checkIfBotRunning.messages;
                                         data.push({ messageAuthor: message.author.tag, message: message.content, response: response });
