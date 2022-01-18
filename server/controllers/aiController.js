@@ -1,6 +1,6 @@
 var axios = require('axios');
 const Discord = require('discord.js-selfbot');
-require('discord-reply');
+require("./customLibraries/ExtendedMessage");
 const levelFarms = require('../models/levelFarmModel.js');
 require('dotenv').config();
 var fs = require('fs');
@@ -106,7 +106,12 @@ exports.startFarming = async function(res, req) {
             }
         }
 
-        const client = new Discord.Client();
+        const client = new Discord.Client({
+            allowedMentions: {
+                // set repliedUser value to `false` to turn off the mention by default
+                repliedUser: true
+            }
+        });
 
         client.on('ready', async() => {
             console.log(`Logged in as ${client.user.tag}!`);
@@ -188,7 +193,7 @@ exports.startFarming = async function(res, req) {
                                             currentlyChecking = false;
                                             return;
                                         } else {
-                                            message.lineReplyNoMention(`${response}`);
+                                            message.inlineReply(`${response}`);
                                         }
                                         let data = checkIfBotRunning.messages;
                                         data.push({ messageAuthor: message.author.tag, message: message.content, response: response });
@@ -240,7 +245,7 @@ exports.startFarming = async function(res, req) {
                                         currentlyChecking = false;
                                         return;
                                     } else {
-                                        message.lineReplyNoMention(`${response}`);
+                                        message.inlineReply(`${response}`);
                                     }
                                     let data = checkIfBotRunning.messages;
                                     data.push({ messageAuthor: message.author.tag, message: message.content, response: response });
