@@ -13,9 +13,10 @@ fs.readFile('./prompt.txt', 'utf8', function(err, data) {
 });
 
 exports.getAnswer = async function(res, req) {
-    tempChatLogs = req.body.chatLogs;
+    let tempChatLogs = req.body.chatLogs;
     tempChatLogs += `Human: ${req.body.text}\n`;
-    let tempChatLogs = tempChatLogs.replace(mention_pattern, '').replace('{botName}', req.body.botData.botName.split('#')[0]).replace('{collectionName}', req.body.botData.collectionName).replace('{mintDate}', req.body.botData.mintDate);
+    tempChatLogs = tempChatLogs.replace(mention_pattern, '').replace('{botName}', req.body.botData.botName.split('#')[0]).replace('{collectionName}', req.body.botData.collectionName).replace('{mintDate}', req.body.botData.mintDate);
+    console.log(tempChatLogs, 1);
     await openai.complete({
             engine: 'babbage',
             prompt: tempChatLogs,
@@ -26,6 +27,8 @@ exports.getAnswer = async function(res, req) {
             frequencyPenalty: 0,
             stop: ["\n", " Human:", " AI:"]
         }).then(function(response) {
+            console.log(response.data.choices[0].text, 2);
+            console.log(tempChatLogs, 3);
             answer = response.data.choices[0].text.substr(4).replace('n: ', '');
             res.send({ answer: answer, chatLogs: tempChatLogs });
         })
