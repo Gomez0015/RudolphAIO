@@ -15,7 +15,7 @@ fs.readFile('./prompt.txt', 'utf8', function(err, data) {
 exports.getAnswer = async function(res, req) {
     let tempChatLogs = req.body.chatLogs;
     tempChatLogs += `Human: ${req.body.text}\n`;
-    tempChatLogs = tempChatLogs.replace(mention_pattern, '').replace('{botName}', req.body.botData.botName.split('#')[0]).replace('{collectionName}', req.body.botData.collectionName).replace('{mintDate}', req.body.botData.mintDate);
+    tempChatLogs = tempChatLogs.replace(mention_pattern, '');
     console.log(tempChatLogs, 1);
     await openai.complete({
             engine: 'babbage',
@@ -28,8 +28,9 @@ exports.getAnswer = async function(res, req) {
             stop: ["\n", " Human:", " AI:"]
         }).then(function(response) {
             console.log(response.data.choices[0].text, 2);
+            tempChatLogs += `${response.data.choices[0].text}\n`;
             console.log(tempChatLogs, 3);
-            answer = response.data.choices[0].text.substr(4).replace('n: ', '');
+            answer = response.data.choices[0].text.substr(4).replace('n: ', '').replace(mention_pattern, '');
             res.send({ answer: answer, chatLogs: tempChatLogs });
         })
         .catch(err => {
@@ -86,8 +87,6 @@ async function getAllFarms() {
 
 exports.startFarming = async function(res, req) {
     let checkIfFarming = await levelFarms.findOne({ discordId: req.body.userToken, running: true });
-
-    let botChatLogs = chatLogs;
 
     if (checkIfFarming) {
         res.send({ state: 'error', message: 'Already farming' });
@@ -162,6 +161,8 @@ exports.startFarming = async function(res, req) {
 
             let currentlyChecking = false;
             let channelIdToCheck = req.body.channelId;
+
+            let botChatLogs = chatLogs.replace('{botName}', client.user.tag.split('#')[0]).replace('{botName}', client.user.tag.split('#')[0]).replace('{botName}', client.user.tag.split('#')[0]).replace('{collectionName}', req.body.collectionName).replace('{mintDate}', req.body.mintDate);
 
             client.on("message", async function(message) {
                 let checkIfBotNeedsShutdown = await allFarmData.find(obj => {
