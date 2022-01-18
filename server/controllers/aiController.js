@@ -119,7 +119,6 @@ exports.startFarming = async function(res, req) {
 
             // Update the count down every 1 second
             var x = setInterval(function() {
-                console.log(countDownDistance); // Checking if the timer is still running after destroying the bot
                 // Get today's date and time
                 var now = new Date().getTime();
                 // Find the distance between now and the count down date
@@ -133,8 +132,6 @@ exports.startFarming = async function(res, req) {
                 let checkIfBotNeedsShutdown = await allFarmData.find(obj => {
                     return (obj.discordId === req.body.userToken && obj.botName === client.user.tag)
                 });
-
-                console.log(checkIfBotNeedsShutdown);
 
                 if (checkIfBotNeedsShutdown.running === false) {
                     console.log('Shutting bot down...');
