@@ -25,9 +25,7 @@ exports.getAnswer = async function(res, req) {
             stop: ["\n", " Human:", " AI:"]
         }).then(function(response) {
             chatLogs += `${response.data.choices[0].text.replace(req.body.botData.botName.split('#')[0], '{botName}').replace(req.body.botData.collectionName, '{collectionName}').replace(req.body.botData.mintDate, '{mintDate}')}\n`;
-
             answer = response.data.choices[0].text.substr(4);
-
             res.send(answer);
         })
         .catch(err => {
