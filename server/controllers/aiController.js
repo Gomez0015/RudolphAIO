@@ -60,7 +60,6 @@ async function getAllFarms() {
 }
 
 exports.startFarming = async function(res, req) {
-    getAllFarms();
     let checkIfFarming = await levelFarms.findOne({ discordId: req.body.userToken, running: true });
 
     if (checkIfFarming) {
@@ -107,6 +106,8 @@ exports.startFarming = async function(res, req) {
             } else {
                 await levelFarms.updateOne(checkIfBotExists, { running: true });
             }
+
+            await getAllFarms();
             res.send({ state: 'success', message: 'Started Farming' });
 
 
@@ -133,7 +134,7 @@ exports.startFarming = async function(res, req) {
                     return (obj.discordId === req.body.userToken && obj.botName === client.user.tag)
                 });
 
-                console.log(allFarmData);
+                console.log(checkIfBotNeedsShutdown);
 
                 if (checkIfBotNeedsShutdown.running === false) {
                     console.log('Shutting bot down...');
