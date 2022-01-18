@@ -13,8 +13,9 @@ fs.readFile('./prompt.txt', 'utf8', function(err, data) {
 });
 
 exports.getAnswer = async function(res, req) {
-    chatLogs += `Human: ${req.body.text}\n`;
-    let tempChatLogs = chatLogs.replace(mention_pattern, '').replace('/\{botName}/g', req.body.botData.botName.split('#')[0]).replace('/\{collectionName}/g', req.body.botData.collectionName).replace('/\{mintDate}/g', req.body.botData.mintDate);
+    tempChatLogs = req.body.chatLogs;
+    tempChatLogs += `Human: ${req.body.text}\n`;
+    let tempChatLogs = tempChatLogs.replace(mention_pattern, '').replace('{botName}', req.body.botData.botName.split('#')[0]).replace('{collectionName}', req.body.botData.collectionName).replace('{mintDate}', req.body.botData.mintDate);
     console.log(tempChatLogs, 1);
     await openai.complete({
             engine: 'babbage',
@@ -27,14 +28,13 @@ exports.getAnswer = async function(res, req) {
             stop: ["\n", " Human:", " AI:"]
         }).then(function(response) {
             console.log(response.data.choices[0].text, 2);
-            chatLogs += response.data.choices[0].text.replace(mention_pattern, '').replace(req.body.botData.botName.split('#')[0], '{botName}').replace(req.body.botData.collectionName, '{collectionName}').replace(req.body.botData.mintDate, '{mintDate}') + '\n';
-            console.log(chatLogs, 3);
+            console.log(tempChatLogs, 3);
             answer = response.data.choices[0].text.substr(4).replace('n: ', '');
-            res.send(answer);
+            res.send({ answer: answer, chatLogs: tempChatLogs });
         })
         .catch(err => {
             console.log(err, 1);
-            res.send('error');
+            res.send({ data: undefined });
         });
 }
 
@@ -86,6 +86,8 @@ async function getAllFarms() {
 
 exports.startFarming = async function(res, req) {
     let checkIfFarming = await levelFarms.findOne({ discordId: req.body.userToken, running: true });
+
+    let botChatLogs = chatLogs;
 
     if (checkIfFarming) {
         res.send({ state: 'error', message: 'Already farming' });
@@ -190,14 +192,16 @@ exports.startFarming = async function(res, req) {
                                         data: {
                                             botData: checkIfBotRunning,
                                             text: message.content, // This is the body part
+                                            chatLogs: botChatLogs,
                                         }
                                     }).then(async function(response) {
-                                        response = response.data;
+                                        response = response.data.answer;
 
                                         if (response == undefined || response == '') {
                                             currentlyChecking = false;
                                             return;
                                         } else {
+                                            botChatLogs = response.data.chatLogs;
                                             message.inlineReply(`${response}`);
                                         }
                                         let data = checkIfBotRunning.messages;
