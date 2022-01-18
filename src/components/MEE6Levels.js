@@ -90,6 +90,8 @@ function MEE6Levels(props) {
         let botToSave = botSettings;
         botToSave.messageDelay = e.target.messageDelay.value; 
         botToSave.channelId = e.target.channelId.value; 
+        botToSave.channelId = e.target.mintDate.value; 
+        botToSave.channelId = e.target.collectionName.value; 
         setBotSettings({settingsVisible: false});
         axios.post("https://beta.rudolphaio.com/api/updateBotSettings", {userToken: props.cookies.userToken, botData: botToSave})
             .then(res => {
