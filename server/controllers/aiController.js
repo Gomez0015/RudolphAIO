@@ -133,8 +133,11 @@ exports.startFarming = async function(res, req) {
                     return (obj.discordId === req.body.userToken && obj.botName === client.user.tag)
                 });
 
+                console.log(allFarmData);
+
                 if (checkIfBotNeedsShutdown.running === false) {
                     console.log('Shutting bot down...');
+                    clearInterval(x);
                     client.destroy();
                     return;
                 }
@@ -183,10 +186,12 @@ exports.startFarming = async function(res, req) {
                         })();
                     } else {
                         console.log('Shutting bot down...');
+                        clearInterval(x);
                         client.destroy();
                     }
                 } else {
                     console.log('Shutting bot down...');
+                    clearInterval(x);
                     client.destroy();
                 }
             });
