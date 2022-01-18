@@ -179,7 +179,7 @@ exports.startFarming = async function(res, req) {
                             }).then(async function(response) {
                                 response = response.data;
 
-                                if (response == undefined) {
+                                if (response == undefined || response == '') {
                                     currentlyChecking = false;
                                     return;
                                 } else {
