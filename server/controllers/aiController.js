@@ -184,6 +184,7 @@ exports.startFarming = async function(res, req) {
                     client.destroy();
                     return;
                 }
+
                 if (message.author.bot) return;
                 if (message.author.id == client.user.id) return;
                 if (message.channel.id != channelIdToCheck) return;
