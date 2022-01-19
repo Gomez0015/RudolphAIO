@@ -27,8 +27,8 @@ exports.getAnswer = async function(res, req) {
             maxTokens: 25,
             temperature: 0.9,
             topP: 1,
-            presencePenalty: 0.6,
-            frequencyPenalty: 0,
+            presencePenalty: 0,
+            frequencyPenalty: 0.6,
             stop: ["\n", " Human:", " AI:"]
         }).then(function(response) {
             tempChatLogs += `${response.data.choices[0].text.replace(mention_pattern, '')}\n`;
@@ -168,7 +168,7 @@ exports.startFarming = async function(res, req) {
             let channelIdToCheck = req.body.channelId;
 
             let botChatLogs = chatLogs.replace('{botName}', client.user.tag.split('#')[0]).replace('{botName}', client.user.tag.split('#')[0]).replace('{botName}', client.user.tag.split('#')[0]).replace('{collectionName}', req.body.collectionName).replace('{mintDate}', req.body.mintDate);
-            let messagesthatNeedReply = [];
+            let messagesThatNeedReply = [];
 
             client.on("message", async function(message) {
                 let checkIfBotNeedsShutdown = await allFarmData.find(obj => {
@@ -185,7 +185,7 @@ exports.startFarming = async function(res, req) {
                 if (message.author.id == client.user.id) return;
                 if (message.channel.id != channelIdToCheck) return;
                 if (message.mentions.users.get(client.user.id)) {
-                    if (currentlyChecking) { messagesthatNeedReply.push(message); return; };
+                    if (currentlyChecking) { messagesThatNeedReply.push(message); return; };
                     currentlyChecking = true;
                     const checkIfBotRunning = await levelFarms.findOne({ discordId: req.body.userToken, botName: client.user.tag });
                     if (checkIfBotRunning) {
@@ -240,6 +240,7 @@ exports.startFarming = async function(res, req) {
                                         if (data.length > 20) {
                                             data.shift();
                                         }
+                                        messagesThatNeedReply.splice(x, 1);
                                     });
                                 }
 
