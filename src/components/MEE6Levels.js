@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Layout, Menu, Breadcrumb, Typography, Input, Textarea, Submit, Center, Button, Form, List, Divider, Avatar, Skeleton, Card, Modal } from 'antd';
+import { Layout, Menu, Breadcrumb, Typography, Input, Submit, Center, Button, Form, List, Divider, Avatar, Skeleton, Card, Modal } from 'antd';
 import {
   SettingOutlined,
   PlayCircleOutlined,
@@ -12,6 +12,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 const { Title } = Typography;
 const { Header, Content, Sider, Footer } = Layout;
 const { Meta } = Card;
+const { TextArea } = Input;
 
 function MEE6Levels(props) {
     const [bots, setBots] = useState([]);
@@ -155,7 +156,7 @@ function MEE6Levels(props) {
             <p style={{marginTop: '30px'}}>Change Mint Date (YYYY-MM-DD)</p>
             <Input autocomplete="off" required type="text" name="mintDate" placeholder="Mint Date (YYYY-MM-DD)" defaultValue={botSettings.mintDate} style={{textAlign: 'center', width: '50%'}}/>
             <br />
-            <Textarea autocomplete="off" type="text" name="customPrompt" placeholder="He is chatting in the channel called general. He is from Paris, France and travels very often around the world. He does not like talking about artificial inteligence or robots, he likes talking about fast cars and taking a rocket to the moon or jupiter. His profile picture is his dog, a golden retriever. ect." style={{textAlign: 'center', width: '25%'}}/>
+            <TextArea autocomplete="off" type="text" name="customPrompt" placeholder="He is chatting in the channel called general. He is from Paris, France and travels very often around the world. He does not like talking about artificial inteligence or robots, he likes talking about fast cars and taking a rocket to the moon or jupiter. His profile picture is his dog, a golden retriever. ect." style={{textAlign: 'center', width: '25%'}}/>
             <br />
             <Button htmlType="submit" style={{marginTop: '30px'}}>Save Settings</Button>
           </form>
@@ -174,7 +175,7 @@ function MEE6Levels(props) {
             <br />
             <Input autocomplete="off" required type="text" name="mintDate" placeholder="Mint Date (YYYY-MM-DD)" style={{textAlign: 'center', width: '25%'}}/>
             <br />
-            <Textarea autocomplete="off" type="text" name="customPrompt" placeholder="He is chatting in the channel called general. He is from Paris, France and travels very often around the world. He does not like talking about artificial inteligence or robots, he likes talking about fast cars and taking a rocket to the moon or jupiter. His profile picture is his dog, a golden retriever. ect." style={{textAlign: 'center', width: '25%'}}/>
+            <TextArea autocomplete="off" type="text" name="customPrompt" placeholder="He is chatting in the channel called general. He is from Paris, France and travels very often around the world. He does not like talking about artificial inteligence or robots, he likes talking about fast cars and taking a rocket to the moon or jupiter. His profile picture is his dog, a golden retriever. ect." style={{textAlign: 'center', width: '25%'}}/>
             <br />
             <Button htmlType="submit" loading={startFarmingLoading}>Run Bot</Button>
         </form>
