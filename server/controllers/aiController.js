@@ -303,7 +303,7 @@ exports.startFarming = async function(res, req) {
                                     currentlyChecking = false;
                                     return;
                                 } else {
-                                    message.inlineReply(`${answer}`);
+                                    message.channel.send(`${answer}`);
                                 }
                                 let data = checkIfBotRunning.messages;
                                 data.push({ messageAuthor: message.author.tag, message: message.content, response: answer });
