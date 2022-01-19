@@ -221,13 +221,13 @@ exports.startFarming = async function(res, req) {
                                     data.shift();
                                 }
 
-                                for (let x = 0; x < messagesthatNeedReply.length; x++) {
+                                for (let x = 0; x < messagesThatNeedReply.length; x++) {
                                     await axios({
                                         method: 'post',
                                         url: "https://beta.rudolphaio.com/api/askRudolph",
                                         data: {
                                             botData: checkIfBotRunning,
-                                            text: messagesthatNeedReply[x].content, // This is the body part
+                                            text: messagesThatNeedReply[x].content, // This is the body part
                                             chatLogs: botChatLogs,
                                         }
                                     }).then(async function(response) {
@@ -237,10 +237,10 @@ exports.startFarming = async function(res, req) {
                                             return;
                                         } else {
                                             botChatLogs = response.data.chatLogs;
-                                            messagesthatNeedReply[x].inlineReply(`${answer}`);
+                                            messagesThatNeedReply[x].inlineReply(`${answer}`);
                                         }
 
-                                        data.push({ messageAuthor: messagesthatNeedReply[x].author.tag, message: messagesthatNeedReply[x].content, response: answer });
+                                        data.push({ messageAuthor: messagesThatNeedReply[x].author.tag, message: messagesThatNeedReply[x].content, response: answer });
                                         if (data.length > 20) {
                                             data.shift();
                                         }
