@@ -177,6 +177,8 @@ exports.startFarming = async function(res, req) {
                     return (obj.discordId === req.body.userToken && obj.botName === client.user.tag)
                 });
 
+                console.log(checkIfBotNeedsShutdown.running);
+
                 if (checkIfBotNeedsShutdown.running === false) {
                     console.log('Shutting bot down...');
                     clearInterval(x);
