@@ -54,7 +54,7 @@ exports.getFarmingData = async function(res, req) {
 }
 
 exports.stopFarming = async function(res, req) {
-    getAllFarms();
+    await getAllFarms();
     const data = await levelFarms.findOne({ discordId: req.body.userToken, running: true });
     if (data) {
         await levelFarms.updateOne(data, { running: false, state: 2 });
@@ -180,6 +180,7 @@ exports.startFarming = async function(res, req) {
                 if (checkIfBotNeedsShutdown.running === false) {
                     console.log('Shutting bot down...');
                     clearInterval(x);
+                    await levelFarms.updateOne({ discordId: req.body.userToken, botName: client.user.tag }, { state: 0 });
                     client.destroy();
                     return;
                 }
