@@ -96,7 +96,7 @@ exports.startFarming = async function(res, req) {
     let checkIfFarmingRunning = checkIfFarming.running;
     let checkIfFarmingState = checkIfFarming.state;
 
-    if (ccheckIfFarmingRunning == true) {
+    if (checkIfFarmingRunning == true) {
         res.send({ state: 'error', message: 'Already farming' });
     } else if (checkIfFarmingState == 2) {
         res.send({ state: 'error', message: 'Wait for last bot to fully shutdown...' });
