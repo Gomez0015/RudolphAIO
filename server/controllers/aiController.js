@@ -294,7 +294,7 @@ exports.startFarming = async function(res, req) {
                                 data: {
                                     botData: checkIfBotRunning,
                                     text: message.content, // This is the body part
-                                    chatLogs: botChatLogs
+                                    chatLogs: chatLogs
                                 }
                             }).then(async function(response) {
                                 answer = response.data.answer;
@@ -303,7 +303,6 @@ exports.startFarming = async function(res, req) {
                                     currentlyChecking = false;
                                     return;
                                 } else {
-                                    botChatLogs = response.data.chatLogs;
                                     message.inlineReply(`${answer}`);
                                 }
                                 let data = checkIfBotRunning.messages;
