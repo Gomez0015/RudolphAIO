@@ -46,6 +46,10 @@ var levelFarmSchema = new Schema({
         type: String,
         required: true
     },
+    state: {
+        type: Number,
+        required: true
+    }
 });
 
 module.exports = mongoose.model('LevelFarms', levelFarmSchema);

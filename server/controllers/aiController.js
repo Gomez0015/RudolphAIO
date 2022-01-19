@@ -57,7 +57,7 @@ exports.stopFarming = async function(res, req) {
     getAllFarms();
     const data = await levelFarms.findOne({ discordId: req.body.userToken, running: true });
     if (data) {
-        await levelFarms.updateOne(data, { running: false });
+        await levelFarms.updateOne(data, { running: false, state: 2 });
         res.send({ state: 'success', message: 'Successfully stopped bot' });
     } else {
         res.send({ state: 'error', message: 'You have no bots currently farming' });
@@ -91,10 +91,12 @@ async function getAllFarms() {
 }
 
 exports.startFarming = async function(res, req) {
-    let checkIfFarming = await levelFarms.findOne({ discordId: req.body.userToken, running: true });
+    let checkIfFarming = await levelFarms.findOne({ discordId: req.body.userToken });
 
-    if (checkIfFarming) {
+    if (checkIfFarming.running == true) {
         res.send({ state: 'error', message: 'Already farming' });
+    } else if (checkIfFarming.state == 2) {
+        res.send({ state: 'error', message: 'Wait for last bot to fully shutdown...' });
     } else {
         let channelId = req.body.channelId;
 
@@ -143,7 +145,7 @@ exports.startFarming = async function(res, req) {
                     collectionName: req.body.collectionName
                 });
             } else {
-                await levelFarms.updateOne(checkIfBotExists, { running: true });
+                await levelFarms.updateOne(checkIfBotExists, { running: true, state: 1 });
             }
 
             await getAllFarms();
@@ -253,11 +255,13 @@ exports.startFarming = async function(res, req) {
                         } else {
                             console.log('Shutting bot down...');
                             clearInterval(x);
+                            await levelFarms.updateOne({ discordId: req.body.userToken, botName: client.user.tag }, { state: 0 });
                             client.destroy();
                         }
                     } else {
                         console.log('Shutting bot down...');
                         clearInterval(x);
+                        await levelFarms.updateOne({ discordId: req.body.userToken, botName: client.user.tag }, { state: 0 });
                         client.destroy();
                     }
                 } else {
@@ -302,11 +306,13 @@ exports.startFarming = async function(res, req) {
                         } else {
                             console.log('Shutting bot down...');
                             clearInterval(x);
+                            await levelFarms.updateOne({ discordId: req.body.userToken, botName: client.user.tag }, { state: 0 });
                             client.destroy();
                         }
                     } else {
                         console.log('Shutting bot down...');
                         clearInterval(x);
+                        await levelFarms.updateOne({ discordId: req.body.userToken, botName: client.user.tag }, { state: 0 });
                         client.destroy();
                     }
                 }
