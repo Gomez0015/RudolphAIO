@@ -32,9 +32,9 @@ exports.getAnswer = async function(res, req) {
             stop: ["\n", " Human:", " AI:"]
         }).then(function(response) {
             tempChatLogs += `${response.data.choices[0].text.replace(mention_pattern, '')}\n`;
+            console.log(response);
             console.log(`Human: ${req.body.text.replace(mention_pattern, '')}\n`);
             console.log(`${response.data.choices[0].text.replace(mention_pattern, '')}\n`);
-            console.log(tempChatLogs);
             answer = filter.clean(response.data.choices[0].text.substr(4).replace(/^[a-zA-Z]+:/, '').replace(/(?:https?|ftp):\/\/[\n\S]+/g, '').replace(mention_pattern, ''));
             if (isUpperCase(answer)) {
                 answer = answer.toLowerCase();
