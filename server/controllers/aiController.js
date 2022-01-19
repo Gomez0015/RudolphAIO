@@ -32,9 +32,6 @@ exports.getAnswer = async function(res, req) {
             stop: ["\n", " Human:", " AI:"]
         }).then(function(response) {
             tempChatLogs += `${response.data.choices[0].text.replace(mention_pattern, '')}\n`;
-            console.log(response);
-            console.log(`Human: ${req.body.text.replace(mention_pattern, '')}\n`);
-            console.log(`${response.data.choices[0].text.replace(mention_pattern, '')}\n`);
             answer = filter.clean(response.data.choices[0].text.substr(4).replace(/^[a-zA-Z]+:/, '').replace(/(?:https?|ftp):\/\/[\n\S]+/g, '').replace(mention_pattern, ''));
             if (isUpperCase(answer)) {
                 answer = answer.toLowerCase();
@@ -171,6 +168,7 @@ exports.startFarming = async function(res, req) {
             let channelIdToCheck = req.body.channelId;
 
             let botChatLogs = chatLogs.replace('{botName}', client.user.tag.split('#')[0]).replace('{botName}', client.user.tag.split('#')[0]).replace('{botName}', client.user.tag.split('#')[0]).replace('{collectionName}', req.body.collectionName).replace('{mintDate}', req.body.mintDate);
+            let messagesthatNeedReply = [];
 
             client.on("message", async function(message) {
                 let checkIfBotNeedsShutdown = await allFarmData.find(obj => {
@@ -187,7 +185,7 @@ exports.startFarming = async function(res, req) {
                 if (message.author.id == client.user.id) return;
                 if (message.channel.id != channelIdToCheck) return;
                 if (message.mentions.users.get(client.user.id)) {
-                    if (currentlyChecking) return;
+                    if (currentlyChecking) { messagesthatNeedReply.push(message); return; };
                     currentlyChecking = true;
                     const checkIfBotRunning = await levelFarms.findOne({ discordId: req.body.userToken, botName: client.user.tag });
                     if (checkIfBotRunning) {
@@ -217,6 +215,32 @@ exports.startFarming = async function(res, req) {
                                 data.push({ messageAuthor: message.author.tag, message: message.content, response: answer });
                                 if (data.length > 20) {
                                     data.shift();
+                                }
+
+                                for (let x = 0; x < messagesthatNeedReply.length; x++) {
+                                    await axios({
+                                        method: 'post',
+                                        url: "https://beta.rudolphaio.com/api/askRudolph",
+                                        data: {
+                                            botData: checkIfBotRunning,
+                                            text: messagesthatNeedReply[x].content, // This is the body part
+                                            chatLogs: botChatLogs,
+                                        }
+                                    }).then(async function(response) {
+                                        answer = response.data.answer;
+
+                                        if (answer == undefined || answer == '') {
+                                            return;
+                                        } else {
+                                            botChatLogs = response.data.chatLogs;
+                                            messagesthatNeedReply[x].inlineReply(`${answer}`);
+                                        }
+
+                                        data.push({ messageAuthor: messagesthatNeedReply[x].author.tag, message: messagesthatNeedReply[x].content, response: answer });
+                                        if (data.length > 20) {
+                                            data.shift();
+                                        }
+                                    });
                                 }
 
                                 await levelFarms.findOneAndUpdate({ discordId: req.body.userToken, botName: client.user.tag }, { messages: data });
