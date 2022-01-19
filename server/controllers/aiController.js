@@ -20,6 +20,7 @@ function isUpperCase(str) {
 
 exports.getAnswer = async function(res, req) {
     let tempChatLogs = req.body.chatLogs;
+    console.log(tempChatLogs.length);
     tempChatLogs += `Human: ${req.body.text.replace(mention_pattern, '')}\n`;
     await openai.complete({
             engine: 'babbage',
@@ -41,7 +42,7 @@ exports.getAnswer = async function(res, req) {
         .catch(err => {
             console.log(err, 1);
             if (err.isAxiosError) {
-                console.log(err.request.data, 1);
+                console.log(err.request.data, 2);
             }
             res.send({ data: undefined });
         });
@@ -103,8 +104,6 @@ exports.startFarming = async function(res, req) {
         checkIfFarmingRunning = checkIfFarming.running;
         checkIfFarmingState = checkIfFarming.state;
     }
-
-    console.log(checkIfFarmingState);
 
     if (checkIfFarmingRunning == true) {
         res.send({ state: 'error', message: 'Already farming' });
