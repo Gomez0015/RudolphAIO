@@ -193,6 +193,7 @@ exports.startFarming = async function(res, req) {
                 if (message.mentions.users.get(client.user.id)) {
                     if (currentlyChecking) { messagesThatNeedReply.push(message); return; };
                     currentlyChecking = true;
+                    messagesThatNeedReply = [];
                     const checkIfBotRunning = await levelFarms.findOne({ discordId: req.body.userToken, botName: client.user.tag });
                     if (checkIfBotRunning) {
                         if (checkIfBotRunning.running) {
