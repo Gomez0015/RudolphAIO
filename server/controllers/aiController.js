@@ -186,7 +186,7 @@ exports.startFarming = async function(res, req) {
             let currentlyChecking = false;
             let channelIdToCheck = req.body.channelId;
 
-            let botChatLogs = chatLogs.replace('{botName}', client.user.tag.split('#')[0]).replace('{botName}', client.user.tag.split('#')[0]).replace('{botName}', client.user.tag.split('#')[0]).replace('{collectionName}', req.body.collectionName).replace('{mintDate}', req.body.mintDate).replace('{customPrompt}', (req.body.customPrompt + ' \n'));
+            let botChatLogs = chatLogs.replace('{botName}', client.user.tag.split('#')[0]).replace('{botName}', client.user.tag.split('#')[0]).replace('{botName}', client.user.tag.split('#')[0]).replace('{collectionName}', req.body.collectionName).replace('{mintDate}', req.body.mintDate).replace('{customPrompt}', (req.body.customPrompt + ' \n\nHuman: Hey!\nAI: Hello!\n'));
 
             let messagesThatNeedReply = [];
 
@@ -308,7 +308,7 @@ exports.startFarming = async function(res, req) {
                                 data: {
                                     botData: checkIfBotRunning,
                                     text: message.content, // This is the body part
-                                    chatLogs: chatLogs
+                                    chatLogs: botChatLogs
                                 }
                             }).then(async function(response) {
                                 answer = response.data.answer;
