@@ -243,6 +243,7 @@ exports.startFarming = async function(res, req) {
                                 }
 
                                 for (let x = 0; x < messagesThatNeedReply.length; x++) {
+                                    await sleep((3000 * Math.random()) + 1000);
                                     await axios({
                                         method: 'post',
                                         url: "https://beta.rudolphaio.com/api/askRudolph",
@@ -311,7 +312,7 @@ exports.startFarming = async function(res, req) {
                                     currentlyChecking = false;
                                     return;
                                 } else {
-                                    message.channel.send(`${answer}`);
+                                    message.inlineReply(`${answer}`);
                                 }
                                 let data = checkIfBotRunning.messages;
                                 data.push({ messageAuthor: message.author.tag, message: message.content, response: answer });
