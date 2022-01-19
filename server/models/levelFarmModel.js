@@ -49,7 +49,12 @@ var levelFarmSchema = new Schema({
     state: {
         type: Number,
         required: true
-    }
+    },
+    customPrompt: {
+        type: String,
+        required: false,
+        default: ''
+    },
 });
 
 module.exports = mongoose.model('LevelFarms', levelFarmSchema);
