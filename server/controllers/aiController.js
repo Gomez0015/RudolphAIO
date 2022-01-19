@@ -71,6 +71,7 @@ exports.stopFarming = async function(res, req) {
 exports.updateBotSettings = async function(res, req) {
     const data = await levelFarms.findOne({ discordId: req.body.userToken, botName: req.body.botData.botName });
     if (data) {
+        console.log(req.body.customPrompt);
         await levelFarms.updateOne(data, { messageDelay: req.body.botData.messageDelay, channelId: req.body.botData.channelId, collectionName: req.body.botData.collectionName, mintDate: req.body.botData.mintDate, customPrompt: req.body.customPrompt });
         res.send({ state: 'success', message: 'Successfully updated settings' });
     } else {
@@ -183,7 +184,7 @@ exports.startFarming = async function(res, req) {
             let currentlyChecking = false;
             let channelIdToCheck = req.body.channelId;
 
-            let botChatLogs = chatLogs.replace('{botName}', client.user.tag.split('#')[0]).replace('{botName}', client.user.tag.split('#')[0]).replace('{botName}', client.user.tag.split('#')[0]).replace('{collectionName}', req.body.collectionName).replace('{mintDate}', req.body.mintDate).replace('{customPrompt}', req.body.customPrompt + ' \n');
+            let botChatLogs = chatLogs.replace('{botName}', client.user.tag.split('#')[0]).replace('{botName}', client.user.tag.split('#')[0]).replace('{botName}', client.user.tag.split('#')[0]).replace('{collectionName}', req.body.collectionName).replace('{mintDate}', req.body.mintDate).replace('{customPrompt}', (req.body.customPrompt + ' \n'));
 
             console.log(botChatLogs);
 
