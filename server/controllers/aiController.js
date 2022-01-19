@@ -40,6 +40,9 @@ exports.getAnswer = async function(res, req) {
         })
         .catch(err => {
             console.log(err, 1);
+            if (err.isAxiosError) {
+                console.log(err.request.data, 1);
+            }
             res.send({ data: undefined });
         });
 }
@@ -101,6 +104,7 @@ exports.startFarming = async function(res, req) {
         checkIfFarmingState = checkIfFarming.state;
     }
 
+    console.log(checkIfFarmingState);
 
     if (checkIfFarmingRunning == true) {
         res.send({ state: 'error', message: 'Already farming' });
