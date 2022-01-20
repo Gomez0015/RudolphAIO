@@ -1,7 +1,7 @@
 var axios = require('axios');
 const Discord = require('discord.js-selfbot');
 const levelFarms = require('../models/levelFarmModel.js');
-const { NlpManager } = require('node-nlp');
+var randomSpam = require('./spam.json');
 require('dotenv').config();
 var fs = require('fs');
 const OpenAI = require('openai-api');
@@ -15,11 +15,7 @@ fs.readFile('./prompt.txt', 'utf8', function(err, data) {
     chatLogs = data;
 });
 
-const manager = new NlpManager({ languages: ['en'] });
 
-(async() => {
-    await manager.load('./model.nlp');
-})();
 
 function isUpperCase(str) {
     return str === str.toUpperCase();
@@ -329,10 +325,9 @@ exports.startFarming = async function(res, req) {
                             await sleep((10000 * Math.random()) + 1000);
 
                             if (checkIfBotRunning.spam) {
-                                const response = await manager.process('Hello');
-                                answer = response.answer;
+                                answer = randomSpam[Math.floor(Math.random() * randomSpam.length)];
 
-                                console.log(response, answer);
+                                console.log(answer);
 
                                 if (answer == undefined || answer == '') {
                                     currentlyChecking = false;
