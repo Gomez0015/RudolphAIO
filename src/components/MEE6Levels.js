@@ -25,7 +25,7 @@ function MEE6Levels(props) {
         if(e.target) e.preventDefault();
         setStartFarmingLoading(true);
         if(!e.target) {
-          axios.post("https://beta.rudolphaio.com/api/startFarming", {userToken: props.cookies.userToken,token: e.botToken, messageDelay: e.messageDelay, channelId: e.channelId, mintDate: e.mintDate, collectionName: e.collectionName, customPrompt: e.customPrompt, spam: e.spam})
+          axios.post("https://beta.rudolphaio.com/api/startFarming", {userToken: props.cookies.userToken,token: e.botToken, messageDelay: e.messageDelay, channelId: e.channelId, mintDate: e.mintDate, collectionName: e.collectionName, customPrompt: e.customPrompt, spam: false})
           .then(res => {
               if(res.data.state == 'success') {
                   props.successMessage(res.data.message);
@@ -39,7 +39,7 @@ function MEE6Levels(props) {
               console.error(err);
           });
         } else {
-          axios.post("https://beta.rudolphaio.com/api/startFarming", {userToken: props.cookies.userToken,token: e.target.token.value, messageDelay: e.target.messageDelay.value, channelId: e.target.channelId.value, mintDate:  e.target.mintDate.value, collectionName:  e.target.collectionName.value, customPrompt:  e.target.customPrompt.value, spam: e.target.spam.value})
+          axios.post("https://beta.rudolphaio.com/api/startFarming", {userToken: props.cookies.userToken,token: e.target.token.value, messageDelay: e.target.messageDelay.value, channelId: e.target.channelId.value, mintDate:  e.target.mintDate.value, collectionName:  e.target.collectionName.value, customPrompt:  e.target.customPrompt.value})
           .then(res => {
               if(res.data.state == 'success') {
                   props.successMessage(res.data.message);
@@ -179,8 +179,6 @@ function MEE6Levels(props) {
             <Input autocomplete="off" required type="text" name="mintDate" placeholder="Mint Date (YYYY-MM-DD)" style={{textAlign: 'center', width: '25%'}}/>
             <br />
             <TextArea autocomplete="off" type="text" name="customPrompt" placeholder="He is chatting in the channel called general. He is from Paris, France and travels very often around the world. He does not like talking about artificial inteligence or robots, he likes talking about fast cars and taking a rocket to the moon or jupiter. His profile picture is his dog, a golden retriever. ect." style={{textAlign: 'center', width: '25%'}}/>
-            <br />
-            <Checkbox name="spam" value={botSettings.spam} onChange={() => {botSettings.spam = !botSettings.spam}}>Spam Mode</Checkbox>
             <br />
             <Button htmlType="submit" loading={startFarmingLoading}>Run Bot</Button>
         </form>
