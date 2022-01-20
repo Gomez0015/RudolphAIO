@@ -94,6 +94,7 @@ function MEE6Levels(props) {
         botToSave.mintDate = e.target.mintDate.value; 
         botToSave.collectionName = e.target.collectionName.value; 
         botToSave.customPrompt = e.target.customPrompt.value; 
+        console.log(botToSave.spam, e.target.spam.value);
         botToSave.spam = e.target.spam.value; 
         setBotSettings({settingsVisible: false});
         axios.post("https://beta.rudolphaio.com/api/updateBotSettings", {userToken: props.cookies.userToken, botData: botToSave})
