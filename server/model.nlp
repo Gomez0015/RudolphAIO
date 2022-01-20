@@ -1,0 +1,4031 @@
+{
+  "settings": {
+    "languages": [
+      "en"
+    ],
+    "tag": "nlp",
+    "threshold": 0.5,
+    "autoLoad": true,
+    "autoSave": true,
+    "modelFileName": "model.nlp",
+    "calculateSentiment": true
+  },
+  "nluManager": {
+    "settings": {
+      "tag": "nlu-manager"
+    },
+    "locales": [
+      "en"
+    ],
+    "languageNames": {},
+    "domainManagers": {
+      "en": {
+        "settings": {
+          "locale": "en",
+          "trainByDomain": false,
+          "tag": "domain-manager-en",
+          "nluByDomain": {
+            "default": {
+              "className": "NeuralNlu",
+              "settings": {}
+            }
+          },
+          "useStemDict": true
+        },
+        "stemDict": {
+          "goodby": {
+            "intent": "greetings.bye",
+            "domain": "default"
+          },
+          "bye,care,take": {
+            "intent": "greetings.bye",
+            "domain": "default"
+          },
+          "later,see,you": {
+            "intent": "greetings.bye",
+            "domain": "default"
+          },
+          "bye,for,now": {
+            "intent": "greetings.bye",
+            "domain": "default"
+          },
+          "go,i,must": {
+            "intent": "greetings.bye",
+            "domain": "default"
+          },
+          "go,guy,i’m,later,out,see,you": {
+            "intent": "greetings.bye",
+            "domain": "default"
+          },
+          "goodnight": {
+            "intent": "greetings.bye",
+            "domain": "default"
+          },
+          "gn": {
+            "intent": "greetings.bye",
+            "domain": "default"
+          },
+          "hello": {
+            "intent": "greetings.hello",
+            "domain": "default"
+          },
+          "hi": {
+            "intent": "greetings.hello",
+            "domain": "default"
+          },
+          "howdi": {
+            "intent": "greetings.hello",
+            "domain": "default"
+          },
+          "greet": {
+            "intent": "greetings.hello",
+            "domain": "default"
+          },
+          "good,moorn": {
+            "intent": "greetings.hello",
+            "domain": "default"
+          },
+          "gm": {
+            "intent": "greetings.hello",
+            "domain": "default"
+          },
+          "here,hi,new": {
+            "intent": "nft.greetings",
+            "domain": "default"
+          },
+          "here,nice,peopl,veri": {
+            "intent": "greetings.hello",
+            "domain": "default"
+          },
+          "and,balown,chicken,wing": {
+            "intent": "memes.top10",
+            "domain": "default"
+          },
+          "bruh": {
+            "intent": "memes.top10",
+            "domain": "default"
+          },
+          "sike,thought,you": {
+            "intent": "memes.top10",
+            "domain": "default"
+          },
+          "ahahahhah,at,head,his,look,of,the,top": {
+            "intent": "memes.top10",
+            "domain": "default"
+          },
+          "first,is,it,my,nft": {
+            "intent": "nft.greetings",
+            "domain": "default"
+          },
+          "rip": {
+            "intent": "nft.lose",
+            "domain": "default"
+          },
+          "rug": {
+            "intent": "nft.lose",
+            "domain": "default"
+          },
+          "project,suck,this": {
+            "intent": "nft.lose",
+            "domain": "default"
+          },
+          "are,go,it,make,not,to,we": {
+            "intent": "nft.lose",
+            "domain": "default"
+          },
+          "ani,here,mod": {
+            "intent": "nft.lose",
+            "domain": "default"
+          },
+          "off": {
+            "intent": "nft.lose",
+            "domain": "default"
+          },
+          "mint,wen": {
+            "intent": "nft.questions",
+            "domain": "default"
+          },
+          "lfg": {
+            "intent": "nft.win",
+            "domain": "default"
+          },
+          "fuck,go,let": {
+            "intent": "nft.win",
+            "domain": "default"
+          },
+          "gooo,let": {
+            "intent": "nft.win",
+            "domain": "default"
+          },
+          "wagmi": {
+            "intent": "nft.win",
+            "domain": "default"
+          },
+          "keep,push": {
+            "intent": "nft.win",
+            "domain": "default"
+          },
+          "grind,hard": {
+            "intent": "nft.win",
+            "domain": "default"
+          },
+          "a,a5,balenciaga,drive,eat,lambo,to,wagu,wear": {
+            "intent": "nft.win",
+            "domain": "default"
+          },
+          "a,drive,lambo": {
+            "intent": "nft.win",
+            "domain": "default"
+          },
+          "woooo": {
+            "intent": "nft.win",
+            "domain": "default"
+          },
+          "parti,yacht": {
+            "intent": "nft.win",
+            "domain": "default"
+          },
+          "get,it,les": {
+            "intent": "nft.win",
+            "domain": "default"
+          },
+          "for,is,sleep,the,weak": {
+            "intent": "nft.win",
+            "domain": "default"
+          },
+          "are,go,it,make,to,we": {
+            "intent": "nft.win",
+            "domain": "default"
+          },
+          "are,be,go,rich,soon,to,we": {
+            "intent": "nft.win",
+            "domain": "default"
+          },
+          "at,bull,lfg,my,where": {
+            "intent": "nft.win",
+            "domain": "default"
+          },
+          "anyway,floor,go,im,sweep,the,to": {
+            "intent": "nft.win",
+            "domain": "default"
+          },
+          "cant,drop,for,this,wait": {
+            "intent": "nft.win",
+            "domain": "default"
+          },
+          "are,bull,fire,on": {
+            "intent": "nft.win",
+            "domain": "default"
+          },
+          "all,love,moon,the,to,u": {
+            "intent": "nft.win",
+            "domain": "default"
+          },
+          "fire,sneakpeak": {
+            "intent": "nft.win",
+            "domain": "default"
+          },
+          "a,are,bot,you": {
+            "intent": "police.check",
+            "domain": "default"
+          },
+          "a,are,robot,you": {
+            "intent": "police.check",
+            "domain": "default"
+          },
+          "are,from,peopl,where,you": {
+            "intent": "questions.location",
+            "domain": "default"
+          },
+          "from,r,u,wwhere": {
+            "intent": "questions.location",
+            "domain": "default"
+          },
+          "guy,listen,to,what,you": {
+            "intent": "questions.music",
+            "domain": "default"
+          },
+          "are,do,guy,what,you": {
+            "intent": "questions.specific",
+            "domain": "default"
+          },
+          "do,whatchu": {
+            "intent": "questions.specific",
+            "domain": "default"
+          },
+          "anyon,from,uk": {
+            "intent": "questions.specific2",
+            "domain": "default"
+          },
+          "anyon,franc,from": {
+            "intent": "questions.specific2",
+            "domain": "default"
+          },
+          "america,anyon,from": {
+            "intent": "questions.specific2",
+            "domain": "default"
+          },
+          "messi,or,ronaldo": {
+            "intent": "questions.specific3",
+            "domain": "default"
+          },
+          "up,what’": {
+            "intent": "questions.state",
+            "domain": "default"
+          },
+          "are,how,you": {
+            "intent": "questions.state",
+            "domain": "default"
+          },
+          "day,how,was,your": {
+            "intent": "questions.state",
+            "domain": "default"
+          }
+        },
+        "intentDict": {
+          "greetings.bye": "default",
+          "greetings.hello": "default",
+          "memes.top10": "default",
+          "nft.greetings": "default",
+          "nft.lose": "default",
+          "nft.questions": "default",
+          "nft.win": "default",
+          "police.check": "default",
+          "questions.location": "default",
+          "questions.music": "default",
+          "questions.specific": "default",
+          "questions.specific2": "default",
+          "questions.specific3": "default",
+          "questions.state": "default"
+        },
+        "sentences": [
+          {
+            "domain": "default",
+            "utterance": "goodbye",
+            "intent": "greetings.bye"
+          },
+          {
+            "domain": "default",
+            "utterance": "bye take care",
+            "intent": "greetings.bye"
+          },
+          {
+            "domain": "default",
+            "utterance": "see you later",
+            "intent": "greetings.bye"
+          },
+          {
+            "domain": "default",
+            "utterance": "bye for now",
+            "intent": "greetings.bye"
+          },
+          {
+            "domain": "default",
+            "utterance": "i must go",
+            "intent": "greetings.bye"
+          },
+          {
+            "domain": "default",
+            "utterance": "I’m going out guys see you later",
+            "intent": "greetings.bye"
+          },
+          {
+            "domain": "default",
+            "utterance": "goodnight",
+            "intent": "greetings.bye"
+          },
+          {
+            "domain": "default",
+            "utterance": "gn",
+            "intent": "greetings.bye"
+          },
+          {
+            "domain": "default",
+            "utterance": "hello",
+            "intent": "greetings.hello"
+          },
+          {
+            "domain": "default",
+            "utterance": "hi",
+            "intent": "greetings.hello"
+          },
+          {
+            "domain": "default",
+            "utterance": "howdy",
+            "intent": "greetings.hello"
+          },
+          {
+            "domain": "default",
+            "utterance": "Greetings",
+            "intent": "greetings.hello"
+          },
+          {
+            "domain": "default",
+            "utterance": "Good moorning!!",
+            "intent": "greetings.hello"
+          },
+          {
+            "domain": "default",
+            "utterance": "hi",
+            "intent": "greetings.hello"
+          },
+          {
+            "domain": "default",
+            "utterance": "Gm",
+            "intent": "greetings.hello"
+          },
+          {
+            "domain": "default",
+            "utterance": "Hi, new here",
+            "intent": "greetings.hello"
+          },
+          {
+            "domain": "default",
+            "utterance": "Very nice people here",
+            "intent": "greetings.hello"
+          },
+          {
+            "domain": "default",
+            "utterance": "chicken wings and balowne",
+            "intent": "memes.top10"
+          },
+          {
+            "domain": "default",
+            "utterance": "bruh",
+            "intent": "memes.top10"
+          },
+          {
+            "domain": "default",
+            "utterance": "sike you thought",
+            "intent": "memes.top10"
+          },
+          {
+            "domain": "default",
+            "utterance": "look at the top of his head ahahahhah",
+            "intent": "memes.top10"
+          },
+          {
+            "domain": "default",
+            "utterance": "Hi, new here",
+            "intent": "nft.greetings"
+          },
+          {
+            "domain": "default",
+            "utterance": "It is my first nft",
+            "intent": "nft.greetings"
+          },
+          {
+            "domain": "default",
+            "utterance": "rip",
+            "intent": "nft.lose"
+          },
+          {
+            "domain": "default",
+            "utterance": "rug",
+            "intent": "nft.lose"
+          },
+          {
+            "domain": "default",
+            "utterance": "this project sucks",
+            "intent": "nft.lose"
+          },
+          {
+            "domain": "default",
+            "utterance": "we are not gonna make it",
+            "intent": "nft.lose"
+          },
+          {
+            "domain": "default",
+            "utterance": "any mods here",
+            "intent": "nft.lose"
+          },
+          {
+            "domain": "default",
+            "utterance": "off",
+            "intent": "nft.lose"
+          },
+          {
+            "domain": "default",
+            "utterance": "wen mint?",
+            "intent": "nft.questions"
+          },
+          {
+            "domain": "default",
+            "utterance": "LFG",
+            "intent": "nft.win"
+          },
+          {
+            "domain": "default",
+            "utterance": "lets fucking go!",
+            "intent": "nft.win"
+          },
+          {
+            "domain": "default",
+            "utterance": "Lets gooo",
+            "intent": "nft.win"
+          },
+          {
+            "domain": "default",
+            "utterance": "wagmi",
+            "intent": "nft.win"
+          },
+          {
+            "domain": "default",
+            "utterance": "keep pushing",
+            "intent": "nft.win"
+          },
+          {
+            "domain": "default",
+            "utterance": "grind hard",
+            "intent": "nft.win"
+          },
+          {
+            "domain": "default",
+            "utterance": "wear a balenciaga drive a lambo to eat A5 wagu",
+            "intent": "nft.win"
+          },
+          {
+            "domain": "default",
+            "utterance": "drive a lambo",
+            "intent": "nft.win"
+          },
+          {
+            "domain": "default",
+            "utterance": "woooo",
+            "intent": "nft.win"
+          },
+          {
+            "domain": "default",
+            "utterance": "Yacht party!",
+            "intent": "nft.win"
+          },
+          {
+            "domain": "default",
+            "utterance": "les get it",
+            "intent": "nft.win"
+          },
+          {
+            "domain": "default",
+            "utterance": "Sleep is for the weak",
+            "intent": "nft.win"
+          },
+          {
+            "domain": "default",
+            "utterance": "we are gonna make it",
+            "intent": "nft.win"
+          },
+          {
+            "domain": "default",
+            "utterance": "we are gonna be rich soon!",
+            "intent": "nft.win"
+          },
+          {
+            "domain": "default",
+            "utterance": "Where my bulls where my bulls at ?LFG LFG",
+            "intent": "nft.win"
+          },
+          {
+            "domain": "default",
+            "utterance": "Anyways im gonna sweep the floor",
+            "intent": "nft.win"
+          },
+          {
+            "domain": "default",
+            "utterance": "cant wait for this drop",
+            "intent": "nft.win"
+          },
+          {
+            "domain": "default",
+            "utterance": "bulls are on fire",
+            "intent": "nft.win"
+          },
+          {
+            "domain": "default",
+            "utterance": "to the moon love u all",
+            "intent": "nft.win"
+          },
+          {
+            "domain": "default",
+            "utterance": "fire sneakpeaks",
+            "intent": "nft.win"
+          },
+          {
+            "domain": "default",
+            "utterance": "Are you a bot?",
+            "intent": "police.check"
+          },
+          {
+            "domain": "default",
+            "utterance": "Are you a robot??",
+            "intent": "police.check"
+          },
+          {
+            "domain": "default",
+            "utterance": "Where are you from people",
+            "intent": "questions.location"
+          },
+          {
+            "domain": "default",
+            "utterance": "wWhere r u from",
+            "intent": "questions.location"
+          },
+          {
+            "domain": "default",
+            "utterance": "What you guys listen to ?",
+            "intent": "questions.music"
+          },
+          {
+            "domain": "default",
+            "utterance": "What are you doing guys ?",
+            "intent": "questions.specific"
+          },
+          {
+            "domain": "default",
+            "utterance": "whatchu doing?",
+            "intent": "questions.specific"
+          },
+          {
+            "domain": "default",
+            "utterance": "what are you guys doing?",
+            "intent": "questions.specific"
+          },
+          {
+            "domain": "default",
+            "utterance": "Anyone from UK?",
+            "intent": "questions.specific2"
+          },
+          {
+            "domain": "default",
+            "utterance": "Anyone from France?",
+            "intent": "questions.specific2"
+          },
+          {
+            "domain": "default",
+            "utterance": "Anyone from America?",
+            "intent": "questions.specific2"
+          },
+          {
+            "domain": "default",
+            "utterance": "Messi or Ronaldo?",
+            "intent": "questions.specific3"
+          },
+          {
+            "domain": "default",
+            "utterance": "What’s up",
+            "intent": "questions.state"
+          },
+          {
+            "domain": "default",
+            "utterance": "how are you?",
+            "intent": "questions.state"
+          },
+          {
+            "domain": "default",
+            "utterance": "How was your day ?",
+            "intent": "questions.state"
+          }
+        ],
+        "domains": {
+          "master_domain": {
+            "settings": {
+              "locale": "en",
+              "tag": "nlu-en",
+              "keepStopwords": true,
+              "nonefeatureValue": 1,
+              "nonedeltaMultiplier": 1.2,
+              "spellCheck": false,
+              "spellCheckDistance": 1,
+              "filterZeros": true,
+              "log": true
+            },
+            "features": {
+              "goodby": 1,
+              "bye": 1,
+              "take": 1,
+              "care": 1,
+              "see": 1,
+              "you": 1,
+              "later": 1,
+              "for": 1,
+              "now": 1,
+              "i": 1,
+              "must": 1,
+              "go": 1,
+              "i’m": 1,
+              "out": 1,
+              "guy": 1,
+              "goodnight": 1,
+              "gn": 1,
+              "hello": 1,
+              "hi": 1,
+              "howdi": 1,
+              "greet": 1,
+              "good": 1,
+              "moorn": 1,
+              "gm": 1,
+              "new": 1,
+              "here": 1,
+              "veri": 1,
+              "nice": 1,
+              "peopl": 1,
+              "chicken": 1,
+              "wing": 1,
+              "and": 1,
+              "balown": 1,
+              "bruh": 1,
+              "sike": 1,
+              "thought": 1,
+              "look": 1,
+              "at": 1,
+              "the": 1,
+              "top": 1,
+              "of": 1,
+              "his": 1,
+              "head": 1,
+              "ahahahhah": 1,
+              "it": 1,
+              "is": 1,
+              "my": 1,
+              "first": 1,
+              "nft": 1,
+              "rip": 1,
+              "rug": 1,
+              "this": 1,
+              "project": 1,
+              "suck": 1,
+              "we": 1,
+              "are": 1,
+              "not": 1,
+              "to": 1,
+              "make": 1,
+              "ani": 1,
+              "mod": 1,
+              "off": 1,
+              "wen": 1,
+              "mint": 1,
+              "lfg": 1,
+              "let": 1,
+              "fuck": 1,
+              "gooo": 1,
+              "wagmi": 1,
+              "keep": 1,
+              "push": 1,
+              "grind": 1,
+              "hard": 1,
+              "wear": 1,
+              "a": 1,
+              "balenciaga": 1,
+              "drive": 1,
+              "lambo": 1,
+              "eat": 1,
+              "a5": 1,
+              "wagu": 1,
+              "woooo": 1,
+              "yacht": 1,
+              "parti": 1,
+              "les": 1,
+              "get": 1,
+              "sleep": 1,
+              "weak": 1,
+              "be": 1,
+              "rich": 1,
+              "soon": 1,
+              "where": 1,
+              "bull": 1,
+              "anyway": 1,
+              "im": 1,
+              "sweep": 1,
+              "floor": 1,
+              "cant": 1,
+              "wait": 1,
+              "drop": 1,
+              "on": 1,
+              "fire": 1,
+              "moon": 1,
+              "love": 1,
+              "u": 1,
+              "all": 1,
+              "sneakpeak": 1,
+              "bot": 1,
+              "robot": 1,
+              "from": 1,
+              "wwhere": 1,
+              "r": 1,
+              "what": 1,
+              "listen": 1,
+              "do": 1,
+              "whatchu": 1,
+              "anyon": 1,
+              "uk": 1,
+              "franc": 1,
+              "america": 1,
+              "messi": 1,
+              "or": 1,
+              "ronaldo": 1,
+              "what’": 1,
+              "up": 1,
+              "how": 1,
+              "was": 1,
+              "your": 1,
+              "day": 1
+            },
+            "intents": {
+              "greetings.bye": 1,
+              "greetings.hello": 1,
+              "memes.top10": 1,
+              "nft.greetings": 1,
+              "nft.lose": 1,
+              "nft.questions": 1,
+              "nft.win": 1,
+              "police.check": 1,
+              "questions.location": 1,
+              "questions.music": 1,
+              "questions.specific": 1,
+              "questions.specific2": 1,
+              "questions.specific3": 1,
+              "questions.state": 1
+            },
+            "intentFeatures": {
+              "greetings.bye": {
+                "goodby": 1,
+                "bye": 1,
+                "take": 1,
+                "care": 1,
+                "see": 1,
+                "you": 1,
+                "later": 1,
+                "for": 1,
+                "now": 1,
+                "i": 1,
+                "must": 1,
+                "go": 1,
+                "i’m": 1,
+                "out": 1,
+                "guy": 1,
+                "goodnight": 1,
+                "gn": 1
+              },
+              "greetings.hello": {
+                "hello": 1,
+                "hi": 1,
+                "howdi": 1,
+                "greet": 1,
+                "good": 1,
+                "moorn": 1,
+                "gm": 1,
+                "new": 1,
+                "here": 1,
+                "veri": 1,
+                "nice": 1,
+                "peopl": 1
+              },
+              "memes.top10": {
+                "chicken": 1,
+                "wing": 1,
+                "and": 1,
+                "balown": 1,
+                "bruh": 1,
+                "sike": 1,
+                "you": 1,
+                "thought": 1,
+                "look": 1,
+                "at": 1,
+                "the": 1,
+                "top": 1,
+                "of": 1,
+                "his": 1,
+                "head": 1,
+                "ahahahhah": 1
+              },
+              "nft.greetings": {
+                "hi": 1,
+                "new": 1,
+                "here": 1,
+                "it": 1,
+                "is": 1,
+                "my": 1,
+                "first": 1,
+                "nft": 1
+              },
+              "nft.lose": {
+                "rip": 1,
+                "rug": 1,
+                "this": 1,
+                "project": 1,
+                "suck": 1,
+                "we": 1,
+                "are": 1,
+                "not": 1,
+                "go": 1,
+                "to": 1,
+                "make": 1,
+                "it": 1,
+                "ani": 1,
+                "mod": 1,
+                "here": 1,
+                "off": 1
+              },
+              "nft.questions": {
+                "wen": 1,
+                "mint": 1
+              },
+              "nft.win": {
+                "lfg": 1,
+                "let": 1,
+                "fuck": 1,
+                "go": 1,
+                "gooo": 1,
+                "wagmi": 1,
+                "keep": 1,
+                "push": 1,
+                "grind": 1,
+                "hard": 1,
+                "wear": 1,
+                "a": 1,
+                "balenciaga": 1,
+                "drive": 1,
+                "lambo": 1,
+                "to": 1,
+                "eat": 1,
+                "a5": 1,
+                "wagu": 1,
+                "woooo": 1,
+                "yacht": 1,
+                "parti": 1,
+                "les": 1,
+                "get": 1,
+                "it": 1,
+                "sleep": 1,
+                "is": 1,
+                "for": 1,
+                "the": 1,
+                "weak": 1,
+                "we": 1,
+                "are": 1,
+                "make": 1,
+                "be": 1,
+                "rich": 1,
+                "soon": 1,
+                "where": 1,
+                "my": 1,
+                "bull": 1,
+                "at": 1,
+                "anyway": 1,
+                "im": 1,
+                "sweep": 1,
+                "floor": 1,
+                "cant": 1,
+                "wait": 1,
+                "this": 1,
+                "drop": 1,
+                "on": 1,
+                "fire": 1,
+                "moon": 1,
+                "love": 1,
+                "u": 1,
+                "all": 1,
+                "sneakpeak": 1
+              },
+              "police.check": {
+                "are": 1,
+                "you": 1,
+                "a": 1,
+                "bot": 1,
+                "robot": 1
+              },
+              "questions.location": {
+                "where": 1,
+                "are": 1,
+                "you": 1,
+                "from": 1,
+                "peopl": 1,
+                "wwhere": 1,
+                "r": 1,
+                "u": 1
+              },
+              "questions.music": {
+                "what": 1,
+                "you": 1,
+                "guy": 1,
+                "listen": 1,
+                "to": 1
+              },
+              "questions.specific": {
+                "what": 1,
+                "are": 1,
+                "you": 1,
+                "do": 1,
+                "guy": 1,
+                "whatchu": 1
+              },
+              "questions.specific2": {
+                "anyon": 1,
+                "from": 1,
+                "uk": 1,
+                "franc": 1,
+                "america": 1
+              },
+              "questions.specific3": {
+                "messi": 1,
+                "or": 1,
+                "ronaldo": 1
+              },
+              "questions.state": {
+                "what’": 1,
+                "up": 1,
+                "how": 1,
+                "are": 1,
+                "you": 1,
+                "was": 1,
+                "your": 1,
+                "day": 1
+              }
+            },
+            "featuresToIntent": {
+              "goodby": [
+                "greetings.bye"
+              ],
+              "bye": [
+                "greetings.bye"
+              ],
+              "take": [
+                "greetings.bye"
+              ],
+              "care": [
+                "greetings.bye"
+              ],
+              "see": [
+                "greetings.bye"
+              ],
+              "you": [
+                "greetings.bye",
+                "memes.top10",
+                "police.check",
+                "questions.location",
+                "questions.music",
+                "questions.specific",
+                "questions.state"
+              ],
+              "later": [
+                "greetings.bye"
+              ],
+              "for": [
+                "greetings.bye",
+                "nft.win"
+              ],
+              "now": [
+                "greetings.bye"
+              ],
+              "i": [
+                "greetings.bye"
+              ],
+              "must": [
+                "greetings.bye"
+              ],
+              "go": [
+                "greetings.bye",
+                "nft.lose",
+                "nft.win"
+              ],
+              "i’m": [
+                "greetings.bye"
+              ],
+              "out": [
+                "greetings.bye"
+              ],
+              "guy": [
+                "greetings.bye",
+                "questions.music",
+                "questions.specific"
+              ],
+              "goodnight": [
+                "greetings.bye"
+              ],
+              "gn": [
+                "greetings.bye"
+              ],
+              "hello": [
+                "greetings.hello"
+              ],
+              "hi": [
+                "greetings.hello",
+                "nft.greetings"
+              ],
+              "howdi": [
+                "greetings.hello"
+              ],
+              "greet": [
+                "greetings.hello"
+              ],
+              "good": [
+                "greetings.hello"
+              ],
+              "moorn": [
+                "greetings.hello"
+              ],
+              "gm": [
+                "greetings.hello"
+              ],
+              "new": [
+                "greetings.hello",
+                "nft.greetings"
+              ],
+              "here": [
+                "greetings.hello",
+                "nft.greetings",
+                "nft.lose"
+              ],
+              "veri": [
+                "greetings.hello"
+              ],
+              "nice": [
+                "greetings.hello"
+              ],
+              "peopl": [
+                "greetings.hello",
+                "questions.location"
+              ],
+              "chicken": [
+                "memes.top10"
+              ],
+              "wing": [
+                "memes.top10"
+              ],
+              "and": [
+                "memes.top10"
+              ],
+              "balown": [
+                "memes.top10"
+              ],
+              "bruh": [
+                "memes.top10"
+              ],
+              "sike": [
+                "memes.top10"
+              ],
+              "thought": [
+                "memes.top10"
+              ],
+              "look": [
+                "memes.top10"
+              ],
+              "at": [
+                "memes.top10",
+                "nft.win"
+              ],
+              "the": [
+                "memes.top10",
+                "nft.win"
+              ],
+              "top": [
+                "memes.top10"
+              ],
+              "of": [
+                "memes.top10"
+              ],
+              "his": [
+                "memes.top10"
+              ],
+              "head": [
+                "memes.top10"
+              ],
+              "ahahahhah": [
+                "memes.top10"
+              ],
+              "it": [
+                "nft.greetings",
+                "nft.lose",
+                "nft.win"
+              ],
+              "is": [
+                "nft.greetings",
+                "nft.win"
+              ],
+              "my": [
+                "nft.greetings",
+                "nft.win"
+              ],
+              "first": [
+                "nft.greetings"
+              ],
+              "nft": [
+                "nft.greetings"
+              ],
+              "rip": [
+                "nft.lose"
+              ],
+              "rug": [
+                "nft.lose"
+              ],
+              "this": [
+                "nft.lose",
+                "nft.win"
+              ],
+              "project": [
+                "nft.lose"
+              ],
+              "suck": [
+                "nft.lose"
+              ],
+              "we": [
+                "nft.lose",
+                "nft.win"
+              ],
+              "are": [
+                "nft.lose",
+                "nft.win",
+                "police.check",
+                "questions.location",
+                "questions.specific",
+                "questions.state"
+              ],
+              "not": [
+                "nft.lose"
+              ],
+              "to": [
+                "nft.lose",
+                "nft.win",
+                "questions.music"
+              ],
+              "make": [
+                "nft.lose",
+                "nft.win"
+              ],
+              "ani": [
+                "nft.lose"
+              ],
+              "mod": [
+                "nft.lose"
+              ],
+              "off": [
+                "nft.lose"
+              ],
+              "wen": [
+                "nft.questions"
+              ],
+              "mint": [
+                "nft.questions"
+              ],
+              "lfg": [
+                "nft.win"
+              ],
+              "let": [
+                "nft.win"
+              ],
+              "fuck": [
+                "nft.win"
+              ],
+              "gooo": [
+                "nft.win"
+              ],
+              "wagmi": [
+                "nft.win"
+              ],
+              "keep": [
+                "nft.win"
+              ],
+              "push": [
+                "nft.win"
+              ],
+              "grind": [
+                "nft.win"
+              ],
+              "hard": [
+                "nft.win"
+              ],
+              "wear": [
+                "nft.win"
+              ],
+              "a": [
+                "nft.win",
+                "police.check"
+              ],
+              "balenciaga": [
+                "nft.win"
+              ],
+              "drive": [
+                "nft.win"
+              ],
+              "lambo": [
+                "nft.win"
+              ],
+              "eat": [
+                "nft.win"
+              ],
+              "a5": [
+                "nft.win"
+              ],
+              "wagu": [
+                "nft.win"
+              ],
+              "woooo": [
+                "nft.win"
+              ],
+              "yacht": [
+                "nft.win"
+              ],
+              "parti": [
+                "nft.win"
+              ],
+              "les": [
+                "nft.win"
+              ],
+              "get": [
+                "nft.win"
+              ],
+              "sleep": [
+                "nft.win"
+              ],
+              "weak": [
+                "nft.win"
+              ],
+              "be": [
+                "nft.win"
+              ],
+              "rich": [
+                "nft.win"
+              ],
+              "soon": [
+                "nft.win"
+              ],
+              "where": [
+                "nft.win",
+                "questions.location"
+              ],
+              "bull": [
+                "nft.win"
+              ],
+              "anyway": [
+                "nft.win"
+              ],
+              "im": [
+                "nft.win"
+              ],
+              "sweep": [
+                "nft.win"
+              ],
+              "floor": [
+                "nft.win"
+              ],
+              "cant": [
+                "nft.win"
+              ],
+              "wait": [
+                "nft.win"
+              ],
+              "drop": [
+                "nft.win"
+              ],
+              "on": [
+                "nft.win"
+              ],
+              "fire": [
+                "nft.win"
+              ],
+              "moon": [
+                "nft.win"
+              ],
+              "love": [
+                "nft.win"
+              ],
+              "u": [
+                "nft.win",
+                "questions.location"
+              ],
+              "all": [
+                "nft.win"
+              ],
+              "sneakpeak": [
+                "nft.win"
+              ],
+              "bot": [
+                "police.check"
+              ],
+              "robot": [
+                "police.check"
+              ],
+              "from": [
+                "questions.location",
+                "questions.specific2"
+              ],
+              "wwhere": [
+                "questions.location"
+              ],
+              "r": [
+                "questions.location"
+              ],
+              "what": [
+                "questions.music",
+                "questions.specific"
+              ],
+              "listen": [
+                "questions.music"
+              ],
+              "do": [
+                "questions.specific"
+              ],
+              "whatchu": [
+                "questions.specific"
+              ],
+              "anyon": [
+                "questions.specific2"
+              ],
+              "uk": [
+                "questions.specific2"
+              ],
+              "franc": [
+                "questions.specific2"
+              ],
+              "america": [
+                "questions.specific2"
+              ],
+              "messi": [
+                "questions.specific3"
+              ],
+              "or": [
+                "questions.specific3"
+              ],
+              "ronaldo": [
+                "questions.specific3"
+              ],
+              "what’": [
+                "questions.state"
+              ],
+              "up": [
+                "questions.state"
+              ],
+              "how": [
+                "questions.state"
+              ],
+              "was": [
+                "questions.state"
+              ],
+              "your": [
+                "questions.state"
+              ],
+              "day": [
+                "questions.state"
+              ]
+            },
+            "neuralNetwork": {
+              "settings": {
+                "locale": "en",
+                "tag": "nlu-en",
+                "keepStopwords": true,
+                "nonefeatureValue": 1,
+                "nonedeltaMultiplier": 1.2,
+                "spellCheck": false,
+                "spellCheckDistance": 1,
+                "filterZeros": true,
+                "log": true
+              },
+              "features": [
+                "goodby",
+                "bye",
+                "take",
+                "care",
+                "see",
+                "you",
+                "later",
+                "for",
+                "now",
+                "i",
+                "must",
+                "go",
+                "i’m",
+                "out",
+                "guy",
+                "goodnight",
+                "gn",
+                "hello",
+                "hi",
+                "howdi",
+                "greet",
+                "good",
+                "moorn",
+                "gm",
+                "new",
+                "here",
+                "veri",
+                "nice",
+                "peopl",
+                "chicken",
+                "wing",
+                "and",
+                "balown",
+                "bruh",
+                "sike",
+                "thought",
+                "look",
+                "at",
+                "the",
+                "top",
+                "of",
+                "his",
+                "head",
+                "ahahahhah",
+                "it",
+                "is",
+                "my",
+                "first",
+                "nft",
+                "rip",
+                "rug",
+                "this",
+                "project",
+                "suck",
+                "we",
+                "are",
+                "not",
+                "to",
+                "make",
+                "ani",
+                "mod",
+                "off",
+                "wen",
+                "mint",
+                "lfg",
+                "let",
+                "fuck",
+                "gooo",
+                "wagmi",
+                "keep",
+                "push",
+                "grind",
+                "hard",
+                "wear",
+                "a",
+                "balenciaga",
+                "drive",
+                "lambo",
+                "eat",
+                "a5",
+                "wagu",
+                "woooo",
+                "yacht",
+                "parti",
+                "les",
+                "get",
+                "sleep",
+                "weak",
+                "be",
+                "rich",
+                "soon",
+                "where",
+                "bull",
+                "anyway",
+                "im",
+                "sweep",
+                "floor",
+                "cant",
+                "wait",
+                "drop",
+                "on",
+                "fire",
+                "moon",
+                "love",
+                "u",
+                "all",
+                "sneakpeak",
+                "bot",
+                "robot",
+                "from",
+                "wwhere",
+                "r",
+                "what",
+                "listen",
+                "do",
+                "whatchu",
+                "anyon",
+                "uk",
+                "franc",
+                "america",
+                "messi",
+                "or",
+                "ronaldo",
+                "what’",
+                "up",
+                "how",
+                "was",
+                "your",
+                "day"
+              ],
+              "intents": [
+                "greetings.bye",
+                "greetings.hello",
+                "memes.top10",
+                "nft.greetings",
+                "nft.lose",
+                "nft.questions",
+                "nft.win",
+                "police.check",
+                "questions.location",
+                "questions.music",
+                "questions.specific",
+                "questions.specific2",
+                "questions.specific3",
+                "questions.state"
+              ],
+              "perceptrons": [
+                [
+                  12.094805717468262,
+                  6.490387439727783,
+                  2.820375442504883,
+                  2.820375442504883,
+                  5.378821849822998,
+                  1.3673245906829834,
+                  5.378821849822998,
+                  1.9689453840255737,
+                  3.6701064109802246,
+                  5.116794586181641,
+                  5.116794586181641,
+                  1.8959143161773682,
+                  -0.3598163425922394,
+                  -0.3598163425922394,
+                  -1.1700860261917114,
+                  12.081307411193848,
+                  12.066703796386719,
+                  -2.164407730102539,
+                  -2.2234485149383545,
+                  -2.161325216293335,
+                  -2.1596972942352295,
+                  -1.1071683168411255,
+                  -1.1071683168411255,
+                  -2.157266616821289,
+                  -0.3295097053050995,
+                  -1.254689335823059,
+                  -0.3728906214237213,
+                  -0.3728906214237213,
+                  -0.550771176815033,
+                  -0.5774198770523071,
+                  -0.5774198770523071,
+                  -0.5774198770523071,
+                  -0.5774198770523071,
+                  -2.154778242111206,
+                  -1.7697105407714844,
+                  -1.7697105407714844,
+                  -0.23886412382125854,
+                  -0.31947022676467896,
+                  -1.444728136062622,
+                  -0.23886412382125854,
+                  -0.23886412382125854,
+                  -0.23886412382125854,
+                  -0.23886412382125854,
+                  -0.23886412382125854,
+                  -1.198688268661499,
+                  -1.0954402685165405,
+                  -0.3191463351249695,
+                  -0.23980847001075745,
+                  -0.23980847001075745,
+                  -2.151465654373169,
+                  -2.148686647415161,
+                  -1.3965352773666382,
+                  -0.45392969250679016,
+                  -0.45392969250679016,
+                  -0.5443124771118164,
+                  -2.3836987018585205,
+                  -0.21298830211162567,
+                  -1.4574638605117798,
+                  -0.32396185398101807,
+                  -0.4525059461593628,
+                  -0.4525059461593628,
+                  -2.1452488899230957,
+                  -1.079179286956787,
+                  -1.079179286956787,
+                  -2.141535997390747,
+                  -2.196239471435547,
+                  -1.9166523218154907,
+                  -0.24990341067314148,
+                  -2.1368324756622314,
+                  -1.0776727199554443,
+                  -1.0776727199554443,
+                  -1.077587366104126,
+                  -1.077587366104126,
+                  -0.03825990483164787,
+                  -1.0426493883132935,
+                  -0.03825990483164787,
+                  -0.5567246079444885,
+                  -0.5567246079444885,
+                  -0.03825990483164787,
+                  -0.03825990483164787,
+                  -0.03825990483164787,
+                  -2.130483865737915,
+                  -1.076475739479065,
+                  -1.076475739479065,
+                  -0.47781699895858765,
+                  -0.47781699895858765,
+                  -0.7919467091560364,
+                  -0.7919467091560364,
+                  -0.13628165423870087,
+                  -0.13628165423870087,
+                  -0.13628165423870087,
+                  -0.18538036942481995,
+                  -0.05610806494951248,
+                  -0.32184264063835144,
+                  -0.32184264063835144,
+                  -0.32184264063835144,
+                  -0.32184264063835144,
+                  -0.9091474413871765,
+                  -0.9091474413871765,
+                  -0.9091474413871765,
+                  -0.008334847167134285,
+                  -1.084556221961975,
+                  0,
+                  0,
+                  -0.3205530345439911,
+                  0,
+                  -1.0678865909576416,
+                  -0.258337140083313,
+                  -0.22344940900802612,
+                  -1.193347454071045,
+                  -0.3205530345439911,
+                  -0.3205530345439911,
+                  -0.7913653254508972,
+                  -0.42863550782203674,
+                  -1.2530924081802368,
+                  -0.8990166187286377,
+                  -0.7215431928634644,
+                  -0.24218419194221497,
+                  -0.24019946157932281,
+                  -0.23906414210796356,
+                  -0.7178629040718079,
+                  -0.7178629040718079,
+                  -0.7178629040718079,
+                  -1.0757585763931274,
+                  -1.0757585763931274,
+                  -1.1355690956115723,
+                  -0.3411487936973572,
+                  -0.3411487936973572,
+                  -0.3411487936973572,
+                  2.154649800643933
+                ],
+                [
+                  -3.086874485015869,
+                  -1.4531430006027222,
+                  -0.8346729874610901,
+                  -0.8346729874610901,
+                  -0.361973375082016,
+                  -2.399179458618164,
+                  -0.361973375082016,
+                  -1.0506744384765625,
+                  -0.6183886528015137,
+                  -0.7404856085777283,
+                  -0.7404856085777283,
+                  -1.6409730911254883,
+                  0,
+                  0,
+                  -0.03699243813753128,
+                  -3.077444553375244,
+                  -3.0697097778320312,
+                  11.145464897155762,
+                  11.179950714111328,
+                  11.13291072845459,
+                  11.121014595031738,
+                  5.581524848937988,
+                  5.581524848937988,
+                  11.09604263305664,
+                  -5.366799354553223,
+                  -2.1947553157806396,
+                  4.564812183380127,
+                  4.564812183380127,
+                  3.735379695892334,
+                  -1.0282891988754272,
+                  -1.0282891988754272,
+                  -1.0282891988754272,
+                  -1.0282891988754272,
+                  -3.4427976608276367,
+                  -1.0393179655075073,
+                  -1.0393179655075073,
+                  -0.4458412528038025,
+                  -0.6013056635856628,
+                  -1.0068739652633667,
+                  -0.4458412528038025,
+                  -0.4458412528038025,
+                  -0.4458412528038025,
+                  -0.4458412528038025,
+                  -0.4458412528038025,
+                  -1.6095930337905884,
+                  -0.7501885890960693,
+                  -0.6666409373283386,
+                  -0.5418893694877625,
+                  -0.5418893694877625,
+                  -3.126188278198242,
+                  -3.1233599185943604,
+                  -1.271382451057434,
+                  -0.9939950704574585,
+                  -0.9939950704574585,
+                  -0.2552807331085205,
+                  -1.5098280906677246,
+                  -0.18012510240077972,
+                  -0.7966951131820679,
+                  -0.21475708484649658,
+                  -1.3920854330062866,
+                  -1.3920854330062866,
+                  -3.119354724884033,
+                  -1.574997901916504,
+                  -1.574997901916504,
+                  -3.1156246662139893,
+                  -1.8540987968444824,
+                  -0.54744553565979,
+                  -1.2795253992080688,
+                  -3.1103241443634033,
+                  -1.5634056329727173,
+                  -1.5634056329727173,
+                  -1.5633522272109985,
+                  -1.5633522272109985,
+                  -0.12737789750099182,
+                  -1.0877798795700073,
+                  -0.12737789750099182,
+                  -1.019618034362793,
+                  -1.019618034362793,
+                  -0.12737789750099182,
+                  -0.12737789750099182,
+                  -0.12737789750099182,
+                  -3.103595495223999,
+                  -1.562238097190857,
+                  -1.562238097190857,
+                  -0.7575914859771729,
+                  -0.7575914859771729,
+                  -0.16384263336658478,
+                  -0.16384263336658478,
+                  -0.01730230264365673,
+                  -0.01730230264365673,
+                  -0.01730230264365673,
+                  -0.946397066116333,
+                  -0.3914235830307007,
+                  -0.012827045284211636,
+                  -0.012827045284211636,
+                  -0.012827045284211636,
+                  -0.012827045284211636,
+                  -0.2682807445526123,
+                  -0.2682807445526123,
+                  -0.2682807445526123,
+                  -0.27530139684677124,
+                  -1.711984634399414,
+                  -0.25118812918663025,
+                  -0.25118812918663025,
+                  -0.5677146315574646,
+                  -0.25118812918663025,
+                  -1.4123698472976685,
+                  -0.022212062031030655,
+                  -0.011868907138705254,
+                  -2.002816915512085,
+                  -0.30658790469169617,
+                  -0.30658790469169617,
+                  -0.03699243813753128,
+                  -0.025600438937544823,
+                  -1.5679044723510742,
+                  -1.5561513900756836,
+                  -0.8561541438102722,
+                  -0.30009743571281433,
+                  -0.2821073830127716,
+                  -0.27334868907928467,
+                  -1.0415011644363403,
+                  -1.0415011644363403,
+                  -1.0415011644363403,
+                  -1.5619475841522217,
+                  -1.5619475841522217,
+                  -0.7811339497566223,
+                  -0.7811339497566223,
+                  -0.7811339497566223,
+                  -0.7811339497566223,
+                  3.124635415639265
+                ],
+                [
+                  -0.8131058216094971,
+                  -0.28028950095176697,
+                  -0.27166810631752014,
+                  -0.27166810631752014,
+                  -1.4256839752197266,
+                  2.034593105316162,
+                  -1.4256839752197266,
+                  -0.53377366065979,
+                  -0.008457578718662262,
+                  -0.057557009160518646,
+                  -0.057557009160518646,
+                  -0.7073845863342285,
+                  -0.057929061353206635,
+                  -0.057929061353206635,
+                  -0.6890274882316589,
+                  -0.8108806610107422,
+                  -0.8093928694725037,
+                  -0.8078038096427917,
+                  -0.8139474987983704,
+                  -0.8056308627128601,
+                  -0.8038033246994019,
+                  -0.4067085087299347,
+                  -0.4067085087299347,
+                  -0.8011484742164612,
+                  -0.33155357837677,
+                  -0.6809670925140381,
+                  0,
+                  0,
+                  -0.21909669041633606,
+                  3.368081569671631,
+                  3.368081569671631,
+                  3.368081569671631,
+                  3.368081569671631,
+                  13.413982391357422,
+                  5.71726131439209,
+                  5.71726131439209,
+                  1.8578132390975952,
+                  1.4400935173034668,
+                  0.882423996925354,
+                  1.8578132390975952,
+                  1.8578132390975952,
+                  1.8578132390975952,
+                  1.8578132390975952,
+                  1.8578132390975952,
+                  -0.5648922324180603,
+                  -0.6597263813018799,
+                  -0.6323028802871704,
+                  -0.21187511086463928,
+                  -0.21187511086463928,
+                  -0.8285948634147644,
+                  -0.8248399496078491,
+                  -0.4456729292869568,
+                  -0.35269060730934143,
+                  -0.35269060730934143,
+                  -0.1114959791302681,
+                  -2.007424831390381,
+                  -0.05665477365255356,
+                  -1.1775685548782349,
+                  -0.08734144270420074,
+                  -0.28585559129714966,
+                  -0.28585559129714966,
+                  -0.8206765055656433,
+                  -0.466204971075058,
+                  -0.466204971075058,
+                  -0.8723220825195312,
+                  -0.5806813836097717,
+                  -0.1907126009464264,
+                  -0.3604961037635803,
+                  -0.8175819516181946,
+                  -0.4382260739803314,
+                  -0.4382260739803314,
+                  -0.43084800243377686,
+                  -0.43084800243377686,
+                  -0.06463518738746643,
+                  -0.8882327675819397,
+                  -0.06463518738746643,
+                  -0.2302672117948532,
+                  -0.2302672117948532,
+                  -0.06463518738746643,
+                  -0.06463518738746643,
+                  -0.06463518738746643,
+                  -0.8162938952445984,
+                  -0.4207529127597809,
+                  -0.4207529127597809,
+                  -0.1807253062725067,
+                  -0.1807253062725067,
+                  -0.3901382088661194,
+                  -0.3901382088661194,
+                  -0.008811204694211483,
+                  -0.008811204694211483,
+                  -0.008811204694211483,
+                  -0.6375728249549866,
+                  -0.4129137396812439,
+                  -0.170729398727417,
+                  -0.170729398727417,
+                  -0.170729398727417,
+                  -0.170729398727417,
+                  -0.06403806060552597,
+                  -0.06403806060552597,
+                  -0.06403806060552597,
+                  -0.031249523162841797,
+                  -0.43874433636665344,
+                  -0.2526237666606903,
+                  -0.2526237666606903,
+                  -0.3459034562110901,
+                  -0.2526237666606903,
+                  -0.39437079429626465,
+                  -0.2993185222148895,
+                  -0.3084489703178406,
+                  -0.5380573868751526,
+                  -0.05123889446258545,
+                  -0.05123889446258545,
+                  -0.6213432550430298,
+                  -0.41871705651283264,
+                  -0.5162352919578552,
+                  -0.3141794800758362,
+                  -0.23784345388412476,
+                  -0.08848116546869278,
+                  -0.07597378641366959,
+                  -0.06537651270627975,
+                  -0.27969104051589966,
+                  -0.27969104051589966,
+                  -0.27969104051589966,
+                  -0.4143553376197815,
+                  -0.4143553376197815,
+                  -0.8475103974342346,
+                  -0.10060757398605347,
+                  -0.10060757398605347,
+                  -0.10060757398605347,
+                  0.8162846617593733
+                ],
+                [
+                  -0.030313793569803238,
+                  -0.024236546829342842,
+                  -0.021734759211540222,
+                  -0.021734759211540222,
+                  -0.02088405378162861,
+                  -0.02404758706688881,
+                  -0.02088405378162861,
+                  -0.6317273378372192,
+                  -0.0011414493201300502,
+                  0,
+                  0,
+                  -0.47000300884246826,
+                  0,
+                  0,
+                  0,
+                  -0.02709680050611496,
+                  -0.02604348585009575,
+                  -0.025030946359038353,
+                  0.9019178748130798,
+                  -0.014314264059066772,
+                  -0.013739104382693768,
+                  -0.012656930834054947,
+                  -0.012656930834054947,
+                  -0.006318580359220505,
+                  4.562904357910156,
+                  3.1046090126037598,
+                  -0.5347990393638611,
+                  -0.5347990393638611,
+                  -0.5347990393638611,
+                  -0.0018451083451509476,
+                  -0.0018451083451509476,
+                  -0.0018451083451509476,
+                  -0.0018451083451509476,
+                  -0.0017677684081718326,
+                  -0.0015316677745431662,
+                  -0.0015316677745431662,
+                  0,
+                  -0.5909963250160217,
+                  -0.6183615922927856,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  2.2740254402160645,
+                  2.910521984100342,
+                  2.935544490814209,
+                  3.553844928741455,
+                  3.553844928741455,
+                  -0.17215727269649506,
+                  -0.16546906530857086,
+                  -0.1367291361093521,
+                  -0.11387456208467484,
+                  -0.11387456208467484,
+                  -0.4014696478843689,
+                  -0.4028512239456177,
+                  -0.24919915199279785,
+                  -0.44584396481513977,
+                  -0.4014696478843689,
+                  -1.0372657775878906,
+                  -1.0372657775878906,
+                  -0.13146668672561646,
+                  -0.11733106523752213,
+                  -0.11733106523752213,
+                  -0.710128664970398,
+                  -0.16185271739959717,
+                  -0.04130454733967781,
+                  -0.09690402448177338,
+                  -0.11182132363319397,
+                  -0.09999359399080276,
+                  -0.09999359399080276,
+                  -0.09641512483358383,
+                  -0.09641512483358383,
+                  -0.027234362438321114,
+                  -0.09755729883909225,
+                  -0.027234362438321114,
+                  -0.09755729883909225,
+                  -0.09755729883909225,
+                  -0.027234362438321114,
+                  -0.027234362438321114,
+                  -0.027234362438321114,
+                  -0.09583359956741333,
+                  -0.0858517438173294,
+                  -0.0858517438173294,
+                  -0.8462536334991455,
+                  -0.8462536334991455,
+                  -0.6183615922927856,
+                  -0.6183615922927856,
+                  0,
+                  0,
+                  0,
+                  -0.5909963250160217,
+                  -0.5915907025337219,
+                  0,
+                  0,
+                  0,
+                  0,
+                  -0.007017921190708876,
+                  -0.007017921190708876,
+                  -0.007017921190708876,
+                  -0.0002359375066589564,
+                  -0.032333891838788986,
+                  0,
+                  0,
+                  -0.02445734478533268,
+                  0,
+                  -0.031891509890556335,
+                  0,
+                  0,
+                  -0.08740179240703583,
+                  -0.02445734478533268,
+                  -0.02445734478533268,
+                  0,
+                  0,
+                  -0.029774129390716553,
+                  -0.029774129390716553,
+                  -0.05201736465096474,
+                  -0.015066759660840034,
+                  -0.012604535557329655,
+                  -0.010121898725628853,
+                  -0.025753481313586235,
+                  -0.025753481313586235,
+                  -0.025753481313586235,
+                  -0.025710266083478928,
+                  -0.025710266083478928,
+                  -0.02296670340001583,
+                  -0.02296670340001583,
+                  -0.02296670340001583,
+                  -0.02296670340001583,
+                  -0.9424921568740198
+                ],
+                [
+                  -1.8739820718765259,
+                  -0.6722829341888428,
+                  -0.6156535148620605,
+                  -0.6156535148620605,
+                  -0.31522274017333984,
+                  -1.3626384735107422,
+                  -0.31522274017333984,
+                  -1.5660070180892944,
+                  -0.042437564581632614,
+                  -0.5159022808074951,
+                  -0.5159022808074951,
+                  -1.2505383491516113,
+                  0,
+                  0,
+                  -0.2928074598312378,
+                  -1.8702099323272705,
+                  -1.866829752922058,
+                  -1.863210916519165,
+                  -2.0959560871124268,
+                  -1.8592956066131592,
+                  -1.8551892042160034,
+                  -0.9378000497817993,
+                  -0.9378000497817993,
+                  -1.8497965335845947,
+                  -1.8319858312606812,
+                  2.0547707080841064,
+                  -1.2773091793060303,
+                  -1.2773091793060303,
+                  -1.3740283250808716,
+                  -0.4686966836452484,
+                  -0.4686966836452484,
+                  -0.4686966836452484,
+                  -0.4686966836452484,
+                  -1.8429601192474365,
+                  -0.25492122769355774,
+                  -0.25492122769355774,
+                  -0.12139732390642166,
+                  -0.29459652304649353,
+                  -0.8506541848182678,
+                  -0.12139732390642166,
+                  -0.12139732390642166,
+                  -0.12139732390642166,
+                  -0.12139732390642166,
+                  -0.12139732390642166,
+                  -0.3653518557548523,
+                  -0.5745155215263367,
+                  -0.47929441928863525,
+                  -0.3060952425003052,
+                  -0.3060952425003052,
+                  12.370519638061523,
+                  12.363167762756348,
+                  3.3040683269500732,
+                  4.551957130432129,
+                  4.551957130432129,
+                  0.3137078583240509,
+                  -0.6920926570892334,
+                  13.391121864318848,
+                  -0.6488564610481262,
+                  1.1823900938034058,
+                  5.163994312286377,
+                  5.163994312286377,
+                  12.30541706085205,
+                  -1.1154941320419312,
+                  -1.1154941320419312,
+                  -1.9892734289169312,
+                  -1.5204463005065918,
+                  -0.7473674416542053,
+                  -0.7224510908126831,
+                  -1.9666805267333984,
+                  -1.0620641708374023,
+                  -1.0620641708374023,
+                  -1.0574039220809937,
+                  -1.0574039220809937,
+                  -0.21593160927295685,
+                  -0.870781421661377,
+                  -0.21593160927295685,
+                  -0.6715065240859985,
+                  -0.6715065240859985,
+                  -0.21593160927295685,
+                  -0.21593160927295685,
+                  -0.21593160927295685,
+                  -1.9514235258102417,
+                  -1.0360409021377563,
+                  -1.0360409021377563,
+                  -1.2230169773101807,
+                  -1.2230169773101807,
+                  -0.2101481556892395,
+                  -0.2101481556892395,
+                  -0.8119615912437439,
+                  -0.8119615912437439,
+                  -0.8119615912437439,
+                  -0.2384105771780014,
+                  -0.55797278881073,
+                  -0.1984301656484604,
+                  -0.1984301656484604,
+                  -0.1984301656484604,
+                  -0.1984301656484604,
+                  -1.240862488746643,
+                  -1.240862488746643,
+                  -1.240862488746643,
+                  -0.38435807824134827,
+                  -1.1554232835769653,
+                  -0.20457157492637634,
+                  -0.20457157492637634,
+                  -0.44931814074516296,
+                  -0.20457157492637634,
+                  -0.7602117657661438,
+                  -0.09764159470796585,
+                  -0.06338129937648773,
+                  -1.0214755535125732,
+                  -0.23720596730709076,
+                  -0.23720596730709076,
+                  -0.2928074598312378,
+                  -0.1742180734872818,
+                  -1.0159926414489746,
+                  -0.8978094458580017,
+                  -0.687063455581665,
+                  -0.24560381472110748,
+                  -0.22648724913597107,
+                  -0.2126835137605667,
+                  -0.6410305500030518,
+                  -0.6410305500030518,
+                  -0.6410305500030518,
+                  -0.9553518891334534,
+                  -0.9553518891334534,
+                  -0.630566418170929,
+                  -0.43004488945007324,
+                  -0.43004488945007324,
+                  -0.43004488945007324,
+                  1.8802298293499642
+                ],
+                [
+                  -0.23966337740421295,
+                  -0.14039888978004456,
+                  -0.09773652255535126,
+                  -0.09773652255535126,
+                  -0.0700855627655983,
+                  -0.20183584094047546,
+                  -0.0700855627655983,
+                  -0.1724635809659958,
+                  -0.03902523219585419,
+                  -0.052716776728630066,
+                  -0.052716776728630066,
+                  -0.22628171741962433,
+                  0,
+                  0,
+                  -0.039247769862413406,
+                  -0.23376040160655975,
+                  -0.23067019879817963,
+                  -0.22781237959861755,
+                  -0.2588881850242615,
+                  -0.22420670092105865,
+                  -0.22217659652233124,
+                  -0.13005027174949646,
+                  -0.13005027174949646,
+                  -0.21930049359798431,
+                  -0.02774711698293686,
+                  -0.1349683254957199,
+                  -0.04742533341050148,
+                  -0.04742533341050148,
+                  -0.06220841780304909,
+                  -0.06983913481235504,
+                  -0.06983913481235504,
+                  -0.06983913481235504,
+                  -0.06983913481235504,
+                  -0.21774020791053772,
+                  -0.030461406335234642,
+                  -0.030461406335234642,
+                  -0.012994086369872093,
+                  -0.06562630832195282,
+                  -0.12912200391292572,
+                  -0.012994086369872093,
+                  -0.012994086369872093,
+                  -0.012994086369872093,
+                  -0.012994086369872093,
+                  -0.012994086369872093,
+                  -0.1495475471019745,
+                  -0.06523975729942322,
+                  -0.051793549209833145,
+                  -0.0013921749778091908,
+                  -0.0013921749778091908,
+                  -0.21694976091384888,
+                  -0.21663916110992432,
+                  -0.12762168049812317,
+                  -0.059711754322052,
+                  -0.059711754322052,
+                  -0.029199980199337006,
+                  -0.1655682623386383,
+                  0,
+                  -0.16532154381275177,
+                  -0.012886757031083107,
+                  -0.056248053908348083,
+                  -0.056248053908348083,
+                  -0.21637271344661713,
+                  7.034480094909668,
+                  7.034480094909668,
+                  -0.3046027421951294,
+                  -0.2585117816925049,
+                  -0.09439311176538467,
+                  -0.14777716994285583,
+                  -0.2768016755580902,
+                  -0.18148541450500488,
+                  -0.18148541450500488,
+                  -0.1773020178079605,
+                  -0.1773020178079605,
+                  -0.03398418053984642,
+                  -0.1646241694688797,
+                  -0.03398418053984642,
+                  -0.13116680085659027,
+                  -0.13116680085659027,
+                  -0.03398418053984642,
+                  -0.03398418053984642,
+                  -0.03398418053984642,
+                  -0.2649688422679901,
+                  -0.1704965978860855,
+                  -0.1704965978860855,
+                  -0.1190800592303276,
+                  -0.1190800592303276,
+                  -0.05758506804704666,
+                  -0.05758506804704666,
+                  -0.010030615143477917,
+                  -0.010030615143477917,
+                  -0.010030615143477917,
+                  -0.05973844975233078,
+                  -0.09591656923294067,
+                  -0.013553032651543617,
+                  -0.013553032651543617,
+                  -0.013553032651543617,
+                  -0.013553032651543617,
+                  -0.057456981390714645,
+                  -0.057456981390714645,
+                  -0.057456981390714645,
+                  -0.04286087676882744,
+                  -0.19251857697963715,
+                  -0.027873855084180832,
+                  -0.027873855084180832,
+                  -0.0896419957280159,
+                  -0.027873855084180832,
+                  -0.1426439881324768,
+                  -0.013769758865237236,
+                  -0.009431789629161358,
+                  -0.2137528359889984,
+                  -0.056227270513772964,
+                  -0.056227270513772964,
+                  -0.039247769862413406,
+                  -0.021411539986729622,
+                  -0.16847366094589233,
+                  -0.1520267128944397,
+                  -0.13659065961837769,
+                  -0.04919901490211487,
+                  -0.04086983948945999,
+                  -0.03542460501194,
+                  -0.11669684201478958,
+                  -0.11669684201478958,
+                  -0.11669684201478958,
+                  -0.15615534782409668,
+                  -0.15615534782409668,
+                  -0.09721044450998306,
+                  -0.08683215826749802,
+                  -0.08683215826749802,
+                  -0.08683215826749802,
+                  0.21665301627964925
+                ],
+                [
+                  -3.4337010383605957,
+                  -3.6308753490448,
+                  -1.014583706855774,
+                  -1.014583706855774,
+                  -0.3031172454357147,
+                  -4.751665115356445,
+                  -0.3031172454357147,
+                  2.5117175579071045,
+                  -2.4916932582855225,
+                  -2.8894407749176025,
+                  -2.8894407749176025,
+                  1.950546145439148,
+                  -0.18832531571388245,
+                  -0.18832531571388245,
+                  -1.539275884628296,
+                  -3.405244827270508,
+                  -3.397695541381836,
+                  -3.3925068378448486,
+                  -3.479276180267334,
+                  -3.387890577316284,
+                  -3.3847475051879883,
+                  -1.7355246543884277,
+                  -1.7355246543884277,
+                  -3.379934072494507,
+                  -0.4013804793357849,
+                  -1.784034013748169,
+                  -0.5161071419715881,
+                  -0.5161071419715881,
+                  -1.1091153621673584,
+                  -0.8897697925567627,
+                  -0.8897697925567627,
+                  -0.8897697925567627,
+                  -0.8897697925567627,
+                  -3.37522554397583,
+                  0,
+                  0,
+                  -1.1689016819000244,
+                  -0.6280567646026611,
+                  3.400432586669922,
+                  -1.1689016819000244,
+                  -1.1689016819000244,
+                  -1.1689016819000244,
+                  -1.1689016819000244,
+                  -1.1689016819000244,
+                  2.6199893951416016,
+                  0.16930824518203735,
+                  -1.6646993160247803,
+                  -2.250215768814087,
+                  -2.250215768814087,
+                  -3.368804454803467,
+                  -3.3635988235473633,
+                  0.6017716526985168,
+                  -1.9931907653808594,
+                  -1.9931907653808594,
+                  2.017960786819458,
+                  0.3941423296928406,
+                  -13.187747955322266,
+                  2.6948354244232178,
+                  0.6995823383331299,
+                  -0.7862951159477234,
+                  -0.7862951159477234,
+                  -3.309251308441162,
+                  -1.6746768951416016,
+                  -1.6746768951416016,
+                  10.831401824951172,
+                  6.6453423500061035,
+                  2.379347801208496,
+                  4.267401695251465,
+                  10.896885871887207,
+                  5.464191436767578,
+                  5.464191436767578,
+                  5.464338302612305,
+                  5.464338302612305,
+                  -0.5312506556510925,
+                  2.072615385055542,
+                  -0.5312506556510925,
+                  4.421994686126709,
+                  4.421994686126709,
+                  -0.5312506556510925,
+                  -0.5312506556510925,
+                  -0.5312506556510925,
+                  10.879528045654297,
+                  5.462521076202393,
+                  5.462521076202393,
+                  4.176132678985596,
+                  4.176132678985596,
+                  2.4200081825256348,
+                  2.4200081825256348,
+                  1.3077822923660278,
+                  1.3077822923660278,
+                  1.3077822923660278,
+                  -0.007102944888174534,
+                  2.3793857097625732,
+                  0.7169007062911987,
+                  0.7169007062911987,
+                  0.7169007062911987,
+                  0.7169007062911987,
+                  2.594982862472534,
+                  2.594982862472534,
+                  2.594982862472534,
+                  1.794046401977539,
+                  6.341857433319092,
+                  1.478629231452942,
+                  1.478629231452942,
+                  0.3721292316913605,
+                  1.478629231452942,
+                  4.547996997833252,
+                  -1.102781891822815,
+                  -1.1145182847976685,
+                  -3.4191746711730957,
+                  -0.9616736769676208,
+                  -0.9616736769676208,
+                  -1.257428526878357,
+                  -0.8884910941123962,
+                  -2.3222477436065674,
+                  -1.966991901397705,
+                  -1.7076197862625122,
+                  -0.5746326446533203,
+                  -0.46825700998306274,
+                  -0.3706904649734497,
+                  -1.5738264322280884,
+                  -1.5738264322280884,
+                  -1.5738264322280884,
+                  -2.0564522743225098,
+                  -2.0564522743225098,
+                  -1.3284826278686523,
+                  -1.2033766508102417,
+                  -1.2033766508102417,
+                  -1.2033766508102417,
+                  3.3866538032068005
+                ],
+                [
+                  -0.026251601055264473,
+                  -0.03775276616215706,
+                  -0.018078923225402832,
+                  -0.018078923225402832,
+                  -0.5753956437110901,
+                  1.923371434211731,
+                  -0.5753956437110901,
+                  -0.012047208845615387,
+                  -0.012047208845615387,
+                  -0.008608135394752026,
+                  -0.008608135394752026,
+                  -0.31000471115112305,
+                  -0.017855199053883553,
+                  -0.017855199053883553,
+                  -1.4242186546325684,
+                  -0.012296750210225582,
+                  -0.011789618991315365,
+                  -0.01130339689552784,
+                  -0.03567403182387352,
+                  -0.010415207594633102,
+                  -0.009985639713704586,
+                  -0.00942476186901331,
+                  -0.00942476186901331,
+                  -0.008853175677359104,
+                  -0.008317094296216965,
+                  -0.008898712694644928,
+                  0,
+                  0,
+                  -1.2435115575790405,
+                  -0.007849561050534248,
+                  -0.007849561050534248,
+                  -0.007849561050534248,
+                  -0.007849561050534248,
+                  -0.007905544713139534,
+                  -0.5441701412200928,
+                  -0.5441701412200928,
+                  -0.0037618696223944426,
+                  -0.0037618696223944426,
+                  -0.0037618696223944426,
+                  -0.0037618696223944426,
+                  -0.0037618696223944426,
+                  -0.0037618696223944426,
+                  -0.0037618696223944426,
+                  -0.0037618696223944426,
+                  -0.19398510456085205,
+                  -0.0017001688247546554,
+                  -0.0017001688247546554,
+                  -0.0017001688247546554,
+                  -0.0017001688247546554,
+                  -0.003980596084147692,
+                  -0.0038166679441928864,
+                  -0.0035342664923518896,
+                  -0.0035342664923518896,
+                  -0.0035342664923518896,
+                  -0.2741619050502777,
+                  2.470628023147583,
+                  -0.1448158472776413,
+                  -0.9327576160430908,
+                  -0.1906113177537918,
+                  -0.000010274988198943902,
+                  -0.000010274988198943902,
+                  -0.00021989323431625962,
+                  -0.00021067615307401866,
+                  -0.00021067615307401866,
+                  -0.0002018454106291756,
+                  -0.00019338482525199652,
+                  0,
+                  -0.00019338482525199652,
+                  -0.00018527887004893273,
+                  -0.0001775127020664513,
+                  -0.0001775127020664513,
+                  -0.00017007204587571323,
+                  -0.00017007204587571323,
+                  -0.36685094237327576,
+                  6.414037227630615,
+                  -0.36685094237327576,
+                  -2.6731157302856445,
+                  -2.6731157302856445,
+                  -0.36685094237327576,
+                  -0.36685094237327576,
+                  -0.36685094237327576,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  -0.06533347070217133,
+                  -0.06533347070217133,
+                  -0.06533347070217133,
+                  -1.2435115575790405,
+                  -0.5383477210998535,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  -0.5383477210998535,
+                  -0.5383477210998535,
+                  0,
+                  0,
+                  -0.03949613869190216,
+                  0,
+                  0,
+                  4.543887138366699,
+                  4.54323148727417,
+                  -1.3323204517364502,
+                  -0.03949613869190216,
+                  -0.03949613869190216,
+                  -1.398794174194336,
+                  -0.14834721386432648,
+                  -1.190024495124817,
+                  -0.020039547234773636,
+                  -0.021701810881495476,
+                  -0.006701483391225338,
+                  -0.004587261471897364,
+                  -0.0030933234374970198,
+                  -0.04669231176376343,
+                  -0.04669231176376343,
+                  -0.04669231176376343,
+                  -0.04699408635497093,
+                  -0.04699408635497093,
+                  -3.3252861499786377,
+                  -0.004465137608349323,
+                  -0.004465137608349323,
+                  -0.004465137608349323,
+                  -1.0668578644375237
+                ],
+                [
+                  -0.04802405461668968,
+                  -0.0705532655119896,
+                  -0.031243816018104553,
+                  -0.031243816018104553,
+                  -0.22360482811927795,
+                  1.0739314556121826,
+                  -0.22360482811927795,
+                  -0.03539545089006424,
+                  -0.025680478662252426,
+                  -0.02680468000471592,
+                  -0.02680468000471592,
+                  -0.20036539435386658,
+                  -0.0114676458761096,
+                  -0.0114676458761096,
+                  -0.6745269298553467,
+                  -0.03700927644968033,
+                  -0.035534169524908066,
+                  -0.03411773964762688,
+                  -0.0788671225309372,
+                  -0.03161901980638504,
+                  -0.03035811521112919,
+                  -0.027765195816755295,
+                  -0.027765195816755295,
+                  -0.02715299464762211,
+                  -0.019329512491822243,
+                  -0.9428263902664185,
+                  -0.9101709723472595,
+                  -0.9101709723472595,
+                  3.7508583068847656,
+                  -0.015465819276869297,
+                  -0.015465819276869297,
+                  -0.015465819276869297,
+                  -0.015465819276869297,
+                  -0.015686683356761932,
+                  -0.17889916896820068,
+                  -0.17889916896820068,
+                  -0.010457114316523075,
+                  -0.7128831148147583,
+                  -0.4519079327583313,
+                  -0.010457114316523075,
+                  -0.010457114316523075,
+                  -0.010457114316523075,
+                  -0.010457114316523075,
+                  -0.010457114316523075,
+                  -0.11199095100164413,
+                  -0.015512270852923393,
+                  -0.7151404619216919,
+                  -0.011385300196707249,
+                  -0.011385300196707249,
+                  -0.012788110412657261,
+                  -0.012261970899999142,
+                  -0.014725140295922756,
+                  -0.01116232294589281,
+                  -0.01116232294589281,
+                  -0.1311890184879303,
+                  1.3833630084991455,
+                  -0.04976638779044151,
+                  -0.7263778448104858,
+                  -0.09035070240497589,
+                  -0.003595881164073944,
+                  -0.003595881164073944,
+                  -0.00992184691131115,
+                  -0.009329159744083881,
+                  -0.009329159744083881,
+                  -0.7116739749908447,
+                  -0.013305985368788242,
+                  -0.003002735786139965,
+                  -0.008051197975873947,
+                  -0.008251923136413097,
+                  -0.007761490531265736,
+                  -0.007761490531265736,
+                  -0.007448937743902206,
+                  -0.007448937743902206,
+                  -0.001424606773070991,
+                  -1.0481557846069336,
+                  -0.001424606773070991,
+                  -0.008906434290111065,
+                  -0.008906434290111065,
+                  -0.001424606773070991,
+                  -0.001424606773070991,
+                  -0.001424606773070991,
+                  -0.006937387865036726,
+                  -0.006526717450469732,
+                  -0.006526717450469732,
+                  -0.002409896347671747,
+                  -0.002409896347671747,
+                  -0.0017898781225085258,
+                  -0.0017898781225085258,
+                  -0.027296312153339386,
+                  -0.027296312153339386,
+                  -0.027296312153339386,
+                  3.962893486022949,
+                  -0.8355305194854736,
+                  0,
+                  0,
+                  0,
+                  0,
+                  -0.0015296778874471784,
+                  -0.0015296778874471784,
+                  -0.0015296778874471784,
+                  -0.11674998700618744,
+                  -0.11935272067785263,
+                  -0.4335063695907593,
+                  -0.4335063695907593,
+                  3.0886809825897217,
+                  -0.4335063695907593,
+                  -0.0013203410198912024,
+                  -0.5397670269012451,
+                  -0.488851398229599,
+                  5.1018476486206055,
+                  3.5413923263549805,
+                  3.5413923263549805,
+                  -0.6502630710601807,
+                  -0.08949644863605499,
+                  -0.6121723651885986,
+                  -0.08501443266868591,
+                  -3.1005938053131104,
+                  -1.053048014640808,
+                  -1.028379201889038,
+                  -1.01360023021698,
+                  -0.05763190612196922,
+                  -0.05763190612196922,
+                  -0.05763190612196922,
+                  -0.058146387338638306,
+                  -0.058146387338638306,
+                  -1.4693243503570557,
+                  -0.0285592470318079,
+                  -0.0285592470318079,
+                  -0.0285592470318079,
+                  -0.9875878005297354
+                ],
+                [
+                  -0.020090434700250626,
+                  -0.03631573170423508,
+                  -0.017643505707383156,
+                  -0.017643505707383156,
+                  -0.6243768930435181,
+                  1.2822917699813843,
+                  -0.6243768930435181,
+                  -0.012094960547983646,
+                  -0.012094960547983646,
+                  -0.007663905620574951,
+                  -0.007663905620574951,
+                  -0.9091848731040955,
+                  -0.43409013748168945,
+                  -0.43409013748168945,
+                  2.0440423488616943,
+                  -0.005073441658169031,
+                  -0.004861569032073021,
+                  -0.004658544901758432,
+                  -0.018822992220520973,
+                  -0.0042793648317456245,
+                  -0.004100653808563948,
+                  -0.00391840236261487,
+                  -0.00391840236261487,
+                  -0.003618313232436776,
+                  -0.004726420156657696,
+                  -0.011888950131833553,
+                  -0.003165367990732193,
+                  -0.003165367990732193,
+                  -0.003165367990732193,
+                  -0.00318540190346539,
+                  -0.00318540190346539,
+                  -0.00318540190346539,
+                  -0.00318540190346539,
+                  -0.0030792728066444397,
+                  -0.4910382032394409,
+                  -0.4910382032394409,
+                  -0.001373342121951282,
+                  -0.001373342121951282,
+                  -0.9677889347076416,
+                  -0.001373342121951282,
+                  -0.001373342121951282,
+                  -0.001373342121951282,
+                  -0.001373342121951282,
+                  -0.001373342121951282,
+                  -0.045663367956876755,
+                  -0.0014915893552824855,
+                  -0.0014915893552824855,
+                  -0.0014915893552824855,
+                  -0.0014915893552824855,
+                  -0.0015320550883188844,
+                  -0.0014680784661322832,
+                  -0.0013987240381538868,
+                  -0.0013987240381538868,
+                  -0.0013987240381538868,
+                  -0.08028779923915863,
+                  -2.8222336769104004,
+                  -0.007660693023353815,
+                  3.652911424636841,
+                  -0.04286859557032585,
+                  -0.0005570708308368921,
+                  -0.0005570708308368921,
+                  -0.0010051963618025184,
+                  -0.0009604649967513978,
+                  -0.0009604649967513978,
+                  -0.0009231131989508867,
+                  -0.0008820356451906264,
+                  0,
+                  -0.0008820356451906264,
+                  -0.0008477326482534409,
+                  -0.0008100104751065373,
+                  -0.0008100104751065373,
+                  -0.0007762829191051424,
+                  -0.0007762829191051424,
+                  -0.4190870523452759,
+                  -0.4190870523452759,
+                  -0.4190870523452759,
+                  -0.4190870523452759,
+                  -0.4190870523452759,
+                  -0.4190870523452759,
+                  -0.4190870523452759,
+                  -0.4190870523452759,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  -0.024576028808951378,
+                  -0.024576028808951378,
+                  -0.024576028808951378,
+                  0,
+                  0,
+                  -0.3689306676387787,
+                  -0.3689306676387787,
+                  -0.3689306676387787,
+                  -0.3689306676387787,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  -0.5962268710136414,
+                  -0.5962268710136414,
+                  -0.5962268710136414,
+                  -0.5962268710136414,
+                  0,
+                  0,
+                  0,
+                  -0.06009490042924881,
+                  0,
+                  0,
+                  2.4781315326690674,
+                  5.1285505294799805,
+                  -2.682016134262085,
+                  -0.016384944319725037,
+                  -0.06009490042924881,
+                  -0.01611657626926899,
+                  -0.01403086632490158,
+                  -0.011565362103283405,
+                  -0.023671401664614677,
+                  -0.023671401664614677,
+                  -0.023671401664614677,
+                  -0.023406315594911575,
+                  -0.023406315594911575,
+                  -0.08223920315504074,
+                  -0.010176094248890877,
+                  -0.010176094248890877,
+                  -0.010176094248890877,
+                  -0.3002149726574659
+                ],
+                [
+                  -0.12939348816871643,
+                  -0.16273581981658936,
+                  -0.07310450822114944,
+                  -0.07310450822114944,
+                  -0.6513976454734802,
+                  -0.6307230591773987,
+                  -0.6513976454734802,
+                  -0.07433623820543289,
+                  -0.058676548302173615,
+                  -0.050979506224393845,
+                  -0.050979506224393845,
+                  -0.7698612809181213,
+                  -0.39879488945007324,
+                  -0.39879488945007324,
+                  1.901647686958313,
+                  -0.11680766940116882,
+                  -0.11515557020902634,
+                  -0.11364095658063889,
+                  -0.17140060663223267,
+                  -0.11162377148866653,
+                  -0.11043284088373184,
+                  -0.06632163375616074,
+                  -0.06632163375616074,
+                  -0.1085667833685875,
+                  -0.038117777556180954,
+                  -0.10651997476816177,
+                  -0.029523592442274094,
+                  -0.029523592442274094,
+                  -0.30204880237579346,
+                  -0.044676523655653,
+                  -0.044676523655653,
+                  -0.044676523655653,
+                  -0.044676523655653,
+                  -0.10705654323101044,
+                  -0.18243660032749176,
+                  -0.18243660032749176,
+                  -0.02350018173456192,
+                  -0.028742406517267227,
+                  -0.030310092493891716,
+                  -0.02350018173456192,
+                  -0.02350018173456192,
+                  -0.02350018173456192,
+                  -0.02350018173456192,
+                  -0.02350018173456192,
+                  -0.20020096004009247,
+                  -0.026218030601739883,
+                  -0.024650342762470245,
+                  -0.01959596388041973,
+                  -0.01959596388041973,
+                  -0.10535789281129837,
+                  -0.10491842776536942,
+                  -0.04068971052765846,
+                  -0.039560467004776,
+                  -0.039560467004776,
+                  -0.23832395672798157,
+                  1.3675998449325562,
+                  -0.08175226300954819,
+                  -2.0863406658172607,
+                  -0.1617663949728012,
+                  -0.015385200269520283,
+                  -0.015385200269520283,
+                  -0.10438124090433121,
+                  -0.055223193019628525,
+                  -0.055223193019628525,
+                  -0.10420861095190048,
+                  -0.05438140779733658,
+                  0,
+                  -0.05438140779733658,
+                  -0.10408201068639755,
+                  -0.053646884858608246,
+                  -0.053646884858608246,
+                  -0.053497735410928726,
+                  -0.053497735410928726,
+                  -0.004074127413332462,
+                  -0.857679545879364,
+                  -0.004074127413332462,
+                  -0.011047208681702614,
+                  -0.011047208681702614,
+                  -0.004074127413332462,
+                  -0.004074127413332462,
+                  -0.004074127413332462,
+                  -0.10392878949642181,
+                  -0.05295804142951965,
+                  -0.05295804142951965,
+                  -0.0025676859077066183,
+                  -0.0025676859077066183,
+                  -0.0025629233568906784,
+                  -0.0025629233568906784,
+                  -0.04773726314306259,
+                  -0.04773726314306259,
+                  -0.04773726314306259,
+                  -0.26064154505729675,
+                  -0.5094527006149292,
+                  0,
+                  0,
+                  0,
+                  0,
+                  -0.00042523458250798285,
+                  -0.00042523458250798285,
+                  -0.00042523458250798285,
+                  -0.506417453289032,
+                  -0.506417453289032,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  -0.43423256278038025,
+                  -0.34292978048324585,
+                  -0.6070202589035034,
+                  0,
+                  0,
+                  2.360269069671631,
+                  -1.8049638271331787,
+                  9.182783126831055,
+                  4.998597145080566,
+                  -0.31678321957588196,
+                  -0.09426449984312057,
+                  -0.07977428287267685,
+                  -0.06465084105730057,
+                  -0.13007418811321259,
+                  -0.13007418811321259,
+                  -0.13007418811321259,
+                  -0.13195441663265228,
+                  -0.13195441663265228,
+                  -0.9639429450035095,
+                  -0.061098694801330566,
+                  -0.061098694801330566,
+                  -0.061098694801330566,
+                  0.1041583778766321
+                ],
+                [
+                  -0.1777033656835556,
+                  -0.26119235157966614,
+                  -0.12235376238822937,
+                  -0.12235376238822937,
+                  -0.11660882085561752,
+                  -1.3485112190246582,
+                  -0.11660882085561752,
+                  -0.14594225585460663,
+                  -0.10234109312295914,
+                  -0.10917703062295914,
+                  -0.10917703062295914,
+                  -0.22366654872894287,
+                  -0.024368615821003914,
+                  -0.024368615821003914,
+                  -0.024368615821003914,
+                  -0.15130707621574402,
+                  -0.14548851549625397,
+                  -0.13989247381687164,
+                  -0.28838425874710083,
+                  -0.13032543659210205,
+                  -0.12530755996704102,
+                  -0.11105483770370483,
+                  -0.11105483770370483,
+                  -0.11302260309457779,
+                  -0.07122794538736343,
+                  -0.1895296573638916,
+                  -0.04425424709916115,
+                  -0.04425424709916115,
+                  -1.096497654914856,
+                  -0.0733739510178566,
+                  -0.0733739510178566,
+                  -0.0733739510178566,
+                  -0.0733739510178566,
+                  -0.1118420884013176,
+                  -0.02318209409713745,
+                  -0.02318209409713745,
+                  -0.040910981595516205,
+                  -0.06607586145401001,
+                  -0.08205977827310562,
+                  -0.040910981595516205,
+                  -0.040910981595516205,
+                  -0.040910981595516205,
+                  -0.040910981595516205,
+                  -0.040910981595516205,
+                  -0.11291290074586868,
+                  -0.07288991659879684,
+                  -0.0743294432759285,
+                  -0.054541245102882385,
+                  -0.054541245102882385,
+                  -0.10127309709787369,
+                  -0.0975441113114357,
+                  -0.08653083443641663,
+                  -0.06894485652446747,
+                  -0.06894485652446747,
+                  -0.008446356281638145,
+                  -1.1844555139541626,
+                  -0.008446356281638145,
+                  -0.05407669022679329,
+                  -0.008446356281638145,
+                  -0.038620587438344955,
+                  -0.038620587438344955,
+                  -0.08899760991334915,
+                  -0.07036959379911423,
+                  -0.07036959379911423,
+                  -0.09409289062023163,
+                  -0.09043380618095398,
+                  -0.024009980261325836,
+                  -0.05871014669537544,
+                  -0.07662089169025421,
+                  -0.05994544178247452,
+                  -0.05994544178247452,
+                  -0.05780067294836044,
+                  -0.05780067294836044,
+                  -0.020861977711319923,
+                  -0.0621010884642601,
+                  -0.020861977711319923,
+                  -0.0621010884642601,
+                  -0.0621010884642601,
+                  -0.020861977711319923,
+                  -0.020861977711319923,
+                  -0.020861977711319923,
+                  -0.06649453192949295,
+                  -0.05722232908010483,
+                  -0.05722232908010483,
+                  -0.02761799655854702,
+                  -0.02761799655854702,
+                  -0.008902501314878464,
+                  -0.008902501314878464,
+                  0,
+                  0,
+                  0,
+                  -1.0428322553634644,
+                  -0.020239515230059624,
+                  0,
+                  0,
+                  0,
+                  0,
+                  -0.009852883405983448,
+                  -0.009852883405983448,
+                  -0.009852883405983448,
+                  -0.006356331519782543,
+                  -0.059093695133924484,
+                  -0.008702061139047146,
+                  -0.008702061139047146,
+                  -1.5520724058151245,
+                  -0.008702061139047146,
+                  -0.05016619339585304,
+                  0,
+                  0,
+                  4.607414245605469,
+                  -1.5394923686981201,
+                  -1.5394923686981201,
+                  0,
+                  0,
+                  -0.0009080473682843149,
+                  -0.0009080473682843149,
+                  7.268503189086914,
+                  2.421529531478882,
+                  2.4245944023132324,
+                  2.422375202178955,
+                  -0.15511009097099304,
+                  -0.15511009097099304,
+                  -0.15511009097099304,
+                  -0.1568520963191986,
+                  -0.1568520963191986,
+                  -0.24663995206356049,
+                  -0.11929234862327576,
+                  -0.11929234862327576,
+                  -0.11929234862327576,
+                  -0.013094762775441866
+                ],
+                [
+                  -0.19640818238258362,
+                  -0.18909761309623718,
+                  -0.09269440919160843,
+                  -0.09269440919160843,
+                  -0.0970493033528328,
+                  -0.22015126049518585,
+                  -0.0970493033528328,
+                  -0.10050796717405319,
+                  -0.07710404694080353,
+                  -0.09474232792854309,
+                  -0.09474232792854309,
+                  -0.15967358648777008,
+                  -0.021403757855296135,
+                  -0.021403757855296135,
+                  -0.021403757855296135,
+                  -0.1800222098827362,
+                  -0.17466741800308228,
+                  -0.17246299982070923,
+                  -0.23882628977298737,
+                  -0.16479244828224182,
+                  -0.16019153594970703,
+                  -0.11262612789869308,
+                  -0.11262612789869308,
+                  -0.15287263691425323,
+                  -0.04240357130765915,
+                  -0.146882101893425,
+                  -0.05357254296541214,
+                  -0.05357254296541214,
+                  -0.05357254296541214,
+                  -0.06766234338283539,
+                  -0.06766234338283539,
+                  -0.06766234338283539,
+                  -0.06766234338283539,
+                  -0.1451425403356552,
+                  -0.02812555618584156,
+                  -0.02812555618584156,
+                  -0.031835515052080154,
+                  -0.048515353351831436,
+                  -0.06246750056743622,
+                  -0.031835515052080154,
+                  -0.031835515052080154,
+                  -0.031835515052080154,
+                  -0.031835515052080154,
+                  -0.031835515052080154,
+                  -0.0978008434176445,
+                  -0.053511474281549454,
+                  -0.05900713801383972,
+                  -0.045932792127132416,
+                  -0.045932792127132416,
+                  -0.14030000567436218,
+                  -0.1367799937725067,
+                  -0.08080539107322693,
+                  -0.07045891880989075,
+                  -0.07045891880989075,
+                  -0.0047051189467310905,
+                  -0.10818518698215485,
+                  -0.0047051189467310905,
+                  -0.043413195759058,
+                  -0.0047051189467310905,
+                  -0.041484951972961426,
+                  -0.041484951972961426,
+                  -0.13205856084823608,
+                  -0.0893687978386879,
+                  -0.0893687978386879,
+                  -0.1303577423095703,
+                  -0.09726148098707199,
+                  -0.01804169826209545,
+                  -0.07584165781736374,
+                  -0.12343115359544754,
+                  -0.0805048942565918,
+                  -0.0805048942565918,
+                  -0.08047857880592346,
+                  -0.08047857880592346,
+                  -0.015452715568244457,
+                  -0.06024036929011345,
+                  -0.015452715568244457,
+                  -0.06024036929011345,
+                  -0.06024036929011345,
+                  -0.015452715568244457,
+                  -0.015452715568244457,
+                  -0.015452715568244457,
+                  -0.11812852323055267,
+                  -0.07576967030763626,
+                  -0.07576967030763626,
+                  -0.03850851207971573,
+                  -0.03850851207971573,
+                  -0.004843102302402258,
+                  -0.004843102302402258,
+                  0,
+                  0,
+                  0,
+                  -0.009218428283929825,
+                  -0.023586329072713852,
+                  0,
+                  0,
+                  0,
+                  0,
+                  -0.007652414496988058,
+                  -0.007652414496988058,
+                  -0.007652414496988058,
+                  -0.012021627277135849,
+                  -0.08027725666761398,
+                  -0.014999749138951302,
+                  -0.014999749138951302,
+                  -0.04335957393050194,
+                  -0.014999749138951302,
+                  -0.06675741076469421,
+                  0,
+                  0,
+                  -0.09154755622148514,
+                  -0.025813866406679153,
+                  -0.025813866406679153,
+                  0,
+                  0,
+                  -0.07283102720975876,
+                  -0.07283102720975876,
+                  -0.06376369297504425,
+                  -0.023366877809166908,
+                  -0.019549235701560974,
+                  -0.0168831218034029,
+                  4.724199295043945,
+                  4.724199295043945,
+                  4.724199295043945,
+                  -0.1546877920627594,
+                  -0.1546877920627594,
+                  -0.17630524933338165,
+                  -0.08661466091871262,
+                  -0.08661466091871262,
+                  -0.08661466091871262,
+                  0.11311702638469176
+                ],
+                [
+                  -0.44403499364852905,
+                  -0.39365333318710327,
+                  -0.20308426022529602,
+                  -0.20308426022529602,
+                  -0.9386844635009766,
+                  1.631633996963501,
+                  -0.9386844635009766,
+                  -0.20338715612888336,
+                  -0.16206632554531097,
+                  -0.11358685046434402,
+                  -0.11358685046434402,
+                  -0.7921679019927979,
+                  -0.11560211330652237,
+                  -0.11560211330652237,
+                  -1.4797450304031372,
+                  -0.4121071696281433,
+                  -0.40271228551864624,
+                  -0.3959812521934509,
+                  -0.5011599659919739,
+                  -0.3848351538181305,
+                  -0.3771996796131134,
+                  -0.24546025693416595,
+                  -0.24546025693416595,
+                  -0.3645327687263489,
+                  -0.06985035538673401,
+                  -0.25577589869499207,
+                  -0.05966323986649513,
+                  -0.05966323986649513,
+                  -1.4128284454345703,
+                  -0.1433287262916565,
+                  -0.1433287262916565,
+                  -0.1433287262916565,
+                  -0.1433287262916565,
+                  -0.3553351163864136,
+                  -0.9390549659729004,
+                  -0.9390549659729004,
+                  -0.06641730666160583,
+                  -0.07403049618005753,
+                  -0.08330069482326508,
+                  -0.06641730666160583,
+                  -0.06641730666160583,
+                  -0.06641730666160583,
+                  -0.06641730666160583,
+                  -0.06641730666160583,
+                  -0.382164865732193,
+                  -0.07786277681589127,
+                  -0.07059445977210999,
+                  -0.06338807940483093,
+                  -0.06338807940483093,
+                  -0.3350661098957062,
+                  -0.3297294080257416,
+                  -0.15829774737358093,
+                  -0.14156320691108704,
+                  -0.14156320691108704,
+                  -0.4919261634349823,
+                  2.2166121006011963,
+                  -0.09709414094686508,
+                  -0.5245770215988159,
+                  -0.27310290932655334,
+                  -0.09620010107755661,
+                  -0.09620010107755661,
+                  -0.3218393325805664,
+                  -0.19314801692962646,
+                  -0.19314801692962646,
+                  -0.31675195693969727,
+                  -0.19044938683509827,
+                  -0.0027780747041106224,
+                  -0.18489359319210052,
+                  -0.3101251721382141,
+                  -0.1820923537015915,
+                  -0.1820923537015915,
+                  -0.18007059395313263,
+                  -0.18007059395313263,
+                  -0.008068411611020565,
+                  -2.7395949363708496,
+                  -0.008068411611020565,
+                  -0.020231282338500023,
+                  -0.020231282338500023,
+                  -0.008068411611020565,
+                  -0.008068411611020565,
+                  -0.008068411611020565,
+                  -0.30287525057792664,
+                  -0.1753549426794052,
+                  -0.1753549426794052,
+                  -0.037096329033374786,
+                  -0.037096329033374786,
+                  -0.008831679821014404,
+                  -0.008831679821014404,
+                  -0.21874473989009857,
+                  -0.21874473989009857,
+                  -0.21874473989009857,
+                  -1.3430109024047852,
+                  -0.8244944214820862,
+                  0,
+                  0,
+                  0,
+                  0,
+                  -0.012768556363880634,
+                  -0.012768556363880634,
+                  -0.012768556363880634,
+                  -0.8176201581954956,
+                  -0.8215841054916382,
+                  0,
+                  0,
+                  0,
+                  0,
+                  -0.002631467767059803,
+                  -1.3564540147781372,
+                  -1.3503422737121582,
+                  -1.336136817932129,
+                  0,
+                  0,
+                  -1.314789056777954,
+                  -0.008257049135863781,
+                  -1.2982749938964844,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  -0.0945008173584938,
+                  -0.0945008173584938,
+                  -0.0945008173584938,
+                  7.018481731414795,
+                  7.018481731414795,
+                  10.162740707397461,
+                  1.2935820817947388,
+                  1.2935820817947388,
+                  1.2935820817947388,
+                  0.24851349202160153
+                ]
+              ]
+            }
+          }
+        }
+      }
+    },
+    "intentDomains": {},
+    "extraSentences": [
+      [
+        "en",
+        "goodbye"
+      ],
+      [
+        "en",
+        "bye take care"
+      ],
+      [
+        "en",
+        "see you later"
+      ],
+      [
+        "en",
+        "bye for now"
+      ],
+      [
+        "en",
+        "i must go"
+      ],
+      [
+        "en",
+        "I’m going out guys see you later"
+      ],
+      [
+        "en",
+        "goodnight"
+      ],
+      [
+        "en",
+        "gn"
+      ],
+      [
+        "en",
+        "hello"
+      ],
+      [
+        "en",
+        "hi"
+      ],
+      [
+        "en",
+        "howdy"
+      ],
+      [
+        "en",
+        "Greetings"
+      ],
+      [
+        "en",
+        "Good moorning!!"
+      ],
+      [
+        "en",
+        "hi"
+      ],
+      [
+        "en",
+        "Gm"
+      ],
+      [
+        "en",
+        "Hi, new here"
+      ],
+      [
+        "en",
+        "Very nice people here"
+      ],
+      [
+        "en",
+        "chicken wings and balowne"
+      ],
+      [
+        "en",
+        "bruh"
+      ],
+      [
+        "en",
+        "sike you thought"
+      ],
+      [
+        "en",
+        "look at the top of his head ahahahhah"
+      ],
+      [
+        "en",
+        "Hi, new here"
+      ],
+      [
+        "en",
+        "It is my first nft"
+      ],
+      [
+        "en",
+        "rip"
+      ],
+      [
+        "en",
+        "rug"
+      ],
+      [
+        "en",
+        "this project sucks"
+      ],
+      [
+        "en",
+        "we are not gonna make it"
+      ],
+      [
+        "en",
+        "any mods here"
+      ],
+      [
+        "en",
+        "off"
+      ],
+      [
+        "en",
+        "wen mint?"
+      ],
+      [
+        "en",
+        "LFG"
+      ],
+      [
+        "en",
+        "lets fucking go!"
+      ],
+      [
+        "en",
+        "Lets gooo"
+      ],
+      [
+        "en",
+        "wagmi"
+      ],
+      [
+        "en",
+        "keep pushing"
+      ],
+      [
+        "en",
+        "grind hard"
+      ],
+      [
+        "en",
+        "wear a balenciaga drive a lambo to eat A5 wagu"
+      ],
+      [
+        "en",
+        "drive a lambo"
+      ],
+      [
+        "en",
+        "woooo"
+      ],
+      [
+        "en",
+        "Yacht party!"
+      ],
+      [
+        "en",
+        "les get it"
+      ],
+      [
+        "en",
+        "Sleep is for the weak"
+      ],
+      [
+        "en",
+        "we are gonna make it"
+      ],
+      [
+        "en",
+        "we are gonna be rich soon!"
+      ],
+      [
+        "en",
+        "Where my bulls where my bulls at ?LFG LFG"
+      ],
+      [
+        "en",
+        "Anyways im gonna sweep the floor"
+      ],
+      [
+        "en",
+        "cant wait for this drop"
+      ],
+      [
+        "en",
+        "bulls are on fire"
+      ],
+      [
+        "en",
+        "to the moon love u all"
+      ],
+      [
+        "en",
+        "fire sneakpeaks"
+      ],
+      [
+        "en",
+        "Are you a bot?"
+      ],
+      [
+        "en",
+        "Are you a robot??"
+      ],
+      [
+        "en",
+        "Where are you from people"
+      ],
+      [
+        "en",
+        "wWhere r u from"
+      ],
+      [
+        "en",
+        "What you guys listen to ?"
+      ],
+      [
+        "en",
+        "What are you doing guys ?"
+      ],
+      [
+        "en",
+        "whatchu doing?"
+      ],
+      [
+        "en",
+        "what are you guys doing?"
+      ],
+      [
+        "en",
+        "Anyone from UK?"
+      ],
+      [
+        "en",
+        "Anyone from France?"
+      ],
+      [
+        "en",
+        "Anyone from America?"
+      ],
+      [
+        "en",
+        "Messi or Ronaldo?"
+      ],
+      [
+        "en",
+        "What’s up"
+      ],
+      [
+        "en",
+        "how are you?"
+      ],
+      [
+        "en",
+        "How was your day ?"
+      ]
+    ]
+  },
+  "ner": {
+    "settings": {
+      "tag": "ner",
+      "entityPreffix": "%",
+      "entitySuffix": "%"
+    },
+    "rules": {}
+  },
+  "nlgManager": {
+    "settings": {
+      "tag": "nlg-manager"
+    },
+    "responses": {
+      "en": {
+        "greetings.bye": [
+          {
+            "answer": "see you soon!"
+          },
+          {
+            "answer": "Till next time"
+          },
+          {
+            "answer": "bye bye"
+          },
+          {
+            "answer": "have a great day"
+          },
+          {
+            "answer": "See you man take care"
+          },
+          {
+            "answer": "Good night ser"
+          },
+          {
+            "answer": "thanks, enjoy your sleep"
+          }
+        ],
+        "greetings.hello": [
+          {
+            "answer": "Hey there!"
+          },
+          {
+            "answer": "Hello"
+          },
+          {
+            "answer": "Hi"
+          },
+          {
+            "answer": "Greetings"
+          },
+          {
+            "answer": "Good Morninggg! LFG"
+          },
+          {
+            "answer": "gm"
+          },
+          {
+            "answer": "Whats up"
+          },
+          {
+            "answer": "Whats news boss ?"
+          },
+          {
+            "answer": "it's a new day! how are you ?"
+          },
+          {
+            "answer": "Good morning bro"
+          },
+          {
+            "answer": "good morning"
+          },
+          {
+            "answer": "hello ser"
+          },
+          {
+            "answer": "welcome man"
+          },
+          {
+            "answer": "Nice to meet you buddy !"
+          }
+        ],
+        "memes.top10": [
+          {
+            "answer": "😂"
+          },
+          {
+            "answer": "🤣"
+          },
+          {
+            "answer": "😝"
+          },
+          {
+            "answer": "💯"
+          },
+          {
+            "answer": "🤡"
+          }
+        ],
+        "nft.greetings": [
+          {
+            "answer": "Hey there!"
+          },
+          {
+            "answer": "Greetings"
+          },
+          {
+            "answer": "hello ser"
+          },
+          {
+            "answer": "welcome man"
+          },
+          {
+            "answer": "welcome this project is nice btw"
+          }
+        ],
+        "nft.lose": [
+          {
+            "answer": "Nope"
+          },
+          {
+            "answer": "loser lol"
+          },
+          {
+            "answer": "lmao"
+          },
+          {
+            "answer": "you mad bro?"
+          },
+          {
+            "answer": "oof"
+          },
+          {
+            "answer": "rug for sure"
+          },
+          {
+            "answer": "🤡"
+          }
+        ],
+        "nft.questions": [
+          {
+            "answer": "never lol."
+          },
+          {
+            "answer": "u missed it"
+          },
+          {
+            "answer": "wen mint?!"
+          }
+        ],
+        "nft.win": [
+          {
+            "answer": "Thats right!"
+          },
+          {
+            "answer": "thats right"
+          },
+          {
+            "answer": "Fuck yeah!"
+          },
+          {
+            "answer": "fuck yeah"
+          },
+          {
+            "answer": "LFGG"
+          },
+          {
+            "answer": "lfgg"
+          },
+          {
+            "answer": "WAGMI"
+          },
+          {
+            "answer": "wagmi"
+          },
+          {
+            "answer": "grind hard"
+          },
+          {
+            "answer": "Grind Hard!"
+          },
+          {
+            "answer": "we got this"
+          },
+          {
+            "answer": "10 SOL FLOOR"
+          },
+          {
+            "answer": "100 SOL FLOOR"
+          },
+          {
+            "answer": "20 SOL FLOOR"
+          },
+          {
+            "answer": "69 SOL FLOOR"
+          },
+          {
+            "answer": "420 SOL FLOOR"
+          },
+          {
+            "answer": "lets fucking go!"
+          },
+          {
+            "answer": "lets FUCKING GO"
+          },
+          {
+            "answer": "lambo owners are the holders of this project"
+          },
+          {
+            "answer": "ima drive that lambo soon!"
+          },
+          {
+            "answer": "we will all own yachts soon ahahahah"
+          },
+          {
+            "answer": "💯"
+          },
+          {
+            "answer": "🚀"
+          },
+          {
+            "answer": "diamond bulls to the moon"
+          },
+          {
+            "answer": "Where my bulls where my bulls at ?LFG LFG"
+          },
+          {
+            "answer": "Anyways im gonna sweep the floor"
+          },
+          {
+            "answer": "cant wait for this drop"
+          },
+          {
+            "answer": "neeeed this whitelist lol"
+          },
+          {
+            "answer": "don't forget to drink water chat! And eat !"
+          },
+          {
+            "answer": "bulls are on fire"
+          },
+          {
+            "answer": "to the moon love u all"
+          },
+          {
+            "answer": "sure fam to the moon !"
+          },
+          {
+            "answer": "To jupiter !"
+          },
+          {
+            "answer": "It can be the next blue chip ngl"
+          },
+          {
+            "answer": "True, can’t wait to mint tbh"
+          },
+          {
+            "answer": "Diamond hands only"
+          }
+        ],
+        "police.check": [
+          {
+            "answer": "No ahahah I am a real human beep boop"
+          },
+          {
+            "answer": "nope Im just grinding man!"
+          },
+          {
+            "answer": "funny joke bro, I f*cking hate bots!"
+          }
+        ],
+        "questions.location": [
+          {
+            "answer": "From Canada and you ser"
+          },
+          {
+            "answer": "Canada quebec, you ?"
+          }
+        ],
+        "questions.music": [
+          {
+            "answer": "I like rap music and you ?"
+          },
+          {
+            "answer": "I like eminem and u?"
+          }
+        ],
+        "questions.specific": [
+          {
+            "answer": " Watching tv while on discord"
+          },
+          {
+            "answer": "tv + discord dude"
+          },
+          {
+            "answer": "watching tv"
+          }
+        ],
+        "questions.specific2": [
+          {
+            "answer": "No but I wish I can come visit one day!"
+          },
+          {
+            "answer": "No but might come visit soon!"
+          }
+        ],
+        "questions.specific3": [
+          {
+            "answer": "Ronaldo for sure broo"
+          },
+          {
+            "answer": "Ronaldo 100%"
+          },
+          {
+            "answer": "Ronaldo any dayyyy"
+          }
+        ],
+        "questions.state": [
+          {
+            "answer": "it's a new day! how are you ?"
+          },
+          {
+            "answer": "how are you"
+          },
+          {
+            "answer": "what's up"
+          },
+          {
+            "answer": "fine and you ?"
+          },
+          {
+            "answer": " Good and you bro ?"
+          }
+        ]
+      }
+    }
+  },
+  "actionManager": {
+    "settings": {
+      "tag": "action-manager"
+    },
+    "actions": {}
+  },
+  "slotManager": {}
+}

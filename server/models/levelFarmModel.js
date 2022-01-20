@@ -55,6 +55,10 @@ var levelFarmSchema = new Schema({
         required: false,
         default: ''
     },
+    spam: {
+        type: Boolean,
+        required: true
+    }
 });
 
 module.exports = mongoose.model('LevelFarms', levelFarmSchema);
