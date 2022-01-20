@@ -101,12 +101,15 @@ async function getAllFarms() {
 exports.startFarming = async function(res, req) {
     let checkIfFarming = await levelFarms.findOne({ discordId: req.body.userToken });
 
-    let checkIfFarmingRunning = false;
-    let checkIfFarmingState = 0;
+    let checkIfFarmingRunning;
+    let checkIfFarmingState;
 
     if (checkIfFarming) {
-        await checkIfFarmingRunning = checkIfFarming.running;
-        await checkIfFarmingState = checkIfFarming.state;
+        checkIfFarmingRunning = checkIfFarming.running;
+        checkIfFarmingState = checkIfFarming.state;
+    } else {
+        checkIfFarmingRunning = false;
+        checkIfFarmingState = 0;
     }
 
     console.log(checkIfFarmingState, checkIfFarmingRunning);
