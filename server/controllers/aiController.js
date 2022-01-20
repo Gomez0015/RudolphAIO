@@ -105,9 +105,11 @@ exports.startFarming = async function(res, req) {
     let checkIfFarmingState = 0;
 
     if (checkIfFarming) {
-        checkIfFarmingRunning = checkIfFarming.running;
-        checkIfFarmingState = checkIfFarming.state;
+        await checkIfFarmingRunning = checkIfFarming.running;
+        await checkIfFarmingState = checkIfFarming.state;
     }
+
+    console.log(checkIfFarmingState, checkIfFarmingRunning);
 
     if (checkIfFarmingRunning == true) {
         res.send({ state: 'error', message: 'Already farming' });
