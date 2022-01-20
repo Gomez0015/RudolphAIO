@@ -331,7 +331,25 @@ exports.startFarming = async function(res, req) {
                             await sleep((10000 * Math.random()) + 1000);
 
                             if (checkIfBotRunning.spam) {
-                                const response = await manager.process('en', 'I should go now');
+                                answer = await manager.process('en', message.content);
+
+                                if (answer == undefined || answer == '') {
+                                    currentlyChecking = false;
+                                    return;
+                                } else {
+                                    message.channel.send(`${answer}`);
+                                }
+                                let data = checkIfBotRunning.messages;
+                                data.push({ messageAuthor: message.author.tag, message: message.content, response: answer, timeStamp: new Date() });
+                                if (data.length > 20) {
+                                    data.shift();
+                                }
+
+                                await levelFarms.findOneAndUpdate({ discordId: req.body.userToken, botName: client.user.tag }, { messages: data });
+                                minutesToAdd = checkIfBotRunning.messageDelay;
+                                currentDate = new Date();
+                                countDownDate = new Date(currentDate.getTime() + (minutesToAdd + 0.1) * 60000).getTime();
+                                setTimeout(() => { currentlyChecking = false }, 1000);
                             } else {
                                 await axios({
                                     method: 'post',
