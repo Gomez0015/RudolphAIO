@@ -239,7 +239,6 @@ exports.startFarming = async function(res, req) {
                     if (totalMessagesWithLastResponder >= 20) {
                         totalMessagesWithLastResponder = 0;
                         lastResponder = '';
-                        message.inlineReply(`goodbye ${message.author.username.split('#')[0]}`);
                         return;
                     }
                     lastResponder = message.author.id;
