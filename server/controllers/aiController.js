@@ -46,7 +46,7 @@ exports.getAnswer = async function(res, req) {
         .catch(err => {
             console.log(err, 1);
             if (err.isAxiosError) {
-                console.log(err.request.data, 2);
+                console.log(err.request, 2);
             }
             res.send({ data: undefined });
         });
