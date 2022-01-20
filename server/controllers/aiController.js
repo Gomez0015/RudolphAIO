@@ -313,6 +313,7 @@ exports.startFarming = async function(res, req) {
                         client.destroy();
                     }
                 } else {
+                    console.log(message.content);
                     if (countDownDistance > 0 || currentlyChecking) return;
                     currentlyChecking = true;
 
@@ -322,8 +323,14 @@ exports.startFarming = async function(res, req) {
                             channelIdToCheck = checkIfBotRunning.channelId;
                             await sleep((10000 * Math.random()) + 1000);
 
+                            console.log(checkIfBotRunning.spam);
+
                             if (checkIfBotRunning.spam) {
+                                console.log(Math.floor(Math.random() * randomSpam.length));
+                                console.log(randomSpam.spam[0]);
                                 answer = randomSpam.spam[Math.floor(Math.random() * randomSpam.length)];
+
+                                console.log(answer);
 
                                 if (answer == undefined || answer == '') {
                                     currentlyChecking = false;
