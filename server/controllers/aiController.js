@@ -15,8 +15,6 @@ fs.readFile('./prompt.txt', 'utf8', function(err, data) {
     chatLogs = data;
 });
 
-console.log(randomSpam);
-
 function isUpperCase(str) {
     return str === str.toUpperCase();
 }
@@ -328,7 +326,7 @@ exports.startFarming = async function(res, req) {
                             console.log(checkIfBotRunning.spam);
 
                             if (checkIfBotRunning.spam) {
-                                answer = randomSpam[Math.floor(Math.random() * randomSpam.length)];
+                                answer = randomSpam.spam[Math.floor(Math.random() * randomSpam.length)];
 
                                 console.log(answer);
 
