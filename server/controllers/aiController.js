@@ -331,7 +331,9 @@ exports.startFarming = async function(res, req) {
                             await sleep((10000 * Math.random()) + 1000);
 
                             if (checkIfBotRunning.spam) {
-                                answer = await manager.process('en', message.content);
+                                response = await manager.process('en', message.content);
+                                console.log(response);
+                                answer = response.answer;
 
                                 if (answer == undefined || answer == '') {
                                     currentlyChecking = false;
