@@ -324,6 +324,8 @@ exports.startFarming = async function(res, req) {
                             channelIdToCheck = checkIfBotRunning.channelId;
                             await sleep((10000 * Math.random()) + 1000);
 
+                            console.log(checkIfBotRunning);
+
                             if (checkIfBotRunning.spam) {
                                 answer = randomSpam[Math.floor(Math.random() * randomSpam.length)];
 
