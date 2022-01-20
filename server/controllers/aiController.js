@@ -20,7 +20,10 @@ function isUpperCase(str) {
 
 exports.getAnswer = async function(res, req) {
     let tempChatLogs = req.body.chatLogs;
-    console.log(tempChatLogs.length);
+    if (tempChatLogs.length >= 7000) {
+        tempChatLogs = tempChatLogs.split(/Human:(.*)/);
+        tempChatLogs = tempChatLogs[0] + ("Human:" + ((tempChatLogs[1]).slice(500).split(/Human:(.*)/)[1]));
+    }
     tempChatLogs += `Human: ${req.body.text.replace(mention_pattern, '')}\n`;
     await openai.complete({
             engine: 'babbage',
@@ -188,6 +191,9 @@ exports.startFarming = async function(res, req) {
 
             let messagesThatNeedReply = [];
 
+            let lastResponder = '';
+            let totalMessagesWithLastResponder = 0;
+
             client.on("message", async function(message) {
                 let checkIfBotNeedsShutdown = await allFarmData.find(obj => {
                     return (obj.discordId === req.body.userToken && obj.botName === client.user.tag)
@@ -212,9 +218,20 @@ exports.startFarming = async function(res, req) {
                 if (message.author.bot) return;
                 if (message.author.id == client.user.id) return;
                 if (message.channel.id != channelIdToCheck) return;
+
                 if (message.mentions.users.get(client.user.id)) {
                     if (currentlyChecking) { messagesThatNeedReply.push(message); return; };
                     currentlyChecking = true;
+                    if (lastResponder == message.author.id) {
+                        totalMessagesWithLastResponder++;
+                    }
+                    if (totalMessagesWithLastResponder >= 20) {
+                        totalMessagesWithLastResponder = 0;
+                        lastResponder = '';
+                        message.inlineReply(`goodbye ${message.author.username.split('#')[0]}`);
+                        return;
+                    }
+                    lastResponder = message.author.id;
                     const checkIfBotRunning = await levelFarms.findOne({ discordId: req.body.userToken, botName: client.user.tag });
                     if (checkIfBotRunning) {
                         if (checkIfBotRunning.running) {
