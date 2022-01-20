@@ -24,6 +24,7 @@ exports.getAnswer = async function(res, req) {
         tempChatLogs = tempChatLogs.split(/Human:(.*)/);
         tempChatLogs = tempChatLogs[0] + ("Human:" + ((tempChatLogs[1]).slice(500).split(/Human:(.*)/)[1]));
     }
+    console.log(tempChatLogs);
     tempChatLogs += `Human: ${req.body.text.replace(mention_pattern, '')}\n`;
     await openai.complete({
             engine: 'babbage',
@@ -111,8 +112,6 @@ exports.startFarming = async function(res, req) {
         checkIfFarmingRunning = false;
         checkIfFarmingState = 0;
     }
-
-    console.log(checkIfFarmingState, checkIfFarmingRunning);
 
     if (checkIfFarmingRunning == true) {
         res.send({ state: 'error', message: 'Already farming' });
@@ -262,7 +261,7 @@ exports.startFarming = async function(res, req) {
                                 }
 
                                 let data = checkIfBotRunning.messages;
-                                data.push({ messageAuthor: message.author.tag, message: message.content, response: answer });
+                                data.push({ messageAuthor: message.author.tag, message: message.content, response: answer, timeStamp: new Date() });
                                 if (data.length > 20) {
                                     data.shift();
                                 }
@@ -287,7 +286,7 @@ exports.startFarming = async function(res, req) {
                                             messagesThatNeedReply[x].inlineReply(`${answer}`);
                                         }
 
-                                        data.push({ messageAuthor: messagesThatNeedReply[x].author.tag, message: messagesThatNeedReply[x].content, response: answer });
+                                        data.push({ messageAuthor: messagesThatNeedReply[x].author.tag, message: messagesThatNeedReply[x].content, response: answer, timeStamp: new Date() });
                                         if (data.length > 20) {
                                             data.shift();
                                         }
@@ -340,7 +339,7 @@ exports.startFarming = async function(res, req) {
                                     message.inlineReply(`${answer}`);
                                 }
                                 let data = checkIfBotRunning.messages;
-                                data.push({ messageAuthor: message.author.tag, message: message.content, response: answer });
+                                data.push({ messageAuthor: message.author.tag, message: message.content, response: answer, timeStamp: new Date() });
                                 if (data.length > 20) {
                                     data.shift();
                                 }
