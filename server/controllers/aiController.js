@@ -28,7 +28,7 @@ exports.getAnswer = async function(res, req) {
     await openai.complete({
             engine: 'babbage',
             prompt: tempChatLogs,
-            maxTokens: 25,
+            maxTokens: 50,
             temperature: 0.9,
             topP: 1,
             presencePenalty: 0.6,
