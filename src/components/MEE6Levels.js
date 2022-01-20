@@ -39,7 +39,7 @@ function MEE6Levels(props) {
               console.error(err);
           });
         } else {
-          axios.post("https://beta.rudolphaio.com/api/startFarming", {userToken: props.cookies.userToken,token: e.target.token.value, messageDelay: e.target.messageDelay.value, channelId: e.target.channelId.value, mintDate:  e.target.mintDate.value, collectionName:  e.target.collectionName.value, customPrompt:  e.target.customPrompt.value})
+          axios.post("https://beta.rudolphaio.com/api/startFarming", {userToken: props.cookies.userToken,token: e.target.token.value, messageDelay: e.target.messageDelay.value, channelId: e.target.channelId.value, mintDate:  e.target.mintDate.value, collectionName:  e.target.collectionName.value, customPrompt:  e.target.customPrompt.value, spam: false})
           .then(res => {
               if(res.data.state == 'success') {
                   props.successMessage(res.data.message);
