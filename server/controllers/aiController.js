@@ -31,8 +31,8 @@ exports.getAnswer = async function(res, req) {
             maxTokens: 25,
             temperature: 0.9,
             topP: 1,
-            presencePenalty: 0,
-            frequencyPenalty: 0.6,
+            presencePenalty: 0.6,
+            frequencyPenalty: 0,
             stop: ["\n", " Human:", " AI:"]
         }).then(function(response) {
             tempChatLogs += `${response.data.choices[0].text.replace(mention_pattern, '')}\n`;
