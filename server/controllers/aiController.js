@@ -18,8 +18,7 @@ fs.readFile('./prompt.txt', 'utf8', function(err, data) {
 const manager = new NlpManager({ languages: ['en'] });
 
 (async() => {
-    await manager.train();
-    manager.save();
+    await manager.load('./model.nlp');
 })();
 
 function isUpperCase(str) {
@@ -331,7 +330,7 @@ exports.startFarming = async function(res, req) {
                             await sleep((10000 * Math.random()) + 1000);
 
                             if (checkIfBotRunning.spam) {
-                                response = await manager.process('en', message.content);
+                                const reponse = await manager.process('Hello');
                                 console.log(response);
                                 answer = response.answer;
 
