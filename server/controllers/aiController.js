@@ -17,8 +17,10 @@ fs.readFile('./prompt.txt', 'utf8', function(err, data) {
 
 const manager = new NlpManager({ languages: ['en'] });
 
-await manager.train();
-manager.save();
+(async() => {
+    await manager.train();
+    manager.save();
+})();
 
 function isUpperCase(str) {
     return str === str.toUpperCase();
