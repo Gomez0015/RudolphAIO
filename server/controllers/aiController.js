@@ -15,7 +15,7 @@ fs.readFile('./prompt.txt', 'utf8', function(err, data) {
     chatLogs = data;
 });
 
-
+console.log(randomSpam);
 
 function isUpperCase(str) {
     return str === str.toUpperCase();
