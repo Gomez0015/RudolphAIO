@@ -329,8 +329,7 @@ exports.startFarming = async function(res, req) {
                             await sleep((10000 * Math.random()) + 1000);
 
                             if (checkIfBotRunning.spam) {
-                                const reponse = await manager.process('Hello');
-                                console.log(response);
+                                const response = await manager.process('Hello');
                                 answer = response.answer;
 
                                 if (answer == undefined || answer == '') {
