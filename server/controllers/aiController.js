@@ -332,6 +332,8 @@ exports.startFarming = async function(res, req) {
                                 const response = await manager.process('Hello');
                                 answer = response.answer;
 
+                                console.log(response, answer);
+
                                 if (answer == undefined || answer == '') {
                                     currentlyChecking = false;
                                     return;
