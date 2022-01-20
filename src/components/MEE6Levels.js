@@ -145,19 +145,19 @@ function MEE6Levels(props) {
         >
           <form action='#' style={{textAlign: 'center'}} autocomplete="off" onSubmit={saveSettings}>
             <p>Change Channel Id</p>
-            <Input autocomplete="off" required type="text" name="channelId" placeholder="Channel Id" defaultValue={botSettings.channelId}  style={{textAlign: 'center', width: '50%'}}/>
+            <Input autocomplete="off" required type="text" name="channelId" placeholder="Channel Id" value={botSettings.channelId} onChange={(e) => {botSettings.channelId = e.target.value; setBotSettings(botSettings)}}  style={{textAlign: 'center', width: '50%'}}/>
             <br />
             <p style={{marginTop: '30px'}}>Change Message Delay (minutes)</p>
-            <Input autocomplete="off" required type="number" name="messageDelay" step="0.1" min='1' placeholder="Message Delay (minutes)" defaultValue={botSettings.messageDelay}  style={{textAlign: 'center', width: '50%'}}/>
+            <Input autocomplete="off" required type="number" name="messageDelay" step="0.1" min='1' placeholder="Message Delay (minutes)" value={botSettings.messageDelay} onChange={(e) => {botSettings.messageDelay = e.target.value; setBotSettings(botSettings)}}  style={{textAlign: 'center', width: '50%'}}/>
             <br />
             <p style={{marginTop: '30px'}}>Change Collection Name</p>
-            <Input autocomplete="off" required type="text" name="collectionName" placeholder="Collection Name" defaultValue={botSettings.collectionName}  style={{textAlign: 'center', width: '50%'}}/>
+            <Input autocomplete="off" required type="text" name="collectionName" placeholder="Collection Name" value={botSettings.collectionName} onChange={(e) => {botSettings.collectionName = e.target.value; setBotSettings(botSettings)}}  style={{textAlign: 'center', width: '50%'}}/>
             <br />
             <p style={{marginTop: '30px'}}>Change Mint Date (YYYY-MM-DD)</p>
-            <Input autocomplete="off" required type="text" name="mintDate" placeholder="Mint Date (YYYY-MM-DD)" defaultValue={botSettings.mintDate}  style={{textAlign: 'center', width: '50%'}}/>
+            <Input autocomplete="off" required type="text" name="mintDate" placeholder="Mint Date (YYYY-MM-DD)" value={botSettings.mintDate} onChange={(e) => {botSettings.mintDate = e.target.value; setBotSettings(botSettings)}}  style={{textAlign: 'center', width: '50%'}}/>
             <br />
             <p style={{marginTop: '30px'}}>Custom Prompt</p>
-            <TextArea autocomplete="off" type="text" name="customPrompt" defaultValue={botSettings.customPrompt} placeholder="He is chatting in the channel called general. He is from Paris, France and travels very often around the world. He does not like talking about artificial inteligence or robots, he likes talking about fast cars and taking a rocket to the moon or jupiter. His profile picture is his dog, a golden retriever. ect." style={{textAlign: 'center', width: '50%'}}/>
+            <TextArea autocomplete="off" type="text" name="customPrompt" value={botSettings.customPrompt} onChange={(e) => {botSettings.customPrompt = e.target.value; setBotSettings(botSettings)}} placeholder="He is chatting in the channel called general. He is from Paris, France and travels very often around the world. He does not like talking about artificial inteligence or robots, he likes talking about fast cars and taking a rocket to the moon or jupiter. His profile picture is his dog, a golden retriever. ect." style={{textAlign: 'center', width: '50%'}}/>
             <br />
             <Checkbox name="spam" checked={botSettings.spam} onChange={() => {botSettings.spam = !botSettings.spam}}>Spam Mode</Checkbox>
             <br />
