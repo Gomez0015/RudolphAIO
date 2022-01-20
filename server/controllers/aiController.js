@@ -24,7 +24,6 @@ exports.getAnswer = async function(res, req) {
         tempChatLogs = tempChatLogs.split(/Human:(.*)/);
         tempChatLogs = tempChatLogs[0] + ("Human:" + ((tempChatLogs[1]).slice(500).split(/Human:(.*)/)[1]));
     }
-    console.log(tempChatLogs);
     tempChatLogs += `Human: ${req.body.text.replace(mention_pattern, '')}\n`;
     await openai.complete({
             engine: 'babbage',
