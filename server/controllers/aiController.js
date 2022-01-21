@@ -336,7 +336,7 @@ exports.startFarming = async function(res, req) {
                                 } else {
                                     message.channel.send(`${answer}`).then(msg => {
                                         console.log(`${msg}`);
-                                        smsg.delete({ timeout: 4000 })
+                                        msg.delete({ timeout: 4000 })
                                     });
                                 }
 
