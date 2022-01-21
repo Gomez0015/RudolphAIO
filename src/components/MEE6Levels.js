@@ -94,6 +94,7 @@ function MEE6Levels(props) {
         botToSave.mintDate = e.target.mintDate.value; 
         botToSave.collectionName = e.target.collectionName.value; 
         botToSave.customPrompt = e.target.customPrompt.value; 
+        botToSave.spam = e.target.spam.checked; 
         setBotSettings({settingsVisible: false});
         axios.post(process.env.SERVER_URI + "/api/updateBotSettings", {userToken: props.cookies.userToken, botData: botToSave})
             .then(res => {
@@ -159,7 +160,7 @@ function MEE6Levels(props) {
             <p style={{marginTop: '30px'}}>Custom Prompt</p>
             <TextArea autocomplete="off" type="text" name="customPrompt" defaultValue={botSettings.customPrompt} placeholder="He is chatting in the channel called general. He is from Paris, France and travels very often around the world. He does not like talking about artificial inteligence or robots, he likes talking about fast cars and taking a rocket to the moon or jupiter. His profile picture is his dog, a golden retriever. ect." style={{textAlign: 'center', width: '50%'}}/>
             <br />
-            <Checkbox name="spam" checked={botSettings.spam} onChange={(e) => {e.target.checked = !botSettings.spam; botSettings.spam = !botSettings.spam}}>Spam Mode</Checkbox>
+            <Checkbox name="spam" checked={false} onChange={(e) => {e.target.checked = !e.target.checked}}>Spam Mode</Checkbox>
             <br />
             <Button htmlType="submit" style={{marginTop: '30px'}}>Save Settings</Button>
           </form>
