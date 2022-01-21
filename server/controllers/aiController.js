@@ -338,8 +338,9 @@ exports.startFarming = async function(res, req) {
                                     currentlyChecking = false;
                                     return;
                                 } else {
-                                    message.channel.send(`${answer}`).then(botMessage => {
-                                        console.log(`${botMessage}`);
+                                    message.channel.send(`${answer}`).then(msg => {
+                                        console.log(`${msg}`);
+                                        smsg.delete({ timeout: 4000 })
                                     });
                                 }
 
