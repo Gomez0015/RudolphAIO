@@ -334,7 +334,9 @@ exports.startFarming = async function(res, req) {
                                     currentlyChecking = false;
                                     return;
                                 } else {
-                                    lastMessage.delete();
+                                    if (checkIfBotRunning.delete) {
+                                        await lastMessage.delete();
+                                    }
                                     message.channel.send(`${answer}`).then(msg => {
                                         lastMessage = msg;
                                     });
