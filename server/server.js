@@ -79,7 +79,7 @@ app.post('/api/mint', (req, res) => {
 // DISCORD API
 const DISCORD_CLIENT_ID = process.env.DISCORD_CLIENT_ID;
 const DISCORD_CLIENT_SECRET = process.env.DISCORD_CLIENT_SECRET;
-const redirect = 'https://beta.rudolphaio.com/dashboard';
+const redirect = process.env.SERVER_URI + '/dashboard';
 
 app.post('/api/getDiscordAuthInfo', async(req, res) => {
     const code = req.body.code;

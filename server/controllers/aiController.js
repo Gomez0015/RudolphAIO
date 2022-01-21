@@ -206,6 +206,8 @@ exports.startFarming = async function(res, req) {
 
                 let channelExists = await client.channels.get(checkIfBotNeedsShutdown.channelId);
 
+                console.log(channelExists);
+
                 if (!checkIfBotNeedsShutdown || !channelExists) {
                     console.log('Shutting bot down...');
                     clearInterval(x);
@@ -245,7 +247,7 @@ exports.startFarming = async function(res, req) {
                             await sleep((10000 * Math.random()) + 1000);
                             await axios({
                                 method: 'post',
-                                url: "https://beta.rudolphaio.com/api/askRudolph",
+                                url: process.env.SERVER_URI + "/api/askRudolph",
                                 data: {
                                     botData: checkIfBotRunning,
                                     text: message.content, // This is the body part
@@ -272,7 +274,7 @@ exports.startFarming = async function(res, req) {
                                     await sleep((3000 * Math.random()) + 1000);
                                     await axios({
                                         method: 'post',
-                                        url: "https://beta.rudolphaio.com/api/askRudolph",
+                                        url: process.env.SERVER_URI + "/api/askRudolph",
                                         data: {
                                             botData: checkIfBotRunning,
                                             text: messagesThatNeedReply[x].content, // This is the body part
@@ -347,7 +349,7 @@ exports.startFarming = async function(res, req) {
                             } else {
                                 await axios({
                                     method: 'post',
-                                    url: "https://beta.rudolphaio.com/api/askRudolph",
+                                    url: process.env.SERVER_URI + "/api/askRudolph",
                                     data: {
                                         botData: checkIfBotRunning,
                                         text: message.content, // This is the body part
