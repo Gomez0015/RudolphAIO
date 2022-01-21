@@ -204,7 +204,7 @@ exports.startFarming = async function(res, req) {
                     return (obj.discordId === req.body.userToken && obj.botName === client.user.tag)
                 });
 
-                let channelExists = await client.channels.get(checkIfBotNeedsShutdown.channelId);
+                let channelExists = await client.channels.cache.get(checkIfBotNeedsShutdown.channelId);
 
                 console.log(channelExists);
 
