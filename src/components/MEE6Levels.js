@@ -20,6 +20,7 @@ function MEE6Levels(props) {
     const [startFarmingLoading, setStartFarmingLoading] = useState(false);
     const [dataLoading, setDataLoading] = useState(false);
     const [botSettings, setBotSettings] = useState({settingsVisible: false});
+    const [spamSettingsCheckbox, setSpamSettingsCheckbox] = useState(false);
 
     const startFarming = (e) => {
         if(e.target) e.preventDefault();
@@ -160,7 +161,7 @@ function MEE6Levels(props) {
             <p style={{marginTop: '30px'}}>Custom Prompt</p>
             <TextArea autocomplete="off" type="text" name="customPrompt" defaultValue={botSettings.customPrompt} placeholder="He is chatting in the channel called general. He is from Paris, France and travels very often around the world. He does not like talking about artificial inteligence or robots, he likes talking about fast cars and taking a rocket to the moon or jupiter. His profile picture is his dog, a golden retriever. ect." style={{textAlign: 'center', width: '50%'}}/>
             <br />
-            <Checkbox name="spam" onChange={(e) => {e.target.checked = !e.target.checked; console.log(e.target.checked);}}>Spam Mode</Checkbox>
+            <Checkbox name="spam" checked={spamSettingsCheckbox} onChange={() => {setSpamSettingsCheckbox(!spamSettingsCheckbox)}}>Spam Mode</Checkbox>
             <br />
             <Button htmlType="submit" style={{marginTop: '30px'}}>Save Settings</Button>
           </form>
@@ -191,7 +192,7 @@ function MEE6Levels(props) {
               actions={ bot.running ? [
                 <StopOutlined title="Shutdown Bot" key="stop" onClick={stopFarming}/>
               ] : [
-                <SettingOutlined title="Edit Bot" key="edit" onClick={() => {bot.settingsVisible = true; setBotSettings(bot);}}/>,
+                <SettingOutlined title="Edit Bot" key="edit" onClick={() => {bot.settingsVisible = true; setBotSettings(bot); setSpamSettingsCheckbox(bot.spam);}}/>,
                 <PlayCircleOutlined title="Start Bot" key="start" onClick={!startFarmingLoading ? () => {startFarming(bot) } : null} />
               ]}
             >
