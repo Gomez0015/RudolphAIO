@@ -117,7 +117,7 @@ function MEE6Levels(props) {
         axios.post(process.env.REACT_APP_SERVER_URI + "/api/getFarmingData", {userToken: props.cookies.userToken})
             .then(res => {
               for (let i = 0; i < res.data.length; i++) {
-                if(res.data[i].running) {
+                if(res.data[i].state == 1) {
                     setActiveBot(res.data[i]);
                 }
                 res.data[i].settingsVisible = false;
@@ -197,7 +197,7 @@ function MEE6Levels(props) {
           <>
             <Card
               style={{ width: 300, display: 'inline-block', marginTop: '50px' }}
-              actions={ bot.running ? [
+              actions={ bot.state == 1 ? [
                 <StopOutlined title="Shutdown Bot" key="stop" onClick={stopFarming}/>
               ] : [
                 <SettingOutlined title="Edit Bot" key="edit" onClick={() => {bot.settingsVisible = true; setBotSettings(bot); setSpamSettingsCheckbox(bot.spam); setDeleteSettingsCheckbox(bot.delete);}}/>,
@@ -207,7 +207,7 @@ function MEE6Levels(props) {
               <Meta
                 avatar={<Avatar size={64} src={bot.botAvatar.replace('.webp', '.jpg')} />}
                 title={bot.botName}
-                description={bot.running ? 'Farming...' : 'Sleeping...'}
+                description={bot.state == 1 ? 'Farming...' : 'Sleeping...'}
               />
             </Card> 
           </>

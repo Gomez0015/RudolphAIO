@@ -26,10 +26,6 @@ var levelFarmSchema = new Schema({
     botAvatar: {
         type: String
     },
-    running: {
-        type: Boolean,
-        required: true
-    },
     botToken: {
         type: String,
         required: true

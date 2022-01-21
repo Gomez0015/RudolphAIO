@@ -63,9 +63,9 @@ exports.getFarmingData = async function(res, req) {
 
 exports.stopFarming = async function(res, req) {
     await getAllFarms();
-    const data = await levelFarms.findOne({ discordId: req.body.userToken, running: true });
+    const data = await levelFarms.findOne({ discordId: req.body.userToken, state: 1 });
     if (data) {
-        await levelFarms.updateOne(data, { running: false, state: 2 });
+        await levelFarms.updateOne(data, { state: 2 });
         res.send({ state: 'success', message: 'Successfully stopped bot' });
     } else {
         res.send({ state: 'error', message: 'You have no bots currently farming' });
@@ -99,20 +99,17 @@ async function getAllFarms() {
 }
 
 exports.startFarming = async function(res, req) {
-    let checkIfFarming = await levelFarms.findOne({ discordId: req.body.userToken });
+    let checkIfFarming = await levelFarms.findOne({ discordId: req.body.userToken, state: 1 });
 
-    let checkIfFarmingRunning;
     let checkIfFarmingState;
 
     if (checkIfFarming) {
-        checkIfFarmingRunning = checkIfFarming.running;
         checkIfFarmingState = checkIfFarming.state;
     } else {
-        checkIfFarmingRunning = false;
         checkIfFarmingState = 0;
     }
 
-    if (checkIfFarmingRunning == true) {
+    if (checkIfFarmingState == 1) {
         res.send({ state: 'error', message: 'Already farming' });
     } else if (checkIfFarmingState == 2) {
         res.send({ state: 'error', message: 'Wait for last bot to fully shutdown...' });
@@ -152,7 +149,6 @@ exports.startFarming = async function(res, req) {
             if (!checkIfBotExists) {
                 await levelFarms.create({
                     discordId: req.body.userToken,
-                    running: true,
                     channelId: req.body.channelId,
                     messageDelay: req.body.messageDelay,
                     start_date: new Date(),
@@ -168,7 +164,7 @@ exports.startFarming = async function(res, req) {
                     delete: req.body.delete
                 });
             } else {
-                await levelFarms.updateOne(checkIfBotExists, { running: true, state: 1 });
+                await levelFarms.updateOne(checkIfBotExists, { state: 1 });
             }
 
             await getAllFarms();
@@ -212,15 +208,15 @@ exports.startFarming = async function(res, req) {
                 if (!checkIfBotNeedsShutdown || !channelExists) {
                     console.log('Shutting bot down...');
                     clearInterval(x);
-                    await levelFarms.updateOne({ discordId: req.body.userToken, botName: client.user.tag }, { running: false, state: 0 });
+                    await levelFarms.updateOne({ discordId: req.body.userToken, botName: client.user.tag }, { state: 0 });
                     client.destroy();
                     return;
                 }
 
-                if (checkIfBotNeedsShutdown.running === false) {
+                if (checkIfBotNeedsShutdown.state === 0 || checkIfBotNeedsShutdown.state == 2) {
                     console.log('Shutting bot down...');
                     clearInterval(x);
-                    await levelFarms.updateOne({ discordId: req.body.userToken, botName: client.user.tag }, { running: false, state: 0 });
+                    await levelFarms.updateOne({ discordId: req.body.userToken, botName: client.user.tag }, { state: 0 });
                     client.destroy();
                     return;
                 }
@@ -243,7 +239,7 @@ exports.startFarming = async function(res, req) {
                     lastResponder = message.author.id;
                     const checkIfBotRunning = await levelFarms.findOne({ discordId: req.body.userToken, botName: client.user.tag });
                     if (checkIfBotRunning) {
-                        if (checkIfBotRunning.running) {
+                        if (checkIfBotRunning.state === 1) {
                             channelIdToCheck = checkIfBotRunning.channelId;
                             await sleep((10000 * Math.random()) + 1000);
                             await axios({
@@ -323,7 +319,7 @@ exports.startFarming = async function(res, req) {
 
                     const checkIfBotRunning = await levelFarms.findOne({ discordId: req.body.userToken, botName: client.user.tag });
                     if (checkIfBotRunning) {
-                        if (checkIfBotRunning.running) {
+                        if (checkIfBotRunning.state == 1) {
                             channelIdToCheck = checkIfBotRunning.channelId;
                             await sleep((10000 * Math.random()) + 1000);
 
