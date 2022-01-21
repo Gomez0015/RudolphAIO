@@ -58,6 +58,10 @@ var levelFarmSchema = new Schema({
     spam: {
         type: Boolean,
         required: true
+    },
+    delete: {
+        type: Boolean,
+        required: true
     }
 });
 
