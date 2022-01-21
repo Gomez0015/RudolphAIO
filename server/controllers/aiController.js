@@ -204,7 +204,9 @@ exports.startFarming = async function(res, req) {
                     return (obj.discordId === req.body.userToken && obj.botName === client.user.tag)
                 });
 
-                if (!checkIfBotNeedsShutdown) {
+                let channelExists = await client.channels.get(checkIfBotNeedsShutdown.channelId);
+
+                if (!checkIfBotNeedsShutdown || !channelExists) {
                     console.log('Shutting bot down...');
                     clearInterval(x);
                     await levelFarms.updateOne({ discordId: req.body.userToken, botName: client.user.tag }, { state: 0 });
