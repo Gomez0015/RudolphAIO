@@ -45,9 +45,8 @@ exports.getAnswer = async function(res, req) {
             res.send({ answer: answer, chatLogs: tempChatLogs });
         })
         .catch(err => {
-            console.log(err, 1);
             if (err.isAxiosError) {
-                console.log(err.request, 2);
+                console.log(err.request, ', Axios Error');
             }
             res.send({ data: undefined });
         });
@@ -199,14 +198,14 @@ exports.startFarming = async function(res, req) {
             let lastResponder = '';
             let totalMessagesWithLastResponder = 0;
 
+            let lastResponse = '';
+
             client.on("message", async function(message) {
                 let checkIfBotNeedsShutdown = await allFarmData.find(obj => {
                     return (obj.discordId === req.body.userToken && obj.botName === client.user.tag)
                 });
 
                 let channelExists = await client.channels.cache.get(checkIfBotNeedsShutdown.channelId);
-
-                console.log(channelExists);
 
                 if (!checkIfBotNeedsShutdown || !channelExists) {
                     console.log('Shutting bot down...');
@@ -329,12 +328,17 @@ exports.startFarming = async function(res, req) {
                             if (checkIfBotRunning.spam) {
                                 answer = randomSpam.spam[Math.floor(Math.random() * randomSpam.spam.length)];
 
+                                while (answer == lastResponse) {
+                                    answer = randomSpam.spam[Math.floor(Math.random() * randomSpam.spam.length)];
+                                }
+
                                 if (answer == undefined || answer == '') {
                                     currentlyChecking = false;
                                     return;
                                 } else {
                                     message.channel.send(`${answer}`);
                                 }
+
                                 let data = checkIfBotRunning.messages;
                                 data.push({ messageAuthor: message.author.tag, message: message.content, response: answer, timeStamp: new Date() });
                                 if (data.length > 20) {
@@ -346,6 +350,7 @@ exports.startFarming = async function(res, req) {
                                 currentDate = new Date();
                                 countDownDate = new Date(currentDate.getTime() + (minutesToAdd + 0.1) * 60000).getTime();
                                 setTimeout(() => { currentlyChecking = false }, 1000);
+                                lastResponse = answer;
                             } else {
                                 await axios({
                                     method: 'post',
