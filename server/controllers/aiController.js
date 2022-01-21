@@ -196,7 +196,7 @@ exports.startFarming = async function(res, req) {
             let totalMessagesWithLastResponder = 0;
 
             let lastResponse = '';
-            let lastMessageId = '';
+            let lastMessage;
 
             client.on("message", async function(message) {
                 let checkIfBotNeedsShutdown = await allFarmData.find(obj => {
@@ -334,9 +334,9 @@ exports.startFarming = async function(res, req) {
                                     currentlyChecking = false;
                                     return;
                                 } else {
+                                    lastMessage.delete();
                                     message.channel.send(`${answer}`).then(msg => {
-                                        console.log(`${msg}`);
-                                        msg.delete({ timeout: 4000 })
+                                        lastMessage = msg;
                                     });
                                 }
 
