@@ -1,12 +1,12 @@
 var axios = require('axios');
 const Discord = require('discord.js-selfbot');
-const levelFarms = require('../models/levelFarmModel.js');
+const levelFarms = require('../models/levelFarmModel');
 var randomSpam = require('./spam.json');
 require('dotenv').config();
 var fs = require('fs');
 const OpenAI = require('openai-api');
 const openai = new OpenAI(process.env.OPENAI_API_KEY);
-let chatLogs = ''
+let chatLogs = '';
 var mention_pattern = /<@.?[0-9]*?>/g;
 var Filter = require('bad-words'),
     filter = new Filter();
@@ -203,7 +203,11 @@ exports.startFarming = async function(res, req) {
                     return (obj.discordId === req.body.userToken && obj.botName === client.user.tag)
                 });
 
-                let channelExists = await client.channels.cache.get(checkIfBotNeedsShutdown.channelId);
+                let channelExists;
+
+                if(checkIfBotNeedsShutdown){
+                    channelExists = await client.channels.cache.get(checkIfBotNeedsShutdown.channelId);
+                }
 
                 if (!checkIfBotNeedsShutdown || !channelExists) {
                     console.log('Shutting bot down...');
