@@ -35,6 +35,7 @@ function AdminDashboard(props) {
           <>
             <Card
               style={{ width: 300, display: 'inline-block', marginTop: '50px' }}
+            >
               <Meta
                 avatar={<Avatar size={64} src={data.botAvatar.replace('.webp', '.jpg')} />}
                 title={data.botName}
