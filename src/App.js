@@ -13,12 +13,14 @@ import {
 import {
   UserOutlined,
   DollarOutlined,
-  RobotOutlined
+  RobotOutlined,
+  KeyOutlined
 } from '@ant-design/icons';
 import QuickMint from './components/QuickMint';
 import NFTStealer from './components/NFTStealer';
 import MEE6Levels from './components/MEE6Levels';
 import LoginPage from './components/LoginPage';
+import AdminDashboard from './components/AdminDashboard';
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
@@ -26,6 +28,8 @@ import { getAnalytics } from "firebase/analytics";
 const { Title } = Typography;
 const { SubMenu } = Menu;
 const { Header, Content, Sider, Footer } = Layout;
+
+const adminList = [];
 
 function App(props) {
   const [collapsed, setCollapsed] = useState(false);
@@ -87,6 +91,13 @@ function App(props) {
                   NFT Stealer
                 </Link>
               </Menu.Item> */}
+              {adminList.includes(cookies.userToken) ? 
+              <Menu.Item key="3" icon={<KeyOutlined />}>
+                <Link to="/dashboard/admin">
+                  Admin Dashboard
+                </Link>
+              </Menu.Item>
+              : null}
             </Menu>
           </Sider>
           <Layout style={{ padding: '0 24px 24px' }}>
@@ -97,6 +108,9 @@ function App(props) {
                     <Route path="/dashboard/quickmint" element={<QuickMint />} />
                     <Route path="/dashboard/nftstealer" element={<NFTStealer />} />
                     <Route path="/dashboard/mee6levels" element={<MEE6Levels cookies={cookies} successMessage={successMessage} errorMessage={errorMessage}/>} />
+                    {adminList.includes(cookies.userToken) ? 
+                      <Route path="/dashboard/admin" element={<AdminDashboard cookies={cookies} successMessage={successMessage} errorMessage={errorMessage}/>} />
+                    : null}
                     <Route
                       path="*"
                       element={
