@@ -4,6 +4,7 @@ const scraperController = require('./controllers/scraperController');
 const mintController = require('./controllers/mintController');
 const aiController = require('./controllers/aiController');
 const userAuthController = require('./controllers/userAuthController');
+const adminController = require('./controllers/adminController');
 const axios = require('axios');
 const mongoose = require('mongoose');
 const path = require("path");
@@ -74,6 +75,10 @@ app.post('/api/deleteBot', (req, res) => {
 
 app.post('/api/mint', (req, res) => {
     scraperController.getScript(req.body.url, req.body.seed, res, req);
+});
+
+app.post('/api/getAdminData', (req, res) => {
+    adminController.getAdminData(req, res);
 });
 
 // DISCORD API

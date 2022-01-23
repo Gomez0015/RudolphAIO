@@ -205,7 +205,7 @@ exports.startFarming = async function(res, req) {
 
                 let channelExists;
 
-                if(checkIfBotNeedsShutdown){
+                if (checkIfBotNeedsShutdown) {
                     channelExists = await client.channels.cache.get(checkIfBotNeedsShutdown.channelId);
                 }
 
