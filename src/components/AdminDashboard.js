@@ -14,7 +14,7 @@ const { TextArea } = Input;
 
 function AdminDashboard(props) {
   const [adminData, setAdminData] = useState([]);
-  const [modalVisible, setModalVisivle] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
   const [botModalData, setBotModalData] = useState({});
 
     const getAdminData = () => {
@@ -29,10 +29,11 @@ function AdminDashboard(props) {
 
     useEffect(() => {
         getAdminData();
-    })
+    }, []);
 
     const showMessages = (botData) => {
         setBotModalData(botData);
+        setModalVisible(true);
     }
 
   return (
@@ -40,9 +41,9 @@ function AdminDashboard(props) {
     <Modal
           title={botModalData.botName + ' Messages'}
           visible={modalVisible}
-          onCancel={() => setModalVisivle(false)}
+          onCancel={() => setModalVisible(false)}
           footer={[
-            <Button key="back" onClick={() => {setModalVisivle(false)}}>
+            <Button key="back" onClick={() => {setModalVisible(false)}}>
               Close
             </Button>
             ]}
@@ -61,9 +62,9 @@ function AdminDashboard(props) {
         <Title style={{textAlign: 'center'}}>Admin Dashboard</Title>
         {adminData.length > 0 ? 
         adminData.map((data, index) => (
-          <div style={{textAlign: 'center'}}>
+          <div>
             <Card
-              style={{ width: 300, display: 'inline-block', marginTop: '50px' }}
+              style={{ textAlign: 'center', width: 300, display: 'inline-block', marginTop: '50px' }}
               actions={[<MessageOutlined title="Message Logs" key="messages" onClick={() => showMessages(data)}/>]}
             >
               <Meta
