@@ -52,7 +52,7 @@ function AdminDashboard(props) {
               renderItem={item => (
                 <List.Item key={item.id}>
                   <List.Item.Meta
-                    title={<><p style={{textAlign: 'left'}}>{item.messageAuthor}: {item.message}</p><p style={{textAlign: 'center'}}>{item.timeStamp}</p><p style={{textAlign: 'right'}}>{item.response} :{activeBot.botName}</p></>}
+                    title={<><p style={{textAlign: 'left'}}>{item.messageAuthor}: {item.message}</p><p style={{textAlign: 'center'}}>{item.timeStamp}</p><p style={{textAlign: 'right'}}>{item.response} :{botModalData.botName}</p></>}
                   />
                 </List.Item>
               )}
