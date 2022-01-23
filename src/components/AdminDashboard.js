@@ -39,7 +39,8 @@ function AdminDashboard(props) {
 
   return (
     <>
-    <Modal
+        <Modal
+            width={'75%'}
           title={botModalData.botName + ' Messages'}
           visible={modalVisible}
           onCancel={() => setModalVisible(false)}
