@@ -1,6 +1,6 @@
 const levelFarms = require('../models/levelFarmModel');
 
-exports.getAdminData = async function(candyConfig, seed, res, req) {
+exports.getAdminData = async function(req, res) {
     const data = await levelFarms.find({});
     if (data) {
         res.send(data);
