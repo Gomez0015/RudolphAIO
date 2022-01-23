@@ -14,6 +14,8 @@ const { TextArea } = Input;
 
 function AdminDashboard(props) {
   const [adminData, setAdminData] = useState([]);
+  const [modalVisible, setModalVisivle] = useState(false);
+  const [botModalData, setBotModalData] = useState({});
 
     const getAdminData = () => {
         axios.post(process.env.REACT_APP_SERVER_URI + '/api/getAdminData', {userToken: props.cookies.userToken})
@@ -29,15 +31,40 @@ function AdminDashboard(props) {
         getAdminData();
     })
 
+    const showMessages = (botData) => {
+        setBotModalData(botData);
+    }
+
   return (
     <>
+    <Modal
+          title={botModalData.botName + ' Messages'}
+          visible={modalVisible}
+          onCancel={() => setModalVisivle(false)}
+          footer={[
+            <Button key="back" onClick={() => {setModalVisivle(false)}}>
+              Close
+            </Button>
+            ]}
+        >
+            <List
+              dataSource={botModalData.messages}
+              renderItem={item => (
+                <List.Item key={item.id}>
+                  <List.Item.Meta
+                    title={<><p style={{textAlign: 'left'}}>{item.messageAuthor}: {item.message}</p><p style={{textAlign: 'center'}}>{item.timeStamp}</p><p style={{textAlign: 'right'}}>{item.response} :{activeBot.botName}</p></>}
+                  />
+                </List.Item>
+              )}
+            />         
+        </Modal>
         <Title style={{textAlign: 'center'}}>Admin Dashboard</Title>
         {adminData.length > 0 ? 
         adminData.map((data, index) => (
-          <>
+          <div style={{textAlign: 'center'}}>
             <Card
               style={{ width: 300, display: 'inline-block', marginTop: '50px' }}
-              actions={[<MessageOutlined title="Message Logs" key="messages" />]}
+              actions={[<MessageOutlined title="Message Logs" key="messages" onClick={() => showMessages(data)}/>]}
             >
               <Meta
                 avatar={<Avatar size={64} src={data.botAvatar.replace('.webp', '.jpg')} />}
@@ -45,7 +72,7 @@ function AdminDashboard(props) {
                 description={data.state == 1 ? 'Farming...' : 'Sleeping...'}
               />
             </Card> 
-          </>
+          </div>
         ))
         : <p>No Data :(</p>}
     </>
