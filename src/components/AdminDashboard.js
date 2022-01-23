@@ -4,6 +4,7 @@ import { Layout, Menu, Breadcrumb, Typography, Input, Submit, Center, Button, Fo
 import {
   UserOutlined,
   DollarOutlined,
+  MessageOutlined
 } from '@ant-design/icons';
 const { Title } = Typography;
 const { SubMenu } = Menu;
@@ -35,6 +36,7 @@ function AdminDashboard(props) {
           <>
             <Card
               style={{ width: 300, display: 'inline-block', marginTop: '50px' }}
+              actions={[<MessageOutlined title="Message Logs" key="messages" />]}
             >
               <Meta
                 avatar={<Avatar size={64} src={data.botAvatar.replace('.webp', '.jpg')} />}
