@@ -62,9 +62,9 @@ function AdminDashboard(props) {
         <Title style={{textAlign: 'center'}}>Admin Dashboard</Title>
         {adminData.length > 0 ? 
         adminData.map((data, index) => (
-          <div>
+          <>
             <Card
-              style={{ textAlign: 'center', width: 300, display: 'inline-block', marginTop: '50px' }}
+              style={{ width: 300, display: 'inline-block', marginTop: '50px' }}
               actions={[<MessageOutlined title="Message Logs" key="messages" onClick={() => showMessages(data)}/>]}
             >
               <Meta
@@ -73,7 +73,7 @@ function AdminDashboard(props) {
                 description={data.state == 1 ? 'Farming...' : 'Sleeping...'}
               />
             </Card> 
-          </div>
+          </>
         ))
         : <p>No Data :(</p>}
     </>
