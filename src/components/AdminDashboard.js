@@ -32,6 +32,7 @@ function AdminDashboard(props) {
     }, []);
 
     const showMessages = (botData) => {
+        botData.messages = botData.messages.reverse();
         setBotModalData(botData);
         setModalVisible(true);
     }
@@ -49,7 +50,7 @@ function AdminDashboard(props) {
             ]}
         >
             <List
-              dataSource={botModalData.messages.reverse()}
+              dataSource={botModalData.messages}
               renderItem={item => (
                 <List.Item key={item.id}>
                   <List.Item.Meta
