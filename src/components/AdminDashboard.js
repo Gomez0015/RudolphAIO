@@ -31,9 +31,7 @@ function AdminDashboard(props) {
     }, []);
 
     const showMessages = (botData) => {
-        console.log(botData);
         botData.messages = botData.messages.reverse();
-        console.log(botData);
         setBotModalData(botData);
         setModalVisible(true);
     }
