@@ -49,7 +49,7 @@ function AdminDashboard(props) {
             ]}
         >
             <List
-              dataSource={botModalData.messages}
+              dataSource={botModalData.messages.reverse()}
               renderItem={item => (
                 <List.Item key={item.id}>
                   <List.Item.Meta
