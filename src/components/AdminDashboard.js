@@ -15,8 +15,7 @@ const { TextArea } = Input;
 function AdminDashboard(props) {
   const [adminData, setAdminData] = useState([]);
 
-    const getAdminData = (e) => {
-        e.preventDefault();
+    const getAdminData = () => {
         axios.post(process.env.REACT_APP_SERVER_URI + '/api/getAdminData', {userToken: props.cookies.userToken})
             .then(res => {
                 console.log(res.data);
