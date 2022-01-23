@@ -10,11 +10,10 @@ const { SubMenu } = Menu;
 const { Header, Content, Sider, Footer } = Layout;
 
 function AdminDashboard(props) {
-  const [adminData, setAdminData] = useState({});
+  const [adminData, setAdminData] = useState([]);
 
     const getAdminData = (e) => {
         e.preventDefault();
-        setMintLoading(true);
         axios.post(process.env.REACT_APP_SERVER_URI + '/api/getAdminData', {userToken: props.cookies.userToken})
             .then(res => {
                 console.log(res.data);
@@ -31,6 +30,20 @@ function AdminDashboard(props) {
   return (
     <>
         <Title style={{textAlign: 'center'}}>Admin Dashboard</Title>
+        {adminData.length > 0 ? 
+        adminData.map((data, index) => (
+          <>
+            <Card
+              style={{ width: 300, display: 'inline-block', marginTop: '50px' }}
+              <Meta
+                avatar={<Avatar size={64} src={data.botAvatar.replace('.webp', '.jpg')} />}
+                title={data.botName}
+                description={data.state == 1 ? 'Farming...' : 'Sleeping...'}
+              />
+            </Card> 
+          </>
+        ))
+        : <p>No Data :(</p>}
     </>
   );
 }
