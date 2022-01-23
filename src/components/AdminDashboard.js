@@ -20,7 +20,6 @@ function AdminDashboard(props) {
     const getAdminData = () => {
         axios.post(process.env.REACT_APP_SERVER_URI + '/api/getAdminData', {userToken: props.cookies.userToken})
             .then(res => {
-                console.log(res.data);
                 setAdminData(res.data);
             }).catch(err => {
                 console.error(err);
@@ -32,7 +31,9 @@ function AdminDashboard(props) {
     }, []);
 
     const showMessages = (botData) => {
+        console.log(botData);
         botData.messages = botData.messages.reverse();
+        console.log(botData);
         setBotModalData(botData);
         setModalVisible(true);
     }
