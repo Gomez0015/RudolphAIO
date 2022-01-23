@@ -14,7 +14,8 @@ import {
   UserOutlined,
   DollarOutlined,
   RobotOutlined,
-  KeyOutlined
+  KeyOutlined,
+  LineChartOutlined
 } from '@ant-design/icons';
 import QuickMint from './components/QuickMint';
 import NFTStealer from './components/NFTStealer';
@@ -29,7 +30,7 @@ const { Title } = Typography;
 const { SubMenu } = Menu;
 const { Header, Content, Sider, Footer } = Layout;
 
-const adminList = [];
+const adminList = process.env.REACT_APP_ADMIN_LIST;
 
 function App(props) {
   const [collapsed, setCollapsed] = useState(false);
@@ -71,9 +72,9 @@ function App(props) {
           <Sider collapsible collapsed={collapsed} onCollapse={() => { setCollapsed(!collapsed)}}>
             <div className="logo" />
             <Menu theme="dark" mode="inline">
-              <Menu.Item key="1" style={{ marginTop: '0px'}} icon={<UserOutlined />}>
+              <Menu.Item key="1" style={{ marginTop: '0px'}} icon={<LineChartOutlined />}>
                 <Link to="/dashboard/">
-                  Home
+                  Stats
                 </Link>
               </Menu.Item>
               <Menu.Item key="2" icon={<RobotOutlined />}>
