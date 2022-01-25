@@ -38,6 +38,7 @@ module.exports = {
         bot.channels.cache.get('935609003227111445').messages.fetch('935609487107162182');
 
         bot.on('messageReactionAdd', async(reaction, user) => {
+            consolg.log(reaction.message.id);
             if (user.bot) return;
             const member = reaction.message.guild.members.cache.get(user.id);
             if (reaction.message.id === '935609487107162182') {
@@ -53,7 +54,6 @@ module.exports = {
             } else if (reaction.message.id === '935661832360824913') {
                 if (reaction.emoji.name === '✅') {
                     if (!member.roles.cache.find(r => r.name === "Member")) {
-                        console.log(await dashboardKeys.find({}));
                         const userHasKey = await dashboardKeys.find({ discordId: user.id });
                         console.log(userHasKey);
                         if (userHasKey) {
