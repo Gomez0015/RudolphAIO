@@ -1,6 +1,6 @@
 const dashboardKeys = require('../models/dashboardKeysModel.js');
 
-exports.checkAuthDiscord = async function(res, req, db) {
+exports.checkAuthDiscord = async function(req, res) {
 
     const data = await dashboardKeys.findOne({ discordId: req.body.discordId });
     if (data) {

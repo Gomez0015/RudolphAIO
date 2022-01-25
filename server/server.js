@@ -130,7 +130,8 @@ app.get('/api/discordLogin', (req, res) => {
 });
 
 app.post('/api/checkAuthDiscord', (req, res) => {
-    userAuthController.checkAuthDiscord(res, req);
+    console.log(req.body);
+    userAuthController.checkAuthDiscord(req, res);
 });
 
 app.post('/api/linkKeyDiscord', (req, res) => {
