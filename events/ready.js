@@ -34,18 +34,17 @@ module.exports = {
             });
         });
 
-        var messageForRoles = bot.messages.cache.get("935609487107162182");
-
-        const filter = (reaction, user) => {
-            console.log(reaction.message);
-            return reaction.emoji.name === '🏳️';
-        };
-
-        const collector = messageForRoles.createReactionCollector({ filter });
-
-        collector.on('collect', async(reaction, user) => {
-            const role = await bot.roles.cache.fetch('935478022868451329');
-            reaction.author.roles.add(role);
-        });
+        bot.on('messageReactionAdd', async(reaction, user) => {
+            if (reaction.message.partial) await reaction.message.fetch();
+            if (reaction.partial) await reaction.fetch();
+            if (user.bot) return;
+            if (!reaction.message.guild) return;
+            if (reaction.message.id === '935609487107162182') {
+                if (reaction.emoji.name === '🏳️') {
+                    await reaction.message.guild.members.cache.get(user.id).roles.add('935478022868451329');
+                    user.send('You have obtained a role!');
+                }
+            }
+        })
     }
 }
