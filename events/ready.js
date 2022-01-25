@@ -36,9 +36,9 @@ module.exports = {
         });
 
         bot.channels.cache.get('935609003227111445').messages.fetch('935609487107162182');
+        bot.channels.cache.get('927639271345627214').messages.fetch('935661832360824913');
 
         bot.on('messageReactionAdd', async(reaction, user) => {
-            consolg.log(reaction.message.id);
             if (user.bot) return;
             const member = reaction.message.guild.members.cache.get(user.id);
             if (reaction.message.id === '935609487107162182') {
