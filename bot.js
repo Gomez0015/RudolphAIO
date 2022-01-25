@@ -6,7 +6,7 @@ const prefix = process.env.DISCORD_BOT_PREFIX;
 const fs = require("fs");
 bot.commands = new Collection();
 
-const rr = new ReactionRole(client, [
+const rr = new ReactionRole(bot, [
     { messageId: "935609487107162182", reaction: "🏳️", roleId: "935478022868451329" }, // Custom emoji by ID
     { messageId: "935609487107162182", reaction: "🏴", roleId: "935478118343393290" }, // Custom emoji by emoji name
 ]);
