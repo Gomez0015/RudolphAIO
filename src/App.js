@@ -22,6 +22,7 @@ import NFTStealer from './components/NFTStealer';
 import MEE6Levels from './components/MEE6Levels';
 import LoginPage from './components/LoginPage';
 import AdminDashboard from './components/AdminDashboard';
+import Donations from './components/Donations';
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
@@ -82,6 +83,11 @@ function App(props) {
                   MEE6 Levels
                 </Link>
               </Menu.Item>
+              <Menu.Item key="3" icon={<DollarOutlined />}>
+                <Link to="/dashboard/donate">
+                  Donations :)
+                </Link>
+              </Menu.Item>
               {/* <Menu.Item key="3" icon={<DollarOutlined />}>
                 <Link to="/dashboard/quickmint">
                   Quick Mint
@@ -93,7 +99,7 @@ function App(props) {
                 </Link>
               </Menu.Item> */}
               {adminList.includes(cookies.userToken) ? 
-              <Menu.Item key="3" icon={<KeyOutlined />}>
+              <Menu.Item key="4" icon={<KeyOutlined />}>
                 <Link to="/dashboard/admin">
                   Admin Dashboard
                 </Link>
@@ -108,6 +114,7 @@ function App(props) {
                     <Route path="/dashboard/" element={<Title>Home</Title>} />
                     <Route path="/dashboard/quickmint" element={<QuickMint />} />
                     <Route path="/dashboard/nftstealer" element={<NFTStealer />} />
+                    <Route path="/dashboard/donate" element={<Donations />} />
                     <Route path="/dashboard/mee6levels" element={<MEE6Levels cookies={cookies} successMessage={successMessage} errorMessage={errorMessage}/>} />
                     {adminList.includes(cookies.userToken) ? 
                       <Route path="/dashboard/admin" element={<AdminDashboard cookies={cookies} successMessage={successMessage} errorMessage={errorMessage}/>} />

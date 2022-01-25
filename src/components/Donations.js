@@ -20,17 +20,17 @@ function QuickMint() {
     }
 
     return (
-        <>
+        <div style={{textAlign: 'center'}}>
             <Title style={{textAlign: 'center'}}>Donations</Title>
             <ConnectToPhantom setUserWallet={setUserWallet}/>
             {userWallet != 'none' ? 
             <form action='#' style={{textAlign: 'center'}} onSubmit={donate} >
-                <Input required type="number" name="price" min="0" placeholder="Amount To Donate" style={{textAlign: 'center', width: '25%'}}/>
+                <Input required type="number" name="price" min="0" step="0.01" placeholder="Amount To Donate" style={{textAlign: 'center', width: '25%'}}/>
                 <br />
                 <Button htmlType="submit">Donate! :)</Button>
             </form>
             : null}
-        </>
+        </div>
     );
 }
 

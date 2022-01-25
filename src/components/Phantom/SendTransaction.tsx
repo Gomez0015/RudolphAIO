@@ -53,7 +53,7 @@ const getProvider = (): PhantomProvider | undefined => {
   }
 };
 
-const NETWORK = clusterApiUrl("devnet");
+const NETWORK = clusterApiUrl("mainnet-beta");
 const CONNECTION = new Connection(NETWORK);
 const EXTERNAL_ADDRESS = new PublicKey(
   "9St1VZtnsTQ8KLvjjySt4Ra5k2PX8HpoLCTau86t3imZ"
