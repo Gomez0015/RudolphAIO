@@ -1,15 +1,9 @@
 const { Client, Intents, Collection } = require('discord.js');
 const bot = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MEMBERS] });
-const ReactionRole = require("discordjs-reaction-role").default;
 require('dotenv').config();
 const prefix = process.env.DISCORD_BOT_PREFIX;
 const fs = require("fs");
 bot.commands = new Collection();
-
-const rr = new ReactionRole(bot, [
-    { messageId: "935609487107162182", reaction: "🏳️", roleId: "935478022868451329" }, // Custom emoji by ID
-    { messageId: "935609487107162182", reaction: "🏴", roleId: "935478118343393290" }, // Custom emoji by emoji name
-]);
 
 const commandFiles = fs.readdirSync('./commands/').filter(f => f.endsWith('.js'))
 for (const file of commandFiles) {

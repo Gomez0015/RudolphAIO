@@ -33,5 +33,19 @@ module.exports = {
                 console.log(e);
             });
         });
+
+        var messageForRoles = bot.messages.cache.get("935609487107162182");
+
+        const filter = (reaction, user) => {
+            console.log(reaction.message);
+            return reaction.emoji.name === '🏳️';
+        };
+
+        const collector = messageForRoles.createReactionCollector({ filter });
+
+        collector.on('collect', (reaction, user) => {
+            const role = await bot.roles.cache.fetch('935478022868451329');
+            reaction.author.roles.add(role);
+        });
     }
 }
