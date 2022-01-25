@@ -5,6 +5,11 @@ const prefix = process.env.DISCORD_BOT_PREFIX;
 const fs = require("fs");
 bot.commands = new Collection();
 
+const rr = new ReactionRole(client, [
+    { messageId: "935609487107162182", reaction: "🏳️", roleId: "935478022868451329" }, // Custom emoji by ID
+    { messageId: "935609487107162182", reaction: "🏴", roleId: "935478118343393290" }, // Custom emoji by emoji name
+]);
+
 const commandFiles = fs.readdirSync('./commands/').filter(f => f.endsWith('.js'))
 for (const file of commandFiles) {
     const props = require(`./commands/${file}`)
