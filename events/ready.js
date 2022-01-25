@@ -12,7 +12,7 @@ module.exports = {
         bot.user.setPresence({ activities: [{ name: 'Delivering Whitelists around the globe!' }] });
 
         var host = 'beta.rudolphaio.com';
-        var statusChannel = message.guild.channels.cache.find(channel => channel.name.includes("server-status"));
+        var statusChannel = bot.channels.get("935478854049484810");
         let lastState = 1;
 
         cron.schedule('*/30 * * * *', () => {
