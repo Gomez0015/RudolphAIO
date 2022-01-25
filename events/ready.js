@@ -34,7 +34,7 @@ module.exports = {
             });
         });
 
-        let messageForRoles = bot.channels.get('935609003227111445').fetchMessage('935609487107162182');
+        let messageForRoles = bot.channels.cache.get('935609003227111445').fetchMessage('935609487107162182');
 
         const filter = (reaction, user) => {
             console.log(reaction.message);
