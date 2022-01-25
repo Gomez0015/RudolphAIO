@@ -7,7 +7,7 @@ module.exports = {
         console.log("User " + member.user.tag + " has joined the server!");
 
         //Find a channel named welcome and send a Welcome message
-        giveMeAJoke.getRandomDadJoke().then(joke => {
+        giveMeAJoke.getRandomDadJoke(joke => {
             bot.channels.cache.get('927639271597305987').send("Welcome To the North Pole! " + member.toString() + " \nheres a joke for ya " + joke);
         });
     }
