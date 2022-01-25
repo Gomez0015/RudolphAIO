@@ -22,10 +22,10 @@ module.exports = {
                 var msg = res.statusCode === 200 ? 'host \`' + host + '\` is alive' : 'host \`' + host + '\` is dead';
                 if (lastState == 0 && res.statusCode === 200) {
                     lastState = 1;
-                    muteChannel.send("Status: " + msg);
+                    statusChannel.send("Status: " + msg);
                 } else if (lastState == 1 && res.statusCode != 200) {
                     lastState = 0;
-                    muteChannel.send("Status: " + msg);
+                    statusChannel.send("Status: " + msg);
                 }
 
             }).on('error', function(e) {
