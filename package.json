@@ -4,6 +4,7 @@
         "dotenv": "^14.2.0",
         "fs": "^0.0.1-security",
         "http": "^0.0.1-security",
+        "node-cron": "^3.0.0",
         "ping": "^0.4.1",
         "random-memes": "^3.1.0"
     },
