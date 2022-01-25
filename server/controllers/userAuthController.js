@@ -1,13 +1,13 @@
 const dashboardKeys = require('../models/dashboardKeysModel.js');
 
 exports.checkAuthDiscord = async function(req, res) {
-
     const data = await dashboardKeys.findOne({ discordId: req.body.discordId });
     if (data) {
         if (req.body.discordLogin) {
             await dashboardKeys.findOneAndUpdate({ discordId: req.body.discordId }, { lastLoginIp: req.headers['x-forwarded-for'] });
             res.send(data);
         } else {
+            console.log(data.lastLoginIp, req.headers['x-forwarded-for']);
             if (data.lastLoginIp === (req.headers['x-forwarded-for'])) {
                 res.send(data);
             } else {
