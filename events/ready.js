@@ -42,15 +42,15 @@ module.exports = {
             if (reaction.message.id === '935609487107162182') {
                 if (reaction.emoji.name === '🏳️') {
                     if (member.roles.cache.find(r => r.name === "server-status")) {
-                        member.roles.remove('935478022868451329');
+                        await member.roles.remove('935478022868451329');
                     } else {
-                        await reaction.message.guild.members.cache.get(user.id).roles.add('935478022868451329');
+                        await member.roles.add('935478022868451329');
                     }
                 } else if (reaction.emoji.name === '🏴') {
                     if (member.roles.cache.find(r => r.name === "change-log")) {
-                        member.roles.remove('935478118343393290');
+                        await member.roles.remove('935478118343393290');
                     } else {
-                        await reaction.message.guild.members.cache.get(user.id).roles.add('935478118343393290');
+                        await member.roles.add('935478118343393290');
                     }
                 }
             }
