@@ -38,18 +38,19 @@ module.exports = {
 
         bot.on('messageReactionAdd', async(reaction, user) => {
             if (user.bot) return;
+            const member = reaction.message.guild.members.cache.get(user.id);
             if (reaction.message.id === '935609487107162182') {
                 if (reaction.emoji.name === '🏳️') {
-                    if (user.roles.cache.find(r => r.name === "server-status")) {
-                        user.roles.remove('935478022868451329');
+                    if (member.roles.cache.find(r => r.name === "server-status")) {
+                        member.roles.remove('935478022868451329');
                         user.send('You have lost the following role! (🏳️  - @server-status  (get pinged for server updates i.e Server is up! in server-status) )');
                     } else {
                         await reaction.message.guild.members.cache.get(user.id).roles.add('935478022868451329');
                         user.send('You have obtained a new role! (🏳️  - @server-status  (get pinged for server updates i.e Server is up! in server-status) )');
                     }
                 } else if (reaction.emoji.name === '🏴') {
-                    if (user.roles.cache.find(r => r.name === "change-log")) {
-                        user.roles.remove('935478118343393290');
+                    if (member.roles.cache.find(r => r.name === "change-log")) {
+                        member.roles.remove('935478118343393290');
                         user.send('You have lost the following role! (🏴  - @change-log (get updates in change-log whenever I add new functionalities))');
                     } else {
                         await reaction.message.guild.members.cache.get(user.id).roles.add('935478118343393290');
