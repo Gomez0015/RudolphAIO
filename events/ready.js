@@ -1,5 +1,6 @@
 const http = require('http');
 const cron = require('node-cron');
+const dashboardKeys = require('../commands/models/dashboardKeysModel.js');
 
 module.exports = {
     name: 'ready',
@@ -49,6 +50,18 @@ module.exports = {
                         await member.roles.add('935478118343393290');
                     }
                 }
+            } else if (reaction.message.id === '935661832360824913') {
+                if (reaction.emoji.name === '✅') {
+                    if (!member.roles.cache.find(r => r.name === "Member")) {
+                        const userHasKey = dashboardKeys.find({ discordId: user.id });
+                        if (userHasKey) {
+                            await member.roles.add('927639271312076858');
+                        } else {
+                            reaction.users.remove(user);
+                            user.send("You don't have a dashboard key!");
+                        }
+                    }
+                }
             }
         });
 
@@ -63,6 +76,12 @@ module.exports = {
                 } else if (reaction.emoji.name === '🏴') {
                     if (member.roles.cache.find(r => r.name === "change-log")) {
                         await member.roles.remove('935478118343393290');
+                    }
+                }
+            } else if (reaction.message.id === '935661832360824913') {
+                if (reaction.emoji.name === '✅') {
+                    if (member.roles.cache.find(r => r.name === "Member")) {
+                        await member.roles.remove('927639271312076858');
                     }
                 }
             }

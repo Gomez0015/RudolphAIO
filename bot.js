@@ -6,6 +6,14 @@ require('dotenv').config();
 const prefix = process.env.DISCORD_BOT_PREFIX;
 const fs = require("fs");
 bot.commands = new Collection();
+const mongoose = require('mongoose');
+const db = mongoose.connection;
+
+mongoose.connect('mongodb+srv://admin:' + process.env.MONGODB_PASSWORD + '@main.dyjqy.mongodb.net/rudolphAioDB?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true });
+
+db.once("open", async function() {
+    console.log("Database Connected successfully");
+});
 
 const commandFiles = fs.readdirSync('./commands/').filter(f => f.endsWith('.js'))
 for (const file of commandFiles) {
