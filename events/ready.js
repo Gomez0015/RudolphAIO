@@ -42,7 +42,7 @@ module.exports = {
                 if (reaction.emoji.name === '🏳️') {
                     if (user.roles.cache.find(r => r.name === "server-status")) {
                         user.roles.remove('935478022868451329');
-                        user.send('You have lost the follow role! (🏳️  - @server-status  (get pinged for server updates i.e Server is up! in server-status) )');
+                        user.send('You have lost the following role! (🏳️  - @server-status  (get pinged for server updates i.e Server is up! in server-status) )');
                     } else {
                         await reaction.message.guild.members.cache.get(user.id).roles.add('935478022868451329');
                         user.send('You have obtained a new role! (🏳️  - @server-status  (get pinged for server updates i.e Server is up! in server-status) )');
@@ -50,7 +50,7 @@ module.exports = {
                 } else if (reaction.emoji.name === '🏴') {
                     if (user.roles.cache.find(r => r.name === "change-log")) {
                         user.roles.remove('935478118343393290');
-                        user.send('You have lost the follow role! (🏴  - @change-log (get updates in change-log whenever I add new functionalities))');
+                        user.send('You have lost the following role! (🏴  - @change-log (get updates in change-log whenever I add new functionalities))');
                     } else {
                         await reaction.message.guild.members.cache.get(user.id).roles.add('935478118343393290');
                         user.send('You have obtained a new role! (🏴  - @change-log (get updates in change-log whenever I add new functionalities))');
