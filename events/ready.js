@@ -34,34 +34,19 @@ module.exports = {
             });
         });
 
-        let messageForRoles = bot.channels.cache.get('935609003227111445').messages.cache.fetch('935609487107162182');
+        bot.channels.cache.get('935609003227111445').messages.fetch('935609487107162182');
 
-        const filter = (reaction, user) => {
-            console.log(reaction.message);
-            return reaction.emoji.name === '🏳️';
-        };
-
-        const collector = messageForRoles.createReactionCollector({ filter });
-
-        collector.on('collect', async(reaction, user) => {
-            const role = await bot.roles.cache.fetch('935478022868451329');
-            reaction.author.roles.add(role);
-        });
-
-        // bot.on('messageReactionAdd', async(reaction, user) => {
-        //     console.log(reaction);
-        //     if (user.bot) return;
-        //     console.log(reaction.message.id);
-        //     if (reaction.message.id === '935609487107162182') {
-        //         console.log(reaction.emoji.name);
-        //         if (reaction.emoji.name === '🏳️') {
-        //             await reaction.message.guild.members.cache.get(user.id).roles.add('935478022868451329');
-        //             user.send('You have obtained a role!');
-        //         } else if (reaction.emoji.name === '🏴') {
-        //             await reaction.message.guild.members.cache.get(user.id).roles.add('935478118343393290');
-        //             user.send('You have obtained a role!');
-        //         }
-        //     }
-        // })
+        bot.on('messageReactionAdd', async(reaction, user) => {
+            if (user.bot) return;
+            if (reaction.message.id === '935609487107162182') {
+                if (reaction.emoji.name === '🏳️') {
+                    await reaction.message.guild.members.cache.get(user.id).roles.add('935478022868451329');
+                    user.send('You have obtained a new role! (🏳️  - @server-status  (get pinged for server updates i.e Server is up! in server-status) )');
+                } else if (reaction.emoji.name === '🏴') {
+                    await reaction.message.guild.members.cache.get(user.id).roles.add('935478118343393290');
+                    user.send('You have obtained a new role! (🏴  - @change-log (get updates in change-log whenever I add new functionalities))');
+                }
+            }
+        })
     }
 }
