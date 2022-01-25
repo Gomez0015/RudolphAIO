@@ -40,7 +40,7 @@ module.exports = {
             if (user.bot) return;
             if (reaction.message.id === '935609487107162182') {
                 if (reaction.emoji.name === '🏳️') {
-                    if (user.roles.cache.has('935478022868451329')) {
+                    if (user.roles.has('935478022868451329')) {
                         user.roles.remove('935478022868451329');
                         user.send('You have lost the follow role! (🏳️  - @server-status  (get pinged for server updates i.e Server is up! in server-status) )');
                     } else {
@@ -48,7 +48,7 @@ module.exports = {
                         user.send('You have obtained a new role! (🏳️  - @server-status  (get pinged for server updates i.e Server is up! in server-status) )');
                     }
                 } else if (reaction.emoji.name === '🏴') {
-                    if (user.roles.cache.has('935478118343393290')) {
+                    if (user.roles.has('935478118343393290')) {
                         user.roles.remove('935478118343393290');
                         user.send('You have lost the follow role! (🏴  - @change-log (get updates in change-log whenever I add new functionalities))');
                     } else {
