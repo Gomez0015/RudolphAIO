@@ -41,16 +41,28 @@ module.exports = {
             const member = reaction.message.guild.members.cache.get(user.id);
             if (reaction.message.id === '935609487107162182') {
                 if (reaction.emoji.name === '🏳️') {
+                    if (!member.roles.cache.find(r => r.name === "server-status")) {
+                        await member.roles.add('935478022868451329');
+                    }
+                } else if (reaction.emoji.name === '🏴') {
+                    if (!member.roles.cache.find(r => r.name === "change-log")) {
+                        await member.roles.add('935478118343393290');
+                    }
+                }
+            }
+        });
+
+        bot.on('messageReactionRemove', async(reaction, user) => {
+            if (user.bot) return;
+            const member = reaction.message.guild.members.cache.get(user.id);
+            if (reaction.message.id === '935609487107162182') {
+                if (reaction.emoji.name === '🏳️') {
                     if (member.roles.cache.find(r => r.name === "server-status")) {
                         await member.roles.remove('935478022868451329');
-                    } else {
-                        await member.roles.add('935478022868451329');
                     }
                 } else if (reaction.emoji.name === '🏴') {
                     if (member.roles.cache.find(r => r.name === "change-log")) {
                         await member.roles.remove('935478118343393290');
-                    } else {
-                        await member.roles.add('935478118343393290');
                     }
                 }
             }
