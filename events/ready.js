@@ -35,8 +35,11 @@ module.exports = {
         });
 
         bot.on('messageReactionAdd', async(reaction, user) => {
+            console.log(reaction);
             if (user.bot) return;
+            console.log(reaction.message.id);
             if (reaction.message.id === '935609487107162182') {
+                console.log(reaction.emoji.name);
                 if (reaction.emoji.name === '🏳️') {
                     await reaction.message.guild.members.cache.get(user.id).roles.add('935478022868451329');
                     user.send('You have obtained a role!');
