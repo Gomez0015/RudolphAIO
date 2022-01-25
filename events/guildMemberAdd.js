@@ -8,7 +8,7 @@ module.exports = {
 
         //Find a channel named welcome and send a Welcome message
         giveMeAJoke.getRandomDadJoke(joke => {
-            bot.channels.cache.get('927639271597305987').send("Welcome To the North Pole! " + member.toString() + " \nheres a joke for ya " + joke);
+            bot.channels.cache.get('927639271597305987').send("Welcome To the North Pole! " + member.toString() + " \nheres a joke for ya, " + joke);
         });
     }
 };
