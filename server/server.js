@@ -106,20 +106,22 @@ app.post('/api/getDiscordAuthInfo', async(req, res) => {
 
     const oauthData = await oauthResult.data;
 
-    const userResult = await axios({
-        url: 'https://discord.com/api/users/@me',
-        method: 'GET',
-        headers: {
-            authorization: `${oauthData.token_type} ${oauthData.access_token}`,
-        },
-    }).catch((err) => res.send({ state: 'error', message: 'Error getting user info' }));
+    if (!oauthData) { res.send({ state: 'error', message: 'Error getting user info' }) } else {
+        const userResult = await axios({
+            url: 'https://discord.com/api/users/@me',
+            method: 'GET',
+            headers: {
+                authorization: `${oauthData.token_type} ${oauthData.access_token}`,
+            },
+        }).catch((err) => res.send({ state: 'error', message: 'Error getting user info' }));
 
-    const result = await userResult.data;
+        const result = await userResult.data;
 
-    if (result.code != 0) {
-        res.send(result);
-    } else {
-        res.send({ state: 'error', message: 'Error getting user info' });
+        if (result.code != 0) {
+            res.send(result);
+        } else {
+            res.send({ state: 'error', message: 'Error getting user info' });
+        }
     }
 });
 

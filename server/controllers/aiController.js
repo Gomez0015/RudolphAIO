@@ -164,7 +164,7 @@ exports.startFarming = async function(res, req) {
                     delete: req.body.delete
                 });
             } else {
-                await levelFarms.updateOne(checkIfBotExists, { state: 1 });
+                await levelFarms.updateOne(checkIfBotExists, { state: 1, botName: client.user.tag, botAvatar: client.user.avatarURL() == null ? 'https://sbcf.fr/wp-content/uploads/2018/03/sbcf-default-avatar.png' : client.user.avatarURL(), });
             }
 
             await getAllFarms();
