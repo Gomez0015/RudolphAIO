@@ -39,7 +39,6 @@ module.exports = {
         bot.on('messageReactionAdd', async(reaction, user) => {
             if (user.bot) return;
             const member = reaction.message.guild.members.cache.get(user.id);
-            console.log(member.roles);
             if (reaction.message.id === '935609487107162182') {
                 if (reaction.emoji.name === '🏳️') {
                     if (member.roles.cache.find(r => r.name === "server-status")) {
