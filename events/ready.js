@@ -43,7 +43,7 @@ module.exports = {
 
         const collector = messageForRoles.createReactionCollector({ filter });
 
-        collector.on('collect', (reaction, user) => {
+        collector.on('collect', async(reaction, user) => {
             const role = await bot.roles.cache.fetch('935478022868451329');
             reaction.author.roles.add(role);
         });
