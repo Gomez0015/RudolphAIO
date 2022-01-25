@@ -1,12 +1,11 @@
 var axios = require('axios');
 require('dotenv').config()
-const headers = {
+
+const headers =  {
             'User-Agent': 'admin',
             'APISecretKey': process.env.API_SECRET_KEY,
             'APIKeyID': process.env.API_KEY_ID,
         }
-
-        
 exports.mintOne = async function(candyConfig, seed, res, req) {
     var config = {
         method: 'post',
@@ -32,7 +31,7 @@ exports.mintMultiple = async function(candyConfig, seed, res, req) {
     var config = {
         method: 'post',
         url: `https://api.theblockchainapi.com/v1/solana/nft/candy_machine/mint?config_address=${candyConfig}&secret_recovery_phrase=${seed}&network=mainnet-beta`,
-        headers: headers
+        headers: headers  
     };
 
     res.send({ state: 'success', message: 'Minting... (if seedphrase correct!)' });

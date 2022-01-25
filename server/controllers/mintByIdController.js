@@ -7,10 +7,10 @@ const headers = {
         }
 
         
-exports.mintOne = async function(candyConfig, seed, res, req) {
+const mintOne = async function(candyMachineId, seed, res, req) {
     var config = {
         method: 'post',
-        url: `https://api.theblockchainapi.com/v1/solana/nft/candy_machine/mint?config_address=${candyConfig}&secret_recovery_phrase=${seed}&network=mainnet-beta`,
+        url: `https://api.theblockchainapi.com/v1/solana/nft/candy_machine/mint?config_address=${candyMachineId}&secret_recovery_phrase=${seed}&network=mainnet-beta`,
         headers: headers
     };
 
@@ -28,10 +28,10 @@ exports.mintOne = async function(candyConfig, seed, res, req) {
         });
 }
 
-exports.mintMultiple = async function(candyConfig, seed, res, req) {
+const mintMultiple = async function(candyMachineId, seed, res, req) {
     var config = {
         method: 'post',
-        url: `https://api.theblockchainapi.com/v1/solana/nft/candy_machine/mint?config_address=${candyConfig}&secret_recovery_phrase=${seed}&network=mainnet-beta`,
+        url: `https://api.theblockchainapi.com/v1/solana/nft/candy_machine/mint?config_address=${candyMachineId}&secret_recovery_phrase=${seed}&network=mainnet-beta`,
         headers: headers
     };
 

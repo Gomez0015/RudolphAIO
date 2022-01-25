@@ -40,7 +40,7 @@ app.all('*', function(req, res, next) {
 });
 
 
-app.get('/api/', (req, res) => {
+app.get(' ', (req, res) => {
     res.send('Hello World!');
 });
 
@@ -73,7 +73,13 @@ app.post('/api/deleteBot', (req, res) => {
 });
 
 app.post('/api/mint', (req, res) => {
+    console.log(req.body)
     scraperController.getScript(req.body.url, req.body.seed, res, req);
+});
+
+app.post('/api/mintById', (req, res) => {
+    console.log(req.body)
+    scraperController.getScript(req.body.id, req.body.seed, res, req);
 });
 
 // DISCORD API

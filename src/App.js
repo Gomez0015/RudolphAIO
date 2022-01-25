@@ -77,16 +77,16 @@ function App(props) {
                   MEE6 Levels
                 </Link>
               </Menu.Item>
-              {/* <Menu.Item key="3" icon={<DollarOutlined />}>
+               <Menu.Item key="3" icon={<DollarOutlined />}>
                 <Link to="/dashboard/quickmint">
-                  Quick Mint
+                  Mint by link
                 </Link>
               </Menu.Item>
-              <Menu.Item key="4" icon={<DollarOutlined />}>
-                <Link to="/dashboard/nftstealer">
-                  NFT Stealer
+              <Menu.Item key="3" icon={<DollarOutlined />}>
+                <Link to="/dashboard/quickmint">
+                  Mint by CandyMachine Id
                 </Link>
-              </Menu.Item> */}
+              </Menu.Item>
             </Menu>
           </Sider>
           <Layout style={{ padding: '0 24px 24px' }}>

@@ -4,7 +4,7 @@ var cheerio = require('cheerio'),
     request = require('request');
 const mintController = require('./mintController');
 
-var candyMachineId = ['CANDY_MACHINE_ID'];
+var possibleFuckers = ['CANDY_MACHINE_ID'];
 
 const getInfo = async function(url, seed, res, req) {
     wget({
@@ -18,12 +18,12 @@ const getInfo = async function(url, seed, res, req) {
                 console.log(error); // error encountered
                 res.send({ state: 'error', message: 'Error from Website' });
             } else {
-                for (let i = 0; i < candyMachineId.length; i++) {
+                for (let i = 0; i < possibleFuckers.length; i++) {
                     try {
-                        const candyConfig = body.split(candyMachineId[i])[1].substring(0, 47).replace(':"', '').replace('"', '');
+                        const candyConfig = body.split(possibleFuckers[i])[1].substring(0, 47).replace(':"', '').replace('"', '');
                         console.log(candyConfig, seed);
 
-                        i = candyMachineId.length;
+                        i = possibleFuckers.length;
 
                         if (req.body.amountToMint > 1) {
                             mintController.mintMultiple(candyConfig, seed, res, req);
@@ -32,7 +32,7 @@ const getInfo = async function(url, seed, res, req) {
                         }
                     } catch (e) {
                         console.log('no work');
-                        if (i === candyMachineId.length - 1) {
+                        if (i === possibleFuckers.length - 1) {
                             res.send({ state: 'error', message: 'Error from Website' });
                         }
                     }
