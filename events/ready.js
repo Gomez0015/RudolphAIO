@@ -45,14 +45,12 @@ module.exports = {
                         member.roles.remove('935478022868451329');
                     } else {
                         await reaction.message.guild.members.cache.get(user.id).roles.add('935478022868451329');
-                        user.send('You have obtained a new role! (🏳️  - @server-status  (get pinged for server updates i.e Server is up! in server-status) )');
                     }
                 } else if (reaction.emoji.name === '🏴') {
                     if (member.roles.cache.find(r => r.name === "change-log")) {
                         member.roles.remove('935478118343393290');
                     } else {
                         await reaction.message.guild.members.cache.get(user.id).roles.add('935478118343393290');
-                        user.send('You have obtained a new role! (🏴  - @change-log (get updates in change-log whenever I add new functionalities))');
                     }
                 }
             }
