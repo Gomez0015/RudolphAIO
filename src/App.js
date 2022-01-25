@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { BrowserView, MobileView, isBrowser, isMobile } from 'react-device-detect';
 import { Layout, Menu, Breadcrumb, Typography, message, Button } from 'antd';
 import { useCookies } from "react-cookie";
+import rudolph from './rudolph.png';
 import {
   Outlet,
   Link,
@@ -122,8 +123,9 @@ function App(props) {
                     <Route
                       path="*"
                       element={
-                        <main style={{ padding: "1rem" }}>
-                          <p>There's nothing here!</p>
+                        <main style={{ padding: "1rem", textAlign: 'center' }}>
+                          <img src={rudolph} style={{ width: "200px"}}/>
+                          <Title>404 Rudolph is Lost!</Title>
                         </main>
                       }
                     />
