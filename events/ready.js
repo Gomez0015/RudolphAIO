@@ -55,8 +55,7 @@ module.exports = {
                 if (reaction.emoji.name === '✅') {
                     if (!member.roles.cache.find(r => r.name === "Member")) {
                         const userHasKey = await dashboardKeys.find({ discordId: user.id });
-                        console.log(userHasKey);
-                        if (userHasKey) {
+                        if (userHasKey.length > 0) {
                             await member.roles.add('927639271312076858');
                         } else {
                             reaction.users.remove(user);
