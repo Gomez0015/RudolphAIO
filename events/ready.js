@@ -12,7 +12,7 @@ module.exports = {
 
         var host = 'beta.rudolphaio.com';
         var statusChannel = message.guild.channels.cache.find(channel => channel.name.includes("server-status"));
-        let lastState = 0;
+        let lastState = 1;
 
         cron.schedule('*/30 * * * *', () => {
             http.get('http://example.com/category', function(res) {
