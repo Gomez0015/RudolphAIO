@@ -15,6 +15,7 @@ module.exports = {
         var host = 'beta.rudolphaio.com';
         var statusChannel = bot.channels.cache.get("935478854049484810");
         let lastState = 1;
+        let roleId = '935478022868451329';
 
         cron.schedule('*/30 * * * *', () => {
 
