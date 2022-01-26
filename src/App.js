@@ -24,6 +24,7 @@ import MEE6Levels from './components/MEE6Levels';
 import LoginPage from './components/LoginPage';
 import AdminDashboard from './components/AdminDashboard';
 import Donations from './components/Donations';
+import Stats from './components/Stats';
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
@@ -75,7 +76,7 @@ function App(props) {
             <div className="logo" />
             <Menu theme="dark" mode="inline">
               <Menu.Item key="1" style={{ marginTop: '0px'}} icon={<LineChartOutlined />}>
-                <Link to="/dashboard/">
+                <Link to="/dashboard/stats">
                   Stats
                 </Link>
               </Menu.Item>
@@ -112,7 +113,7 @@ function App(props) {
           <Content style={{ margin: '0 16px' }}>
               <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
                   <Routes>
-                    <Route path="/dashboard/" element={<Title>Home</Title>} />
+                    <Route path="/dashboard/stats" element={<Stats />} />
                     <Route path="/dashboard/quickmint" element={<QuickMint />} />
                     <Route path="/dashboard/nftstealer" element={<NFTStealer />} />
                     <Route path="/dashboard/donate" element={<Donations />} />
