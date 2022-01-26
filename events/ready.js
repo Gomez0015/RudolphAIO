@@ -19,7 +19,7 @@ module.exports = {
         cron.schedule('*/30 * * * *', () => {
 
             http.get({ host: host }, function(res) {
-                if (lastState == 0 && res.statusCode == 200 || astState == 0 && res.statusCode == 301) {
+                if (lastState == 0 && res.statusCode == 200 || lastState == 0 && res.statusCode == 301) {
                     lastState = 1;
                     statusChannel.send("<@&" + roleId + "> Server is back up!");
                 } else if (lastState == 1 && res.statusCode != 200 || astState == 1 && res.statusCode != 301) {
