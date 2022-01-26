@@ -22,7 +22,7 @@ module.exports = {
                 if (lastState == 0 && res.statusCode == 200 || astState == 0 && res.statusCode == 301) {
                     lastState = 1;
                     statusChannel.send("<@&" + roleId + "> Server is back up!");
-                } else(lastState == 1 && res.statusCode != 200 || astState == 1 && res.statusCode != 301) {
+                } else if (lastState == 1 && res.statusCode != 200 || astState == 1 && res.statusCode != 301) {
                     lastState = 0;
                     statusChannel.send("<@&" + roleId + "> Server is down!");
                 }
