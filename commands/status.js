@@ -1,7 +1,7 @@
 const http = require('http');
 
 exports.run = async(bot, message, args) => {
-    var host = 'htpps://beta.rudolphaio.com';
+    var host = 'https://beta.rudolphaio.com';
     http.get(host, function(res) {
         // If you get here, you have a response.
         // If you want, you can check the status code here to verify that it's `200` or some other `2xx`.
