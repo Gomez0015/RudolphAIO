@@ -1,9 +1,15 @@
-const isUp = require('is-up');
+const http = require("http");
 
 exports.run = async(bot, message, args) => {
-    var host = 'https://beta.rudolphaio.com/';
-    await isUp(host).then(function(isUp) {
-        var msg = isUp ? 'host \`' + host + '\` is alive' : 'host \`' + host + '\` is dead';
+
+    var host = 'beta.rudolphaio.com';
+
+    http.get({ host: host }, function(res) {
+        if (res.statusCode == 200 || res.statusCode == 301)
+            var msg = 'host \`' + host + '\` is alive';
+        else
+            var msg = 'host \`' + host + '\` is dead';
+
         message.channel.send("Status: " + msg);
     });
 }
