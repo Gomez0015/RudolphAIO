@@ -17,21 +17,17 @@ module.exports = {
         let lastState = 1;
 
         cron.schedule('*/30 * * * *', () => {
-            http.get('http://example.com/category', function(res) {
-                // If you get here, you have a response.
-                // If you want, you can check the status code here to verify that it's `200` or some other `2xx`.
-                var msg = res.statusCode === 200 ? 'host \`' + host + '\` is alive' : 'host \`' + host + '\` is dead';
-                var roleId = "935478022868451329";
-                if (lastState == 0 && res.statusCode === 200) {
+
+            http.get({ host: host }, function(res) {
+                if (lastState == 0 && res.statusCode == 200 || astState == 0 && res.statusCode == 301) {
                     lastState = 1;
                     statusChannel.send("<@&" + roleId + "> Server is back up!");
-                } else if (lastState == 1 && res.statusCode != 200) {
+                } else(lastState == 1 && res.statusCode != 200 || astState == 1 && res.statusCode != 301) {
                     lastState = 0;
                     statusChannel.send("<@&" + roleId + "> Server is down!");
                 }
 
-            }).on('error', function(e) {
-                console.log(e);
+                message.channel.send("Status: " + msg);
             });
         });
 
