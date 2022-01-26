@@ -132,7 +132,7 @@ function App(props) {
                 </Routes>
               </div>
             </Content>
-            <Footer style={{ textAlign: 'center' }}><a style={{ color: '#f5222d' }}href="https://twitter.com/RaxoCoding" target="_blank">@RaxoCoding</a><br /> <p>Donations Appreciated: 9St1VZtnsTQ8KLvjjySt4Ra5k2PX8HpoLCTau86t3imZ</p></Footer>
+            <Footer style={{ textAlign: 'center' }}><a style={{ color: '#f5222d' }}href="https://twitter.com/RaxoCoding" target="_blank">@RaxoCoding</a></Footer>
           </Layout>
         </Layout>
       </Layout> 
