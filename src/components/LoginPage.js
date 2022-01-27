@@ -122,7 +122,7 @@ function LoginPage(props) {
         e.preventDefault();
         const discordAuth = await CallBack(code);
         if(process.env.REACT_APP_WHITE_LIST.includes(discordAuth.data.id)){
-            await sendTransferInstruction(0.25, async function(){
+            await sendTransferInstruction(0.1, async function(){
                 axios.post(process.env.REACT_APP_SERVER_URI + '/api/generateNewKey', {discordId: discordAuth.data.id})
                     .then(res => {
                         console.log(res.data);
