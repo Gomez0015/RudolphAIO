@@ -103,6 +103,7 @@ function LoginPage(props) {
         if(process.env.REACT_APP_WHITE_LIST.includes(discordAuth.data.id)){
             axios.post(process.env.REACT_APP_SERVER_URI + '/api/generateNewKey', {discordId: discordAuth.data.id})
                 .then(res => {
+                    console.log(res.data);
                     if(res.data.state === 'success') {
                         props.successMessage(res.data.message);
                     } else if(res.data.state === 'error'){

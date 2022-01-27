@@ -88,7 +88,8 @@ const redirect = process.env.SERVER_URI + '/dashboard';
 
 app.post('/api/getDiscordAuthInfo', async(req, res) => {
     const code = req.body.code;
-    const oauthResult = await axios({
+
+    await axios({
         method: 'POST',
         url: 'https://discord.com/api/oauth2/token',
         data: new URLSearchParams({
@@ -102,27 +103,26 @@ app.post('/api/getDiscordAuthInfo', async(req, res) => {
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
         },
-    }).catch((err) => res.send({ state: 'error', message: 'Error getting user info' }));
+    }).then(response => {
+        let oauthData = response.data;
+        if (!oauthData) { res.send({ state: 'error', message: 'Error getting user info' }) } else {
+            const userResult = await axios({
+                url: 'https://discord.com/api/users/@me',
+                method: 'GET',
+                headers: {
+                    authorization: `${oauthData.token_type} ${oauthData.access_token}`,
+                },
+            }).catch((err) => res.send({ state: 'error', message: 'Error getting user info' }));
 
-    const oauthData = await oauthResult.data;
+            const result = await userResult.data;
 
-    if (!oauthData) { res.send({ state: 'error', message: 'Error getting user info' }) } else {
-        const userResult = await axios({
-            url: 'https://discord.com/api/users/@me',
-            method: 'GET',
-            headers: {
-                authorization: `${oauthData.token_type} ${oauthData.access_token}`,
-            },
-        }).catch((err) => res.send({ state: 'error', message: 'Error getting user info' }));
-
-        const result = await userResult.data;
-
-        if (result.code != 0) {
-            res.send(result);
-        } else {
-            res.send({ state: 'error', message: 'Error getting user info' });
+            if (result.code != 0) {
+                res.send(result);
+            } else {
+                res.send({ state: 'error', message: 'Error getting user info' });
+            }
         }
-    }
+    }).catch((err) => res.send({ state: 'error', message: 'Error getting user info' }));
 });
 
 app.get('/api/discordLogin', (req, res) => {
