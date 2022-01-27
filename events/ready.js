@@ -27,8 +27,6 @@ module.exports = {
                     lastState = 0;
                     statusChannel.send("<@&" + roleId + "> Server is down!");
                 }
-
-                message.channel.send("Status: " + msg);
             });
         });
 
