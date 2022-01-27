@@ -20,10 +20,11 @@ module.exports = {
         cron.schedule('*/30 * * * *', () => {
 
             http.get({ host: host }, function(res) {
+                console.log(res.statusCode);
                 if (lastState == 0 && res.statusCode == 200) {
                     lastState = 1;
                     statusChannel.send("<@&" + roleId + "> Server is back up!");
-                } else if (lastState == 1 && res.statusCode != 200) {
+                } else if (lastState == 1 && res.statusCode == 404 || lastState == 1 && res.statusCode == 500) {
                     lastState = 0;
                     statusChannel.send("<@&" + roleId + "> Server is down!");
                 }
