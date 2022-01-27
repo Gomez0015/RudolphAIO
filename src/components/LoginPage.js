@@ -164,8 +164,10 @@ function LoginPage(props) {
         {code && buyKey == 'true' && userWallet == 'none' ? 
         <ConnectToPhantom setUserWallet={setUserWallet}/>
         : code && buyKey == 'true' && userWallet != 'none' ? 
-        <ConnectToPhantom setUserWallet={setUserWallet}/>
-        <Button loading={buyKeyLoading} onClick={GenerateKey}>Generate Key</Button>
+        <>
+            <ConnectToPhantom setUserWallet={setUserWallet}/>
+            <Button loading={buyKeyLoading} onClick={GenerateKey}>Generate Key</Button>
+        </>
         : code && newKey == 'true' ?
             <form action='#' onSubmit={Register}>
                 <Input required type="key" name="authKey" placeholder="Auth Key" style={{textAlign: 'center', width: '25%'}}/>
