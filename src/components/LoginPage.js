@@ -14,9 +14,16 @@ function LoginPage(props) {
     const queryParams = new URLSearchParams(window.location.search);
     const code = queryParams.get("code");
     const newKey = props.cookies.newKey;
+    const buyKey = props.cookies.buyKey;
 
     const setNewKeyCookie = (value) => {
         props.setCookie("newKey", value, {
+            path: "/"
+        });
+    }
+
+    const setBuyKeyCookie = (value) => {
+        props.setCookie("buyKey", value, {
             path: "/"
         });
     }
@@ -89,6 +96,24 @@ function LoginPage(props) {
             });
     }
 
+
+    const GenerateKey = async (e) => {
+        e.preventDefault();
+        const discordAuth = await CallBack(code);
+        axios.post(process.env.REACT_APP_SERVER_URI + '/api/generateNewKey', {discordId: discordAuth.data.id})
+            .then(res => {
+                if(res.data.state === 'success') {
+                    props.successMessage(res.data.message);
+                } else if(res.data.state === 'error'){
+                    props.errorMessage(res.data.message);
+                }
+
+                setBuyKeyCookie(false);
+            }).catch(err => {
+                console.error(err);
+            });
+    }
+
     const CallBack = async (code) => {
         const result = await axios.post(process.env.REACT_APP_SERVER_URI + '/api/getDiscordAuthInfo', {code: code});
 
@@ -103,20 +128,25 @@ function LoginPage(props) {
   return (
     <div style={{textAlign: 'center'}}>
         <Title>Login</Title>
-        {code && newKey == 'true' ?
+        {code && buyKey == 'true' ? 
+        <Button onClick={GenerateKey}>Generate Key</Button>
+        : code && newKey == 'true' ?
             <form action='#' onSubmit={Register}>
                 <Input required type="key" name="authKey" placeholder="Auth Key" style={{textAlign: 'center', width: '25%'}}/>
                 <br />
                 <Button htmlType="submit">Link Key To Discord</Button>
             </form>
-        : code && newKey == 'false' ? 
+        : code && newKey == 'false' || code && buyKey == 'false' ? 
             <Button onClick={Login}>Log in</Button>
         :
             <>
-            <form action='#' onSubmit={() => {setNewKeyCookie(true); DiscordLogin();}}>
+            <form action='#' onSubmit={() => {setNewKeyCookie(false); setBuyKeyCookie(true); DiscordLogin();}}>
+                <Button htmlType="submit">Buy a Key</Button>
+            </form>
+            <form action='#' onSubmit={() => {setNewKeyCookie(true); setBuyKeyCookie(false); DiscordLogin();}}>
                 <Button htmlType="submit">Link new Key With Discord</Button>
             </form>
-            <form action='#' onSubmit={() => {setNewKeyCookie(false); DiscordLogin();}}>
+            <form action='#' onSubmit={() => {setNewKeyCookie(false); setBuyKeyCookie(false); DiscordLogin();}}>
                 <Button htmlType="submit">Login with Discord</Button>
             </form>
             </>

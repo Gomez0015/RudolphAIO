@@ -35,7 +35,7 @@ const adminList = process.env.REACT_APP_ADMIN_LIST;
 function App(props) {
   const [collapsed, setCollapsed] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
-  const [cookies, setCookie] = useCookies(["userToken", "newKey"]);
+  const [cookies, setCookie] = useCookies(["userToken", "newKey", "buyKey"]);
 
   const successMessage = (text) => {
     message.success(

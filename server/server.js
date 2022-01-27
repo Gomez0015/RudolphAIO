@@ -138,6 +138,10 @@ app.post('/api/linkKeyDiscord', (req, res) => {
     userAuthController.linkKeyDiscord(res, req);
 });
 
+app.post('/api/generateNewKey', (req, res) => {
+    authController.generateNewKey(req, res);
+});
+
 app.get('/dashboard', (req, res) => {
     res.sendFile(path.join(__dirname, "..", "build", "index.html"));
 });
