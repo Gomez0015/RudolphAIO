@@ -42,6 +42,7 @@ exports.getAnswer = async function(res, req) {
             if (isUpperCase(answer)) {
                 answer = answer.toLowerCase();
             }
+
             res.send({ answer: answer, chatLogs: tempChatLogs });
         })
         .catch(err => {
@@ -75,7 +76,7 @@ exports.stopFarming = async function(res, req) {
 exports.updateBotSettings = async function(res, req) {
     const data = await levelFarms.findOne({ discordId: req.body.userToken, botName: req.body.botData.botName });
     if (data) {
-        await levelFarms.updateOne(data, { messageDelay: req.body.botData.messageDelay, channelId: req.body.botData.channelId, collectionName: req.body.botData.collectionName, mintDate: req.body.botData.mintDate, customPrompt: req.body.botData.customPrompt, spam: req.body.botData.spam, delete: req.body.botData.delete });
+        await levelFarms.updateOne(data, { endTimer, botName: req.body.botData.endTimer, messageDelay: req.body.botData.messageDelay, channelId: req.body.botData.channelId, collectionName: req.body.botData.collectionName, mintDate: req.body.botData.mintDate, customPrompt: req.body.botData.customPrompt, spam: req.body.botData.spam, delete: req.body.botData.delete });
         res.send({ state: 'success', message: 'Successfully updated settings' });
     } else {
         res.send({ state: 'error', message: 'Couldnt seem to find the bot' });
@@ -152,6 +153,7 @@ exports.startFarming = async function(res, req) {
                     channelId: req.body.channelId,
                     messageDelay: req.body.messageDelay,
                     start_date: new Date(),
+                    endTimer: req.body.endTimer,
                     messages: [],
                     botName: client.user.tag,
                     botAvatar: client.user.avatarURL() == null ? 'https://sbcf.fr/wp-content/uploads/2018/03/sbcf-default-avatar.png' : client.user.avatarURL(),
@@ -164,7 +166,7 @@ exports.startFarming = async function(res, req) {
                     delete: req.body.delete
                 });
             } else {
-                await levelFarms.updateOne(checkIfBotExists, { state: 1, botName: client.user.tag, botAvatar: client.user.avatarURL() == null ? 'https://sbcf.fr/wp-content/uploads/2018/03/sbcf-default-avatar.png' : client.user.avatarURL(), });
+                await levelFarms.updateOne(checkIfBotExists, { start_date: new Date(), endTimer: checkIfBotExists.endTimer, state: 1, botName: client.user.tag, botAvatar: client.user.avatarURL() == null ? 'https://sbcf.fr/wp-content/uploads/2018/03/sbcf-default-avatar.png' : client.user.avatarURL(), });
             }
 
             await getAllFarms();
@@ -209,7 +211,10 @@ exports.startFarming = async function(res, req) {
                     channelExists = await client.channels.cache.get(checkIfBotNeedsShutdown.channelId);
                 }
 
-                if (!checkIfBotNeedsShutdown || !channelExists) {
+                const currentDateForTimer = new Date();
+                const minutes = parseInt(Math.abs(currentDateForTimer.getTime() - checkIfBotNeedsShutdown.start_date.getTime()) / (1000 * 60));
+
+                if (!checkIfBotNeedsShutdown || !channelExists || minutes >= checkIfBotNeedsShutdown.endTimer) {
                     console.log('Shutting bot down...');
                     clearInterval(x);
                     await levelFarms.updateOne({ discordId: req.body.userToken, botName: client.user.tag }, { state: 0 });
