@@ -218,8 +218,6 @@ exports.startFarming = async function(res, req) {
                 const currentDateForTimer = new Date();
                 const minutes = parseInt(Math.abs(currentDateForTimer.getTime() - checkIfBotNeedsShutdown.start_date.getTime()) / (1000 * 60));
 
-                console.log(checkIfBotNeedsShutdown.start_date, currentDateForTimer, minutes, checkIfBotNeedsShutdown.endTimer)
-
                 if (!checkIfBotNeedsShutdown || !channelExists || minutes >= checkIfBotNeedsShutdown.endTimer) {
                     console.log('Shutting bot down...');
                     clearInterval(x);

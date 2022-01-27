@@ -15,6 +15,10 @@ var levelFarmSchema = new Schema({
         type: Date,
         default: new Date()
     },
+    endTimer: {
+        type: Number,
+        required: true
+    },
     messages: {
         type: Array,
         default: []
