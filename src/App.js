@@ -113,7 +113,7 @@ function App(props) {
                     <Route path="/dashboard/stats" element={<h1>Stats</h1>} />
                     <Route path="/dashboard/quickmint" element={<QuickMint />} />
                     <Route path="/dashboard/nftstealer" element={<NFTStealer />} />
-                    <Route path="/dashboard/donate" element={<Donations />} />
+                    <Route path="/dashboard/donate" element={<Donations successMessage={successMessage} errorMessage={errorMessage} />} />
                     <Route path="/dashboard/mee6levels" element={<MEE6Levels cookies={cookies} successMessage={successMessage} errorMessage={errorMessage}/>} />
                     {adminList.includes(cookies.userToken) ? 
                       <Route path="/dashboard/admin" element={<AdminDashboard cookies={cookies} successMessage={successMessage} errorMessage={errorMessage}/>} />

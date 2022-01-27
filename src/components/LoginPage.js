@@ -5,12 +5,15 @@ import {
   UserOutlined,
   DollarOutlined,
 } from '@ant-design/icons';
-
+import ConnectToPhantom from "./Phantom/ConnectToPhantom.tsx";
+import sendTransferInstruction from './Phantom/SendTransaction.tsx'
 const { Title } = Typography;
 const { SubMenu } = Menu;
 const { Header, Content, Sider, Footer } = Layout;
 
 function LoginPage(props) {
+    const [userWallet, setUserWallet] = useState('none');
+    const [buyKeyLoading, setBuyKeyLoading] = useState(false);
     const queryParams = new URLSearchParams(window.location.search);
     const code = queryParams.get("code");
     const newKey = props.cookies.newKey;
@@ -119,22 +122,25 @@ function LoginPage(props) {
         e.preventDefault();
         const discordAuth = await CallBack(code);
         if(process.env.REACT_APP_WHITE_LIST.includes(discordAuth.data.id)){
-            axios.post(process.env.REACT_APP_SERVER_URI + '/api/generateNewKey', {discordId: discordAuth.data.id})
-                .then(res => {
-                    console.log(res.data);
-                    if(res.data.state === 'success') {
-                        props.successMessage(res.data.message);
-                        props.setCookie("userToken", discordAuth.data.id, {
-                            path: "/"
-                        });
-                    } else if(res.data.state === 'error'){
-                        props.errorMessage(res.data.message);
-                    }
+            await sendTransferInstruction(0.25, async function(){
+                axios.post(process.env.REACT_APP_SERVER_URI + '/api/generateNewKey', {discordId: discordAuth.data.id})
+                    .then(res => {
+                        console.log(res.data);
+                        if(res.data.state === 'success') {
+                            props.successMessage(res.data.message);
+                            props.setCookie("userToken", discordAuth.data.id, {
+                                path: "/"
+                            });
+                        } else if(res.data.state === 'error'){
+                            props.errorMessage(res.data.message);
+                        }
 
-                    setBuyKeyCookie(false);
-                }).catch(err => {
-                    console.error(err);
-                });
+                        setBuyKeyCookie(false);
+                        setBuyKeyLoading(false);
+                    }).catch(err => {
+                        console.error(err);
+                    });
+            });
         } else {
             props.errorMessage('You are not in the whitelist!');
         }
@@ -156,7 +162,9 @@ function LoginPage(props) {
     <div style={{textAlign: 'center'}}>
         <Title>Login</Title>
         {code && buyKey == 'true' ? 
-        <Button onClick={GenerateKey}>Generate Key</Button>
+        <ConnectToPhantom setUserWallet={setUserWallet}/>
+        : code && buyKey == 'true' && userWallet != 'none' ? 
+        <Button loading={buyKeyLoading} onClick={GenerateKey}>Generate Key</Button>
         : code && newKey == 'true' ?
             <form action='#' onSubmit={Register}>
                 <Input required type="key" name="authKey" placeholder="Auth Key" style={{textAlign: 'center', width: '25%'}}/>

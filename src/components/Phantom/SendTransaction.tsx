@@ -82,7 +82,7 @@ const createTransferTransaction = async (price) =>
       lamports: (price * 1000000000),
     }),
   ]);
-const sendTransaction = async (transaction: Transaction) => {
+const sendTransaction = async (transaction: Transaction, callback) => {
   if (transaction) {
     try {
         let { signature } = await provider.signAndSendTransaction(transaction);
@@ -90,20 +90,21 @@ const sendTransaction = async (transaction: Transaction) => {
           "Submitted transaction " + signature + ", awaiting confirmation"
         );
         await CONNECTION.confirmTransaction(signature);
+        callback();
     } catch (err) {
       console.warn(err);
       console.log("Error: " + JSON.stringify(err));
     }
   }
 };
-const sendTransferInstruction = async (price) => {
+const sendTransferInstruction = async (price, callback) => {
     if(provider == undefined) {
       provider = getProvider();
       const transaction = await createTransferTransaction(price);
-      sendTransaction(transaction);
+      sendTransaction(transaction, callback);
     } else {
       const transaction = await createTransferTransaction(price);
-      sendTransaction(transaction);
+      sendTransaction(transaction, callback);
     }
 };
 

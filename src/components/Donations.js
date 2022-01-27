@@ -11,12 +11,14 @@ const { Title } = Typography;
 const { SubMenu } = Menu;
 const { Header, Content, Sider, Footer } = Layout;
 
-function QuickMint() {
+function Donations(props) {
     const [userWallet, setUserWallet] = useState('none');
 
     const donate = (e) => {
         e.preventDefault();
-        sendTransferInstruction(e.target.price.value)
+        sendTransferInstruction(e.target.price.value, () => {
+            props.successMessage('Thanks for donating!')
+        });
     }
 
     return (
@@ -34,4 +36,4 @@ function QuickMint() {
     );
 }
 
-export default QuickMint;
+export default Donations;
