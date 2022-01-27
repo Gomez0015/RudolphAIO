@@ -25,32 +25,36 @@ exports.getAnswer = async function(res, req) {
         tempChatLogs = tempChatLogs.split(/Human:(.*)/);
         tempChatLogs = tempChatLogs[0] + ("Human:" + ((tempChatLogs[1]).slice(500).split(/Human:(.*)/)[1]));
     }
-    tempChatLogs += `Human: ${req.body.text.replace(mention_pattern, '')}\n`;
-    await openai.complete({
-            engine: 'babbage',
-            prompt: tempChatLogs,
-            maxTokens: 50,
-            temperature: 0.9,
-            topP: 1,
-            presencePenalty: 0.6,
-            frequencyPenalty: 0,
-            stop: ["\n", " Human:", " AI:"]
-        }).then(function(response) {
-            tempChatLogs += `${response.data.choices[0].text.replace(mention_pattern, '')}\n`;
-            answer = filter.clean(response.data.choices[0].text.substr(4).replace(/^[a-zA-Z]+:/, '').replace(/(?:https?|ftp):\/\/[\n\S]+/g, '').replace(mention_pattern, ''));
+    tempChatLogs += `Human: ${req.body.text.replace(mention_pattern, '').replace(/(?:https?|ftp):\/\/[\n\S]+/g, 'link')}\n`;
+    if (req.body.text.replace(mention_pattern, '').replace(/(?:https?|ftp):\/\/[\n\S]+/g, '') == '') {
+        res.send({ data: undefined });
+    } else {
+        await openai.complete({
+                engine: 'babbage',
+                prompt: tempChatLogs,
+                maxTokens: 50,
+                temperature: 0.9,
+                topP: 1,
+                presencePenalty: 0.6,
+                frequencyPenalty: 0,
+                stop: ["\n", " Human:", " AI:"]
+            }).then(function(response) {
+                tempChatLogs += `${response.data.choices[0].text.replace(mention_pattern, '')}\n`;
+                answer = filter.clean(response.data.choices[0].text.substr(4).replace(/^[a-zA-Z]+:/, '').replace(/(?:https?|ftp):\/\/[\n\S]+/g, 'link').replace(mention_pattern, ''));
 
-            if (isUpperCase(answer)) {
-                answer = answer.toLowerCase();
-            }
+                if (isUpperCase(answer)) {
+                    answer = answer.toLowerCase();
+                }
 
-            res.send({ answer: answer, chatLogs: tempChatLogs });
-        })
-        .catch(err => {
-            if (err.isAxiosError) {
-                console.log(err, ', Axios Error', req.body.botData.botName);
-            }
-            res.send({ data: undefined });
-        });
+                res.send({ answer: answer, chatLogs: tempChatLogs });
+            })
+            .catch(err => {
+                if (err.isAxiosError) {
+                    console.log(err, ', Axios Error', req.body.botData.botName);
+                }
+                res.send({ data: undefined });
+            });
+    }
 }
 
 exports.getFarmingData = async function(res, req) {
