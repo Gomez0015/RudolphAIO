@@ -139,7 +139,7 @@ app.post('/api/linkKeyDiscord', (req, res) => {
 });
 
 app.post('/api/generateNewKey', (req, res) => {
-    authController.generateNewKey(req, res);
+    userAuthController.generateNewKey(req, res);
 });
 
 app.get('/dashboard', (req, res) => {
