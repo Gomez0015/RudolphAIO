@@ -1,5 +1,6 @@
 const http = require('http');
 const cron = require('node-cron');
+const Twitter = require('twit');
 const dashboardKeys = require('../commands/models/dashboardKeysModel.js');
 
 module.exports = {
@@ -99,5 +100,35 @@ module.exports = {
                 }
             }
         })
+
+        //Get Twitter Feed
+
+        // Specify destination channel ID below
+        const dest = '927639271597305993';
+
+        // Create a stream to follow tweets
+        const stream = twitterClient.stream('statuses/filter', {
+            follow: '1481399997560233986', // @rudolphaio, specify whichever Twitter ID you want to follow
+        });
+
+        // SOURCE:
+        // https://github.com/ttezel/twit/issues/286#issuecomment-236315960
+        function isReply(tweet) {
+            if (tweet.retweeted_status ||
+                tweet.in_reply_to_status_id ||
+                tweet.in_reply_to_status_id_str ||
+                tweet.in_reply_to_user_id ||
+                tweet.in_reply_to_user_id_str ||
+                tweet.in_reply_to_screen_name) return true;
+            return false;
+        }
+
+        stream.on('tweet', tweet => {
+            if (isReply(tweet) == false) {
+                const twitterMessage = `${tweet.user.name} (@${tweet.user.screen_name}) tweeted this: https://twitter.com/${tweet.user.screen_name}/status/${tweet.id_str}`
+                client.channels.cache.get(dest).send(twitterMessage);
+                return false;
+            }
+        });
     }
 }
