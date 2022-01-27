@@ -122,7 +122,7 @@ function LoginPage(props) {
         e.preventDefault();
         const discordAuth = await CallBack(code);
         if(process.env.REACT_APP_WHITE_LIST.includes(discordAuth.data.id)){
-            await sendTransferInstruction(0.1, async function(){
+            await sendTransferInstruction(0.22, async function(){
                 axios.post(process.env.REACT_APP_SERVER_URI + '/api/generateNewKey', {discordId: discordAuth.data.id})
                     .then(res => {
                         console.log(res.data);
@@ -161,7 +161,7 @@ function LoginPage(props) {
   return (
     <div style={{textAlign: 'center'}}>
         <Title>Login</Title>
-        {code && buyKey == 'true' ? 
+        {code && buyKey == 'true' && userWallet == 'none' ? 
         <ConnectToPhantom setUserWallet={setUserWallet}/>
         : code && buyKey == 'true' && userWallet != 'none' ? 
         <Button loading={buyKeyLoading} onClick={GenerateKey}>Generate Key</Button>
