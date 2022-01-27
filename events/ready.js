@@ -46,6 +46,14 @@ module.exports = {
                     if (!member.roles.cache.find(r => r.name === "change-log")) {
                         await member.roles.add('935478118343393290');
                     }
+                } else if (reaction.emoji.name === 'sol') {
+                    if (!member.roles.cache.find(r => r.name === "SOL")) {
+                        await member.roles.add('936320374294065233');
+                    }
+                } else if (reaction.emoji.name === 'eth') {
+                    if (!member.roles.cache.find(r => r.name === "ETH")) {
+                        await member.roles.add('936320420200722493');
+                    }
                 }
             } else if (reaction.message.id === '935661832360824913') {
                 if (reaction.emoji.name === '✅') {
