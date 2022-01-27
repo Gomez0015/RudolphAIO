@@ -103,7 +103,7 @@ app.post('/api/getDiscordAuthInfo', async(req, res) => {
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
         },
-    }).then(response => {
+    }).then(async(response) => {
         let oauthData = response.data;
         if (!oauthData) { res.send({ state: 'error', message: 'Error getting user info' }) } else {
             const userResult = await axios({
