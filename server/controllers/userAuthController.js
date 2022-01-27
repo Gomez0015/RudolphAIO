@@ -36,7 +36,7 @@ exports.linkKeyDiscord = async function(res, req, db) {
     }
 }
 
-exports.generateNewKey = async function(res, req) {
+exports.generateNewKey = async function(req, res) {
     const checkUserHasKey = await dashboardKeys.findOne({ discordId: req.body.discordId });
     if (checkUserHasKey) {
         res.send({ state: 'error', message: 'You already have a key!' });

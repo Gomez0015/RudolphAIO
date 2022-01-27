@@ -122,6 +122,7 @@ function LoginPage(props) {
     const CallBack = async (code) => {
         const result = await axios.post(process.env.REACT_APP_SERVER_URI + '/api/getDiscordAuthInfo', {code: code});
 
+        console.log(result);
         return result;
     }
 
