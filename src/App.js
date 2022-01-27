@@ -25,9 +25,6 @@ import LoginPage from './components/LoginPage';
 import AdminDashboard from './components/AdminDashboard';
 import Donations from './components/Donations';
 // import Stats from './components/Stats';
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
 
 const { Title } = Typography;
 const { SubMenu } = Menu;
