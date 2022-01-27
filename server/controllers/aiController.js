@@ -215,6 +215,14 @@ exports.startFarming = async function(res, req) {
                     channelExists = await client.channels.cache.get(checkIfBotNeedsShutdown.channelId);
                 }
 
+                if (!checkIfBotNeedsShutdown || !channelExists) {
+                    console.log('Shutting bot down...');
+                    clearInterval(x);
+                    await levelFarms.updateOne({ discordId: req.body.userToken, botName: client.user.tag }, { state: 0 });
+                    client.destroy();
+                    return;
+                }
+
                 const currentDateForTimer = new Date();
                 const minutes = parseInt(Math.abs(currentDateForTimer.getTime() - checkIfBotNeedsShutdown.start_date.getTime()) / (1000 * 60));
 
