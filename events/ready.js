@@ -89,6 +89,14 @@ module.exports = {
                         await member.roles.remove('927639271312076858');
                     }
                 }
+            } else if (reaction.emoji.name === 'sol') {
+                if (member.roles.cache.find(r => r.name === "SOL")) {
+                    await member.roles.remove('936320374294065233');
+                }
+            } else if (reaction.emoji.name === 'eth') {
+                if (member.roles.cache.find(r => r.name === "ETH")) {
+                    await member.roles.remove('936320420200722493');
+                }
             }
         })
     }
