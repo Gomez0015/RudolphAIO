@@ -51,25 +51,43 @@ function LoginPage(props) {
 
     const Login = async (e) => {
         e.preventDefault();
-        const discordAuth = await CallBack(code);
-        axios.post(process.env.REACT_APP_SERVER_URI + '/api/checkAuthDiscord', {discordId: discordAuth.data.id, discordLogin: true})
-            .then(res => {
+        if(props.cookies.userToken != 'none' && props.cookies.userToken != undefined && props.cookies.userToken != null && newKey == 'false') {
+            axios.post(process.env.REACT_APP_SERVER_URI + '/api/checkAuthDiscord', {discordId: props.cookies.userToken})
+                .then(res => {
+                    
+                    if(res.data.state == 'success') {
+                        props.successMessage(res.data.message);
+                    } else if(res.data.state == 'error'){
+                        props.errorMessage(res.data.message);
+                    }
 
-                if(res.data.state === 'success') {
-                    props.successMessage(res.data.message);
-                } else if(res.data.state === 'error'){
-                    props.errorMessage(res.data.message);
-                }
+                    if(res.data.key != 'none' && res.data.expired != 'false' && res.data.key != undefined) {
+                        props.setLoggedIn(true);
+                    }
+                }).catch(err => {
+                    console.error(err);
+                })
+        } else {
+            const discordAuth = await CallBack(code);
+            axios.post(process.env.REACT_APP_SERVER_URI + '/api/checkAuthDiscord', {discordId: discordAuth.data.id, discordLogin: true})
+                .then(res => {
 
-                if(res.data.key != 'none' && res.data.expired != 'false' && res.data.key != undefined) {
-                    props.setCookie("userToken", res.data.discordId, {
-                        path: "/"
-                    });
-                    props.setLoggedIn(true);
-                }
-            }).catch(err => {
-                console.error(err);
-            });
+                    if(res.data.state === 'success') {
+                        props.successMessage(res.data.message);
+                    } else if(res.data.state === 'error'){
+                        props.errorMessage(res.data.message);
+                    }
+
+                    if(res.data.key != 'none' && res.data.expired != 'false' && res.data.key != undefined) {
+                        props.setCookie("userToken", res.data.discordId, {
+                            path: "/"
+                        });
+                        props.setLoggedIn(true);
+                    }
+                }).catch(err => {
+                    console.error(err);
+                });
+        }
     }
 
     const Register = async (e) => {
@@ -106,6 +124,9 @@ function LoginPage(props) {
                     console.log(res.data);
                     if(res.data.state === 'success') {
                         props.successMessage(res.data.message);
+                        props.setCookie("userToken", discordAuth.data.id, {
+                            path: "/"
+                        });
                     } else if(res.data.state === 'error'){
                         props.errorMessage(res.data.message);
                     }
