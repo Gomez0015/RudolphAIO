@@ -99,19 +99,23 @@ function LoginPage(props) {
 
     const GenerateKey = async (e) => {
         e.preventDefault();
-        const discordAuth = await CallBack(code);
-        axios.post(process.env.REACT_APP_SERVER_URI + '/api/generateNewKey', {discordId: discordAuth.data.id})
-            .then(res => {
-                if(res.data.state === 'success') {
-                    props.successMessage(res.data.message);
-                } else if(res.data.state === 'error'){
-                    props.errorMessage(res.data.message);
-                }
+        if(process.env.REACT_APP_WHITE_LIST.includes(discordAuth.data.id)){
+            const discordAuth = await CallBack(code);
+            axios.post(process.env.REACT_APP_SERVER_URI + '/api/generateNewKey', {discordId: discordAuth.data.id})
+                .then(res => {
+                    if(res.data.state === 'success') {
+                        props.successMessage(res.data.message);
+                    } else if(res.data.state === 'error'){
+                        props.errorMessage(res.data.message);
+                    }
 
-                setBuyKeyCookie(false);
-            }).catch(err => {
-                console.error(err);
-            });
+                    setBuyKeyCookie(false);
+                }).catch(err => {
+                    console.error(err);
+                });
+        } else {
+            props.errorMessage('You are not in the whitelist!');
+        }
     }
 
     const CallBack = async (code) => {
