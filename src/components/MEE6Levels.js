@@ -190,7 +190,7 @@ function MEE6Levels(props) {
             <br />
             <TextArea autocomplete="off" type="text" name="customPrompt" placeholder="He is chatting in the channel called general. He is from Paris, France and travels very often around the world. He does not like talking about artificial inteligence or robots, he likes talking about fast cars and taking a rocket to the moon or jupiter. His profile picture is his dog, a golden retriever. ect." style={{textAlign: 'center', width: '25%'}}/>
             <br />
-            <Input autocomplete="off" required type="number" step="1" min='30' name="endTimer" placeholder="Minutes until bot stops farming" style={{textAlign: 'center', width: '50%'}}/>
+            <Input autocomplete="off" required type="number" step="1" min='30' name="endTimer" placeholder="Minutes until bot stops farming" style={{textAlign: 'center', width: '25%'}}/>
             <br />
             <Checkbox name="spam" onChange={(e) => {e.target.checked = !e.target.checked}}>Spam Mode</Checkbox>
             <br />

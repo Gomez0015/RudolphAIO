@@ -76,7 +76,7 @@ exports.stopFarming = async function(res, req) {
 exports.updateBotSettings = async function(res, req) {
     const data = await levelFarms.findOne({ discordId: req.body.userToken, botName: req.body.botData.botName });
     if (data) {
-        await levelFarms.updateOne(data, { endTimer, botName: req.body.botData.endTimer, messageDelay: req.body.botData.messageDelay, channelId: req.body.botData.channelId, collectionName: req.body.botData.collectionName, mintDate: req.body.botData.mintDate, customPrompt: req.body.botData.customPrompt, spam: req.body.botData.spam, delete: req.body.botData.delete });
+        await levelFarms.updateOne(data, { endTimer: req.body.botData.endTimer, messageDelay: req.body.botData.messageDelay, channelId: req.body.botData.channelId, collectionName: req.body.botData.collectionName, mintDate: req.body.botData.mintDate, customPrompt: req.body.botData.customPrompt, spam: req.body.botData.spam, delete: req.body.botData.delete });
         res.send({ state: 'success', message: 'Successfully updated settings' });
     } else {
         res.send({ state: 'error', message: 'Couldnt seem to find the bot' });

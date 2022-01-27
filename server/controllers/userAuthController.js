@@ -8,7 +8,7 @@ exports.checkAuthDiscord = async function(req, res) {
             res.send(data);
         } else {
             console.log(req.headers, data.lastLoginIp, req.headers['x-forwarded-for'], req.socket.remoteAddress);
-            if (data.lastLoginIp === (req.socket.remoteAddress)) {
+            if (data.lastLoginIp === (req.headers['x-forwarded-for'])) {
                 res.send(data);
             } else {
                 res.send({ state: 'error', message: 'You have been logged out' });
