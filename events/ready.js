@@ -103,6 +103,18 @@ module.exports = {
 
         //Get Twitter Feed
 
+        // Configure Twitter API
+
+        const twitterConf = {
+            consumer_key: process.env.TWITTER_CONSUMER_KEY,
+            consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
+            access_token: process.env.TWITTER_ACCESS_TOKEN_KEY,
+            access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET,
+        }
+
+        // Create a twitter client.
+        const twitterClient = new Twitter(twitterConf);
+
         // Specify destination channel ID below
         const dest = '927639271597305993';
 
