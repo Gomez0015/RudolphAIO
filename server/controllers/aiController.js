@@ -128,8 +128,6 @@ exports.startFarming = async function(res, req) {
         checkIfFarmingState = 0;
     }
 
-    console.log(checkIfFarming, checkIfFarmingState);
-
     if (checkIfFarmingState == 1) {
         res.send({ state: 'error', message: 'Already farming' });
     } else if (checkIfFarmingState == 2) {
