@@ -128,6 +128,8 @@ exports.startFarming = async function(res, req) {
         checkIfFarmingState = 0;
     }
 
+    console.log(checkIfFarmingState);
+
     if (checkIfFarmingState == 1) {
         res.send({ state: 'error', message: 'Already farming' });
     } else if (checkIfFarmingState == 2) {
@@ -220,10 +222,10 @@ exports.startFarming = async function(res, req) {
 
             client.on("message", async function(message) {
                 let checkIfBotNeedsShutdown = await allFarmData.find(obj => {
-                    return (obj.discordId === req.body.userToken && obj.botName === client.user.tag)
+                    return (obj.discordId === req.body.userToken && obj.state == 1)
                 });
 
-                let channelExists;
+                let channelExists = false;
 
                 if (checkIfBotNeedsShutdown) {
                     channelExists = await client.channels.cache.get(checkIfBotNeedsShutdown.channelId);
@@ -232,7 +234,11 @@ exports.startFarming = async function(res, req) {
                 if (!checkIfBotNeedsShutdown || !channelExists) {
                     console.log('Shutting bot down...');
                     clearInterval(x);
-                    await levelFarms.updateOne({ discordId: req.body.userToken, botName: client.user.tag }, { state: 0 });
+                    try {
+                        await levelFarms.updateOne({ discordId: req.body.userToken, botName: client.user.tag }, { state: 0 });
+                    } catch (e) {
+                        console.log(e, 69);
+                    }
                     client.destroy();
                     return;
                 }
@@ -240,7 +246,7 @@ exports.startFarming = async function(res, req) {
                 const currentDateForTimer = new Date();
                 const minutes = parseInt(Math.abs(currentDateForTimer.getTime() - checkIfBotNeedsShutdown.start_date.getTime()) / (1000 * 60));
 
-                if (!checkIfBotNeedsShutdown || !channelExists || minutes >= checkIfBotNeedsShutdown.endTimer) {
+                if (minutes >= checkIfBotNeedsShutdown.endTimer) {
                     console.log('Shutting bot down...');
                     clearInterval(x);
                     await levelFarms.updateOne({ discordId: req.body.userToken, botName: client.user.tag }, { state: 0 });
