@@ -128,8 +128,6 @@ exports.startFarming = async function(res, req) {
         checkIfFarmingState = 0;
     }
 
-    console.log(checkIfFarmingState);
-
     if (checkIfFarmingState == 1) {
         res.send({ state: 'error', message: 'Already farming' });
     } else if (checkIfFarmingState == 2) {
@@ -165,10 +163,10 @@ exports.startFarming = async function(res, req) {
 
         client.on('ready', async() => {
             console.log(`Logged in as ${client.user.tag}!`);
-            const checkIfBotExists = await levelFarms.findOne({ discordId: req.body.userToken, botName: client.user.tag });
+            let checkIfBotExists = await levelFarms.findOne({ discordId: req.body.userToken, botName: client.user.tag });
 
             if (!checkIfBotExists) {
-                await levelFarms.create({
+                const newBot = await levelFarms.create({
                     discordId: req.body.userToken,
                     channelId: req.body.channelId,
                     messageDelay: req.body.messageDelay,
@@ -185,13 +183,22 @@ exports.startFarming = async function(res, req) {
                     spam: req.body.spam,
                     delete: req.body.delete
                 });
+                checkIfBotExists = newBot;
             } else {
                 await levelFarms.updateOne(checkIfBotExists, { start_date: new Date(), endTimer: checkIfBotExists.endTimer, state: 1, botName: client.user.tag, botAvatar: client.user.avatarURL() == null ? 'https://sbcf.fr/wp-content/uploads/2018/03/sbcf-default-avatar.png' : client.user.avatarURL(), });
             }
 
             await getAllFarms();
-            res.send({ state: 'success', message: 'Started Farming' });
 
+            let channelExists = await client.channels.cache.get(checkIfBotExists.channelId);
+
+            if (channelExists) {
+                res.send({ state: 'success', message: 'Started Farming' });
+
+            } else {
+                res.send({ state: 'error', message: 'No Access to Channel!' });
+
+            }
 
             // Set the date we're counting down to
             let minutesToAdd = req.body.messageDelay;
@@ -225,7 +232,7 @@ exports.startFarming = async function(res, req) {
                     return (obj.discordId === req.body.userToken && obj.state == 1)
                 });
 
-                let channelExists = false;
+                channelExists = false;
 
                 if (checkIfBotNeedsShutdown) {
                     channelExists = await client.channels.cache.get(checkIfBotNeedsShutdown.channelId);
