@@ -7,7 +7,6 @@ exports.checkAuthDiscord = async function(req, res) {
             await dashboardKeys.findOneAndUpdate({ discordId: req.body.discordId }, { lastLoginIp: req.headers['x-forwarded-for'] });
             res.send(data);
         } else {
-            console.log(req.headers['x-forwarded-for']);
             if (data.lastLoginIp === (req.headers['x-forwarded-for'])) {
                 res.send(data);
             } else {

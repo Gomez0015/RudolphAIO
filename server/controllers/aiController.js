@@ -26,8 +26,22 @@ exports.getAnswer = async function(res, req) {
         tempChatLogs = tempChatLogs[0] + ("Human:" + ((tempChatLogs[1]).slice(500).split(/Human:(.*)/)[1]));
     }
     tempChatLogs += `Human: ${req.body.text.replace(mention_pattern, '').replace(/(?:https?|ftp):\/\/[\n\S]+/g, 'link')}\n`;
+
+    mathString = req.body.text.replace(mention_pattern, '').replace(/(?:https?|ftp):\/\/[\n\S]+/g, 'link').replace(/\s/g, '');
+
+    var total = 0;
+    mathString = mathString.match(/[+\-]*(\.\d+|\d+(\.\d+)?)/g) || [];
+
     if (req.body.text.replace(mention_pattern, '').replace(/(?:https?|ftp):\/\/[\n\S]+/g, '') == '') {
         res.send({ data: undefined });
+    } else if (mathString.length > 0) {
+        while (mathString.length) {
+            total += parseFloat(mathString.shift());
+        }
+
+        tempChatLogs += `AI: ${total}\n`;
+
+        res.send({ answer: total, chatLogs: tempChatLogs });
     } else {
         await openai.complete({
                 engine: 'babbage',
