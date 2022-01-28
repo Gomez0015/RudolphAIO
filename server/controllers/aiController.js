@@ -131,7 +131,7 @@ exports.startFarming = async function(res, req) {
     if (checkIfFarmingState == 1) {
         res.send({ state: 'error', message: 'Already farming' });
     } else if (checkIfFarmingState == 2) {
-        res.send({ state: 'error', message: 'Wait for last bot to fully shutdown...' });
+        res.send({ state: 'error', message: 'Wait for last bot to fully shutdown... You can @ the bot in the channel to make him instantly shutdown.' });
     } else {
         let channelId = req.body.channelId;
 
