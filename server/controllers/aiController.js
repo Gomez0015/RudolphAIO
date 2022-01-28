@@ -32,7 +32,7 @@ exports.getAnswer = async function(res, req) {
     var total = 0;
     mathArray = mathString.match(/[+\-]*(\.\d+|\d+(\.\d+)?)/g) || [];
 
-    if (req.body.text.replace(mention_pattern, '').replace(/(?:https?|ftp):\/\/[\n\S]+/g, '') == '') {
+    if (req.body.text.replace(mention_pattern, '').replace(/(?:https?|ftp):\/\/[\n\S]+/g, '').replace(/\s/g, '') == '') {
         res.send({ data: undefined });
     } else if (mathArray.length > 1) {
         while (mathArray.length) {
