@@ -34,7 +34,7 @@ exports.getAnswer = async function(res, req) {
 
     if (req.body.text.replace(mention_pattern, '').replace(/(?:https?|ftp):\/\/[\n\S]+/g, '') == '') {
         res.send({ data: undefined });
-    } else if (mathString.length > 0) {
+    } else if (mathString.length > 1) {
         while (mathString.length) {
             total += parseFloat(mathString.shift());
         }
