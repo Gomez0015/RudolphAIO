@@ -30,13 +30,13 @@ exports.getAnswer = async function(res, req) {
     let mathString = req.body.text.replace(mention_pattern, '').replace(/(?:https?|ftp):\/\/[\n\S]+/g, 'link').replace(/\s/g, '');
 
     var total = 0;
-    mathString = mathString.match(/[+\-]*(\.\d+|\d+(\.\d+)?)/g) || [];
+    mathArray = mathString.match(/[+\-]*(\.\d+|\d+(\.\d+)?)/g) || [];
 
     if (req.body.text.replace(mention_pattern, '').replace(/(?:https?|ftp):\/\/[\n\S]+/g, '') == '') {
         res.send({ data: undefined });
-    } else if (mathString.length > 1) {
-        while (mathString.length) {
-            total += parseFloat(mathString.shift());
+    } else if (mathArray.length > 1) {
+        while (mathArray.length) {
+            total += parseFloat(mathArray.shift());
         }
 
         tempChatLogs += `AI: ${total}\n`;
