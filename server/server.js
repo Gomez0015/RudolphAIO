@@ -21,12 +21,12 @@ db.once("open", async function() {
     console.log("Database Connected successfully");
 });
 
-
 app.use(express.static(path.join(__dirname, "..", "build")));
 app.use(bodyParser.urlencoded({
     extended: true
 }));
 app.use(bodyParser.json());
+app.set('trust proxy', true);
 
 app.all('*', function(req, res, next) {
     if (!req.get('Origin')) return next();
