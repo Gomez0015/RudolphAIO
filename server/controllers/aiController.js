@@ -27,7 +27,7 @@ exports.getAnswer = async function(res, req) {
     }
     tempChatLogs += `Human: ${req.body.text.replace(mention_pattern, '').replace(/(?:https?|ftp):\/\/[\n\S]+/g, 'link')}\n`;
 
-    mathString = req.body.text.replace(mention_pattern, '').replace(/(?:https?|ftp):\/\/[\n\S]+/g, 'link').replace(/\s/g, '');
+    let mathString = req.body.text.replace(mention_pattern, '').replace(/(?:https?|ftp):\/\/[\n\S]+/g, 'link').replace(/\s/g, '');
 
     var total = 0;
     mathString = mathString.match(/[+\-]*(\.\d+|\d+(\.\d+)?)/g) || [];
