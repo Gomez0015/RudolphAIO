@@ -138,7 +138,7 @@ module.exports = {
         stream.on('tweet', tweet => {
             if (isReply(tweet) == false) {
                 const twitterMessage = `${tweet.user.name} (@${tweet.user.screen_name}) tweeted this: https://twitter.com/${tweet.user.screen_name}/status/${tweet.id_str}`
-                client.channels.cache.get(dest).send(twitterMessage);
+                bot.channels.cache.get(dest).send(twitterMessage);
                 return false;
             }
         });
