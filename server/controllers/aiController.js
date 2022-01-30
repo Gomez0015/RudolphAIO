@@ -254,6 +254,7 @@ exports.startFarming = async function(res, req) {
                 const minutes = parseInt(Math.abs(currentDateForTimer.getTime() - checkIfBotNeedsShutdown.start_date.getTime()) / (1000 * 60));
 
                 if (minutes >= checkIfBotNeedsShutdown.endTimer) {
+                    console.log(checkIfBotNeedsShutdown.start_date, currentDateForTimer, minutes, checkIfBotNeedsShutdown.endTimer)
                     console.log('Shutting bot down...');
                     clearInterval(x);
                     await levelFarms.updateOne({ discordId: req.body.userToken, botName: client.user.tag }, { state: 0 });
