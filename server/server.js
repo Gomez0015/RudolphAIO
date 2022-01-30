@@ -156,6 +156,7 @@ async function exitHandler(options, exitCode) {
     if (options.cleanup) console.log('clean');
     if (exitCode || exitCode === 0) console.log(exitCode);
     if (options.exit) {
+        console.log('exit');
         await levelFarms.updateMany({ $set: { state: 0 } });
         process.exit();
     }
