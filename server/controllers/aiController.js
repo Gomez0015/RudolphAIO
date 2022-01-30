@@ -4,8 +4,8 @@ const levelFarms = require('../models/levelFarmModel');
 var randomSpam = require('./spam.json');
 require('dotenv').config();
 var fs = require('fs');
-const OpenAI = require('openai-api');
-const openai = new OpenAI(process.env.OPENAI_API_KEY);
+// const OpenAI = require('openai-api');
+// const openai = new OpenAI(process.env.OPENAI_API_KEY);
 let chatLogs = '';
 var mention_pattern = /<@.?[0-9]*?>/g;
 var Filter = require('bad-words'),
@@ -45,15 +45,24 @@ exports.getAnswer = async function(res, req) {
 
         res.send({ answer: total, chatLogs: tempChatLogs });
     } else {
-        await openai.complete({
-                engine: 'babbage',
-                prompt: tempChatLogs,
-                maxTokens: 50,
-                temperature: 0.9,
-                topP: 1,
-                presencePenalty: 0.6,
-                frequencyPenalty: 0,
-                stop: ["\n", " Human:", " AI:"],
+        await axios({
+                method: 'post',
+                url: 'https://api.openai.com/v1/engines/text-babbage-001/completions',
+                headers: {
+                    "Authorization": `Bearer ${process.env.OPENAI_API_KEY}`,
+                    'Content-Type': 'application/json'
+                },
+                data: {
+                    prompt: tempChatLogs,
+                    max_tokens: 50,
+                    temperature: 0.9,
+                    top_p: 1,
+                    presence_penalty: 0.6,
+                    frequency_penalty: 0,
+                    stop: ["\n", " Human:", " AI:"],
+                },
+                maxContentLength: 100000000,
+                maxBodyLength: 1000000000
             }).then(function(response) {
                 tempChatLogs += `${response.data.choices[0].text.replace(mention_pattern, '')}\n`;
                 answer = filter.clean(response.data.choices[0].text.substr(4).replace(/^[a-zA-Z]+:/, '').replace(/(?:https?|ftp):\/\/[\n\S]+/g, 'link').replace(mention_pattern, ''));
