@@ -64,6 +64,7 @@ exports.getAnswer = async function(res, req) {
                 maxContentLength: 100000000,
                 maxBodyLength: 1000000000
             }).then(function(response) {
+                console.log(response.data);
                 tempChatLogs += `${response.data.choices[0].text.replace(mention_pattern, '')}\n`;
                 answer = filter.clean(response.data.choices[0].text.substr(4).replace(/^[a-zA-Z]+:/, '').replace(/(?:https?|ftp):\/\/[\n\S]+/g, 'link').replace(mention_pattern, ''));
 
