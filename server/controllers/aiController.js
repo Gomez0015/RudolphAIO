@@ -68,7 +68,7 @@ exports.getAnswer = async function(res, req) {
             })
             .catch(err => {
                 if (err.isAxiosError) {
-                    console.log(err.data, ', Axios Error', req.body.botData.botName);
+                    console.log(err.request.data, ', Axios Error', req.body.botData.botName);
                 }
                 res.send({ data: undefined });
             });
