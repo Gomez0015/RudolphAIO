@@ -152,7 +152,7 @@ app.get('/dashboard/*', (req, res) => {
 
 process.stdin.resume(); //so the program will not close instantly
 
-function exitHandler(options, exitCode) {
+async function exitHandler(options, exitCode) {
     if (options.cleanup) console.log('clean');
     if (exitCode || exitCode === 0) console.log(exitCode);
     if (options.exit) {
