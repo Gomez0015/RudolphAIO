@@ -71,7 +71,7 @@ function Generators() {
             height="100%"
             rx="3"
             ry="3"
-            style={'fill: ' + cardData.serverBackground}
+            style={{fill: cardData.serverBackground}}
             ></rect>
 
             {/* <!-- Rounded rectangle in the center --> */}
@@ -82,7 +82,7 @@ function Generators() {
             ry="3"
             width="443"
             height="105"
-            style="fill: black; opacity: 0.7;"
+            style={{fill: 'black', opacity: 0.7}}
             ></rect>
 
             {/* <!-- === Avatar. ===
@@ -97,7 +97,7 @@ function Generators() {
                 Width of border = wb = 4px
                 Radius of border = rb = rc + wb/2 = 42px
                 --> */}
-            <circle r="42" cx="61" cy="71" style="fill: black;"></circle>
+            <circle r="42" cx="61" cy="71" style={{fill: 'black'}}></circle>
             <clipPath id="clipCircle">
             {/* <!-- cx = mla + r = 21 + 40 = 61
                     cy = mta + r = 31 + 40 = 71 --> */}
@@ -113,8 +113,8 @@ function Generators() {
             ></image>
 
             {/* <!-- Activity status --> */}
-            <circle r="12" cx="92" cy="97" style="fill: black;"></circle>
-            <circle r="10" cx="92" cy="97" style="fill: #44b37f;"></circle>
+            <circle r="12" cx="92" cy="97" style={{fill: 'black'}}></circle>
+            <circle r="10" cx="92" cy="97" style={{fill: '44b37f'}}></circle>
 
             {/* <!-- Rank and level --> */}
             <text
@@ -123,7 +123,7 @@ function Generators() {
             font-family="Poppins"
             font-size="12"
             text-anchor="end"
-            style="stroke: black; stroke-width: 0.2px;"
+            style={{stroke: 'black', strokeWidth: '0.2px'}}
             >
             <tspan fill="white">
                 RANK
@@ -140,7 +140,7 @@ function Generators() {
             {/* <!-- Username + tag --> */}
             <text x="137" y="83" font-family="DejaVu" font-size="" fill="white">
             {cardData.userName}
-            <tspan style="fill: #7f8384;" font-size="12">{cardData.userTag}</tspan>
+            <tspan style={{fill: '#7f8384'}} font-size="12">{cardData.userTag}</tspan>
             </text>
 
             {/* <!-- Exp points --> */}
@@ -165,7 +165,7 @@ function Generators() {
             ry="12"
             width="318"
             height="20"
-            style="fill: black;"
+            style={{fill: 'black'}}
             ></rect>
             {/* <!-- background color of progress bar--> */}
             <rect
@@ -175,7 +175,7 @@ function Generators() {
             ry="9"
             width="316"
             height="18"
-            style="fill: #484b4e;"
+            style={{fill: '#484b4e'}}
             ></rect>
             {/* <!-- actual progress bar.
                 be careful when computing width: full width is 316px.
@@ -187,7 +187,7 @@ function Generators() {
             ry="9"
             width="150"
             height="18"
-            style="fill: #5acff5;"
+            style={{fill: '#5acff5'}}
             ></rect>
         </svg>
     </>
