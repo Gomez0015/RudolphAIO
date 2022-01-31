@@ -152,8 +152,8 @@ function Generators() {
             fill="white"
             text-anchor="end"
             >
-            {Math.floor((5 * (cardData.level ^ 2) + (50 * cardData.level) + 100) / 10)}‎
-            <tspan style={{fill: '#7f8384'}}>/ {(5 * (cardData.level ^ 2) + (50 * cardData.level) + 100)}</tspan>
+            {Math.floor((5 * (Math.pow(cardData.level, 2)) + (50 * cardData.level) + 100) / 10)}‎
+            <tspan style={{fill: '#7f8384'}}>/ {5 * (Math.pow(cardData.level, 2)) + (50 * cardData.level) + 100}</tspan>
             </text>
 
             {/* <!-- === Progress bar === -->
