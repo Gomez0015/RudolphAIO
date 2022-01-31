@@ -22,7 +22,7 @@ function Generators() {
         botColor: '#fff'
     });
 
-    const randomValue =(Math.round(Math.random() * 100) / 100).toFixed(1);
+    const randomValue =(Math.ceil(Math.random() * 100) / 100).toFixed(1);
 
     const numberWithCommas = (x) => {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
