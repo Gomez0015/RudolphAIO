@@ -57,7 +57,7 @@ function Generators() {
             <br />
             <Button htmlType="submit">Generate Rank Card</Button>
         </form>
-        <div style={{backgroundColor: '#2C2F33', borderRadius: '3%', padding: '10%'}}> 
+        <div style={{backgroundColor: '#2C2F33', borderRadius: '15px', padding: '10%'}}> 
             <svg
                 version="1.1"
                 xmlns="http://www.w3.org/2000/svg"
