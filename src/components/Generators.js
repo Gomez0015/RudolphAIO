@@ -152,8 +152,8 @@ function Generators() {
             fill="white"
             text-anchor="end"
             >
-            429
-            <tspan style={{fill: '#7f8384'}}>/ 1337 XP</tspan>
+            {((5 * (cardData.level ^ 2) + (50 * cardData.level) + 100) / 10)}
+            <tspan style={{fill: '#7f8384'}}>/ {(5 * (cardData.level ^ 2) + (50 * cardData.level) + 100)}</tspan>
             </text>
 
             {/* <!-- === Progress bar === -->
