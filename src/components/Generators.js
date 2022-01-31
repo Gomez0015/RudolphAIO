@@ -79,7 +79,6 @@ function Generators() {
                     <rect id="rect" width="467px" height="141px" rx="3" ry="3"></rect>
                 </clipPath>
                 <image clip-path="url(#clip)" width="467px" height="141px" xlinkHref={cardData.serverBackground}></image>
-                </>
                 :
                 <rect
                 id="rect"
@@ -190,7 +189,7 @@ function Generators() {
                 y="92"
                 rx="9"
                 ry="9"
-                width={(316 * (((5 * (Math.pow(cardData.level, 2)) + (50 * cardData.level) + 100) / 10)/(5 * (Math.pow(cardData.level, 2)) + (50 * cardData.level) + 100)))}
+                width='316px'
                 height="18"
                 style={{fill: '#484b4e'}}
                 ></rect>
@@ -202,7 +201,7 @@ function Generators() {
                 y="92"
                 rx="9"
                 ry="9"
-                width="150"
+                width={(316 * (((5 * (Math.pow(cardData.level, 2)) + (50 * cardData.level) + 100) / 10)/(5 * (Math.pow(cardData.level, 2)) + (50 * cardData.level) + 100)))}
                 height="18"
                 style={{fill: cardData.serverLevelColor}}
                 ></rect>
