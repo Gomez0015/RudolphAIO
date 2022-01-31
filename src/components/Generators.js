@@ -31,7 +31,8 @@ function Generators() {
             userProfileImg: e.target.userProfileImg.value,
             level: e.target.level.value,
             rank: e.target.rank.value,
-            serverLevelColor: e.target.serverLevelColor.value
+            serverLevelColor: e.target.serverLevelColor.value,
+            serverBackground: serverBackground
         });
         console.log({
             userName: e.target.userName.value,
@@ -39,7 +40,8 @@ function Generators() {
             userProfileImg: e.target.userProfileImg.value,
             level: e.target.level.value,
             rank: e.target.rank.value,
-            serverLevelColor: e.target.serverLevelColor.value
+            serverLevelColor: e.target.serverLevelColor.value,
+            serverBackground: serverBackground
         });
     }
 
@@ -59,6 +61,8 @@ function Generators() {
             <br />
             <Input required type="color" name="serverLevelColor" defaultValue="#5acff5" style={{textAlign: 'center', width: '25%'}}/>
             <br />
+            <Input type="url" name="serverBackground" style={{textAlign: 'center', width: '25%'}}/>
+            <br />
             <Button htmlType="submit">Generate Rank Card</Button>
         </form>
         <div style={{backgroundColor: '#2C2F33', borderRadius: '15px', padding: '10%'}}> 
@@ -70,6 +74,9 @@ function Generators() {
                 height="141px"
             >
                 {/* <!-- Background picture --> */}
+                {cardData.serverBackground != undefined && cardData.serverBackground != '' ? 
+                <image clip-path="url(#clip)" width="467px" height="141px" xlinkHref={cardData.serverBackground}></image>
+                :
                 <rect
                 id="rect"
                 width="100%"
@@ -78,6 +85,7 @@ function Generators() {
                 ry="3"
                 style={{fill: '#23272A'}}
                 ></rect>
+                }
 
                 {/* <!-- Rounded rectangle in the center --> */}
                 <rect
