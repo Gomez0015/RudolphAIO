@@ -16,13 +16,26 @@ function Generators() {
         userProfileImg: 'https://cdn.discordapp.com/avatars/251754270997610497/a_79f510a0f952a37b6450648972b0bf41.png',
         level: '32',
         rank: '21',
-        serverLevelColor: '#5acff5'
+        serverLevelColor: '#5acff5',
+        botName: 'Rudolph',
+        botImage: 'https://cdn.discordapp.com/avatars/930970348697051136/1194dda5073eeb13fa69e371f09d5c09.webp?size=160',
     });
 
     const randomValue = Math.random();
 
     const numberWithCommas = (x) => {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    }
+
+    const formatAMPM =  (date) => {
+        var hours = date.getHours();
+        var minutes = date.getMinutes();
+        var ampm = hours >= 12 ? 'pm' : 'am';
+        hours = hours % 12;
+        hours = hours ? hours : 12; // the hour '0' should be '12'
+        minutes = minutes < 10 ? '0'+minutes : minutes;
+        var strTime = hours + ':' + minutes + ' ' + ampm;
+        return strTime;
     }
 
     const saveUserData = (e) => {
@@ -35,15 +48,8 @@ function Generators() {
             rank: e.target.rank.value,
             serverLevelColor: e.target.serverLevelColor.value,
             serverBackground: e.target.serverBackground.value,
-        });
-        console.log({
-            userName: e.target.userName.value,
-            userTag: e.target.userTag.value,
-            userProfileImg: e.target.userProfileImg.value,
-            level: e.target.level.value,
-            rank: e.target.rank.value,
-            serverLevelColor: e.target.serverLevelColor.value,
-            serverBackground: e.target.serverBackground.value,
+            botImage: e.target.botImage.value,
+            botName: e.target.botName.value,
         });
     }
 
@@ -63,11 +69,74 @@ function Generators() {
             <br />
             <Input required type="color" name="serverLevelColor" defaultValue="#5acff5" style={{textAlign: 'center', width: '25%'}}/>
             <br />
+            <Input type="text" name="botName" placeholder="Server Bot Name" style={{textAlign: 'center', width: '25%'}}/>
+            <br />
+            <Input type="url" name="botImage" placeholder="Server Bot Image" style={{textAlign: 'center', width: '25%'}}/>
+            <br />
             <Input type="url" name="serverBackground" placeholder="Server Rank Card Background" style={{textAlign: 'center', width: '25%'}}/>
             <br />
             <Button htmlType="submit">Generate Rank Card</Button>
         </form>
         <div style={{backgroundColor: '#2C2F33', borderRadius: '15px', padding: '10%'}}> 
+            <div style="
+                text-align: center;
+                margin-bottom: 5px;
+                position: relative;
+                top: 10px;
+                /* width: 100%; */
+                margin-right: 280px;
+            ">
+                <img src={cardData.botImage} aria-hidden="true" class="avatar-2e8lTP clickable-31pE3P" alt=" " style="
+                    position: relative;
+                    left: -16px;
+                    top: 5px;
+                    margin-top: calc(4px - 0.125rem);
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 50%;
+                    overflow: hidden;
+                    cursor: pointer;
+                    user-select: none;
+                    -webkit-box-flex: 0;
+                    flex: 0 0 auto;
+                    pointer-events: none;
+                    z-index: 1;
+                ">
+                <span class="username-h_Y3Us desaturateUserColors-1O-G89 clickable-31pE3P" aria-controls="popout_202" aria-expanded="false" role="button" tabindex="0" style="font-size: 1rem;font-weight: 500;line-height: 1.375rem;color: var(--header-primary);display: inline;vertical-align: baseline;position: relative;overflow: hidden;-ms-flex-negative: 0;margin-left: -10px;flex-shrink: 0;color: rgb(255, 255, 255);">
+                {cardData.botName}</span>
+                
+                <span class="botTagCozy-3NTBvK botTag-1NoD0B botTagRegular-kpctgU botTag-7aX5WZ rem-3kT9wc" style="
+                    height: 0.9375rem;
+                    padding: 0.375rem;
+                    border-radius: 0.1875rem;
+                    margin-left: 0.25rem;
+                    /* margin-top: -10px; */
+                    position: relative;
+                    top: -2px;
+                    text-align: left;
+                    background: #5865F2;
+                    color: #fff;
+                    font-size: .625rem;
+                    text-transform: uppercase;
+                    /* vertical-align: top; */
+                    display: -webkit-inline-box;
+                    display: -ms-inline-flexbox;
+                    display: inline-flex;
+                    -webkit-box-align: center;
+                    -ms-flex-align: center;
+                    align-items: center;
+                    -ms-flex-negative: 0;
+                    flex-shrink: 0;
+                    text-indent: 0;
+                    outline: 0;
+                "><span class="botText-1fD6Qk">BOT</span></span>
+                <time aria-label="Rudolph is here." id="message-timestamp-937766364385525862" datetime="2022-01-31T17:48:44.126Z" style="
+                    font-size: 0.75rem;
+                    line-height: 1.375rem;
+                    color: #72767d;
+                    vertical-align: baseline;
+                ">Today at {formatAMPM(new Date)}</time>
+            </div>
             <svg
                 version="1.1"
                 xmlns="http://www.w3.org/2000/svg"
