@@ -79,6 +79,7 @@ function Generators() {
                     <rect id="rect" width="467px" height="141px" rx="3" ry="3"></rect>
                 </clipPath>
                 <image clip-path="url(#clip)" width="467px" height="141px" xlinkHref={cardData.serverBackground}></image>
+                </>
                 :
                 <rect
                 id="rect"
