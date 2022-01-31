@@ -23,7 +23,7 @@ function Generators() {
         return (<svg
         version="1.1"
         xmlns="http://www.w3.org/2000/svg"
-        xmlns:xlink="http://www.w3.org/1999/xlink"
+        xmlnsXlink="http://www.w3.org/1999/xlink"
         width="467px"
         height="141px"
       >
@@ -73,7 +73,7 @@ function Generators() {
           width="80"
           height="80"
           clip-path="url(#clipCircle)"
-          xlink:href={cardData.userProfileImg}
+          xlinkHref={cardData.userProfileImg}
         ></image>
 
         {/* <!-- Activity status --> */}
