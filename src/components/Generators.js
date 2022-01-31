@@ -16,7 +16,7 @@ function Generators() {
         userProfileImg: 'https://cdn.discordapp.com/avatars/251754270997610497/a_79f510a0f952a37b6450648972b0bf41.png',
         level: '420',
         rank: '69',
-        serverBackground: '#23272a'
+        serverLevelColor: '#5acff5'
     });
 
     const saveUserData = (e) => {
@@ -53,7 +53,7 @@ function Generators() {
             <br />
             <Input required type="number" name="rank" placeholder="69" style={{textAlign: 'center', width: '25%'}}/>
             <br />
-            <Input required type="color" name="serverBackground" defaultValue="#23272a" style={{textAlign: 'center', width: '25%'}}/>
+            <Input required type="color" name="serverLevelColor" defaultValue="#23272a" style={{textAlign: 'center', width: '25%'}}/>
             <br />
             <Button htmlType="submit">Generate Rank Card</Button>
         </form>
@@ -71,7 +71,7 @@ function Generators() {
             height="100%"
             rx="3"
             ry="3"
-            style={{fill: cardData.serverBackground}}
+            style={{fill: '#23272A'}}
             ></rect>
 
             {/* <!-- Rounded rectangle in the center --> */}
@@ -131,7 +131,7 @@ function Generators() {
                 {cardData.rank}
                 </tspan>
             </tspan>
-            <tspan fill="#5acff5">
+            <tspan {{fill: cardData.serverLevelColor}}>
                 LEVEL
                 <tspan font-size="30">{cardData.level}</tspan>
             </tspan>
@@ -187,7 +187,7 @@ function Generators() {
             ry="9"
             width="150"
             height="18"
-            style={{fill: '#5acff5'}}
+            style={{fill: cardData.serverLevelColor}}
             ></rect>
         </svg>
     </div>
