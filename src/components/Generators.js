@@ -49,19 +49,19 @@ function Generators() {
     <div style={{textAlign: 'center'}}>
         <Title>Generation Tools</Title>
         <form action='#' style={{textAlign: 'center', marginBottom: '25px'}} autocomplete="off" onSubmit={saveUserData}>
-            <Input required type="text" name="userName" placeholder="Raxo" style={{textAlign: 'center', width: '25%'}}/>
+            <Input required type="text" name="userName" placeholder="User Name" style={{textAlign: 'center', width: '25%'}}/>
             <br />
-            <Input required type="text" name="userTag" placeholder="#0468" style={{textAlign: 'center', width: '25%'}}/>
+            <Input required type="text" name="userTag" placeholder="User #" style={{textAlign: 'center', width: '25%'}}/>
             <br />
-            <Input required type="url" name="userProfileImg" placeholder="https://cdn.discordapp.com/avatars/251754270997610497/a_79f510a0f952a37b6450648972b0bf41.png" style={{textAlign: 'center', width: '25%'}}/>
+            <Input required type="url" name="userProfileImg" placeholder="User Profile Image" style={{textAlign: 'center', width: '25%'}}/>
             <br />
-            <Input required type="number" name="level" placeholder="420" style={{textAlign: 'center', width: '25%'}}/>
+            <Input required type="number" name="level" placeholder="Level" style={{textAlign: 'center', width: '25%'}}/>
             <br />
-            <Input required type="number" name="rank" placeholder="69" style={{textAlign: 'center', width: '25%'}}/>
+            <Input required type="number" name="rank" placeholder="Rank" style={{textAlign: 'center', width: '25%'}}/>
             <br />
             <Input required type="color" name="serverLevelColor" defaultValue="#5acff5" style={{textAlign: 'center', width: '25%'}}/>
             <br />
-            <Input type="url" name="serverBackground" style={{textAlign: 'center', width: '25%'}}/>
+            <Input type="url" name="serverBackground" placeholder="Server Rank Card Background" style={{textAlign: 'center', width: '25%'}}/>
             <br />
             <Button htmlType="submit">Generate Rank Card</Button>
         </form>
@@ -141,7 +141,7 @@ function Generators() {
                 <tspan fill="white">
                     {' RANK '}
                     <tspan font-size="30">
-                    #{cardData.rank}
+                    #{cardData.rank + " "}
                     </tspan>
                 </tspan>
                 <tspan style={{fill: cardData.serverLevelColor}}>
@@ -186,7 +186,7 @@ function Generators() {
                 y="92"
                 rx="9"
                 ry="9"
-                width="316"
+                width={(316 * ((5 * (Math.pow(cardData.level, 2)) + (50 * cardData.level) + 100) / 10)/(5 * (Math.pow(cardData.level, 2)) + (50 * cardData.level) + 100)))}
                 height="18"
                 style={{fill: '#484b4e'}}
                 ></rect>
