@@ -57,139 +57,141 @@ function Generators() {
             <br />
             <Button htmlType="submit">Generate Rank Card</Button>
         </form>
-        <svg
-            version="1.1"
-            xmlns="http://www.w3.org/2000/svg"
-            xmlnsXlink="http://www.w3.org/1999/xlink"
-            width="467px"
-            height="141px"
-        >
-            {/* <!-- Background picture --> */}
-            <rect
-            id="rect"
-            width="100%"
-            height="100%"
-            rx="3"
-            ry="3"
-            style={{fill: '#23272A'}}
-            ></rect>
-
-            {/* <!-- Rounded rectangle in the center --> */}
-            <rect
-            y="18"
-            x="12"
-            rx="3"
-            ry="3"
-            width="443"
-            height="105"
-            style={{fill: 'black', opacity: 0.7}}
-            ></rect>
-
-            {/* <!-- === Avatar. ===
-                Radius of circle = rc = 40px
-                Width of circle = height of circle = rc * 2 = 80px
-                margin left of avatar = mla = 21px
-                margin top of avatar = mta = 31px -->
-            <!-- Border of avatar.
-                This border is made by a frame that is bigger than the avatar and behind it
-                centered at the same point.
-        
-                Width of border = wb = 4px
-                Radius of border = rb = rc + wb/2 = 42px
-                --> */}
-            <circle r="42" cx="61" cy="71" style={{fill: 'black'}}></circle>
-            <clipPath id="clipCircle">
-            {/* <!-- cx = mla + r = 21 + 40 = 61
-                    cy = mta + r = 31 + 40 = 71 --> */}
-            <circle r="40" cx="61" cy="71"></circle>
-            </clipPath>
-            <image
-            x="21"
-            y="31"
-            width="80"
-            height="80"
-            clip-path="url(#clipCircle)"
-            xlinkHref={cardData.userProfileImg}
-            ></image>
-
-            {/* <!-- Activity status --> */}
-            <circle r="12" cx="92" cy="97" style={{fill: 'black'}}></circle>
-            <circle r="10" cx="92" cy="97" style={{fill: '#44b37f'}}></circle>
-
-            {/* <!-- Rank and level --> */}
-            <text
-            x="441"
-            y="50"
-            font-family="Poppins"
-            font-size="12"
-            text-anchor="end"
-            style={{stroke: 'black', strokeWidth: '0.2px'}}
+        <div style={{backgroundColor: '#2C2F33', borderRadius: '3%', padding: '10%'}}> 
+            <svg
+                version="1.1"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlnsXlink="http://www.w3.org/1999/xlink"
+                width="467px"
+                height="141px"
             >
-            <tspan fill="white">
-                {' RANK '}
-                <tspan font-size="30">
-                #{cardData.rank}
+                {/* <!-- Background picture --> */}
+                <rect
+                id="rect"
+                width="100%"
+                height="100%"
+                rx="3"
+                ry="3"
+                style={{fill: '#23272A'}}
+                ></rect>
+
+                {/* <!-- Rounded rectangle in the center --> */}
+                <rect
+                y="18"
+                x="12"
+                rx="3"
+                ry="3"
+                width="443"
+                height="105"
+                style={{fill: 'black', opacity: 0.7}}
+                ></rect>
+
+                {/* <!-- === Avatar. ===
+                    Radius of circle = rc = 40px
+                    Width of circle = height of circle = rc * 2 = 80px
+                    margin left of avatar = mla = 21px
+                    margin top of avatar = mta = 31px -->
+                <!-- Border of avatar.
+                    This border is made by a frame that is bigger than the avatar and behind it
+                    centered at the same point.
+            
+                    Width of border = wb = 4px
+                    Radius of border = rb = rc + wb/2 = 42px
+                    --> */}
+                <circle r="42" cx="61" cy="71" style={{fill: 'black'}}></circle>
+                <clipPath id="clipCircle">
+                {/* <!-- cx = mla + r = 21 + 40 = 61
+                        cy = mta + r = 31 + 40 = 71 --> */}
+                <circle r="40" cx="61" cy="71"></circle>
+                </clipPath>
+                <image
+                x="21"
+                y="31"
+                width="80"
+                height="80"
+                clip-path="url(#clipCircle)"
+                xlinkHref={cardData.userProfileImg}
+                ></image>
+
+                {/* <!-- Activity status --> */}
+                <circle r="12" cx="92" cy="97" style={{fill: 'black'}}></circle>
+                <circle r="10" cx="92" cy="97" style={{fill: '#44b37f'}}></circle>
+
+                {/* <!-- Rank and level --> */}
+                <text
+                x="441"
+                y="50"
+                font-family="Poppins"
+                font-size="12"
+                text-anchor="end"
+                style={{stroke: 'black', strokeWidth: '0.2px'}}
+                >
+                <tspan fill="white">
+                    {' RANK '}
+                    <tspan font-size="30">
+                    #{cardData.rank}
+                    </tspan>
                 </tspan>
-            </tspan>
-            <tspan style={{fill: cardData.serverLevelColor}}>
-                {' LEVEL '}
-                <tspan font-size="30">{cardData.level}</tspan>
-            </tspan>
-            </text>
+                <tspan style={{fill: cardData.serverLevelColor}}>
+                    {' LEVEL '}
+                    <tspan font-size="30">{cardData.level}</tspan>
+                </tspan>
+                </text>
 
-            {/* <!-- Username + tag --> */}
-            <text x="137" y="83" font-family="DejaVu" font-size="" fill="white">
-            {cardData.userName + " "}
-            <tspan style={{fill: '#7f8384'}} font-size="12">{cardData.userTag}</tspan>
-            </text>
+                {/* <!-- Username + tag --> */}
+                <text x="137" y="83" font-family="DejaVu" font-size="" fill="white">
+                {cardData.userName + " "}
+                <tspan style={{fill: '#7f8384'}} font-size="12">{cardData.userTag}</tspan>
+                </text>
 
-            {/* <!-- Exp points --> */}
-            <text
-            x="441"
-            y="83"
-            font-family="Poppins"
-            font-size="12"
-            fill="white"
-            text-anchor="end"
-            >
-            {Math.floor((5 * (Math.pow(cardData.level, 2)) + (50 * cardData.level) + 100) / 10) + " "}
-            <tspan style={{fill: '#7f8384'}}>/ {5 * (Math.pow(cardData.level, 2)) + (50 * cardData.level) + 100}</tspan>
-            </text>
+                {/* <!-- Exp points --> */}
+                <text
+                x="441"
+                y="83"
+                font-family="Poppins"
+                font-size="12"
+                fill="white"
+                text-anchor="end"
+                >
+                {Math.floor((5 * (Math.pow(cardData.level, 2)) + (50 * cardData.level) + 100) / 10) + " "}
+                <tspan style={{fill: '#7f8384'}}>/ {5 * (Math.pow(cardData.level, 2)) + (50 * cardData.level) + 100}</tspan>
+                </text>
 
-            {/* <!-- === Progress bar === -->
-            <!-- simulate an outer stroke --> */}
-            <rect
-            x="128"
-            y="91"
-            rx="12"
-            ry="12"
-            width="318"
-            height="20"
-            style={{fill: 'black'}}
-            ></rect>
-            {/* <!-- background color of progress bar--> */}
-            <rect
-            x="129"
-            y="92"
-            rx="9"
-            ry="9"
-            width="316"
-            height="18"
-            style={{fill: '#484b4e'}}
-            ></rect>
-            {/* <!-- actual progress bar.
-                be careful when computing width: full width is 316px.
-                Minimum width should be either 0px or 18px for better looking because of border radius --> */}
-            <rect
-            x="129"
-            y="92"
-            rx="9"
-            ry="9"
-            width="150"
-            height="18"
-            style={{fill: cardData.serverLevelColor}}
-            ></rect>
-        </svg>
+                {/* <!-- === Progress bar === -->
+                <!-- simulate an outer stroke --> */}
+                <rect
+                x="128"
+                y="91"
+                rx="12"
+                ry="12"
+                width="318"
+                height="20"
+                style={{fill: 'black'}}
+                ></rect>
+                {/* <!-- background color of progress bar--> */}
+                <rect
+                x="129"
+                y="92"
+                rx="9"
+                ry="9"
+                width="316"
+                height="18"
+                style={{fill: '#484b4e'}}
+                ></rect>
+                {/* <!-- actual progress bar.
+                    be careful when computing width: full width is 316px.
+                    Minimum width should be either 0px or 18px for better looking because of border radius --> */}
+                <rect
+                x="129"
+                y="92"
+                rx="9"
+                ry="9"
+                width="150"
+                height="18"
+                style={{fill: cardData.serverLevelColor}}
+                ></rect>
+            </svg>
+        </div>
     </div>
   );
 }
