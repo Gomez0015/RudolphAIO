@@ -150,31 +150,33 @@ app.get('/dashboard/*', (req, res) => {
     res.sendFile(path.join(__dirname, "..", "build", "index.html"));
 });
 
-process.stdin.resume(); //so the program will not close instantly
+if (process.env.NODE_ENV === 'production') {
+    process.stdin.resume(); //so the program will not close instantly
 
-async function exitHandler(options, exitCode) {
-    if (options.cleanup) console.log('clean');
-    if (exitCode || exitCode === 0) console.log(exitCode);
-    if (options.exit) {
-        await levelFarms.updateMany({ $set: { state: 0 } });
-        process.exit();
+    async function exitHandler(options, exitCode) {
+        if (options.cleanup) console.log('clean');
+        if (exitCode || exitCode === 0) console.log(exitCode);
+        if (options.exit) {
+            await levelFarms.updateMany({ $set: { state: 0 } });
+            process.exit();
+        }
     }
+
+    //do something when app is closing
+    process.on('exit', exitHandler.bind(null, { cleanup: true }));
+
+    //catches ctrl+c event
+    process.on('SIGINT', exitHandler.bind(null, { exit: true }));
+
+    // catches "kill pid" (for example: nodemon restart)
+    process.on('SIGUSR1', exitHandler.bind(null, { exit: true }));
+    process.on('SIGUSR2', exitHandler.bind(null, { exit: true }));
+
+    process.on('uncaughtException', function(err) {
+        console.log('Caught exception: ' + err);
+        console.error(err.stack);
+    });
 }
-
-//do something when app is closing
-process.on('exit', exitHandler.bind(null, { cleanup: true }));
-
-//catches ctrl+c event
-process.on('SIGINT', exitHandler.bind(null, { exit: true }));
-
-// catches "kill pid" (for example: nodemon restart)
-process.on('SIGUSR1', exitHandler.bind(null, { exit: true }));
-process.on('SIGUSR2', exitHandler.bind(null, { exit: true }));
-
-process.on('uncaughtException', function(err) {
-    console.log('Caught exception: ' + err);
-    console.error(err.stack);
-});
 
 app.listen(port, () => {
     console.log(`server listening at http://localhost:${port}`)
