@@ -53,7 +53,7 @@ function Generators() {
             <br />
             <Input required type="number" name="rank" placeholder="69" style={{textAlign: 'center', width: '25%'}}/>
             <br />
-            <Input required type="color" name="serverBackground" value="#23272a" style={{textAlign: 'center', width: '25%'}}/>
+            <Input required type="color" name="serverBackground" defaultValue="#23272a" style={{textAlign: 'center', width: '25%'}}/>
             <br />
             <Button htmlType="submit">Generate Rank Card</Button>
         </form>
@@ -71,7 +71,7 @@ function Generators() {
             height="100%"
             rx="3"
             ry="3"
-            style={{fill: '#23272a'}}
+            style={{fill: userData.serverBackground}}
             ></rect>
 
             {/* <!-- Rounded rectangle in the center --> */}
