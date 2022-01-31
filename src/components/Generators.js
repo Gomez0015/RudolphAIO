@@ -19,6 +19,10 @@ function Generators() {
         serverLevelColor: '#5acff5'
     });
 
+    const numberWithCommas = (x) => {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
     const saveUserData = (e) => {
         e.preventDefault();
         setCardData({
@@ -153,8 +157,8 @@ function Generators() {
                 fill="white"
                 text-anchor="end"
                 >
-                {((5 * (Math.pow(cardData.level, 2)) + (50 * cardData.level) + 100) / 100) > 1000 ? (Math.floor((5 * (Math.pow(cardData.level, 2)) + (50 * cardData.level) + 100) / 100)).toString().slice(0, -1) + "K" : (Math.floor((5 * (Math.pow(cardData.level, 2)) + (50 * cardData.level) + 100) / 100)) + " "}
-                <tspan style={{fill: '#7f8384'}}>/ {(5 * (Math.pow(cardData.level, 2)) + (50 * cardData.level) + 100) > 1000 ? (5 * (Math.pow(cardData.level, 2)) + (50 * cardData.level) + 100).toString().slice(0, -1) + "K" : (5 * (Math.pow(cardData.level, 2)) + (50 * cardData.level) + 100)} XP</tspan>
+                {((5 * (Math.pow(cardData.level, 2)) + (50 * cardData.level) + 100) / 10) > 1000 ? (Math.floor((5 * numberWithCommas((Math.pow(cardData.level, 2)) + (50 * cardData.level) + 100) / 100))).toString().slice(0, -1) + "K" : (Math.floor((5 * (Math.pow(cardData.level, 2)) + (50 * cardData.level) + 100) / 10)) + " "}
+                <tspan style={{fill: '#7f8384'}}>/ {(5 * (Math.pow(cardData.level, 2)) + (50 * cardData.level) + 100) > 1000 ? (numberWithCommas(5 * (Math.pow(cardData.level, 2)) + (50 * cardData.level) + 100)).toString().slice(0, -1) + "K" : (5 * (Math.pow(cardData.level, 2)) + (50 * cardData.level) + 100)} XP</tspan>
                 </text>
 
                 {/* <!-- === Progress bar === -->
