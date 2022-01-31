@@ -126,20 +126,20 @@ function Generators() {
             style={{stroke: 'black', strokeWidth: '0.2px'}}
             >
             <tspan fill="white">
-                RANK
+                " RANK "
                 <tspan font-size="30">
-                {cardData.rank}
+                #{cardData.rank}
                 </tspan>
             </tspan>
             <tspan style={{fill: cardData.serverLevelColor}}>
-                LEVEL
+                " LEVEL "
                 <tspan font-size="30">{cardData.level}</tspan>
             </tspan>
             </text>
 
             {/* <!-- Username + tag --> */}
             <text x="137" y="83" font-family="DejaVu" font-size="" fill="white">
-            {cardData.userName}
+            "{cardData.userName} "
             <tspan style={{fill: '#7f8384'}} font-size="12">{cardData.userTag}</tspan>
             </text>
 
@@ -152,7 +152,7 @@ function Generators() {
             fill="white"
             text-anchor="end"
             >
-            {((5 * (cardData.level ^ 2) + (50 * cardData.level) + 100) / 10)}
+            "{Math.floor((5 * (cardData.level ^ 2) + (50 * cardData.level) + 100) / 10)} "
             <tspan style={{fill: '#7f8384'}}>/ {(5 * (cardData.level ^ 2) + (50 * cardData.level) + 100)}</tspan>
             </text>
 
