@@ -27,17 +27,6 @@ function Generators() {
         width="467px"
         height="141px"
       >
-        <defs>
-          <style>
-            @import url("https://fonts.googleapis.com/css?family=Poppins");
-
-            @font-face {
-              font-family: "DejaVu";
-              src: local("DejaVu"),
-                url("https://cdn.jsdelivr.net/npm/dejavu-sans@1.0.0/fonts/dejavu-sans-webfont.ttf");
-            }
-          </style>
-        </defs>
 
         <!-- Background picture -->
         <rect

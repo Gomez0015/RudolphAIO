@@ -45,3 +45,9 @@
 .ant-layout-footer {
     background-color: #fffafa;
 }
+
+@import url("https://fonts.googleapis.com/css?family=Poppins");
+@font-face {
+    font-family: "DejaVu";
+    src: url("https://cdn.jsdelivr.net/npm/dejavu-sans@1.0.0/fonts/dejavu-sans-webfont.ttf");
+}
