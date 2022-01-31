@@ -28,7 +28,7 @@ function Generators() {
         height="141px"
       >
 
-        <!-- Background picture -->
+        {/* <!-- Background picture --> */}
         <rect
           id="rect"
           width="100%"
@@ -38,7 +38,7 @@ function Generators() {
           style="fill: " + {cardData.serverBackground}
         ></rect>
 
-        <!-- Rounded rectangle in the center -->
+        {/* <!-- Rounded rectangle in the center --> */}
         <rect
           y="18"
           x="12"
@@ -49,7 +49,7 @@ function Generators() {
           style="fill: black; opacity: 0.7;"
         ></rect>
 
-        <!-- === Avatar. ===
+        {/* <!-- === Avatar. ===
              Radius of circle = rc = 40px
              Width of circle = height of circle = rc * 2 = 80px
              margin left of avatar = mla = 21px
@@ -60,11 +60,11 @@ function Generators() {
     
              Width of border = wb = 4px
              Radius of border = rb = rc + wb/2 = 42px
-              -->
+              --> */}
         <circle r="42" cx="61" cy="71" style="fill: black;"></circle>
         <clipPath id="clipCircle">
-          <!-- cx = mla + r = 21 + 40 = 61
-                 cy = mta + r = 31 + 40 = 71 -->
+          {/* <!-- cx = mla + r = 21 + 40 = 61
+                 cy = mta + r = 31 + 40 = 71 --> */}
           <circle r="40" cx="61" cy="71"></circle>
         </clipPath>
         <image
@@ -76,11 +76,11 @@ function Generators() {
           xlink:href={cardData.userProfileImg}
         ></image>
 
-        <!-- Activity status -->
+        {/* <!-- Activity status --> */}
         <circle r="12" cx="92" cy="97" style="fill: black;"></circle>
         <circle r="10" cx="92" cy="97" style="fill: #44b37f;"></circle>
 
-        <!-- Rank and level -->
+        {/* <!-- Rank and level --> */}
         <text
           x="441"
           y="50"
@@ -101,13 +101,13 @@ function Generators() {
           </tspan>
         </text>
 
-        <!-- Username + tag -->
+        {/* <!-- Username + tag --> */}
         <text x="137" y="83" font-family="DejaVu" font-size="" fill="white">
           {cardData.userName}
           <tspan style="fill: #7f8384;" font-size="12">{cardData.userTag}</tspan>
         </text>
 
-        <!-- Exp points -->
+        {/* <!-- Exp points --> */}
         <text
           x="441"
           y="83"
@@ -120,8 +120,8 @@ function Generators() {
           <tspan style="fill: #7f8384;">/ 1337 XP</tspan>
         </text>
 
-        <!-- === Progress bar === -->
-        <!-- simulate an outer stroke -->
+        {/* <!-- === Progress bar === -->
+        <!-- simulate an outer stroke --> */}
         <rect
           x="128"
           y="91"
@@ -131,7 +131,7 @@ function Generators() {
           height="20"
           style="fill: black;"
         ></rect>
-        <!-- background color of progress bar-->
+        {/* <!-- background color of progress bar--> */}
         <rect
           x="129"
           y="92"
@@ -141,9 +141,9 @@ function Generators() {
           height="18"
           style="fill: #484b4e;"
         ></rect>
-        <!-- actual progress bar.
+        {/* <!-- actual progress bar.
              be careful when computing width: full width is 316px.
-             Minimum width should be either 0px or 18px for better looking because of border radius -->
+             Minimum width should be either 0px or 18px for better looking because of border radius --> */}
         <rect
           x="129"
           y="92"

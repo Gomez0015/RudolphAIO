@@ -21,12 +21,6 @@ function isUpperCase(str) {
 
 exports.getAnswer = async function(res, req) {
     let tempChatLogs = req.body.chatLogs;
-
-    // if (tempChatLogs.length >= 7000) {
-    //     tempChatLogs = tempChatLogs.split(/Human:(.*)/);
-    //     tempChatLogs = tempChatLogs[0] + ("Human:" + ((tempChatLogs[1]).slice(500).split(/Human:(.*)/)[1]));
-    // }
-
     tempChatLogs += `Human: ${req.body.text.replace(mention_pattern, '').replace(/(?:https?|ftp):\/\/[\n\S]+/g, 'link')}\n`;
 
     let mathString = req.body.text.replace(mention_pattern, '').replace(/(?:https?|ftp):\/\/[\n\S]+/g, 'link').replace(/\s/g, '');
@@ -64,7 +58,6 @@ exports.getAnswer = async function(res, req) {
                 maxContentLength: 100000000,
                 maxBodyLength: 1000000000
             }).then(function(response) {
-                console.log(response.data);
                 tempChatLogs += `${response.data.choices[0].text.replace(mention_pattern, '')}\n`;
                 answer = filter.clean(response.data.choices[0].text.substr(4).replace(/^[a-zA-Z]+:/, '').replace(/(?:https?|ftp):\/\/[\n\S]+/g, 'link').replace(mention_pattern, ''));
 
