@@ -69,10 +69,10 @@ function Generators() {
             <br />
             <Input required type="number" name="rank" placeholder="Rank" style={{textAlign: 'center', width: '25%'}}/>
             <br />
-            <p style={{marginTop: '30px'}}>Server Level Bar Color</p>
+            <p style={{marginTop: '10px'}}>Server Level Bar Color</p>
             <Input required type="color" name="serverLevelColor" defaultValue="#5acff5" style={{textAlign: 'center', width: '25%'}}/>
             <br />
-            <p style={{marginTop: '30px'}}>Server Bot Color</p>
+            <p style={{marginTop: '10px'}}>Server Bot Color</p>
             <Input required type="color" name="botColor" defaultValue="#fff" style={{textAlign: 'center', width: '25%'}}/>
             <br />
             <Input type="text" name="botName" placeholder="Server Bot Name" style={{textAlign: 'center', width: '25%'}}/>
