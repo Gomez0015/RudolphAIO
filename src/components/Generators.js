@@ -19,6 +19,8 @@ function Generators() {
         serverLevelColor: '#5acff5'
     });
 
+    const randomValue = Math.random();
+
     const numberWithCommas = (x) => {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     }
@@ -169,7 +171,7 @@ function Generators() {
                 fill="white"
                 text-anchor="end"
                 >
-                {((5 * (Math.pow(cardData.level, 2)) + (50 * cardData.level) + 100) / 10) > 1000 ? (numberWithCommas(Math.floor((5 * (Math.pow(cardData.level, 2)) + (50 * cardData.level) + 100)) / 100)).toString().slice(0, -1) + "K" : (Math.floor((5 * (Math.pow(cardData.level, 2)) + (50 * cardData.level) + 100) / 10)) + " "}
+                {((5 * (Math.pow(cardData.level, 2)) + (50 * cardData.level) + 100) * randomValue) > 1000 ? (numberWithCommas(Math.floor((5 * (Math.pow(cardData.level, 2)) + (50 * cardData.level) + 100)) * randomValue)).toString().slice(0, -1) + "K" : (Math.floor((5 * (Math.pow(cardData.level, 2)) + (50 * cardData.level) + 100) * randomValue)) + " "}
                 <tspan style={{fill: '#7f8384'}}>/ {(5 * (Math.pow(cardData.level, 2)) + (50 * cardData.level) + 100) > 1000 ? (numberWithCommas(5 * (Math.pow(cardData.level, 2)) + (50 * cardData.level) + 100)).toString().slice(0, -1) + "K" : (5 * (Math.pow(cardData.level, 2)) + (50 * cardData.level) + 100)} XP</tspan>
                 </text>
 
@@ -202,7 +204,7 @@ function Generators() {
                 y="92"
                 rx="9"
                 ry="9"
-                width={(316 * (((5 * (Math.pow(cardData.level, 2)) + (50 * cardData.level) + 100) / 10)/(5 * (Math.pow(cardData.level, 2)) + (50 * cardData.level) + 100)))}
+                width={(316 * (((5 * (Math.pow(cardData.level, 2)) + (50 * cardData.level) + 100) * randomValue)/(5 * (Math.pow(cardData.level, 2)) + (50 * cardData.level) + 100)))}
                 height="18"
                 style={{fill: cardData.serverLevelColor}}
                 ></rect>
