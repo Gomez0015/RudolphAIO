@@ -160,7 +160,7 @@ function Generators() {
     <>
         <Title style={{textAlign: 'center'}}>Generation Tools</Title>
         <mee6Rank />
-        <form action='#' style={{textAlign: 'center'}}>
+        {/* <form action='#' style={{textAlign: 'center'}}>
             <Input required type="text" name="seed" placeholder="Burner Seed Phrase" style={{textAlign: 'center', width: '25%'}}/>
             <br />
             <Input required type="url" name="url" placeholder="Mint Url" style={{textAlign: 'center', width: '25%'}}/>
@@ -168,7 +168,7 @@ function Generators() {
             <Input required type="number" name="amountToMint" placeholder="Amount To Mint" style={{textAlign: 'center', width: '25%'}}/>
             <br />
             <Button htmlType="submit" loading={mintLoading}>Mint</Button>
-        </form>
+        </form> */}
     </>
   );
 }
