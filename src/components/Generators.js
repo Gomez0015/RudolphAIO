@@ -154,7 +154,7 @@ function Generators() {
                 text-anchor="end"
                 >
                 {Math.floor((5 * (Math.pow(cardData.level, 2)) + (50 * cardData.level) + 100) / 10) + " "}
-                <tspan style={{fill: '#7f8384'}}>/ {(5 * (Math.pow(cardData.level, 2)) + (50 * cardData.level) + 100) > 1000 ? (5 * (Math.pow(cardData.level, 2)) + (50 * cardData.level) + 100).slice(0, 1) + "K" : (5 * (Math.pow(cardData.level, 2)) + (50 * cardData.level) + 100).slice(0, 1)} XP</tspan>
+                <tspan style={{fill: '#7f8384'}}>/ {(5 * (Math.pow(cardData.level, 2)) + (50 * cardData.level) + 100) > 1000 ? (5 * (Math.pow(cardData.level, 2)) + (50 * cardData.level) + 100).toString().slice(0, 1) + "K" : (5 * (Math.pow(cardData.level, 2)) + (50 * cardData.level) + 100).slice(0, 1)} XP</tspan>
                 </text>
 
                 {/* <!-- === Progress bar === -->
