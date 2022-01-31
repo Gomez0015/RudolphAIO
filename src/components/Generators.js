@@ -27,7 +27,7 @@ function Generators() {
             userProfileImg: e.target.userProfileImg.value,
             level: e.target.level.value,
             rank: e.target.rank.value,
-            serverBackground: e.target.serverLevelColor.value
+            serverLevelColor: e.target.serverLevelColor.value
         });
         console.log({
             userName: e.target.userName.value,
@@ -35,7 +35,7 @@ function Generators() {
             userProfileImg: e.target.userProfileImg.value,
             level: e.target.level.value,
             rank: e.target.rank.value,
-            serverBackground: e.target.serverLevelColor.value
+            serverLevelColor: e.target.serverLevelColor.value
         });
     }
 
