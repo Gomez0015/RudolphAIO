@@ -114,7 +114,7 @@ function Generators() {
 
             {/* <!-- Activity status --> */}
             <circle r="12" cx="92" cy="97" style={{fill: 'black'}}></circle>
-            <circle r="10" cx="92" cy="97" style={{fill: '44b37f'}}></circle>
+            <circle r="10" cx="92" cy="97" style={{fill: '#44b37f'}}></circle>
 
             {/* <!-- Rank and level --> */}
             <text
