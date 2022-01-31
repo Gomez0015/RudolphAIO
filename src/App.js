@@ -89,7 +89,7 @@ function App(props) {
                   Generators
                 </Link>
               </Menu.Item>
-              <Menu.Item key="3" icon={<DollarOutlined />}>
+              <Menu.Item key="4" icon={<DollarOutlined />}>
                 <Link to="/dashboard/donate">
                   Donations :)
                 </Link>
@@ -105,7 +105,7 @@ function App(props) {
                 </Link>
               </Menu.Item> */}
               {adminList.includes(cookies.userToken) ? 
-              <Menu.Item key="4" icon={<KeyOutlined />}>
+              <Menu.Item key="5" icon={<KeyOutlined />}>
                 <Link to="/dashboard/admin">
                   Admin Dashboard
                 </Link>
