@@ -35,7 +35,7 @@ function Generators() {
           height="100%"
           rx="3"
           ry="3"
-          style="fill: " + {cardData.serverBackground}
+          style={'fill: ' + cardData.serverBackground}
         ></rect>
 
         {/* <!-- Rounded rectangle in the center --> */}
