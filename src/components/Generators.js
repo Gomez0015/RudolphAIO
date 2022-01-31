@@ -101,7 +101,7 @@ function Generators() {
                     flex: 0 0 auto;
                     pointer-events: none;
                     z-index: 1;
-                ">
+                " />
                 <span class="username-h_Y3Us desaturateUserColors-1O-G89 clickable-31pE3P" aria-controls="popout_202" aria-expanded="false" role="button" tabindex="0" style="font-size: 1rem;font-weight: 500;line-height: 1.375rem;color: var(--header-primary);display: inline;vertical-align: baseline;position: relative;overflow: hidden;-ms-flex-negative: 0;margin-left: -10px;flex-shrink: 0;color: rgb(255, 255, 255);">
                 {cardData.botName}</span>
                 
