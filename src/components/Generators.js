@@ -19,6 +19,7 @@ function Generators() {
         serverLevelColor: '#5acff5',
         botName: 'Rudolph',
         botImage: 'https://cdn.discordapp.com/avatars/930970348697051136/1194dda5073eeb13fa69e371f09d5c09.webp?size=160',
+        botColor: '#fff';
     });
 
     const randomValue = Math.random();
@@ -50,6 +51,7 @@ function Generators() {
             serverBackground: e.target.serverBackground.value,
             botImage: e.target.botImage.value,
             botName: e.target.botName.value,
+            botColor: e.target.botColor.value,
         });
     }
 
@@ -67,7 +69,11 @@ function Generators() {
             <br />
             <Input required type="number" name="rank" placeholder="Rank" style={{textAlign: 'center', width: '25%'}}/>
             <br />
+            <p style={{marginTop: '30px'}}>Server Level Bar Color</p>
             <Input required type="color" name="serverLevelColor" defaultValue="#5acff5" style={{textAlign: 'center', width: '25%'}}/>
+            <br />
+            <p style={{marginTop: '30px'}}>Server Bot Color</p>
+            <Input required type="color" name="botColor" defaultValue="#fff" style={{textAlign: 'center', width: '25%'}}/>
             <br />
             <Input type="text" name="botName" placeholder="Server Bot Name" style={{textAlign: 'center', width: '25%'}}/>
             <br />
@@ -78,64 +84,13 @@ function Generators() {
             <Button htmlType="submit">Generate Rank Card</Button>
         </form>
         <div style={{backgroundColor: '#2C2F33', borderRadius: '15px', padding: '10%'}}> 
-            <div style="
-                text-align: center;
-                margin-bottom: 5px;
-                position: relative;
-                top: 10px;
-                /* width: 100%; */
-                margin-right: 300px;
-            ">
-                <img src={cardData.botImage} aria-hidden="true" class="avatar-2e8lTP clickable-31pE3P" alt=" " style="
-                    position: relative;
-                    left: -16px;
-                    top: 8px;
-                    margin-top: calc(4px - 0.125rem);
-                    width: 40px;
-                    height: 40px;
-                    border-radius: 50%;
-                    overflow: hidden;
-                    cursor: pointer;
-                    user-select: none;
-                    -webkit-box-flex: 0;
-                    flex: 0 0 auto;
-                    pointer-events: none;
-                    z-index: 1;
-                " />
-                <span class="username-h_Y3Us desaturateUserColors-1O-G89 clickable-31pE3P" aria-controls="popout_202" aria-expanded="false" role="button" tabindex="0" style="font-size: 1rem;font-weight: 500;line-height: 1.375rem;color: var(--header-primary);display: inline;vertical-align: baseline;position: relative;overflow: hidden;-ms-flex-negative: 0;margin-left: -10px;flex-shrink: 0;color: rgb(255, 255, 255);">
+            <div style={{"textAlign":"center","marginBottom":"5px","position":"relative","top":"10px","marginRight":"300px"}}>
+                <img src={cardData.botImage} aria-hidden="true" alt=" " style={{"position":"relative","left":"-16px","top":"8px","marginTop":"calc(4px - 0.125rem)","width":"40px","height":"40px","borderRadius":"50%","overflow":"hidden","cursor":"pointer","userSelect":"none","WebkitBoxFlex":"0","flex":"0 0 auto","pointerEvents":"none","zIndex":"1"}}/>
+                <span aria-expanded="false" role="button" tabindex="0" style={{"fontSize":"1rem","fontWeight":"500","lineHeight":"1.375rem","color": cardData.botColor,"display":"inline","verticalAlign":"baseline","position":"relative","overflow":"hidden","MsFlexNegative":"0","marginLeft":"-10px","flexShrink":"0"}}>
                 {cardData.botName}</span>
                 
-                <span class="botTagCozy-3NTBvK botTag-1NoD0B botTagRegular-kpctgU botTag-7aX5WZ rem-3kT9wc" style="
-                    height: 0.9375rem;
-                    padding: 0.375rem;
-                    border-radius: 0.1875rem;
-                    margin-left: 0.25rem;
-                    /* margin-top: -10px; */
-                    position: relative;
-                    top: -2px;
-                    text-align: left;
-                    background: #5865F2;
-                    color: #fff;
-                    font-size: .625rem;
-                    text-transform: uppercase;
-                    /* vertical-align: top; */
-                    display: -webkit-inline-box;
-                    display: -ms-inline-flexbox;
-                    display: inline-flex;
-                    -webkit-box-align: center;
-                    -ms-flex-align: center;
-                    align-items: center;
-                    -ms-flex-negative: 0;
-                    flex-shrink: 0;
-                    text-indent: 0;
-                    outline: 0;
-                "><span class="botText-1fD6Qk">BOT</span></span>
-                <time aria-label="Rudolph is here." id="message-timestamp-937766364385525862" datetime="2022-01-31T17:48:44.126Z" style="
-                    font-size: 0.75rem;
-                    line-height: 1.375rem;
-                    color: #72767d;
-                    vertical-align: baseline;
-                ">Today at {formatAMPM(new Date)}</time>
+                <span style={{"height":"0.9375rem","padding":"0.375rem","borderRadius":"0.1875rem","marginLeft":"0.25rem","position":"relative","top":"-2px","textAlign":"left","background":"#5865F2","color":"#fff","fontSize":".625rem","textTransform":"uppercase","display":"inline-flex","WebkitBoxAlign":"center","MsFlexAlign":"center","alignItems":"center","MsFlexNegative":"0","flexShrink":"0","textIndent":"0","outline":"0"}}><span>BOT</span></span>
+                <time aria-label="Rudolph is here." id="message-timestamp-937766364385525862" datetime="2022-01-31T17:48:44.126Z" style={{"fontSize":"0.75rem","lineHeight":"1.375rem","color":"#72767d","verticalAlign":"baseline"}}>Today at {formatAMPM(new Date)}</time>
             </div>
             <svg
                 version="1.1"
