@@ -90,7 +90,7 @@ function Generators() {
                 {cardData.botName}</span>
                 
                 <span style={{"height":"0.9375rem","padding":"0.375rem","borderRadius":"0.1875rem","marginLeft":"0.25rem","position":"relative","top":"-2px","textAlign":"left","background":"#5865F2","color":"#fff","fontSize":".625rem","textTransform":"uppercase","display":"inline-flex","WebkitBoxAlign":"center","MsFlexAlign":"center","alignItems":"center","MsFlexNegative":"0","flexShrink":"0","textIndent":"0","outline":"0"}}><span>BOT</span></span>
-                <time aria-label="Rudolph is here." id="message-timestamp-937766364385525862" datetime="2022-01-31T17:48:44.126Z" style={{"fontSize":"0.75rem","lineHeight":"1.375rem","color":"#72767d","verticalAlign":"baseline"}}>Today at {formatAMPM(new Date)}</time>
+                <time aria-label="Rudolph is here." id="message-timestamp-937766364385525862" datetime="2022-01-31T17:48:44.126Z" style={{"fontSize":"0.75rem","lineHeight":"1.375rem","color":"#72767d","verticalAlign":"baseline", position: 'relative', left: '8px'}}>Today at {formatAMPM(new Date)}</time>
             </div>
             <svg
                 version="1.1"
