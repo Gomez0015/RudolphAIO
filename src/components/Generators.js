@@ -84,12 +84,12 @@ function Generators() {
                 position: relative;
                 top: 10px;
                 /* width: 100%; */
-                margin-right: 280px;
+                margin-right: 300px;
             ">
                 <img src={cardData.botImage} aria-hidden="true" class="avatar-2e8lTP clickable-31pE3P" alt=" " style="
                     position: relative;
                     left: -16px;
-                    top: 5px;
+                    top: 8px;
                     margin-top: calc(4px - 0.125rem);
                     width: 40px;
                     height: 40px;
