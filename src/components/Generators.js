@@ -12,10 +12,10 @@ const { Header, Content, Sider, Footer } = Layout;
 function Generators() {
     const [cardData, setCardData] = useState({
         userName: 'Raxo',
-        userTag: '#4680',
+        userTag: '#0468',
         userProfileImg: 'https://cdn.discordapp.com/avatars/251754270997610497/a_79f510a0f952a37b6450648972b0bf41.png',
-        level: '420',
-        rank: '69',
+        level: '32',
+        rank: '21',
         serverLevelColor: '#5acff5'
     });
 
