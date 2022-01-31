@@ -40,7 +40,7 @@ function Generators() {
     }
 
   return (
-    <>
+    <div style={{textAlign: 'center'}}>
         <Title style={{textAlign: 'center'}}>Generation Tools</Title>
         <form action='#' style={{textAlign: 'center'}} autocomplete="off" onSubmit={saveUserData}>
             <Input required type="text" name="userName" placeholder="Raxo" style={{textAlign: 'center', width: '25%'}}/>
@@ -190,7 +190,7 @@ function Generators() {
             style={{fill: '#5acff5'}}
             ></rect>
         </svg>
-    </>
+    </div>
   );
 }
 
