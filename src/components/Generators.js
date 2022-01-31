@@ -19,6 +19,26 @@ function Generators() {
         serverBackground: '#23272a'
     });
 
+    const saveUserData = (e) => {
+        e.preventDefault();
+        setCardData({
+            userName: e.target.userName.value,
+            userTag: e.target.userTag.value,
+            userProfileImg: e.target.userProfileImg.value,
+            level: e.target.level.value,
+            rank: e.target.rank.value,
+            serverBackground: e.target.serverBackground.value
+        });
+        console.log({
+            userName: e.target.userName.value,
+            userTag: e.target.userTag.value,
+            userProfileImg: e.target.userProfileImg.value,
+            level: e.target.level.value,
+            rank: e.target.rank.value,
+            serverBackground: e.target.serverBackground.value
+        });
+    }
+
     const mee6Rank = () => {
         return (<svg
         version="1.1"
@@ -160,15 +180,21 @@ function Generators() {
     <>
         <Title style={{textAlign: 'center'}}>Generation Tools</Title>
         <mee6Rank />
-        {/* <form action='#' style={{textAlign: 'center'}}>
-            <Input required type="text" name="seed" placeholder="Burner Seed Phrase" style={{textAlign: 'center', width: '25%'}}/>
+        <form action='#' style={{textAlign: 'center'}} autocomplete="off" onSubmit={saveUserData}>
+            <Input required type="text" name="userName" placeholder="Raxo" style={{textAlign: 'center', width: '25%'}}/>
             <br />
-            <Input required type="url" name="url" placeholder="Mint Url" style={{textAlign: 'center', width: '25%'}}/>
+            <Input required type="text" name="userTag" placeholder="#0468" style={{textAlign: 'center', width: '25%'}}/>
             <br />
-            <Input required type="number" name="amountToMint" placeholder="Amount To Mint" style={{textAlign: 'center', width: '25%'}}/>
+            <Input required type="url" name="userProfileImg" placeholder="https://cdn.discordapp.com/avatars/251754270997610497/a_79f510a0f952a37b6450648972b0bf41.png" style={{textAlign: 'center', width: '25%'}}/>
             <br />
-            <Button htmlType="submit" loading={mintLoading}>Mint</Button>
-        </form> */}
+            <Input required type="number" name="level" placeholder="420" style={{textAlign: 'center', width: '25%'}}/>
+            <br />
+            <Input required type="number" name="rank" placeholder="69" style={{textAlign: 'center', width: '25%'}}/>
+            <br />
+            <Input required type="color" name="serverBackground" value="#23272a" style={{textAlign: 'center', width: '25%'}}/>
+            <br />
+            <Button htmlType="submit">Generate Rank Card</Button>
+        </form>
     </>
   );
 }
