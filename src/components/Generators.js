@@ -71,7 +71,7 @@ function Generators() {
             height="100%"
             rx="3"
             ry="3"
-            style={{fill: cardData.serverBackground}}
+            style={{fill: '#23272a'}}
             ></rect>
 
             {/* <!-- Rounded rectangle in the center --> */}
@@ -153,7 +153,7 @@ function Generators() {
             text-anchor="end"
             >
             429
-            <tspan style="fill: #7f8384;">/ 1337 XP</tspan>
+            <tspan style={{fill: '#7f8384'}}>/ 1337 XP</tspan>
             </text>
 
             {/* <!-- === Progress bar === -->
