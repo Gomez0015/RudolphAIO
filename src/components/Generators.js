@@ -25,7 +25,7 @@ function Generators() {
     const randomValue =(Math.ceil(Math.random() * 100) / 100).toFixed(1);
 
     console.log(randomValue);
-    console.log((Math.floor((5 * (Math.pow(cardData.level, 2)) + (50 * cardData.level) + 100))) * randomValue));
+    console.log((Math.floor((5 * (Math.pow(cardData.level, 2)) + (50 * cardData.level) + 100))) * randomValue);
 
     const numberWithCommas = (x) => {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
