@@ -16,11 +16,13 @@ import {
   DollarOutlined,
   RobotOutlined,
   KeyOutlined,
-  LineChartOutlined
+  LineChartOutlined,
+  ExperimentOutlined
 } from '@ant-design/icons';
 import QuickMint from './components/QuickMint';
 import NFTStealer from './components/NFTStealer';
 import MEE6Levels from './components/MEE6Levels';
+import Generators from './components/Generators';
 import LoginPage from './components/LoginPage';
 import AdminDashboard from './components/AdminDashboard';
 import Donations from './components/Donations';
@@ -82,6 +84,11 @@ function App(props) {
                   MEE6 Levels
                 </Link>
               </Menu.Item>
+              <Menu.Item key="3" icon={<ExperimentOutlined />}>
+                <Link to="/dashboard/generators">
+                  Generators
+                </Link>
+              </Menu.Item>
               <Menu.Item key="3" icon={<DollarOutlined />}>
                 <Link to="/dashboard/donate">
                   Donations :)
@@ -115,6 +122,7 @@ function App(props) {
                     <Route path="/dashboard/nftstealer" element={<NFTStealer />} />
                     <Route path="/dashboard/donate" element={<Donations successMessage={successMessage} errorMessage={errorMessage} />} />
                     <Route path="/dashboard/mee6levels" element={<MEE6Levels cookies={cookies} successMessage={successMessage} errorMessage={errorMessage}/>} />
+                    <Route path="/dashboard/generators" element={<Generators successMessage={successMessage} errorMessage={errorMessage}/>} />
                     {adminList.includes(cookies.userToken) ? 
                       <Route path="/dashboard/admin" element={<AdminDashboard cookies={cookies} successMessage={successMessage} errorMessage={errorMessage}/>} />
                     : null}
