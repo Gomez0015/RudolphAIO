@@ -24,9 +24,6 @@ function Generators() {
 
     const randomValue =(Math.ceil(Math.random() * 100) / 100).toFixed(1);
 
-    console.log(randomValue);
-    console.log((Math.floor((5 * (Math.pow(cardData.level, 2)) + (50 * cardData.level) + 100))) * randomValue);
-
     const numberWithCommas = (x) => {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     }
@@ -198,7 +195,7 @@ function Generators() {
                 fill="white"
                 text-anchor="end"
                 >
-                {((5 * (Math.pow(cardData.level, 2)) + (50 * cardData.level) + 100) * randomValue) > 1000 ? (numberWithCommas((Math.floor((5 * (Math.pow(cardData.level, 2)) + (50 * cardData.level) + 100))) * randomValue).toFixed(1)).toString().slice(0, -1) + "K" : (Math.floor((5 * (Math.pow(cardData.level, 2)) + (50 * cardData.level) + 100) * randomValue)) + " "}
+                {((5 * (Math.pow(cardData.level, 2)) + (50 * cardData.level) + 100) * randomValue) > 1000 ? (numberWithCommas((Math.floor((5 * (Math.pow(cardData.level, 2)) + (50 * cardData.level) + 100))) * randomValue)).toFixed(2).toString().slice(0, -1) + "K" : (Math.floor((5 * (Math.pow(cardData.level, 2)) + (50 * cardData.level) + 100) * randomValue)) + " "}
                 <tspan style={{fill: '#7f8384'}}>/ {(5 * (Math.pow(cardData.level, 2)) + (50 * cardData.level) + 100) > 1000 ? (numberWithCommas(5 * (Math.pow(cardData.level, 2)) + (50 * cardData.level) + 100)).toString().slice(0, -1) + "K" : (5 * (Math.pow(cardData.level, 2)) + (50 * cardData.level) + 100)} XP</tspan>
                 </text>
 
