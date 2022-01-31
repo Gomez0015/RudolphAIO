@@ -27,7 +27,7 @@ function Generators() {
             userProfileImg: e.target.userProfileImg.value,
             level: e.target.level.value,
             rank: e.target.rank.value,
-            serverBackground: e.target.serverBackground.value
+            serverBackground: e.target.serverLevelColor.value
         });
         console.log({
             userName: e.target.userName.value,
@@ -35,7 +35,7 @@ function Generators() {
             userProfileImg: e.target.userProfileImg.value,
             level: e.target.level.value,
             rank: e.target.rank.value,
-            serverBackground: e.target.serverBackground.value
+            serverBackground: e.target.serverLevelColor.value
         });
     }
 
@@ -53,7 +53,7 @@ function Generators() {
             <br />
             <Input required type="number" name="rank" placeholder="69" style={{textAlign: 'center', width: '25%'}}/>
             <br />
-            <Input required type="color" name="serverLevelColor" defaultValue="#23272a" style={{textAlign: 'center', width: '25%'}}/>
+            <Input required type="color" name="serverLevelColor" defaultValue="#5acff5" style={{textAlign: 'center', width: '25%'}}/>
             <br />
             <Button htmlType="submit">Generate Rank Card</Button>
         </form>
