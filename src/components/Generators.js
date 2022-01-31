@@ -131,7 +131,7 @@ function Generators() {
                 {cardData.rank}
                 </tspan>
             </tspan>
-            <tspan {{fill: cardData.serverLevelColor}}>
+            <tspan style={{fill: cardData.serverLevelColor}}>
                 LEVEL
                 <tspan font-size="30">{cardData.level}</tspan>
             </tspan>
