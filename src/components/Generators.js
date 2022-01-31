@@ -19,7 +19,7 @@ function Generators() {
         serverLevelColor: '#5acff5',
         botName: 'Rudolph',
         botImage: 'https://cdn.discordapp.com/avatars/930970348697051136/1194dda5073eeb13fa69e371f09d5c09.webp?size=160',
-        botColor: '#fff';
+        botColor: '#fff'
     });
 
     const randomValue = Math.random();
