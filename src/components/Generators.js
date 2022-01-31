@@ -190,7 +190,7 @@ function Generators() {
                 y="92"
                 rx="9"
                 ry="9"
-                width={(316 * ((5 * (Math.pow(cardData.level, 2)) + (50 * cardData.level) + 100) / 10)/(5 * (Math.pow(cardData.level, 2)) + (50 * cardData.level) + 100)))}
+                width={(316 * ((5 * (Math.pow(cardData.level, 2)) + (50 * cardData.level) + 100) / 10)/(5 * (Math.pow(cardData.level, 2)) + (50 * cardData.level) + 100))}
                 height="18"
                 style={{fill: '#484b4e'}}
                 ></rect>
