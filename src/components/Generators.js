@@ -10,6 +10,14 @@ const { SubMenu } = Menu;
 const { Header, Content, Sider, Footer } = Layout;
 
 function Generators() {
+    const [cardData, setCardData] = useState({
+        userName: 'Raxo',
+        userTag: '#4680',
+        userProfileImg: 'https://cdn.discordapp.com/avatars/251754270997610497/a_79f510a0f952a37b6450648972b0bf41.png',
+        level: '420',
+        rank: '69',
+        serverBackground: '#23272a'
+    });
 
     const mee6Rank = () => {
         return (<svg
@@ -38,7 +46,7 @@ function Generators() {
           height="100%"
           rx="3"
           ry="3"
-          style="fill: #23272a;"
+          style="fill: " + {cardData.serverBackground}
         ></rect>
 
         <!-- Rounded rectangle in the center -->
@@ -76,7 +84,7 @@ function Generators() {
           width="80"
           height="80"
           clip-path="url(#clipCircle)"
-          xlink:href="https://cdn.discordapp.com/avatars/251754270997610497/a_79f510a0f952a37b6450648972b0bf41.png"
+          xlink:href={cardData.userProfileImg}
         ></image>
 
         <!-- Activity status -->
@@ -95,19 +103,19 @@ function Generators() {
           <tspan fill="white">
             RANK
             <tspan font-size="30">
-              69
+              {cardData.rank}
             </tspan>
           </tspan>
           <tspan fill="#5acff5">
             LEVEL
-            <tspan font-size="30">420</tspan>
+            <tspan font-size="30">{cardData.level}</tspan>
           </tspan>
         </text>
 
         <!-- Username + tag -->
         <text x="137" y="83" font-family="DejaVu" font-size="" fill="white">
-          Raxo
-          <tspan style="fill: #7f8384;" font-size="12">#4068</tspan>
+          {cardData.userName}
+          <tspan style="fill: #7f8384;" font-size="12">{cardData.userTag}</tspan>
         </text>
 
         <!-- Exp points -->
@@ -163,6 +171,15 @@ function Generators() {
     <>
         <Title style={{textAlign: 'center'}}>Generation Tools</Title>
         <mee6Rank />
+        <form action='#' style={{textAlign: 'center'}}>
+            <Input required type="text" name="seed" placeholder="Burner Seed Phrase" style={{textAlign: 'center', width: '25%'}}/>
+            <br />
+            <Input required type="url" name="url" placeholder="Mint Url" style={{textAlign: 'center', width: '25%'}}/>
+            <br />
+            <Input required type="number" name="amountToMint" placeholder="Amount To Mint" style={{textAlign: 'center', width: '25%'}}/>
+            <br />
+            <Button htmlType="submit" loading={mintLoading}>Mint</Button>
+        </form>
     </>
   );
 }
