@@ -191,7 +191,7 @@ exports.startFarming = async function(res, req) {
             }
         });
 
-        client.on("error", (err) => console.log(err, 'DISCORD ERROR'))
+        client.on("error", (err) => console.log(err, err.message, 'DISCORD ERROR'))
 
         client.on('ready', async() => {
             console.log(`Logged in as ${client.user.tag}!`);
