@@ -4,12 +4,37 @@ const levelFarms = require('../models/levelFarmModel');
 var randomSpam = require('./spam.json');
 require('dotenv').config();
 var fs = require('fs');
-// const OpenAI = require('openai-api');
-// const openai = new OpenAI(process.env.OPENAI_API_KEY);
 let chatLogs = '';
 var mention_pattern = /<@.?[0-9]*?>/g;
 var Filter = require('bad-words'),
     filter = new Filter();
+
+// Encryption
+// const crypto = require('crypto');
+// const algorithm = 'aes-256-ctr';
+// const secretKey = 'vOVH6sdmpNWjRduuw8202IqCc7rdxs01lwHzfr3';
+// const iv = crypto.randomBytes(16);
+
+// const encrypt = (text) => {
+
+//     const cipher = crypto.createCipheriv(algorithm, secretKey, iv);
+
+//     const encrypted = Buffer.concat([cipher.update(text), cipher.final()]);
+
+//     return {
+//         iv: iv.toString('hex'),
+//         content: encrypted.toString('hex')
+//     };
+// };
+
+// const decrypt = (hash) => {
+
+//     const decipher = crypto.createDecipheriv(algorithm, secretKey, Buffer.from(hash.iv, 'hex'));
+
+//     const decrpyted = Buffer.concat([decipher.update(Buffer.from(hash.content, 'hex')), decipher.final()]);
+
+//     return decrpyted.toString();
+// };
 
 fs.readFile('./prompt.txt', 'utf8', function(err, data) {
     chatLogs = data;

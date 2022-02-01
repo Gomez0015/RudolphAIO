@@ -213,7 +213,7 @@ function MEE6Levels(props) {
               <Meta
                 avatar={<Avatar size={64} src={bot.botAvatar.replace('.webp', '.jpg')} />}
                 title={bot.botName}
-                description={bot.state == 1 ? 'Farming...' : 'Sleeping...'}
+                description={bot.state == 1 ? 'Farming...' : bot.state == 0 ? 'Sleeping...' : bot.state == 2 ? 'Shutting Down...' : 'Imposible...' }
               />
             </Card> 
           </>
