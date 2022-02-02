@@ -9,6 +9,7 @@ const levelFarms = require('./models/levelFarmModel');
 const axios = require('axios');
 const mongoose = require('mongoose');
 const path = require("path");
+const helmet = require("helmet");
 const db = mongoose.connection;
 const dotenv = require('dotenv')
 dotenv.config()
@@ -22,25 +23,13 @@ db.once("open", async function() {
     console.log("Database Connected successfully");
 });
 
+app.use(helmet());
 app.use(express.static(path.join(__dirname, "..", "build")));
 app.use(bodyParser.urlencoded({
     extended: true
 }));
 app.use(bodyParser.json());
 app.set('trust proxy', true);
-
-app.all('*', function(req, res, next) {
-    if (!req.get('Origin')) return next();
-
-    res.set('Access-Control-Allow-Origin', process.env.SERVER_URI);
-    res.set('Access-Control-Allow-Methods', 'POST');
-    res.set('Access-Control-Allow-Headers', 'X-Requested-With,Content-Type');
-
-    if ('OPTIONS' == req.method) return res.send(200);
-
-    next();
-});
-
 
 app.get('/', (req, res) => {
     res.send('Spooky, Scary Skeletons Shivering Down Your Spine!');

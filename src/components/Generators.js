@@ -49,7 +49,7 @@ function Generators() {
             rank: e.target.rank.value,
             serverLevelColor: e.target.serverLevelColor.value,
             serverBackground: e.target.serverBackground.value,
-            botImage: e.target.botImage.value,
+            botImage: (e.target.botImage.value === undefined ? 'https://cdn.discordapp.com/avatars/930970348697051136/1194dda5073eeb13fa69e371f09d5c09.webp?size=160' : e.target.botImage.value),
             botName: e.target.botName.value,
             botColor: e.target.botColor.value,
         });
