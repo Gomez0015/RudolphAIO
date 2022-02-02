@@ -1,4 +1,5 @@
 const dashboardKeys = require('../models/dashboardKeysModel.js');
+const axios = require('axios');
 
 exports.checkAuthDiscord = async function(req, res) {
     const data = await dashboardKeys.findOne({ discordId: req.body.discordId });
@@ -40,40 +41,51 @@ exports.generateNewKey = async function(req, res) {
     if (checkUserHasKey) {
         res.send({ state: 'error', message: 'You already have a key!' });
     } else {
-        if (process.env.WHITE_LIST.includes(req.body.discordId)) {
-            async function genKey(length) {
-                // Use crypto.getRandomValues if available
-                if (
-                    typeof crypto !== 'undefined' &&
-                    typeof crypto.getRandomValues === 'function'
-                ) {
-                    var tmp = new Uint8Array(Math.max((~~length) / 2));
-                    crypto.getRandomValues(tmp);
-                    return Array.from(tmp)
-                        .map(n => ('0' + n.toString(16)).substr(-2))
-                        .join('')
-                        .substr(0, length);
-                }
+        await axios.get('https://public-api.solscan.io/transaction/' + req.body.signature).then(function(response) {
+            if (response.status == "Success") {
+                if (process.env.WHITE_LIST.includes(req.body.discordId)) {
+                    async function genKey(length) {
+                        // Use crypto.getRandomValues if available
+                        if (
+                            typeof crypto !== 'undefined' &&
+                            typeof crypto.getRandomValues === 'function'
+                        ) {
+                            var tmp = new Uint8Array(Math.max((~~length) / 2));
+                            crypto.getRandomValues(tmp);
+                            return Array.from(tmp)
+                                .map(n => ('0' + n.toString(16)).substr(-2))
+                                .join('')
+                                .substr(0, length);
+                        }
 
-                // fallback to Math.getRandomValues
-                var ret = "";
-                while (ret.length < length) {
-                    ret += Math.random().toString(16).substring(2);
-                }
-                return ret.substring(0, length);
-            }
+                        // fallback to Math.getRandomValues
+                        var ret = "";
+                        while (ret.length < length) {
+                            ret += Math.random().toString(16).substring(2);
+                        }
+                        return ret.substring(0, length);
+                    }
 
-            const generatedKey = await genKey(29);
-            const checkKeyExists = await dashboardKeys.findOne({ key: generatedKey });
-            if (!checkKeyExists) {
-                await dashboardKeys.create({ key: generatedKey.toUpperCase(), discordId: req.body.discordId, expired: 'false', start_date: new Date() });
-                res.send({ state: 'success', message: 'Key has been generated, you can now login!' });
+                    const generatedKey = await genKey(29);
+                    const checkKeyExists = await dashboardKeys.findOne({ key: generatedKey });
+                    if (!checkKeyExists) {
+                        await dashboardKeys.create({ key: generatedKey.toUpperCase(), discordId: req.body.discordId, expired: 'false', start_date: new Date() });
+                        res.send({ state: 'success', message: 'Key has been generated, you can now login!' });
+                    } else {
+                        console.log('recall function, key already exists', req.body.discordId, req.body.signature);
+                        res.send({ state: 'error', message: 'Contact a server Administrator, an error has occurred' });
+                    }
+                } else {
+                    console.log('no whitelist error', req.body.discordId, req.body.signature);
+                    res.send({ state: 'error', message: 'You are not whitelisted!' });
+                }
             } else {
-                console.log('recall function, key already exists', req.body.discordId);
-                res.send({ state: 'error', message: 'Contact a server Administrator, an error has occurred' });
+                console.log('solana transaction failed', req.body.discordId, req.body.signature);
+                res.send({ state: 'error', message: 'SOL Transactions Failed!' });
             }
-        } else {
-            res.send({ state: 'error', message: 'You are not whitelisted' });
-        }
+        }).catch((err) => {
+            console.log('axios request for solscan had an error', req.body.discordId, req.body.signature);
+            res.send({ state: 'error', message: 'Contact a server Administrator, an error has occurred' })
+        });
     }
 }

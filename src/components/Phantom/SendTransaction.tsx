@@ -90,7 +90,7 @@ const sendTransaction = async (transaction: Transaction, callback) => {
           "Submitted transaction " + signature + ", awaiting confirmation"
         );
         await CONNECTION.confirmTransaction(signature);
-        callback();
+        callback(signature);
     } catch (err) {
       console.warn(err);
       console.log("Error: " + JSON.stringify(err));

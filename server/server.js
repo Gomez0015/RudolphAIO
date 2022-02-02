@@ -32,7 +32,7 @@ app.set('trust proxy', true);
 app.all('*', function(req, res, next) {
     if (!req.get('Origin')) return next();
 
-    res.set('Access-Control-Allow-Origin', 'self');
+    res.set('Access-Control-Allow-Origin', process.env.SERVER_URI);
     res.set('Access-Control-Allow-Methods', 'POST');
     res.set('Access-Control-Allow-Headers', 'X-Requested-With,Content-Type');
 
@@ -42,12 +42,13 @@ app.all('*', function(req, res, next) {
 });
 
 
-app.get('/api/', (req, res) => {
-    res.send('Hello World!');
-});
-
 app.get('/', (req, res) => {
     res.send('Spooky, Scary Skeletons Shivering Down Your Spine!');
+});
+
+
+app.get('/api/', (req, res) => {
+    res.send('Hello World!');
 });
 
 app.post('/api/askRudolph', (req, res) => {

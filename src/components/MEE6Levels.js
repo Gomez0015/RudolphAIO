@@ -176,7 +176,8 @@ function MEE6Levels(props) {
           <Button onClick={() => {deleteBot(botSettings)}} style={{marginTop: '30px'}}>Delete Bot</Button>
         </Modal>
 
-        <Title style={{textAlign: 'center'}}>MEE6Levels</Title>
+        <Title style={{textAlign: 'center'}}>MEE6 Levels</Title>
+        <p style={{textAlign: 'center'}}>we are not responsible for any discord accounts being banned. use a burner. dont be lazy.</p>
         <form autocomplete="off" action='#' style={{textAlign: 'center'}} onSubmit={startFarming}>
             <Input autocomplete="off" required type="text" name="token" placeholder="Discord User Token" style={{textAlign: 'center', width: '25%'}}/>
             <br />

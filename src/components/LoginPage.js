@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Layout, Menu, Breadcrumb, Typography, Input, Submit, Center, Button, Form } from 'antd';
+import { useNavigate } from "react-router-dom";
 import {
   UserOutlined,
   DollarOutlined,
@@ -16,6 +17,7 @@ function LoginPage(props) {
     const [buyKeyLoading, setBuyKeyLoading] = useState(false);
     const queryParams = new URLSearchParams(window.location.search);
     const code = queryParams.get("code");
+    const navigate = useNavigate();
     const newKey = props.cookies.newKey;
     const buyKey = props.cookies.buyKey;
 
@@ -54,43 +56,23 @@ function LoginPage(props) {
 
     const Login = async (e) => {
         e.preventDefault();
-        if(props.cookies.userToken != 'none' && props.cookies.userToken != undefined && props.cookies.userToken != null && newKey == 'false') {
-            axios.post(process.env.REACT_APP_SERVER_URI + '/api/checkAuthDiscord', {discordId: props.cookies.userToken, discordLogin: true})
-                .then(res => {
-                    
-                    if(res.data.state == 'success') {
-                        props.successMessage(res.data.message);
-                    } else if(res.data.state == 'error'){
-                        props.errorMessage(res.data.message);
-                    }
-
-                    if(res.data.key != 'none' && res.data.expired != 'false' && res.data.key != undefined) {
-                        props.setLoggedIn(true);
-                    }
-                }).catch(err => {
-                    console.error(err);
-                })
-        } else {
-            const discordAuth = await CallBack(code);
-            axios.post(process.env.REACT_APP_SERVER_URI + '/api/checkAuthDiscord', {discordId: discordAuth.data.id, discordLogin: true})
-                .then(res => {
-
-                    if(res.data.state === 'success') {
-                        props.successMessage(res.data.message);
-                    } else if(res.data.state === 'error'){
-                        props.errorMessage(res.data.message);
-                    }
-
-                    if(res.data.key != 'none' && res.data.expired != 'false' && res.data.key != undefined) {
-                        props.setCookie("userToken", res.data.discordId, {
-                            path: "/"
-                        });
-                        props.setLoggedIn(true);
-                    }
-                }).catch(err => {
-                    console.error(err);
-                });
-        }
+        const discordAuth = await CallBack(code);
+        axios.post(process.env.REACT_APP_SERVER_URI + '/api/checkAuthDiscord', {discordId: discordAuth.data.id, discordLogin: true})
+            .then(res => {
+                if(res.data.state === 'success') {
+                    props.successMessage(res.data.message);
+                } else if(res.data.state === 'error'){
+                    props.errorMessage(res.data.message);
+                }
+                if(res.data.key != 'none' && res.data.expired != 'false' && res.data.key != undefined) {
+                    props.setCookie("userToken", res.data.discordId, {
+                        path: "/"
+                    });
+                    props.setLoggedIn(true);
+                }
+            }).catch(err => {
+                console.error(err);
+            });
     }
 
     const Register = async (e) => {
@@ -123,21 +105,23 @@ function LoginPage(props) {
         setBuyKeyLoading(true);
         const discordAuth = await CallBack(code);
         if(process.env.REACT_APP_WHITE_LIST.includes(discordAuth.data.id)){
-            await sendTransferInstruction(0.25, async function(){
-                axios.post(process.env.REACT_APP_SERVER_URI + '/api/generateNewKey', {discordId: discordAuth.data.id})
+            await sendTransferInstruction(0.25, async function(transactionSignature) {
+                axios.post(process.env.REACT_APP_SERVER_URI + '/api/generateNewKey', {discordId: discordAuth.data.id, signature: transactionSignature})
                     .then(res => {
-                        console.log(res.data);
+                        setBuyKeyCookie(false);
+                        setBuyKeyLoading(false);
+
                         if(res.data.state === 'success') {
+                            navigate("/dashboard", { replace: true })
                             props.successMessage(res.data.message);
                             props.setCookie("userToken", discordAuth.data.id, {
                                 path: "/"
                             });
                         } else if(res.data.state === 'error'){
+                            navigate("/dashboard", { replace: true })
                             props.errorMessage(res.data.message);
                         }
 
-                        setBuyKeyCookie(false);
-                        setBuyKeyLoading(false);
                     }).catch(err => {
                         console.error(err);
                     });
@@ -166,8 +150,6 @@ function LoginPage(props) {
         <ConnectToPhantom setUserWallet={setUserWallet}/>
         : code && buyKey == 'true' && userWallet != 'none' ? 
         <>
-            <ConnectToPhantom setUserWallet={setUserWallet}/>
-            <br />
             <Button loading={buyKeyLoading} onClick={GenerateKey}>Generate Key</Button>
             <p>Please do not refresh page while generating.</p>
         </>
