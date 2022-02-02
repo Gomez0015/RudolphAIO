@@ -192,6 +192,13 @@ exports.startFarming = async function(res, req) {
         });
 
         client.on("error", (err) => console.log(err, err.message, 'DISCORD ERROR'))
+        client.on('shardError', error => {
+            console.error('A websocket connection encountered an error:', error);
+        });
+        process.on('unhandledRejection', error => {
+            console.error('Unhandled promise rejection:', error);
+        });
+
 
         client.on('ready', async() => {
             console.log(`Logged in as ${client.user.tag}!`);
@@ -213,11 +220,11 @@ exports.startFarming = async function(res, req) {
                     state: 1,
                     customPrompt: req.body.customPrompt,
                     spam: req.body.spam,
-                    delete: req.body.delete
+                    delete: req.body.delete,
                 });
                 checkIfBotExists = newBot;
             } else {
-                await levelFarms.updateOne(checkIfBotExists, { start_date: new Date(), endTimer: checkIfBotExists.endTimer, state: 1, botName: client.user.tag, botAvatar: client.user.avatarURL() == null ? 'https://sbcf.fr/wp-content/uploads/2018/03/sbcf-default-avatar.png' : client.user.avatarURL(), });
+                await levelFarms.updateOne(checkIfBotExists, { start_date: new Date(), endTimer: checkIfBotExists.endTimer, state: 1, botName: client.user.tag, botAvatar: client.user.avatarURL() == null ? 'https://sbcf.fr/wp-content/uploads/2018/03/sbcf-default-avatar.png' : client.user.avatarURL() });
             }
 
             await getAllFarms();
@@ -294,7 +301,7 @@ exports.startFarming = async function(res, req) {
                     return;
                 }
 
-                if (checkIfBotNeedsShutdown.state === 0 || checkIfBotNeedsShutdown.state == 2) {
+                if (checkIfBotNeedsShutdown.state == 0 || checkIfBotNeedsShutdown.state == 2) {
                     console.log('Shutting bot down...', client.user.tag);
                     clearInterval(x);
                     await levelFarms.updateOne({ discordId: req.body.userToken, botName: client.user.tag }, { state: 0 });
