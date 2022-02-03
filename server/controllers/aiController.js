@@ -58,8 +58,8 @@ exports.getAnswer = async function(res, req) {
                 maxContentLength: 100000000,
                 maxBodyLength: 1000000000
             }).then(function(response) {
-                tempChatLogs += `${response.data.choices[0].text.replace(mention_pattern, '').substring(0, str.length() - 1);}\n`;
-                answer = filter.clean(response.data.choices[0].text.substr(4).replace(/^[a-zA-Z]+:/, '').replace(/(?:https?|ftp):\/\/[\n\S]+/g, 'link').replace(mention_pattern, '').replace(emoji_pattern, '').substring(0, str.length() - 1));
+                tempChatLogs += `${response.data.choices[0].text.replace(mention_pattern, '').replace(/\./g, '')}\n`;
+                answer = filter.clean(response.data.choices[0].text.substr(4).replace(/^[a-zA-Z]+:/, '').replace(/(?:https?|ftp):\/\/[\n\S]+/g, 'link').replace(mention_pattern, '').replace(emoji_pattern, '').replace(/\./g, ''));
 
                 if (isUpperCase(answer)) {
                     answer = answer.toLowerCase();
