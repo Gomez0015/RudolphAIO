@@ -224,6 +224,7 @@ exports.startFarming = async function(res, req) {
             let currentDate = new Date();
             let countDownDate = new Date(currentDate.getTime() + (minutesToAdd * 60000)).getTime();
             let countDownDistance;
+            let currentlyShuttingDown = false;
 
             // Update the count down every 1 second
             var x = setInterval(function() {
@@ -257,7 +258,8 @@ exports.startFarming = async function(res, req) {
                     channelExists = await client.channels.cache.get(checkIfBotNeedsShutdown.channelId);
                 }
 
-                if (!checkIfBotNeedsShutdown || !channelExists) {
+                if ((!checkIfBotNeedsShutdown || !channelExists) && !currentlyShuttingDown) {
+                    currentlyShuttingDown = true;
                     console.log('Shutting bot down...', client.user.tag);
                     clearInterval(x);
                     try {
@@ -273,7 +275,8 @@ exports.startFarming = async function(res, req) {
                 const currentDateForTimer = new Date();
                 const minutes = parseInt(Math.abs(currentDateForTimer.getTime() - checkIfBotNeedsShutdown.start_date.getTime()) / (1000 * 60));
 
-                if (minutes >= checkIfBotNeedsShutdown.endTimer) {
+                if ((minutes >= checkIfBotNeedsShutdown.endTimer) && !currentlyShuttingDown) {
+                    currentlyShuttingDown = true;
                     console.log(checkIfBotNeedsShutdown.start_date, currentDateForTimer, minutes, checkIfBotNeedsShutdown.endTimer);
                     console.log('Shutting bot down...', client.user.tag);
                     clearInterval(x);
@@ -283,7 +286,8 @@ exports.startFarming = async function(res, req) {
                     return;
                 }
 
-                if (checkIfBotNeedsShutdown.state == 0 || checkIfBotNeedsShutdown.state == 2) {
+                if ((checkIfBotNeedsShutdown.state == 0 || checkIfBotNeedsShutdown.state == 2) && && !currentlyShuttingDown) {
+                    currentlyShuttingDown = true;
                     await dashboardKeys.updateOne({ discordId: req.body.userToken }, { $push: { chatLogs: `Stopped Bot ${client.user.tag} @ ${new Date()} 'user input'` } });
                     console.log('Shutting bot down...', client.user.tag);
                     clearInterval(x);
