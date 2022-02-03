@@ -71,7 +71,6 @@ exports.getAnswer = async function(res, req) {
                 if (err.isAxiosError) {
                     console.log(err.response.data, ', Axios Error', req.body.botData.botName, tempChatLogs.length);
                 }
-                console.log(err);
                 res.send({ answer: undefined });
             });
     }
