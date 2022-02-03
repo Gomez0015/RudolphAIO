@@ -7,7 +7,7 @@ require('dotenv').config();
 var fs = require('fs');
 let chatLogs = '';
 var mention_pattern = /<@.?[0-9]*?>/g;
-var emoji_pattern = /<@!.?[0-9]*?>/g;
+var emoji_pattern = /(<a?)?:\w+:(\d{18}>)?/g;
 var Filter = require('bad-words'),
     filter = new Filter();
 
