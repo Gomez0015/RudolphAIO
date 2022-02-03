@@ -7,7 +7,7 @@ require('dotenv').config();
 var fs = require('fs');
 let chatLogs = '';
 var mention_pattern = /<@.?[0-9]*?>/g;
-var mention_pattern_2 = /<@!.?[0-9]*?>/g;
+var emoji_pattern = /<@!.?[0-9]*?>/g;
 var Filter = require('bad-words'),
     filter = new Filter();
 
@@ -21,14 +21,14 @@ function isUpperCase(str) {
 
 exports.getAnswer = async function(res, req) {
     let tempChatLogs = req.body.chatLogs;
-    tempChatLogs += `Human: ${req.body.text.replace(mention_pattern, '').replace(mention_pattern_2, '').replace(/(?:https?|ftp):\/\/[\n\S]+/g, 'link')}\n`;
+    tempChatLogs += `Human: ${req.body.text.replace(mention_pattern, '').replace(emoji_pattern, '').replace(/(?:https?|ftp):\/\/[\n\S]+/g, 'link')}\n`;
 
-    let mathString = req.body.text.replace(mention_pattern, '').replace(mention_pattern_2, '').replace(/(?:https?|ftp):\/\/[\n\S]+/g, 'link').replace(/\s/g, '');
+    let mathString = req.body.text.replace(mention_pattern, '').replace(emoji_pattern, '').replace(/(?:https?|ftp):\/\/[\n\S]+/g, 'link').replace(/\s/g, '');
 
     var total = 0;
     mathArray = mathString.match(/[+\-]*(\.\d+|\d+(\.\d+)?)/g) || [];
 
-    if (req.body.text.replace(mention_pattern, '').replace(mention_pattern_2, '').replace(/(?:https?|ftp):\/\/[\n\S]+/g, '').replace(/\s/g, '') == '') {
+    if (req.body.text.replace(mention_pattern, '').replace(emoji_pattern, '').replace(/(?:https?|ftp):\/\/[\n\S]+/g, '').replace(/\s/g, '') == '') {
         res.send({ answer: undefined });
     } else if (mathArray.length > 1) {
         while (mathArray.length) {
@@ -58,8 +58,8 @@ exports.getAnswer = async function(res, req) {
                 maxContentLength: 100000000,
                 maxBodyLength: 1000000000
             }).then(function(response) {
-                tempChatLogs += `${response.data.choices[0].text.replace(mention_pattern, '').replace('.', '')}\n`;
-                answer = filter.clean(response.data.choices[0].text.substr(4).replace(/^[a-zA-Z]+:/, '').replace(/(?:https?|ftp):\/\/[\n\S]+/g, 'link').replace(mention_pattern, '').replace(mention_pattern_2, '').replace('.', ''));
+                tempChatLogs += `${response.data.choices[0].text.replace(mention_pattern, '').substring(0, str.length() - 1);}\n`;
+                answer = filter.clean(response.data.choices[0].text.substr(4).replace(/^[a-zA-Z]+:/, '').replace(/(?:https?|ftp):\/\/[\n\S]+/g, 'link').replace(mention_pattern, '').replace(emoji_pattern, '').substring(0, str.length() - 1));
 
                 if (isUpperCase(answer)) {
                     answer = answer.toLowerCase();
