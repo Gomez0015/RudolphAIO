@@ -64,7 +64,11 @@ module.exports = {
                             await member.roles.add('927639271312076858');
                         } else {
                             reaction.users.remove(user);
-                            user.send("You don't have a dashboard key!");
+                            try {
+                                user.send("You don't have a dashboard key!");
+                            } catch (e) {
+                                console.log(e.message);
+                            }
                         }
                     }
                 }
