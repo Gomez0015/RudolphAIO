@@ -17,6 +17,7 @@ const { TextArea } = Input;
 function MEE6Levels(props) {
     const [bots, setBots] = useState([]);
     const [activeBot, setActiveBot] = useState({});
+    const [userChatLogs, setUserChatLogs] = useState([]);
     const [startFarmingLoading, setStartFarmingLoading] = useState(false);
     const [dataLoading, setDataLoading] = useState(false);
     const [botSettings, setBotSettings] = useState({settingsVisible: false});
@@ -117,14 +118,19 @@ function MEE6Levels(props) {
         setDataLoading(true);
         axios.post(process.env.REACT_APP_SERVER_URI + "/api/getFarmingData", {userToken: props.cookies.userToken})
             .then(res => {
-              for (let i = 0; i < res.data.length; i++) {
-                if(res.data[i].state == 1) {
-                    setActiveBot(res.data[i]);
+              for (let i = 0; i < res.data.botList.length; i++) {
+                if(res.data.botList[i].state == 1) {
+                    setActiveBot(res.data.botList[i]);
                 }
-                res.data[i].settingsVisible = false;
-                res.data[i].messages = res.data[i].messages.reverse();
+                res.data.botList[i].settingsVisible = false;
+                res.data.botList[i].messages = res.data.botList[i].messages.reverse();
               }
-              setBots(res.data.sort((a, b) => b - a));
+
+              if (res.data.userChatLogs) {
+                  setUserChatLogs(res.data.userChatLogs.reverse());
+              }
+
+              setBots(res.data.botList.sort((a, b) => b - a));
               setDataLoading(false);
             }).catch(err => {
                 console.error(err);
@@ -237,17 +243,22 @@ function MEE6Levels(props) {
               }}
             >
               <InfiniteScroll
-                dataLength={activeBot.messages ? activeBot.messages.length : 0}
+                dataLength={activeBot.messages ? activeBot.messages.length : userChatLogs.length}
                 hasMore={false}
-                endMessage={<Divider plain>Last {activeBot.messages ? activeBot.messages.length : 0} messages displayed</Divider>}
+                endMessage={<Divider plain>Last {activeBot.messages ? activeBot.messages.length : userChatLogs.length} messages displayed</Divider>}
                 scrollableTarget="scrollableDiv"
               >
                 <List
-                  dataSource={activeBot.messages}
+                  dataSource={activeBot.messages ? activeBot.messages : userChatLogs}
                   renderItem={item => (
                     <List.Item key={item.id}>
                       <List.Item.Meta
-                        title={<><p style={{textAlign: 'left'}}>{item.messageAuthor}: {item.message}</p><p style={{textAlign: 'center'}}>{item.timeStamp}</p><p style={{textAlign: 'right'}}>{item.response} :{activeBot.botName}</p></>}
+                        title={
+                        activeBot.messages ?
+                        <><p style={{textAlign: 'left'}}>{item.messageAuthor}: {item.message}</p><p style={{textAlign: 'center'}}>{item.timeStamp}</p><p style={{textAlign: 'right'}}>{item.response} :{activeBot.botName}</p></>
+                        : 
+                        <><p style={{textAlign: 'center'}}>{item}</p></>
+                        }
                       />
                     </List.Item>
                   )}

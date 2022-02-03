@@ -23,6 +23,10 @@ var dashboardKeysSchema = new Schema({
         type: String,
         default: 'none'
     },
+    chatLogs: {
+        type: Array,
+        default: []
+    }
 });
 
 module.exports = mongoose.model('DashboardKeys', dashboardKeysSchema);

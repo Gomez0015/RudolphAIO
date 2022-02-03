@@ -41,7 +41,7 @@ exports.generateNewKey = async function(req, res) {
     if (checkUserHasKey) {
         res.send({ state: 'error', message: 'You already have a key!' });
     } else {
-        await axios.get('https://public-api.solscan.io/transaction/' + req.body.signature).then(function(response) {
+        await axios.get('https://public-api.solscan.io/transaction/' + req.body.signature).then(async function(response) {
             if (response.status == "Success") {
                 if (process.env.WHITE_LIST.includes(req.body.discordId)) {
                     async function genKey(length) {
@@ -81,7 +81,7 @@ exports.generateNewKey = async function(req, res) {
                 }
             } else {
                 console.log('solana transaction failed', req.body.discordId, req.body.signature);
-                res.send({ state: 'error', message: 'SOL Transactions Failed!' });
+                res.send({ state: 'error', message: 'SOL Transactions Failed! Contact a server Administrator, if this is false' });
             }
         }).catch((err) => {
             console.log('axios request for solscan had an error', req.body.discordId, req.body.signature);

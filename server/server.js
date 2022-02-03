@@ -23,13 +23,22 @@ db.once("open", async function() {
     console.log("Database Connected successfully");
 });
 
-app.use(helmet());
+app.use(helmet({
+    crossOriginEmbedderPolicy: false,
+    contentSecurityPolicy: {
+        directives: {
+            ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+            "img-src": ["'self'", "data: https:"]
+        }
+    }
+}));
 app.use(express.static(path.join(__dirname, "..", "build")));
 app.use(bodyParser.urlencoded({
     extended: true
 }));
 app.use(bodyParser.json());
 app.set('trust proxy', true);
+
 
 app.get('/', (req, res) => {
     res.send('Spooky, Scary Skeletons Shivering Down Your Spine!');
