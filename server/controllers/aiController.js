@@ -261,7 +261,7 @@ exports.startFarming = async function(res, req) {
                     console.log('Shutting bot down...', client.user.tag);
                     clearInterval(x);
                     try {
-                        await dashboardKeys.updateOne({ discordId: req.body.userToken }, { $push: { chatLogs: `Stopped Bot ${client.user.tag} @ ${new Date()} 'bot was deleted or lost channel access'` } });
+                        await dashboardKeys.updateOne({ discordId: req.body.userToken }, { $push: { chatLogs: `Stopped Bot ${client.user.tag} @ ${new Date()} 'bot was stopped or lost channel access'` } });
                         await levelFarms.updateOne({ discordId: req.body.userToken, botName: client.user.tag }, { state: 0 });
                     } catch (e) {
                         console.log(e, 69);
