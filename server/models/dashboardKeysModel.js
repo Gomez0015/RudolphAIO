@@ -25,7 +25,7 @@ var dashboardKeysSchema = new Schema({
     },
     chatLogs: {
         type: Array,
-        default: []
+        default: [],
     }
 });
 

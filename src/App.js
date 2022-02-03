@@ -68,7 +68,7 @@ function App(props) {
     <Layout> 
         <Header className="header">
           <div className="logo" />
-          <Title style={{color: 'white', marginTop: '5px', marginLeft: '-30px'}}>Rudolph BOT</Title>
+          <Title style={{color: 'white', marginTop: '5px', marginLeft: '-30px'}}>Rudolph AIO</Title>
         </Header>
         <Layout style={{ minHeight: '95vh' }}>
           <Sider collapsible collapsed={collapsed} onCollapse={() => { setCollapsed(!collapsed)}}>

@@ -102,7 +102,14 @@ exports.updateBotSettings = async function(res, req) {
     const data = await levelFarms.findOne({ discordId: req.body.userToken, botName: req.body.botData.botName });
     if (data) {
         await levelFarms.updateOne(data, { endTimer: req.body.botData.endTimer, messageDelay: req.body.botData.messageDelay, channelId: req.body.botData.channelId, collectionName: req.body.botData.collectionName, mintDate: req.body.botData.mintDate, customPrompt: req.body.botData.customPrompt, spam: req.body.botData.spam, delete: req.body.botData.delete });
-        await dashboardKeys.updateOne({ discordId: req.body.userToken }, { $push: { chatLogs: `Updated Bot ${data.botName} @ ${new Date()}` } });
+
+        const checkArraylength = await dashboardKeys.findOne({ discordId: req.body.userToken });
+        if (checkArraylength.chatLogs.length >= 20) {
+            checkArraylength.chatLogs.shift();
+        }
+        checkArraylength.chatLogs.push(`Updated Bot ${data.botName} @ ${new Date()}`);
+        await dashboardKeys.updateOne({ discordId: req.body.userToken }, { $set: { chatLogs: checkArraylength.chatLogs } });
+
         res.send({ state: 'success', message: 'Successfully updated settings' });
     } else {
         res.send({ state: 'error', message: 'Couldnt seem to find the bot' });
@@ -113,7 +120,14 @@ exports.deleteBot = async function(res, req) {
     const data = await levelFarms.findOne({ discordId: req.body.userToken, botName: req.body.botData.botName });
     if (data) {
         await levelFarms.deleteOne(data);
-        await dashboardKeys.updateOne({ discordId: req.body.userToken }, { $push: { chatLogs: `Deleted Bot ${data.botName} @ ${new Date()}` } });
+
+        const checkArraylength = await dashboardKeys.findOne({ discordId: req.body.userToken });
+        if (checkArraylength.chatLogs.length >= 20) {
+            checkArraylength.chatLogs.shift();
+        }
+        checkArraylength.chatLogs.push(`Deleted Bot ${data.botName} @ ${new Date()}`);
+        await dashboardKeys.updateOne({ discordId: req.body.userToken }, { $set: { chatLogs: checkArraylength.chatLogs } });
+
         await getAllFarms();
         res.send({ state: 'success', message: 'Successfully deleted bot' });
     } else {
@@ -212,7 +226,13 @@ exports.startFarming = async function(res, req) {
             let channelExists = await client.channels.cache.get(checkIfBotExists.channelId);
 
             if (channelExists) {
-                await dashboardKeys.updateOne({ discordId: req.body.userToken }, { $push: { chatLogs: `Started Bot ${client.user.tag} @ ${new Date()}` } });
+                const checkArraylength = await dashboardKeys.findOne({ discordId: req.body.userToken });
+                if (checkArraylength.chatLogs.length >= 20) {
+                    checkArraylength.chatLogs.shift();
+                }
+                checkArraylength.chatLogs.push(`Started Bot ${client.user.tag} @ ${new Date()}`);
+                await dashboardKeys.updateOne({ discordId: req.body.userToken }, { $set: { chatLogs: checkArraylength.chatLogs } });
+
                 res.send({ state: 'success', message: 'Started Farming' });
             } else {
                 res.send({ state: 'error', message: 'No Access to Channel!' });
@@ -264,7 +284,14 @@ exports.startFarming = async function(res, req) {
                         console.log('Shutting bot down...', client.user.tag);
                         clearInterval(x);
                         try {
-                            await dashboardKeys.updateOne({ discordId: req.body.userToken }, { $push: { chatLogs: `Stopped Bot ${client.user.tag} @ ${new Date()} 'bot was stopped or lost channel access'` } });
+
+                            const checkArraylength = await dashboardKeys.findOne({ discordId: req.body.userToken });
+                            if (checkArraylength.chatLogs.length >= 20) {
+                                checkArraylength.chatLogs.shift();
+                            }
+                            checkArraylength.chatLogs.push(`Stopped Bot ${client.user.tag} @ ${new Date()} 'bot was stopped or lost channel access'`);
+                            await dashboardKeys.updateOne({ discordId: req.body.userToken }, { $set: { chatLogs: checkArraylength.chatLogs } });
+
                             await levelFarms.updateOne({ discordId: req.body.userToken, botName: client.user.tag }, { state: 0 });
                         } catch (e) {
                             console.log(e, 69);
@@ -281,7 +308,14 @@ exports.startFarming = async function(res, req) {
                         console.log(checkIfBotNeedsShutdown.start_date, currentDateForTimer, minutes, checkIfBotNeedsShutdown.endTimer);
                         console.log('Shutting bot down...', client.user.tag);
                         clearInterval(x);
-                        await dashboardKeys.updateOne({ discordId: req.body.userToken }, { $push: { chatLogs: `Stopped Bot ${client.user.tag} @ ${new Date()} 'endTimer has ended'` } });
+
+                        const checkArraylength = await dashboardKeys.findOne({ discordId: req.body.userToken });
+                        if (checkArraylength.chatLogs.length >= 20) {
+                            checkArraylength.chatLogs.shift();
+                        }
+                        checkArraylength.chatLogs.push(`Stopped Bot ${client.user.tag} @ ${new Date()} 'endTimer has ended'`);
+                        await dashboardKeys.updateOne({ discordId: req.body.userToken }, { $set: { chatLogs: checkArraylength.chatLogs } });
+
                         await levelFarms.updateOne({ discordId: req.body.userToken, botName: client.user.tag }, { state: 0 });
                         client.destroy();
                         return;
@@ -289,9 +323,16 @@ exports.startFarming = async function(res, req) {
 
                     if ((checkIfBotNeedsShutdown.state == 0 || checkIfBotNeedsShutdown.state == 2) && !currentlyShuttingDown) {
                         currentlyShuttingDown = true;
-                        await dashboardKeys.updateOne({ discordId: req.body.userToken }, { $push: { chatLogs: `Stopped Bot ${client.user.tag} @ ${new Date()} 'user input'` } });
                         console.log('Shutting bot down...', client.user.tag);
                         clearInterval(x);
+
+                        const checkArraylength = await dashboardKeys.findOne({ discordId: req.body.userToken });
+                        if (checkArraylength.chatLogs.length >= 20) {
+                            checkArraylength.chatLogs.shift();
+                        }
+                        checkArraylength.chatLogs.push(`Stopped Bot ${client.user.tag} @ ${new Date()} 'user input'`);
+                        await dashboardKeys.updateOne({ discordId: req.body.userToken }, { $set: { chatLogs: checkArraylength.chatLogs } });
+
                         await levelFarms.updateOne({ discordId: req.body.userToken, botName: client.user.tag }, { state: 0 });
                         client.destroy();
                         return;
@@ -380,14 +421,27 @@ exports.startFarming = async function(res, req) {
                             } else {
                                 console.log('Shutting bot down...', client.user.tag);
                                 clearInterval(x);
-                                await dashboardKeys.updateOne({ discordId: req.body.userToken }, { $push: { chatLogs: `Stopped Bot ${client.user.tag} @ ${new Date()} 'user input'` } });
+                                const checkArraylength = await dashboardKeys.findOne({ discordId: req.body.userToken });
+                                if (checkArraylength.chatLogs.length >= 20) {
+                                    checkArraylength.chatLogs.shift();
+                                }
+                                checkArraylength.chatLogs.push(`Stopped Bot ${client.user.tag} @ ${new Date()} 'user input'`);
+                                await dashboardKeys.updateOne({ discordId: req.body.userToken }, { $set: { chatLogs: checkArraylength.chatLogs } });
+
                                 await levelFarms.updateOne({ discordId: req.body.userToken, botName: client.user.tag }, { state: 0 });
                                 client.destroy();
                             }
                         } else {
                             console.log('Shutting bot down...', client.user.tag);
                             clearInterval(x);
-                            await dashboardKeys.updateOne({ discordId: req.body.userToken }, { $push: { chatLogs: `Stopped Bot ${client.user.tag} @ ${new Date()} 'bot deleted'` } });
+
+                            const checkArraylength = await dashboardKeys.findOne({ discordId: req.body.userToken });
+                            if (checkArraylength.chatLogs.length >= 20) {
+                                checkArraylength.chatLogs.shift();
+                            }
+                            checkArraylength.chatLogs.push(`Stopped Bot ${client.user.tag} @ ${new Date()} 'bot deleted'`);
+                            await dashboardKeys.updateOne({ discordId: req.body.userToken }, { $set: { chatLogs: checkArraylength.chatLogs } });
+
                             await levelFarms.updateOne({ discordId: req.body.userToken, botName: client.user.tag }, { state: 0 });
                             client.destroy();
                         }
@@ -466,14 +520,28 @@ exports.startFarming = async function(res, req) {
                             } else {
                                 console.log('Shutting bot down...', client.user.tag);
                                 clearInterval(x);
-                                await dashboardKeys.updateOne({ discordId: req.body.userToken }, { $push: { chatLogs: `Stopped Bot ${client.user.tag} @ ${new Date()} 'user input'` } });
+
+                                const checkArraylength = await dashboardKeys.findOne({ discordId: req.body.userToken });
+                                if (checkArraylength.chatLogs.length >= 20) {
+                                    checkArraylength.chatLogs.shift();
+                                }
+                                checkArraylength.chatLogs.push(`Stopped Bot ${client.user.tag} @ ${new Date()} 'user input'`);
+                                await dashboardKeys.updateOne({ discordId: req.body.userToken }, { $set: { chatLogs: checkArraylength.chatLogs } });
+
                                 await levelFarms.updateOne({ discordId: req.body.userToken, botName: client.user.tag }, { state: 0 });
                                 client.destroy();
                             }
                         } else {
                             console.log('Shutting bot down...', client.user.tag);
                             clearInterval(x);
-                            await dashboardKeys.updateOne({ discordId: req.body.userToken }, { $push: { chatLogs: `Stopped Bot ${client.user.tag} @ ${new Date()} 'bot deleted'` } });
+
+                            const checkArraylength = await dashboardKeys.findOne({ discordId: req.body.userToken });
+                            if (checkArraylength.chatLogs.length >= 20) {
+                                checkArraylength.chatLogs.shift();
+                            }
+                            checkArraylength.chatLogs.push(`Stopped Bot ${client.user.tag} @ ${new Date()} 'bot deleted'`);
+
+                            await dashboardKeys.updateOne({ discordId: req.body.userToken }, { $set: { chatLogs: checkArraylength.chatLogs } });
                             await levelFarms.updateOne({ discordId: req.body.userToken, botName: client.user.tag }, { state: 0 });
                             client.destroy();
                         }
