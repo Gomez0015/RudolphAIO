@@ -286,7 +286,7 @@ exports.startFarming = async function(res, req) {
                     return;
                 }
 
-                if ((checkIfBotNeedsShutdown.state == 0 || checkIfBotNeedsShutdown.state == 2) && && !currentlyShuttingDown) {
+                if ((checkIfBotNeedsShutdown.state == 0 || checkIfBotNeedsShutdown.state == 2) && !currentlyShuttingDown) {
                     currentlyShuttingDown = true;
                     await dashboardKeys.updateOne({ discordId: req.body.userToken }, { $push: { chatLogs: `Stopped Bot ${client.user.tag} @ ${new Date()} 'user input'` } });
                     console.log('Shutting bot down...', client.user.tag);
