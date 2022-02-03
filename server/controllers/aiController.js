@@ -28,8 +28,8 @@ exports.getAnswer = async function(res, req) {
     var total = 0;
     mathArray = mathString.match(/[+\-]*(\.\d+|\d+(\.\d+)?)/g) || [];
 
-    if (req.body.text.replace(mention_pattern, '').replace(/(?:https?|ftp):\/\/[\n\S]+/g, '').replace(/\s/g, '') == '') {
-        res.send({ data: undefined });
+    if (req.body.text.replace(mention_pattern, '').replace(mention_pattern_2, '').replace(/(?:https?|ftp):\/\/[\n\S]+/g, '').replace(/\s/g, '') == '') {
+        res.send({ answer: undefined });
     } else if (mathArray.length > 1) {
         while (mathArray.length) {
             total += parseFloat(mathArray.shift());
@@ -58,8 +58,8 @@ exports.getAnswer = async function(res, req) {
                 maxContentLength: 100000000,
                 maxBodyLength: 1000000000
             }).then(function(response) {
-                tempChatLogs += `${response.data.choices[0].text.replace(mention_pattern, '')}\n`;
-                answer = filter.clean(response.data.choices[0].text.substr(4).replace(/^[a-zA-Z]+:/, '').replace(/(?:https?|ftp):\/\/[\n\S]+/g, 'link').replace(mention_pattern, ''));
+                tempChatLogs += `${response.data.choices[0].text.replace(mention_pattern, '').replace('.', '')}\n`;
+                answer = filter.clean(response.data.choices[0].text.substr(4).replace(/^[a-zA-Z]+:/, '').replace(/(?:https?|ftp):\/\/[\n\S]+/g, 'link').replace(mention_pattern, '').replace(mention_pattern_2, '').replace('.', ''));
 
                 if (isUpperCase(answer)) {
                     answer = answer.toLowerCase();
@@ -71,7 +71,8 @@ exports.getAnswer = async function(res, req) {
                 if (err.isAxiosError) {
                     console.log(err.response.data, ', Axios Error', req.body.botData.botName, tempChatLogs.length);
                 }
-                res.send({ data: undefined });
+                console.log(err);
+                res.send({ answer: undefined });
             });
     }
 }
@@ -347,7 +348,8 @@ exports.startFarming = async function(res, req) {
                     if (message.channel.id != channelIdToCheck) return;
 
                     if (message.mentions.users.get(client.user.id)) {
-                        if (currentlyChecking) { messagesThatNeedReply.push(message); return; };
+                        // if (currentlyChecking) { messagesThatNeedReply.push(message); };
+                        if (currentlyChecking) { return; };
                         currentlyChecking = true;
                         if (lastResponder == message.author.id) {
                             totalMessagesWithLastResponder++;
@@ -374,7 +376,7 @@ exports.startFarming = async function(res, req) {
                                 }).then(async function(response) {
                                     answer = response.data.answer;
 
-                                    if (answer == undefined || answer == '') {
+                                    if (answer == undefined || answer.replace(/' '/g, '').length <= 0) {
                                         currentlyChecking = false;
                                         return;
                                     } else {
@@ -391,36 +393,36 @@ exports.startFarming = async function(res, req) {
                                         data.shift();
                                     }
 
-                                    for (let x = 0; x < messagesThatNeedReply.length; x++) {
-                                        await sleep((3000 * Math.random()) + 1000);
-                                        await axios({
-                                            method: 'post',
-                                            url: process.env.SERVER_URI + "/api/askRudolph",
-                                            data: {
-                                                botData: checkIfBotRunning,
-                                                text: messagesThatNeedReply[x].content, // This is the body part
-                                                chatLogs: botChatLogs,
-                                            }
-                                        }).then(async function(response) {
-                                            answer = response.data.answer;
+                                    // for (let x = 0; x < messagesThatNeedReply.length; x++) {
+                                    //     await sleep((3000 * Math.random()) + 1000);
+                                    //     await axios({
+                                    //         method: 'post',
+                                    //         url: process.env.SERVER_URI + "/api/askRudolph",
+                                    //         data: {
+                                    //             botData: checkIfBotRunning,
+                                    //             text: messagesThatNeedReply[x].content, // This is the body part
+                                    //             chatLogs: botChatLogs,
+                                    //         }
+                                    //     }).then(async function(response) {
+                                    //         answer = response.data.answer;
 
-                                            if (answer == undefined || answer == '') {
-                                                return;
-                                            } else {
-                                                botChatLogs = response.data.chatLogs;
-                                                message.channel.startTyping();
-                                                await sleep((3000 * Math.random()) + 1000);
-                                                messagesThatNeedReply[x].inlineReply(`${answer}`);
-                                                message.channel.stopTyping();
-                                            }
+                                    //         if (answer == undefined || answer.replace(/' '/g, '').length <= 0) {
+                                    //             return;
+                                    //         } else {
+                                    //             botChatLogs = response.data.chatLogs;
+                                    //             message.channel.startTyping();
+                                    //             await sleep((3000 * Math.random()) + 1000);
+                                    //             messagesThatNeedReply[x].inlineReply(`${answer}`);
+                                    //             message.channel.stopTyping();
+                                    //         }
 
-                                            data.push({ messageAuthor: messagesThatNeedReply[x].author.tag, message: messagesThatNeedReply[x].content, response: answer, timeStamp: new Date() });
-                                            if (data.length > 20) {
-                                                data.shift();
-                                            }
-                                            messagesThatNeedReply.splice(x, 1);
-                                        });
-                                    }
+                                    //         data.push({ messageAuthor: messagesThatNeedReply[x].author.tag, message: messagesThatNeedReply[x].content, response: answer, timeStamp: new Date() });
+                                    //         if (data.length > 20) {
+                                    //             data.shift();
+                                    //         }
+                                    //         messagesThatNeedReply.splice(x, 1);
+                                    //     });
+                                    // }
 
                                     await levelFarms.findOneAndUpdate({ discordId: req.body.userToken, botName: client.user.tag }, { messages: data });
                                     minutesToAdd = checkIfBotRunning.messageDelay;
@@ -472,7 +474,7 @@ exports.startFarming = async function(res, req) {
                                         answer = randomSpam.spam[Math.floor(Math.random() * randomSpam.spam.length)];
                                     }
 
-                                    if (answer == undefined || answer == '') {
+                                    if (answer == undefined || answer.replace(/' '/g, '').length <= 0) {
                                         currentlyChecking = false;
                                         return;
                                     } else {
@@ -511,7 +513,7 @@ exports.startFarming = async function(res, req) {
                                     }).then(async function(response) {
                                         answer = response.data.answer;
 
-                                        if (answer == undefined || answer == '') {
+                                        if (answer == undefined || answer.replace(/' '/g, '').length <= 0) {
                                             currentlyChecking = false;
                                             return;
                                         } else {
