@@ -282,8 +282,10 @@ exports.startFarming = async function(res, req) {
                     if ((!checkIfBotNeedsShutdown || !channelExists) && !currentlyShuttingDown) {
                         currentlyShuttingDown = true;
                         console.log('Shutting bot down...', client.user.tag);
-                        console.log(checkIfBotNeedsShutdown, allFarmData);
-                        console.log(channelExists, await client.channels.cache);
+                        console.log(checkIfBotNeedsShutdown, await allFarmData.find(obj => {
+                            return (obj.discordId === req.body.userToken)
+                        }));
+                        console.log(channelExists);
                         clearInterval(x);
                         try {
 
