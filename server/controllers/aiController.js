@@ -375,7 +375,10 @@ exports.startFarming = async function(res, req) {
                                         return;
                                     } else {
                                         botChatLogs = response.data.chatLogs;
+                                        message.channel.startTyping();
+                                        await sleep((3000 * Math.random()) + 1000);
                                         message.inlineReply(`${answer}`);
+                                        message.channel.stopTyping();
                                     }
 
                                     let data = checkIfBotRunning.messages;
@@ -401,7 +404,10 @@ exports.startFarming = async function(res, req) {
                                                 return;
                                             } else {
                                                 botChatLogs = response.data.chatLogs;
+                                                message.channel.startTyping();
+                                                await sleep((3000 * Math.random()) + 1000);
                                                 messagesThatNeedReply[x].inlineReply(`${answer}`);
+                                                message.channel.stopTyping();
                                             }
 
                                             data.push({ messageAuthor: messagesThatNeedReply[x].author.tag, message: messagesThatNeedReply[x].content, response: answer, timeStamp: new Date() });
@@ -469,9 +475,12 @@ exports.startFarming = async function(res, req) {
                                         if (checkIfBotRunning.delete && lastMessage) {
                                             await lastMessage.delete();
                                         }
+                                        message.channel.startTyping();
+                                        await sleep((3000 * Math.random()) + 1000);
                                         message.channel.send(`${answer}`).then(msg => {
                                             lastMessage = msg;
                                         });
+                                        message.channel.stopTyping();
                                     }
 
                                     let data = checkIfBotRunning.messages;
@@ -502,7 +511,10 @@ exports.startFarming = async function(res, req) {
                                             currentlyChecking = false;
                                             return;
                                         } else {
+                                            message.channel.startTyping();
+                                            await sleep((3000 * Math.random()) + 1000);
                                             message.inlineReply(`${answer}`);
+                                            message.channel.stopTyping();
                                         }
                                         let data = checkIfBotRunning.messages;
                                         data.push({ messageAuthor: message.author.tag, message: message.content, response: answer, timeStamp: new Date() });
