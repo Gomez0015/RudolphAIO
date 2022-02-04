@@ -58,8 +58,8 @@ exports.getAnswer = async function(res, req) {
                 maxContentLength: 100000000,
                 maxBodyLength: 1000000000
             }).then(function(response) {
-                tempChatLogs += `${response.data.choices[0].text.replace(mention_pattern, '').replace(/\./g, '')}\n`;
-                answer = filter.clean(response.data.choices[0].text.substr(4).replace(/^[a-zA-Z]+:/, '').replace(/(?:https?|ftp):\/\/[\n\S]+/g, 'link').replace(mention_pattern, '').replace(emoji_pattern, '').replace(/\./g, ''));
+                tempChatLogs += `${response.data.choices[0].text.replace(mention_pattern, '')}\n`;
+                answer = filter.clean(response.data.choices[0].text.substr(4).replace(/^[a-zA-Z]+:/, '').replace(/(?:https?|ftp):\/\/[\n\S]+/g, 'link').replace(mention_pattern, '').replace(emoji_pattern, ''));
 
                 if (isUpperCase(answer)) {
                     answer = answer.toLowerCase();
@@ -140,7 +140,7 @@ allFarmData = [];
 async function getAllFarms() {
     allFarmData = await levelFarms.find({});
 }
-
+// State changes to 2 on its own!
 exports.startFarming = async function(res, req) {
     let checkIfFarming = await levelFarms.findOne({ discordId: req.body.userToken, state: { $in: [1, 2] } });
 
