@@ -346,6 +346,7 @@ exports.startFarming = async function(res, req) {
                     if (message.author.bot) return;
                     if (message.author.id == client.user.id) return;
                     if (message.channel.id != channelIdToCheck) return;
+                    if ((message.mentions.users.size > 0) && !(message.mentions.users.get(client.user.id))) return;
 
                     if (message.mentions.users.get(client.user.id)) {
                         // if (currentlyChecking) { messagesThatNeedReply.push(message); };
