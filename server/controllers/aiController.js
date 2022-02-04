@@ -287,7 +287,6 @@ exports.startFarming = async function(res, req) {
                         console.log(checkIfBotNeedsShutdown, await allFarmData.find(obj => {
                             return (obj.discordId === discordId)
                         }));
-                        console.log(channelExists);
                         clearInterval(x);
                         try {
 
@@ -376,8 +375,9 @@ exports.startFarming = async function(res, req) {
                                     }
                                 }).then(async function(response) {
                                     answer = response.data.answer;
+                                    let answerTrimmed = answer.replace(/' '/g, '');
 
-                                    if (answer == undefined || answer.replace(/' '/g, '').length <= 0) {
+                                    if (answer == undefined || answerTrimmed.length <= 0) {
                                         currentlyChecking = false;
                                         return;
                                     } else {
@@ -474,8 +474,9 @@ exports.startFarming = async function(res, req) {
                                     while (answer == lastResponse) {
                                         answer = randomSpam.spam[Math.floor(Math.random() * randomSpam.spam.length)];
                                     }
+                                    let answerTrimmed = answer.replace(/' '/g, '');
 
-                                    if (answer == undefined || answer.replace(/' '/g, '').length <= 0) {
+                                    if (answer == undefined || answerTrimmed.length <= 0) {
                                         currentlyChecking = false;
                                         return;
                                     } else {
@@ -514,7 +515,9 @@ exports.startFarming = async function(res, req) {
                                     }).then(async function(response) {
                                         answer = response.data.answer;
 
-                                        if (answer == undefined || answer.replace(/' '/g, '').length <= 0) {
+                                        let answerTrimmed = answer.replace(/' '/g, '');
+
+                                        if (answer == undefined || answerTrimmed.length <= 0) {
                                             currentlyChecking = false;
                                             return;
                                         } else {

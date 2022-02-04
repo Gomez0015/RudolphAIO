@@ -6,6 +6,7 @@ const aiController = require('./controllers/aiController');
 const userAuthController = require('./controllers/userAuthController');
 const adminController = require('./controllers/adminController');
 const levelFarms = require('./models/levelFarmModel');
+const dashboardKeys = require('./models/dashboardKeysModel');
 const axios = require('axios');
 const mongoose = require('mongoose');
 const path = require("path");
@@ -157,6 +158,7 @@ if (process.env.NODE_ENV === 'production') {
         if (exitCode || exitCode === 0) console.log(exitCode);
         if (options.exit) {
             await levelFarms.updateMany({ $set: { state: 0 } });
+            await dashboardKeys.updateMany({ $push: { chatLogs: `Server Restart @ ${new Date()}` } })
             process.exit();
         }
     }
