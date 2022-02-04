@@ -375,7 +375,13 @@ exports.startFarming = async function(res, req) {
                                     }
                                 }).then(async function(response) {
                                     answer = response.data.answer;
-                                    let answerTrimmed = answer.replace(/' '/g, '');
+
+                                    let answerTrimmed;
+                                    if (answer != undefined) {
+                                        answerTrimmed = answer.replace(/' '/g, '');
+                                    } else {
+                                        answerTrimmed = '';
+                                    }
 
                                     if (answer == undefined || answerTrimmed.length <= 0) {
                                         currentlyChecking = false;
@@ -474,7 +480,13 @@ exports.startFarming = async function(res, req) {
                                     while (answer == lastResponse) {
                                         answer = randomSpam.spam[Math.floor(Math.random() * randomSpam.spam.length)];
                                     }
-                                    let answerTrimmed = answer.replace(/' '/g, '');
+
+                                    let answerTrimmed;
+                                    if (answer != undefined) {
+                                        answerTrimmed = answer.replace(/' '/g, '');
+                                    } else {
+                                        answerTrimmed = '';
+                                    }
 
                                     if (answer == undefined || answerTrimmed.length <= 0) {
                                         currentlyChecking = false;
@@ -515,7 +527,12 @@ exports.startFarming = async function(res, req) {
                                     }).then(async function(response) {
                                         answer = response.data.answer;
 
-                                        let answerTrimmed = answer.replace(/' '/g, '');
+                                        let answerTrimmed;
+                                        if (answer != undefined) {
+                                            answerTrimmed = answer.replace(/' '/g, '');
+                                        } else {
+                                            answerTrimmed = '';
+                                        }
 
                                         if (answer == undefined || answerTrimmed.length <= 0) {
                                             currentlyChecking = false;
