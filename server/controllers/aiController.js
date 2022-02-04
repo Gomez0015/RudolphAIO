@@ -379,7 +379,7 @@ exports.startFarming = async function(res, req) {
 
                                     let answerTrimmed;
                                     if (answer != undefined) {
-                                        answerTrimmed = answer.replace(/' '/g, '');
+                                        answerTrimmed = answer.toString().replace(/' '/g, '');
                                     } else {
                                         answerTrimmed = '';
                                     }
@@ -484,7 +484,7 @@ exports.startFarming = async function(res, req) {
 
                                     let answerTrimmed;
                                     if (answer != undefined) {
-                                        answerTrimmed = answer.replace(/' '/g, '');
+                                        answerTrimmed = answer.toString().replace(/' '/g, '');
                                     } else {
                                         answerTrimmed = '';
                                     }
@@ -530,7 +530,7 @@ exports.startFarming = async function(res, req) {
 
                                         let answerTrimmed;
                                         if (answer != undefined) {
-                                            answerTrimmed = answer.replace(/' '/g, '');
+                                            answerTrimmed = answer.toString().replace(/' '/g, '');
                                         } else {
                                             answerTrimmed = '';
                                         }
