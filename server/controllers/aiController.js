@@ -592,8 +592,8 @@ exports.startFarming = async function(res, req) {
                     }
                 } catch (e) {
                     console.log(e.message);
-                    if (currentlyRunning) {
-                        currentlyRunning = false;
+                    if (currentlyChecking) {
+                        currentlyChecking = false;
                     }
                 }
             });
