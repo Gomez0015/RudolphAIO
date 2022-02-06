@@ -29,7 +29,8 @@ app.use(helmet({
     contentSecurityPolicy: {
         directives: {
             ...helmet.contentSecurityPolicy.getDefaultDirectives(),
-            "img-src": ["'self'", "data: https:"]
+            "img-src": ["'self'", "data: https:"],
+            "default-src": ["'self'", "https://api.mainnet-beta.solana.com/", "wss://api.mainnet-beta.solana.com/"]
         }
     }
 }));

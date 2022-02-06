@@ -42,7 +42,7 @@ exports.generateNewKey = async function(req, res) {
         res.send({ state: 'error', message: 'You already have a key!' });
     } else {
         await axios.get('https://public-api.solscan.io/transaction/' + req.body.signature).then(async function(response) {
-            if (response.status == "Success") {
+            if (response.data.status.toLowerCase() == "success") {
                 if (process.env.WHITE_LIST.includes(req.body.discordId)) {
                     async function genKey(length) {
                         // Use crypto.getRandomValues if available

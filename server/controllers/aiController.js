@@ -70,6 +70,8 @@ exports.getAnswer = async function(res, req) {
             .catch(err => {
                 if (err.isAxiosError) {
                     console.log(err.response.data, ', Axios Error', req.body.botData.botName, tempChatLogs.length);
+                } else {
+                    console.log(err, ', Not Axios');
                 }
                 res.send({ answer: undefined });
             });

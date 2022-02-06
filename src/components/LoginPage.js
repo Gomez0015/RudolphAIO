@@ -105,7 +105,7 @@ function LoginPage(props) {
         setBuyKeyLoading(true);
         const discordAuth = await CallBack(code);
         if(process.env.REACT_APP_WHITE_LIST.includes(discordAuth.data.id)){
-            await sendTransferInstruction(0.25, async function(transactionSignature) {
+            await sendTransferInstruction(0.35, async function(transactionSignature) {
                 axios.post(process.env.REACT_APP_SERVER_URI + '/api/generateNewKey', {discordId: discordAuth.data.id, signature: transactionSignature})
                     .then(res => {
                         setBuyKeyCookie(false);
