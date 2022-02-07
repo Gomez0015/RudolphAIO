@@ -67,7 +67,7 @@ getAllFarms();
 
 exports.getAnswer = async function(res, req) {
     let tempChatLogs = req.body.chatLogs;
-    tempChatLogs += `Human: ${req.body.text.trim().replace(mention_pattern, '').replace(emoji_pattern, '').replace(/(?:https?|ftp):\/\/[\n\S]+/g, 'link')}\n`;
+    tempChatLogs += `Human: ${req.body.text.trim().replace(mention_pattern, '').replace(emoji_pattern, '').replace(/(?:https?|ftp):\/\/[\n\S]+/g, 'link')}\nAI:`;
 
     let mathString = req.body.text.replace(mention_pattern, '').replace(emoji_pattern, '').replace(/(?:https?|ftp):\/\/[\n\S]+/g, 'link').replace(/\s/g, '');
 
@@ -88,23 +88,23 @@ exports.getAnswer = async function(res, req) {
         const response = await openai.createCompletion("text-babbage-001", {
             prompt: tempChatLogs,
             temperature: 0.9,
-            max_tokens: 100,
+            max_tokens: 150,
             top_p: 1,
             frequency_penalty: 0,
             presence_penalty: 0.6,
-            stop: ["\n", " Human:", " AI:"],
-        });
+            stop: [" Human:", " AI:"],
+        }).catch(err => { console.log(err.message) });
         try {
-            answer = filter.clean(response.data.choices[0].text.replace(/^[a-zA-Z]+:/, '').replace(/(?:https?|ftp):\/\/[\n\S]+/g, 'link').replace(mention_pattern, '').replace(emoji_pattern, ''));
+            answer = filter.clean(response.data.choices[0].text.replace(/(?:https?|ftp):\/\/[\n\S]+/g, 'link').replace(mention_pattern, '').replace(emoji_pattern, ''));
             tempChatLogs += `${response.data.choices[0].text.replace(/(?:https?|ftp):\/\/[\n\S]+/g, 'link').replace(mention_pattern, '').replace(emoji_pattern, '')}\n`;
-
+            console.log(tempChatLogs, response.data.choices);
             if (isUpperCase(answer)) {
                 answer = answer.toLowerCase();
             }
 
             res.send({ answer: answer, chatLogs: tempChatLogs });
         } catch (e) {
-            console.log(e.message);
+            console.log(tempChatLogs, e.message, response.data.choices[0]);
             res.send({ answer: undefined });
         }
     }

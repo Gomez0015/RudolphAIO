@@ -160,7 +160,6 @@ if (process.env.NODE_ENV === 'production') {
         if (options.exit) {
             await aiController.saveFarmData();
             await levelFarms.updateMany({ $set: { state: 0 } });
-            await dashboardKeys.updateMany({ $push: { chatLogs: `Server Restart @ ${new Date()}` } })
             process.exit();
         }
     }
