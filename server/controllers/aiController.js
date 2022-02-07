@@ -92,7 +92,7 @@ exports.getAnswer = async function(res, req) {
             top_p: 1,
             frequency_penalty: 0,
             presence_penalty: 0.6,
-            stop: ["Human:", "AI:"],
+            stop: ["\n", " Human:", " AI:"],
         });
         try {
             answer = filter.clean(response.data.choices[0].text.replace(/^[a-zA-Z]+:/, '').replace(/(?:https?|ftp):\/\/[\n\S]+/g, 'link').replace(mention_pattern, '').replace(emoji_pattern, ''));
@@ -104,6 +104,7 @@ exports.getAnswer = async function(res, req) {
 
             res.send({ answer: answer, chatLogs: tempChatLogs });
         } catch (e) {
+            console.log(e.message);
             res.send({ answer: undefined });
         }
     }
