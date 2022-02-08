@@ -101,8 +101,6 @@ exports.getAnswer = async function(res, req) {
             answer = filter.clean(response.data.choices[0].text.replace(/\n|\r/g, "").replace(/(?:https?|ftp):\/\/[\n\S]+/g, 'link').replace(mention_pattern, '').replace(emoji_pattern, ''));
             tempChatLogs += `${response.data.choices[0].text.replace(/\n|\r/g, "").replace(/(?:https?|ftp):\/\/[\n\S]+/g, 'link').replace(mention_pattern, '').replace(emoji_pattern, '')}\n`;
 
-            console.log(tempChatLogs, answer);
-
             if (isUpperCase(answer)) {
                 answer = answer.toLowerCase();
             }
