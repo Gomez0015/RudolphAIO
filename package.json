@@ -36,6 +36,8 @@
     },
     "scripts": {
         "start": "npm install && npm run build && (cd server && npm install && npm start)",
+        "start-dev": "npm run build && (cd server && npm start)",
+        "start-dev-noupdate": "cd server && npm start",
         "start-client": "react-scripts start",
         "build": "react-scripts build",
         "predeploy": "npm run build",
