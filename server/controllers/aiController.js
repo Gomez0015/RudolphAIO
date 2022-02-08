@@ -67,7 +67,7 @@ getAllFarms();
 
 exports.getAnswer = async function(res, req) {
     let tempChatLogs = req.body.chatLogs;
-    tempChatLogs += `Human: ${req.body.text.trim().replace(mention_pattern, '').replace(emoji_pattern, '').replace(/(?:https?|ftp):\/\/[\n\S]+/g, 'link')}\nAI: `;
+    tempChatLogs += `Human: ${req.body.text.trim().replace(mention_pattern, '').replace(emoji_pattern, '').replace(/(?:https?|ftp):\/\/[\n\S]+/g, 'link')}\nAI:`;
 
     let mathString = req.body.text.replace(mention_pattern, '').replace(emoji_pattern, '').replace(/(?:https?|ftp):\/\/[\n\S]+/g, 'link').replace(/\s/g, '');
 
@@ -100,6 +100,8 @@ exports.getAnswer = async function(res, req) {
 
             answer = filter.clean(response.data.choices[0].text.replace(/\n|\r/g, "").replace(/(?:https?|ftp):\/\/[\n\S]+/g, 'link').replace(mention_pattern, '').replace(emoji_pattern, ''));
             tempChatLogs += `${response.data.choices[0].text.replace(/\n|\r/g, "").replace(/(?:https?|ftp):\/\/[\n\S]+/g, 'link').replace(mention_pattern, '').replace(emoji_pattern, '')}\n`;
+
+            console.log(tempChatLogs, answer);
 
             if (isUpperCase(answer)) {
                 answer = answer.toLowerCase();
@@ -310,6 +312,7 @@ exports.startFarming = async function(res, req) {
 
                 res.send({ state: 'success', message: 'Started Farming' });
             } else {
+                console.log('No Access to Channel ' + client.user.tag);
                 res.send({ state: 'error', message: 'No Access to Channel!' });
                 let botIndex = allFarmData.findIndex((obj => obj.discordId == req.body.userToken && obj.botName == client.user.tag));
                 allFarmData[botIndex].state = 0;
