@@ -155,14 +155,15 @@ function App(props) {
     }
     </BrowserView>
     <MobileView style={{ textAlign: 'center' }}>
-    {loggedIn ?
+    <Title>Available for mobile soon...</Title>
+    {/* {loggedIn ?
       <Title>Available for mobile soon...</Title>
       :
       <>
         <h1> Hello! </h1>
         <MobileLogin setLoggedIn={setLoggedIn} successMessage={successMessage} errorMessage={errorMessage}/>
       </>
-    }
+    } */}
     </MobileView>
     </>
   );
