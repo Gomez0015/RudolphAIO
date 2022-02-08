@@ -98,6 +98,9 @@ exports.getAnswer = async function(res, req) {
             if (response.data.choices[0].text[response.data.choices[0].text.length - 1] === ".")
                 response.data.choices[0].text = response.data.choices[0].text.slice(0, -1);
 
+            if (response.data.choices[0].text.split('Human:')[1])
+                response.data.choices[0].text = response.data.choices[0].text.split('Human:')[0];
+
             answer = filter.clean(response.data.choices[0].text.replace(/\n|\r/g, "").replace(/(?:https?|ftp):\/\/[\n\S]+/g, 'link').replace(mention_pattern, '').replace(emoji_pattern, ''));
             tempChatLogs += `${response.data.choices[0].text.replace(/\n|\r/g, "").replace(/(?:https?|ftp):\/\/[\n\S]+/g, 'link').replace(mention_pattern, '').replace(emoji_pattern, '')}\n`;
 
