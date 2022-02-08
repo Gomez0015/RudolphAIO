@@ -308,7 +308,6 @@ exports.startFarming = async function(res, req) {
                 res.send({ state: 'success', message: 'Started Farming' });
             } else {
                 res.send({ state: 'error', message: 'No Access to Channel!' });
-                currentlyShuttingDown = true;
                 let botIndex = allFarmData.findIndex((obj => obj.discordId == req.body.userToken && obj.botName == client.user.tag));
                 allFarmData[botIndex].state = 0;
                 client.destroy();
