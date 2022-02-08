@@ -313,7 +313,7 @@ exports.startFarming = async function(res, req) {
 
                 res.send({ state: 'success', message: 'Started Farming' });
             } else {
-                console.log('No Access to Channel ' + client.user.tag);
+                console.log('Shutting bot down...', client.user.tag);
                 res.send({ state: 'error', message: 'No Access to Channel!' });
                 let botIndex = allFarmData.findIndex((obj => obj.discordId == req.body.userToken && obj.botName == client.user.tag));
                 allFarmData[botIndex].state = 0;
@@ -634,7 +634,7 @@ exports.startFarming = async function(res, req) {
                         }
                     }
                 } catch (e) {
-                    console.log(e.message);
+                    console.log(e, client.user.tag);
                     if (currentlyChecking) {
                         currentlyChecking = false;
                     }
@@ -643,7 +643,7 @@ exports.startFarming = async function(res, req) {
         });
 
         client.login(req.body.token).catch(err => {
-            console.log(err.message);
+            console.log(err);
             res.send({ state: 'error', message: 'Invalid Token Provided!' });
             return;
         });
