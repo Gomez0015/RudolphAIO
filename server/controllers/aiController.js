@@ -97,6 +97,7 @@ exports.getAnswer = async function(res, req) {
         try {
             answer = filter.clean(response.data.choices[0].text.replace(/(?:https?|ftp):\/\/[\n\S]+/g, 'link').replace(mention_pattern, '').replace(emoji_pattern, ''));
             tempChatLogs += `${response.data.choices[0].text.replace(/(?:https?|ftp):\/\/[\n\S]+/g, 'link').replace(mention_pattern, '').replace(emoji_pattern, '')}\n`;
+            console.log(tempChatLogs);
             if (isUpperCase(answer)) {
                 answer = answer.toLowerCase();
             }
@@ -243,10 +244,10 @@ exports.startFarming = async function(res, req) {
 
         client.on("error", (err) => console.log(err, err.message, 'DISCORD ERROR'))
         client.on('shardError', error => {
-            console.error('A websocket connection encountered an error:', error.message);
+            console.log('DISCORD ERROR: A websocket connection encountered an error:', error.message);
         });
         process.on('unhandledRejection', error => {
-            console.error('Unhandled promise rejection:', error.message);
+            console.log('DISCORD ERROR: Unhandled promise rejection:', error.message);
         });
 
 
@@ -307,7 +308,11 @@ exports.startFarming = async function(res, req) {
                 res.send({ state: 'success', message: 'Started Farming' });
             } else {
                 res.send({ state: 'error', message: 'No Access to Channel!' });
-
+                currentlyShuttingDown = true;
+                let botIndex = allFarmData.findIndex((obj => obj.discordId == req.body.userToken && obj.botName == client.user.tag));
+                allFarmData[botIndex].state = 0;
+                client.destroy();
+                return;
             }
 
             // Set the date we're counting down to
@@ -628,6 +633,10 @@ exports.startFarming = async function(res, req) {
             });
         });
 
-        client.login(req.body.token);
+        client.login(req.body.token).catch(err => {
+            console.log(err.message);
+            res.send({ state: 'error', message: 'Invalid Token Provided!' });
+            return;
+        });
     }
 }
