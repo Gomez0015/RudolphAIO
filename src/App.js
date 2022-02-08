@@ -155,7 +155,14 @@ function App(props) {
     }
     </BrowserView>
     <MobileView style={{ textAlign: 'center' }}>
-    <Title>Available for mobile soon...</Title>
+    <Routes>
+      <Route
+        path="*"
+        element={
+          <Title>Available for mobile soon...</Title>
+        }
+      />
+    </Routes>
     {/* {loggedIn ?
       <Title>Available for mobile soon...</Title>
       :
