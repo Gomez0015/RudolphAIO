@@ -67,7 +67,7 @@ getAllFarms();
 
 exports.getAnswer = async function(res, req) {
     let tempChatLogs = req.body.chatLogs;
-    tempChatLogs += `Human: ${req.body.text.trim().replace(mention_pattern, '').replace(emoji_pattern, '').replace(/(?:https?|ftp):\/\/[\n\S]+/g, 'link')}\nAI:`;
+    tempChatLogs += `Human: ${req.body.text.trim().replace(mention_pattern, '').replace(emoji_pattern, '').replace(/(?:https?|ftp):\/\/[\n\S]+/g, 'link')}\nAI: `;
 
     let mathString = req.body.text.replace(mention_pattern, '').replace(emoji_pattern, '').replace(/(?:https?|ftp):\/\/[\n\S]+/g, 'link').replace(/\s/g, '');
 
@@ -95,9 +95,12 @@ exports.getAnswer = async function(res, req) {
             stop: [" Human:", " AI:"],
         }).catch(err => { console.log(err.message) });
         try {
-            answer = filter.clean(response.data.choices[0].text.replace(/(?:https?|ftp):\/\/[\n\S]+/g, 'link').replace(mention_pattern, '').replace(emoji_pattern, ''));
-            tempChatLogs += `${response.data.choices[0].text.replace(/(?:https?|ftp):\/\/[\n\S]+/g, 'link').replace(mention_pattern, '').replace(emoji_pattern, '')}\n`;
-            console.log(tempChatLogs);
+            if (response.data.choices[0].text[response.data.choices[0].text.length - 1] === ".")
+                response.data.choices[0].text = response.data.choices[0].text.slice(0, -1);
+
+            answer = filter.clean(response.data.choices[0].text.replace(/\n|\r/g, "").replace(/(?:https?|ftp):\/\/[\n\S]+/g, 'link').replace(mention_pattern, '').replace(emoji_pattern, ''));
+            tempChatLogs += `${response.data.choices[0].text.replace(/\n|\r/g, "").replace(/(?:https?|ftp):\/\/[\n\S]+/g, 'link').replace(mention_pattern, '').replace(emoji_pattern, '')}\n`;
+
             if (isUpperCase(answer)) {
                 answer = answer.toLowerCase();
             }
@@ -318,7 +321,7 @@ exports.startFarming = async function(res, req) {
             let minutesToAdd = req.body.messageDelay;
             let currentDate = new Date();
             let countDownDate = new Date(currentDate.getTime() + (minutesToAdd * 60000)).getTime();
-            let countDownDistance;
+            let countDownDistance = 1;
             let currentlyShuttingDown = false;
 
             // Update the count down every 1 second
@@ -470,7 +473,7 @@ exports.startFarming = async function(res, req) {
                                 } else {
                                     botChatLogs = response.data.chatLogs;
                                     message.channel.startTyping();
-                                    await sleep((3000 * Math.random()) + 1000);
+                                    await sleep((answer.length * (Math.floor(Math.random() * (30 - 10 + 1)) + 10)));
                                     message.inlineReply(`${answer}`);
                                     message.channel.stopTyping();
                                 }
@@ -499,7 +502,7 @@ exports.startFarming = async function(res, req) {
                                 //         } else {
                                 //             botChatLogs = response.data.chatLogs;
                                 //             message.channel.startTyping();
-                                //             await sleep((3000 * Math.random()) + 1000);
+                                //             await sleep((answer.length * (Math.floor(Math.random() * (30 - 10 + 1)) + 10)));
                                 //             messagesThatNeedReply[x].inlineReply(`${answer}`);
                                 //             message.channel.stopTyping();
                                 //         }
@@ -554,7 +557,7 @@ exports.startFarming = async function(res, req) {
                                         await lastMessage.delete();
                                     }
                                     message.channel.startTyping();
-                                    await sleep((3000 * Math.random()) + 1000);
+                                    await sleep((answer.length * (Math.floor(Math.random() * (30 - 10 + 1)) + 10)));
                                     message.channel.send(`${answer}`).then(msg => {
                                         lastMessage = msg;
                                     });
@@ -577,7 +580,10 @@ exports.startFarming = async function(res, req) {
                                 setTimeout(() => { currentlyChecking = false }, 1000);
                                 lastResponse = answer;
                             } else {
-                                if ((message.mentions.users.size > 0) && !(message.mentions.users.get(client.user.id))) return;
+                                if ((message.mentions.users.size > 0) && !(message.mentions.users.get(client.user.id))) {
+                                    currentlyChecking = false;
+                                    return;
+                                };
                                 await axios({
                                     method: 'post',
                                     url: process.env.SERVER_URI + "/api/askRudolph",
@@ -601,7 +607,7 @@ exports.startFarming = async function(res, req) {
                                         return;
                                     } else {
                                         message.channel.startTyping();
-                                        await sleep((3000 * Math.random()) + 1000);
+                                        await sleep((answer.length * (Math.floor(Math.random() * (30 - 10 + 1)) + 10)));
                                         message.inlineReply(`${answer}`);
                                         message.channel.stopTyping();
                                     }
