@@ -26,6 +26,7 @@ import Generators from './components/Generators';
 import LoginPage from './components/LoginPage';
 import AdminDashboard from './components/AdminDashboard';
 import Donations from './components/Donations';
+import MobileLogin from './components/mobile/MobileLogin';
 // import Stats from './components/Stats';
 
 const { Title } = Typography;
@@ -154,7 +155,14 @@ function App(props) {
     }
     </BrowserView>
     <MobileView style={{ textAlign: 'center' }}>
+    {loggedIn ?
       <Title>Available for mobile soon...</Title>
+      :
+      <>
+        <h1> Hello! </h1>
+        <MobileLogin setLoggedIn={setLoggedIn} successMessage={successMessage} errorMessage={errorMessage}/>
+      </>
+    }
     </MobileView>
     </>
   );
