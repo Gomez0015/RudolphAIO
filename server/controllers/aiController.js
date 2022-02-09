@@ -88,7 +88,7 @@ exports.getAnswer = async function(res, req) {
         const response = await openai.createCompletion("text-babbage-001", {
             prompt: tempChatLogs,
             temperature: 0.9,
-            max_tokens: 150,
+            max_tokens: 50,
             top_p: 1,
             frequency_penalty: 0,
             presence_penalty: 0.6,
@@ -207,6 +207,8 @@ exports.startFarming = async function(res, req) {
         return (obj.discordId === req.body.userToken && (obj.state == 1 | obj.state == 2));
     });
 
+    console.log(checkIfFarming);
+
     let checkIfFarmingState;
 
     if (checkIfFarming) {
@@ -218,7 +220,7 @@ exports.startFarming = async function(res, req) {
     if (checkIfFarmingState == 1) {
         res.send({ state: 'error', message: 'Already farming' });
     } else if (checkIfFarmingState == 2) {
-        res.send({ state: 'error', message: 'Wait for last bot to fully shutdown... You can dm the bot to make him instantly shutdown.' });
+        res.send({ state: 'error', message: 'Wait for last bot to fully shutdown...' });
     } else {
         let channelId = req.body.channelId;
 
@@ -296,7 +298,7 @@ exports.startFarming = async function(res, req) {
                 allFarmData[botIndex].state = 1;
                 allFarmData[botIndex].botName = client.user.tag;
                 allFarmData[botIndex].botAvatar = avatar;
-
+                console.log(allFarmData[botIndex]);
             }
 
             // await getAllFarms();
@@ -451,150 +453,17 @@ exports.startFarming = async function(res, req) {
                                 return (obj.discordId === discordId && obj.botName === client.user.tag);
                             });
 
-                            channelIdToCheck = checkIfBotRunning.channelId;
-                            await sleep((10000 * Math.random()) + 1000);
-                            await axios({
-                                method: 'post',
-                                url: process.env.SERVER_URI + "/api/askRudolph",
-                                data: {
-                                    botData: checkIfBotRunning,
-                                    text: message.content, // This is the body part
-                                    chatLogs: botChatLogs,
-                                }
-                            }).then(async function(response) {
-                                answer = response.data.answer;
+                            if (checkIfBotRunning) {
 
-                                let answerTrimmed;
-                                if (answer != undefined) {
-                                    answerTrimmed = answer.toString().replace(/' '/g, '');
-                                } else {
-                                    answerTrimmed = '';
-                                }
-
-                                if (answer == undefined || answerTrimmed.length <= 0) {
-                                    currentlyChecking = false;
-                                    return;
-                                } else {
-                                    botChatLogs = response.data.chatLogs;
-                                    message.channel.startTyping();
-                                    await sleep((answer.length * (Math.floor(Math.random() * (30 - 10 + 1)) + 10)));
-                                    message.inlineReply(`${answer}`);
-                                    message.channel.stopTyping();
-                                }
-
-                                let data = checkIfBotRunning.messages;
-                                data.push({ messageAuthor: message.author.tag, message: message.content, response: answer, timeStamp: new Date() });
-                                if (data.length > 20) {
-                                    data.shift();
-                                }
-
-                                // for (let x = 0; x < messagesThatNeedReply.length; x++) {
-                                //     await sleep((3000 * Math.random()) + 1000);
-                                //     await axios({
-                                //         method: 'post',
-                                //         url: process.env.SERVER_URI + "/api/askRudolph",
-                                //         data: {
-                                //             botData: checkIfBotRunning,
-                                //             text: messagesThatNeedReply[x].content, // This is the body part
-                                //             chatLogs: botChatLogs,
-                                //         }
-                                //     }).then(async function(response) {
-                                //         answer = response.data.answer;
-
-                                //         if (answer == undefined || answer.replace(/' '/g, '').length <= 0) {
-                                //             return;
-                                //         } else {
-                                //             botChatLogs = response.data.chatLogs;
-                                //             message.channel.startTyping();
-                                //             await sleep((answer.length * (Math.floor(Math.random() * (30 - 10 + 1)) + 10)));
-                                //             messagesThatNeedReply[x].inlineReply(`${answer}`);
-                                //             message.channel.stopTyping();
-                                //         }
-
-                                //         data.push({ messageAuthor: messagesThatNeedReply[x].author.tag, message: messagesThatNeedReply[x].content, response: answer, timeStamp: new Date() });
-                                //         if (data.length > 20) {
-                                //             data.shift();
-                                //         }
-                                //         messagesThatNeedReply.splice(x, 1);
-                                //     });
-                                // }
-
-                                // await levelFarms.findOneAndUpdate({ discordId: discordId, botName: client.user.tag }, { messages: data });
-                                let botIndex = allFarmData.findIndex((obj => obj.discordId == discordId && obj.botName == client.user.tag));
-                                allFarmData[botIndex].messages = data;
-
-                                minutesToAdd = checkIfBotRunning.messageDelay;
-                                currentDate = new Date();
-                                countDownDate = new Date(currentDate.getTime() + (minutesToAdd + 0.1) * 60000).getTime();
-                                setTimeout(() => { currentlyChecking = false }, 1000);
-                            });
-
-                        } else {
-                            const checkIfBotRunning = await allFarmData.find(obj => {
-                                return (obj.discordId === discordId && obj.botName === client.user.tag);
-                            });
-
-                            if (countDownDistance > 0 || currentlyChecking) return;
-                            currentlyChecking = true;
-                            channelIdToCheck = checkIfBotRunning.channelId;
-                            await sleep((10000 * Math.random()) + 1000);
-
-                            if (checkIfBotRunning.spam) {
-                                answer = randomSpam.spam[Math.floor(Math.random() * randomSpam.spam.length)];
-
-                                while (answer == lastResponse) {
-                                    answer = randomSpam.spam[Math.floor(Math.random() * randomSpam.spam.length)];
-                                }
-
-                                let answerTrimmed;
-                                if (answer != undefined) {
-                                    answerTrimmed = answer.toString().replace(/' '/g, '');
-                                } else {
-                                    answerTrimmed = '';
-                                }
-
-                                if (answer == undefined || answerTrimmed.length <= 0) {
-                                    currentlyChecking = false;
-                                    return;
-                                } else {
-                                    if (checkIfBotRunning.delete && lastMessage) {
-                                        await lastMessage.delete();
-                                    }
-                                    message.channel.startTyping();
-                                    await sleep((answer.length * (Math.floor(Math.random() * (30 - 10 + 1)) + 10)));
-                                    message.channel.send(`${answer}`).then(msg => {
-                                        lastMessage = msg;
-                                    });
-                                    message.channel.stopTyping();
-                                }
-
-                                let data = checkIfBotRunning.messages;
-                                data.push({ messageAuthor: message.author.tag, message: message.content, response: answer, timeStamp: new Date() });
-                                if (data.length > 20) {
-                                    data.shift();
-                                }
-
-                                // await levelFarms.findOneAndUpdate({ discordId: discordId, botName: client.user.tag }, { messages: data });
-                                let botIndex = allFarmData.findIndex((obj => obj.discordId == discordId && obj.botName == client.user.tag));
-                                allFarmData[botIndex].messages = data;
-
-                                minutesToAdd = checkIfBotRunning.messageDelay;
-                                currentDate = new Date();
-                                countDownDate = new Date(currentDate.getTime() + (minutesToAdd + 0.1) * 60000).getTime();
-                                setTimeout(() => { currentlyChecking = false }, 1000);
-                                lastResponse = answer;
-                            } else {
-                                if ((message.mentions.users.size > 0) && !(message.mentions.users.get(client.user.id))) {
-                                    currentlyChecking = false;
-                                    return;
-                                };
+                                channelIdToCheck = checkIfBotRunning.channelId;
+                                await sleep((10000 * Math.random()) + 1000);
                                 await axios({
                                     method: 'post',
                                     url: process.env.SERVER_URI + "/api/askRudolph",
                                     data: {
                                         botData: checkIfBotRunning,
                                         text: message.content, // This is the body part
-                                        chatLogs: botChatLogs
+                                        chatLogs: botChatLogs,
                                     }
                                 }).then(async function(response) {
                                     answer = response.data.answer;
@@ -610,11 +479,122 @@ exports.startFarming = async function(res, req) {
                                         currentlyChecking = false;
                                         return;
                                     } else {
+                                        botChatLogs = response.data.chatLogs;
                                         message.channel.startTyping();
                                         await sleep((answer.length * (Math.floor(Math.random() * (30 - 10 + 1)) + 10)));
-                                        message.inlineReply(`${answer}`);
+                                        message.inlineReply(`${answer}`).catch(error => {
+                                            console.log(error, 1);
+                                        });
                                         message.channel.stopTyping();
                                     }
+
+                                    let data = checkIfBotRunning.messages;
+                                    data.push({ messageAuthor: message.author.tag, message: message.content, response: answer, timeStamp: new Date() });
+                                    if (data.length > 20) {
+                                        data.shift();
+                                    }
+
+                                    // for (let x = 0; x < messagesThatNeedReply.length; x++) {
+                                    //     await sleep((3000 * Math.random()) + 1000);
+                                    //     await axios({
+                                    //         method: 'post',
+                                    //         url: process.env.SERVER_URI + "/api/askRudolph",
+                                    //         data: {
+                                    //             botData: checkIfBotRunning,
+                                    //             text: messagesThatNeedReply[x].content, // This is the body part
+                                    //             chatLogs: botChatLogs,
+                                    //         }
+                                    //     }).then(async function(response) {
+                                    //         answer = response.data.answer;
+
+                                    //         if (answer == undefined || answer.replace(/' '/g, '').length <= 0) {
+                                    //             return;
+                                    //         } else {
+                                    //             botChatLogs = response.data.chatLogs;
+                                    //             message.channel.startTyping();
+                                    //             await sleep((answer.length * (Math.floor(Math.random() * (30 - 10 + 1)) + 10)));
+                                    //             messagesThatNeedReply[x].inlineReply(`${answer}`);
+                                    //             message.channel.stopTyping();
+                                    //         }
+
+                                    //         data.push({ messageAuthor: messagesThatNeedReply[x].author.tag, message: messagesThatNeedReply[x].content, response: answer, timeStamp: new Date() });
+                                    //         if (data.length > 20) {
+                                    //             data.shift();
+                                    //         }
+                                    //         messagesThatNeedReply.splice(x, 1);
+                                    //     });
+                                    // }
+
+                                    // await levelFarms.findOneAndUpdate({ discordId: discordId, botName: client.user.tag }, { messages: data });
+                                    let botIndex = allFarmData.findIndex((obj => obj.discordId == discordId && obj.botName == client.user.tag));
+                                    allFarmData[botIndex].messages = data;
+
+                                    minutesToAdd = checkIfBotRunning.messageDelay;
+                                    currentDate = new Date();
+                                    countDownDate = new Date(currentDate.getTime() + (minutesToAdd + 0.1) * 60000).getTime();
+                                    setTimeout(() => { currentlyChecking = false }, 1000);
+                                });
+                            } else {
+                                currentlyShuttingDown = true;
+                                console.log('Shutting bot down...', client.user.tag);
+                                clearInterval(x);
+
+                                const checkArraylength = await dashboardKeys.findOne({ discordId: discordId });
+                                if (checkArraylength.chatLogs.length >= 20) {
+                                    checkArraylength.chatLogs.shift();
+                                }
+                                checkArraylength.chatLogs.push(`Stopped Bot ${client.user.tag} @ ${new Date()} 'bot was deleted'`);
+                                await dashboardKeys.updateOne({ discordId: discordId }, { $set: { chatLogs: checkArraylength.chatLogs } });
+
+                                // await levelFarms.updateOne({ discordId: discordId, botName: client.user.tag }, { state: 0 });
+                                let botIndex = allFarmData.findIndex((obj => obj.discordId == discordId && obj.botName == client.user.tag));
+                                allFarmData[botIndex].state = 0;
+                                client.destroy();
+                                return;
+                            }
+                        } else {
+                            const checkIfBotRunning = await allFarmData.find(obj => {
+                                return (obj.discordId === discordId && obj.botName === client.user.tag);
+                            });
+
+                            if (checkIfBotRunning) {
+
+                                if (countDownDistance > 0 || currentlyChecking) return;
+                                currentlyChecking = true;
+                                channelIdToCheck = checkIfBotRunning.channelId;
+                                await sleep((10000 * Math.random()) + 1000);
+
+                                if (checkIfBotRunning.spam) {
+                                    answer = randomSpam.spam[Math.floor(Math.random() * randomSpam.spam.length)];
+
+                                    while (answer == lastResponse) {
+                                        answer = randomSpam.spam[Math.floor(Math.random() * randomSpam.spam.length)];
+                                    }
+
+                                    let answerTrimmed;
+                                    if (answer != undefined) {
+                                        answerTrimmed = answer.toString().replace(/' '/g, '');
+                                    } else {
+                                        answerTrimmed = '';
+                                    }
+
+                                    if (answer == undefined || answerTrimmed.length <= 0) {
+                                        currentlyChecking = false;
+                                        return;
+                                    } else {
+                                        if (checkIfBotRunning.delete && lastMessage) {
+                                            await lastMessage.delete();
+                                        }
+                                        message.channel.startTyping();
+                                        await sleep((answer.length * (Math.floor(Math.random() * (30 - 10 + 1)) + 10)));
+                                        message.channel.send(`${answer}`).then(msg => {
+                                            lastMessage = msg;
+                                        }).catch(error => {
+                                            console.log(error, 2);
+                                        });
+                                        message.channel.stopTyping();
+                                    }
+
                                     let data = checkIfBotRunning.messages;
                                     data.push({ messageAuthor: message.author.tag, message: message.content, response: answer, timeStamp: new Date() });
                                     if (data.length > 20) {
@@ -629,7 +609,74 @@ exports.startFarming = async function(res, req) {
                                     currentDate = new Date();
                                     countDownDate = new Date(currentDate.getTime() + (minutesToAdd + 0.1) * 60000).getTime();
                                     setTimeout(() => { currentlyChecking = false }, 1000);
-                                });
+                                    lastResponse = answer;
+                                } else {
+                                    if ((message.mentions.users.size > 0) && !(message.mentions.users.get(client.user.id))) {
+                                        currentlyChecking = false;
+                                        return;
+                                    };
+                                    await axios({
+                                        method: 'post',
+                                        url: process.env.SERVER_URI + "/api/askRudolph",
+                                        data: {
+                                            botData: checkIfBotRunning,
+                                            text: message.content, // This is the body part
+                                            chatLogs: botChatLogs
+                                        }
+                                    }).then(async function(response) {
+                                        answer = response.data.answer;
+
+                                        let answerTrimmed;
+                                        if (answer != undefined) {
+                                            answerTrimmed = answer.toString().replace(/' '/g, '');
+                                        } else {
+                                            answerTrimmed = '';
+                                        }
+
+                                        if (answer == undefined || answerTrimmed.length <= 0) {
+                                            currentlyChecking = false;
+                                            return;
+                                        } else {
+                                            message.channel.startTyping();
+                                            await sleep((answer.length * (Math.floor(Math.random() * (30 - 10 + 1)) + 10)));
+                                            message.inlineReply(`${answer}`).catch(error => {
+                                                console.log(error, 3);
+                                            });
+                                            message.channel.stopTyping();
+                                        }
+                                        let data = checkIfBotRunning.messages;
+                                        data.push({ messageAuthor: message.author.tag, message: message.content, response: answer, timeStamp: new Date() });
+                                        if (data.length > 20) {
+                                            data.shift();
+                                        }
+
+                                        // await levelFarms.findOneAndUpdate({ discordId: discordId, botName: client.user.tag }, { messages: data });
+                                        let botIndex = allFarmData.findIndex((obj => obj.discordId == discordId && obj.botName == client.user.tag));
+                                        allFarmData[botIndex].messages = data;
+
+                                        minutesToAdd = checkIfBotRunning.messageDelay;
+                                        currentDate = new Date();
+                                        countDownDate = new Date(currentDate.getTime() + (minutesToAdd + 0.1) * 60000).getTime();
+                                        setTimeout(() => { currentlyChecking = false }, 1000);
+                                    });
+                                }
+                            } else {
+                                currentlyShuttingDown = true;
+                                console.log('Shutting bot down...', client.user.tag);
+                                clearInterval(x);
+
+                                const checkArraylength = await dashboardKeys.findOne({ discordId: discordId });
+                                if (checkArraylength.chatLogs.length >= 20) {
+                                    checkArraylength.chatLogs.shift();
+                                }
+                                checkArraylength.chatLogs.push(`Stopped Bot ${client.user.tag} @ ${new Date()} 'bot was deleted'`);
+                                await dashboardKeys.updateOne({ discordId: discordId }, { $set: { chatLogs: checkArraylength.chatLogs } });
+
+                                // await levelFarms.updateOne({ discordId: discordId, botName: client.user.tag }, { state: 0 });
+                                let botIndex = allFarmData.findIndex((obj => obj.discordId == discordId && obj.botName == client.user.tag));
+                                allFarmData[botIndex].state = 0;
+                                client.destroy();
+                                return;
                             }
                         }
                     }
