@@ -8,6 +8,7 @@ var fs = require('fs');
 let chatLogs = '';
 var mention_pattern = /<@.?[0-9]*?>/g;
 var emoji_pattern = /(<a?)?:\w+:(\d{18}>)?/g;
+const emoji_check = /(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])/gi;
 var Filter = require('bad-words'),
     filter = new Filter();
 
@@ -101,7 +102,20 @@ exports.getAnswer = async function(res, req) {
             if (response.data.choices[0].text.split('Human:')[1])
                 response.data.choices[0].text = response.data.choices[0].text.split('Human:')[0];
 
-            answer = filter.clean(response.data.choices[0].text.replace(/\n|\r/g, "").replace(/(?:https?|ftp):\/\/[\n\S]+/g, 'link').replace(mention_pattern, '').replace(emoji_pattern, ''));
+            response.data.choices[0].text = response.data.choices[0].text.replace(/\n|\r/g, "").replace(/(?:https?|ftp):\/\/[\n\S]+/g, 'link').replace(mention_pattern, '').replace(emoji_pattern, '')
+
+            answer = filter.clean(response.data.choices[0].text).catch(err => {
+                if (emoji_check.test(response.data.choices[0].text)) {
+                    answer = response.data.choices[0].text;
+                } else if (!(isNaN(response.data.choices[0].text))) {
+                    console.log('answer was just a number');
+                    answer = '';
+                } else {
+                    console.log(e.message, 'answer clean filter');
+                    answer = '';
+                }
+            });
+
             tempChatLogs += `${response.data.choices[0].text.replace(/\n|\r/g, "").replace(/(?:https?|ftp):\/\/[\n\S]+/g, 'link').replace(mention_pattern, '').replace(emoji_pattern, '')}\n`;
 
             if (isUpperCase(answer)) {
@@ -298,7 +312,6 @@ exports.startFarming = async function(res, req) {
                 allFarmData[botIndex].state = 1;
                 allFarmData[botIndex].botName = client.user.tag;
                 allFarmData[botIndex].botAvatar = avatar;
-                console.log(allFarmData[botIndex]);
             }
 
             // await getAllFarms();
