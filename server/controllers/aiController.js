@@ -108,11 +108,9 @@ exports.getAnswer = async function(res, req) {
                 if (emoji_check.test(response.data.choices[0].text)) {
                     answer = response.data.choices[0].text;
                 } else if (!(isNaN(response.data.choices[0].text))) {
-                    console.log('answer was just a number');
-                    answer = '';
+                    throw ('answer was just a number');
                 } else {
-                    console.log(e.message, 'answer clean filter');
-                    answer = '';
+                    throw (e.message, 'answer clean filter');
                 }
             });
 
