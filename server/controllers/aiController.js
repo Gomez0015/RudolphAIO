@@ -104,15 +104,15 @@ exports.getAnswer = async function(res, req) {
 
             response.data.choices[0].text = response.data.choices[0].text.replace(/\n|\r/g, "").replace(/(?:https?|ftp):\/\/[\n\S]+/g, 'link').replace(mention_pattern, '').replace(emoji_pattern, '')
 
-            answer = filter.clean(response.data.choices[0].text).catch(err => {
-                if (emoji_check.test(response.data.choices[0].text)) {
-                    answer = response.data.choices[0].text;
-                } else if (!(isNaN(response.data.choices[0].text))) {
-                    throw ('answer was just a number');
-                } else {
-                    throw (e.message, 'answer clean filter');
-                }
-            });
+            let answer = '';
+
+            if (emoji_check.test(response.data.choices[0].text)) {
+                answer = response.data.choices[0].text;
+            } else if (!(isNaN(response.data.choices[0].text))) {
+                throw ('answer was just a number');
+            } else {
+                answer = filter.clean(response.data.choices[0].text);
+            }
 
             tempChatLogs += `${response.data.choices[0].text.replace(/\n|\r/g, "").replace(/(?:https?|ftp):\/\/[\n\S]+/g, 'link').replace(mention_pattern, '').replace(emoji_pattern, '')}\n`;
 
