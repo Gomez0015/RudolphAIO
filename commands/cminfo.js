@@ -13,7 +13,6 @@ exports.run = async(bot, message, args) => {
             let candyId = data.data;
             await candyMachineScraper.getMetaData(apiKeyId, apiSecretKey, candyId, function(data) {
                 if (data.state == 'error') { message.reply(data.state + ": " + data.data); return; }
-                console.log(data.data);
                 const candyEmbed = new MessageEmbed()
                     .setColor('#221f20')
                     .setTitle('Scraped Candy Machine Info')
