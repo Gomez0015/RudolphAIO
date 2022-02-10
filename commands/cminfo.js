@@ -18,7 +18,6 @@ exports.run = async(bot, message, args) => {
                     .setTitle('Scraped Candy Machine Info')
                     .setURL(url)
                     .addFields({ name: 'ID', value: candyId })
-                    .addField({ name: 'Creators', value: data.data.creators })
                     .addField({ name: 'Live Date', value: data.data.go_live_date })
                     .addField({ name: 'Available', value: data.data.items_available })
                     .addField({ name: 'Minted', value: data.data.items_redeemed })
