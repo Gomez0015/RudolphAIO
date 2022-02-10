@@ -19,7 +19,7 @@ exports.run = async(bot, message, args) => {
                     .setURL(url)
                     .addFields({ name: 'ID', value: candyId }, { name: 'Live Date', value: '<t:' + data.data.go_live_date.toString() + '>' }, { name: 'Supply', value: data.data.items_available.toString() }, { name: 'Minted', value: data.data.items_redeemed.toString() + '/' + data.data.items_available.toString() }, { name: 'Left', value: (data.data.items_available - data.data.items_redeemed).toString() }, { name: 'Price', value: (data.data.price / 1000000000).toString() + ' SOL' }, { name: 'Symbol', value: data.data.symbol })
                     .setTimestamp()
-                    .setThumbnail('./rudolph.png')
+                    .setThumbnail(bot.user.displayAvatarURL())
                     .setAuthor({ name: 'Raxo#0468', iconURL: 'https://avatars.githubusercontent.com/u/56361339?v=4', url: 'https://github.com/Gomez0015' })
 
                 message.reply({ embeds: [candyEmbed] });
