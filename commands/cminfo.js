@@ -5,7 +5,7 @@ const apiSecretKey = 'UAy0ltehq8SA3D3';
 
 exports.run = async(bot, message, args) => {
     let url = args[0];
-    await candyMachineScraper.getCandyId('./node_modules', url, function(data) {
+    await candyMachineScraper.getCandyId('./node_modules', url, async function(data) {
         if (data.state == 'error') {
             let responseData = data.data;
             message.reply(data.state + ": " + responseData);
