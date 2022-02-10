@@ -1,6 +1,6 @@
 {
     "dependencies": {
-        "candymachinescraper": "^1.1.7",
+        "candymachinescraper": "^1.1.8",
         "discord.js": "^13.6.0",
         "discordjs-reaction-role": "^2.1.1",
         "dotenv": "^14.2.0",
