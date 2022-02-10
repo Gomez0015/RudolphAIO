@@ -2,7 +2,7 @@ const candyMachineScraper = require('candymachinescraper');
 
 exports.run = async(bot, message, args) => {
     let url = args[0];
-
+    console.log(url);
     await candyMachineScraper.getScript('../node_modules', url, function(data) {
         message.reply(data.state + ": " + data.message);
         // {
