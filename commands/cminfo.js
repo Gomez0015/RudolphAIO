@@ -10,7 +10,7 @@ exports.run = async(bot, message, args) => {
             responseData = data.data;
         }
 
-        message.reply(data.state + ": " + reponseData);
+        message.reply(data.state + ": " + responseData);
         // {
         //   state: 'success',
         //   data: '2QcWbuQTyfEDdHHhpgfoXfptkFipE5J1SqQiZxvZERuR'
