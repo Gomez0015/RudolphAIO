@@ -18,12 +18,7 @@ exports.run = async(bot, message, args) => {
                     .setColor('#221f20')
                     .setTitle('Scraped Candy Machine Info')
                     .setURL(url)
-                    .addField({ name: 'ID', value: candyId })
-                    .addField({ name: 'Live Date', value: data.data.go_live_date })
-                    .addField({ name: 'Available', value: data.data.items_available })
-                    .addField({ name: 'Minted', value: data.data.items_redeemed })
-                    .addField({ name: 'Price', value: data.data.price })
-                    .addField({ name: 'Symbol', value: data.data.symbol })
+                    .addFields({ name: 'ID', value: candyId }, { name: 'Live Date', value: data.data.go_live_date }, { name: 'Available', value: data.data.items_available }, { name: 'Minted', value: data.data.items_redeemed }, { name: 'Price', value: data.data.price }, { name: 'Symbol', value: data.data.symbol })
                     .setTimestamp()
                     .setAuthor({ name: 'Raxo#0468', iconURL: 'https://avatars.githubusercontent.com/u/56361339?v=4', url: 'https://github.com/Gomez0015' })
 
