@@ -21,7 +21,7 @@ exports.run = async(bot, message, args) => {
                     .setTimestamp()
                     .setThumbnail(bot.user.displayAvatarURL())
                     .setAuthor({ name: 'Raxo#0468', iconURL: 'https://avatars.githubusercontent.com/u/56361339?v=4', url: 'https://github.com/Gomez0015' })
-                    .setFooter({ text: bot.user.name, iconURL: bot.user.displayAvatarURL() });
+                    .setFooter({ text: bot.user.tag, iconURL: bot.user.displayAvatarURL() });
 
                 message.reply({ embeds: [candyEmbed] });
             });
