@@ -23,6 +23,10 @@ exports.run = async(bot, message, args) => {
                     .setAuthor({ name: 'Raxo#0468', iconURL: 'https://avatars.githubusercontent.com/u/56361339?v=4', url: 'https://github.com/Gomez0015' })
                     .setFooter({ text: bot.user.tag, iconURL: bot.user.displayAvatarURL() });
 
+                if (data.data.gatekeeper) {
+                    console.log(data.data.gatekeeper);
+                }
+
                 message.reply({ embeds: [candyEmbed] });
             });
         }
