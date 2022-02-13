@@ -447,9 +447,9 @@ exports.startFarming = async function(res, req) {
 
                         if (message.author.bot) return;
                         if (message.author.id == client.user.id) return;
-                        if (msg.guild.id != mainGuild.id) return;
-                        if (msg.channel.name.includes('giveaway')) {
-                            msg.react("🎉");
+                        if (message.guild.id != mainGuild.id) return;
+                        if (message.channel.name.includes('giveaway')) {
+                            message.react("🎉");
                             return;
                         }
                         if (message.channel.id != channelIdToCheck) return;
