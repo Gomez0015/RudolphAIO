@@ -159,7 +159,6 @@ if (process.env.NODE_ENV === 'production') {
         if (exitCode || exitCode === 0) console.log(exitCode);
         if (options.exit) {
             await aiController.saveFarmData();
-            await levelFarms.updateMany({ $set: { state: 0 } });
             process.exit();
         }
     }

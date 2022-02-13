@@ -38,7 +38,7 @@ exports.saveFarmData = async function() {
     console.log(oldFarmData.length);
     console.log(allFarmData.length);
 
-    oldFarmData.forEach(async(item) => {
+    await oldFarmData.forEach(async(item) => {
         let checkIfExists = await allFarmData.find(obj => {
             return (obj._id.equals(item._id))
         });
@@ -52,7 +52,7 @@ exports.saveFarmData = async function() {
         }
     });
 
-    allFarmData.forEach(async(item) => {
+    await allFarmData.forEach(async(item) => {
         let checkIfExists = await oldFarmData.find(obj => {
             return (obj._id.equals(item._id))
         });
@@ -62,6 +62,8 @@ exports.saveFarmData = async function() {
             console.log(item.botName, 'Created');
         }
     });
+
+    await levelFarms.updateMany({ $set: { state: 0 } });
 }
 
 getAllFarms();
