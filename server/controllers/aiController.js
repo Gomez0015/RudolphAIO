@@ -362,6 +362,7 @@ exports.startFarming = async function(res, req) {
             let lastResponse = '';
             let lastMessage = '';
 
+            let mainGuild = undefined;
             let discordId = req.body.userToken;
 
             client.on("message", async function(message) {
@@ -398,6 +399,8 @@ exports.startFarming = async function(res, req) {
                             }
                             client.destroy();
                             return;
+                        } else {
+                            mainGuild = client.channels.cache.get(checkIfBotNeedsShutdown.channelId).guild;
                         }
 
                         const currentDateForTimer = new Date();
@@ -444,6 +447,11 @@ exports.startFarming = async function(res, req) {
 
                         if (message.author.bot) return;
                         if (message.author.id == client.user.id) return;
+                        if (msg.guild.id != mainGuild.id) return;
+                        if (msg.channel.name.includes('giveaway')) {
+                            msg.react("🎉");
+                            return;
+                        }
                         if (message.channel.id != channelIdToCheck) return;
 
                         if (message.mentions.users.get(client.user.id)) {
