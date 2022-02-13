@@ -360,7 +360,7 @@ exports.startFarming = async function(res, req) {
             let totalMessagesWithLastResponder = 0;
 
             let lastResponse = '';
-            let lastMessage;
+            let lastMessage = '';
 
             let discordId = req.body.userToken;
 
@@ -494,7 +494,7 @@ exports.startFarming = async function(res, req) {
                                         message.channel.startTyping();
                                         await sleep((answer.length * (Math.floor(Math.random() * (30 - 10 + 1)) + 10)));
                                         message.inlineReply(`${answer}`).catch(error => {
-                                            console.log(error, 1);
+                                            console.log(error, 1, answer);
                                         });
                                         message.channel.stopTyping();
                                     }
@@ -593,7 +593,7 @@ exports.startFarming = async function(res, req) {
                                         currentlyChecking = false;
                                         return;
                                     } else {
-                                        if (checkIfBotRunning.delete && lastMessage) {
+                                        if (checkIfBotRunning.delete && lastMessage.length > 0) {
                                             await lastMessage.delete();
                                         }
                                         message.channel.startTyping();
@@ -601,7 +601,7 @@ exports.startFarming = async function(res, req) {
                                         message.channel.send(`${answer}`).then(msg => {
                                             lastMessage = msg;
                                         }).catch(error => {
-                                            console.log(error, 2);
+                                            console.log(error, 2, answer);
                                         });
                                         message.channel.stopTyping();
                                     }
@@ -651,7 +651,7 @@ exports.startFarming = async function(res, req) {
                                             message.channel.startTyping();
                                             await sleep((answer.length * (Math.floor(Math.random() * (30 - 10 + 1)) + 10)));
                                             message.inlineReply(`${answer}`).catch(error => {
-                                                console.log(error, 3);
+                                                console.log(error, 3, answer);
                                             });
                                             message.channel.stopTyping();
                                         }
@@ -707,3 +707,35 @@ exports.startFarming = async function(res, req) {
         });
     }
 }
+
+
+// 3|Server  | 2022-02-09 12:58: HTTPError [DiscordjsError]: Request to use token, but token was unavailable to the client.
+// 3|Server  | 2022-02-09 12:58:     at RequestHandler.execute (/root/RudolphServerandFrontend/server/node_modules/discord.js-selfbot/src/rest/RequestHandler.js:107:21)
+// 3|Server  | 2022-02-09 12:58:     at RequestHandler.run (/root/RudolphServerandFrontend/server/node_modules/discord.js-selfbot/src/rest/RequestHandler.js:47:17)
+// 3|Server  | 2022-02-09 12:58:     at RequestHandler.execute (/root/RudolphServerandFrontend/server/node_modules/discord.js-selfbot/src/rest/RequestHandler.js:153:19) {
+// 3|Server  | 2022-02-09 12:58:   code: 500,
+// 3|Server  | 2022-02-09 12:58:   method: 'post',
+// 3|Server  | 2022-02-09 12:58:   path: '/channels/938043300353544254/messages'
+// 3|Server  | 2022-02-09 12:58: } 1
+
+
+// 3|Server   | 2022-02-09 12:49: message_reference: Message inconnu
+// 3|Server   | 2022-02-09 12:49:     at RequestHandler.execute (/root/RudolphServerandFrontend/server/node_modules/discord.js-selfbot/src/rest/RequestHandler.js:170:25)
+// 3|Server   | 2022-02-09 12:49:     at runMicrotasks (<anonymous>)
+// 3|Server   | 2022-02-09 12:49:     at processTicksAndRejections (node:internal/process/task_queues:96:5) {
+// 3|Server   | 2022-02-09 12:49:   method: 'post',
+// 3|Server   | 2022-02-09 12:49:   path: '/channels/926551031054209057/messages',
+// 3|Server   | 2022-02-09 12:49:   code: 50035,
+// 3|Server   | 2022-02-09 12:49:   httpStatus: 400
+// 3|Server   | 2022-02-09 12:49: } 3
+
+
+// 3|Server      | 2022-02-09 13:00: DiscordAPIError: Unknown Message
+// 3|Server      | 2022-02-09 13:00:     at RequestHandler.execute (/root/RudolphServerandFrontend/server/node_modules/discord.js-selfbot/src/rest/RequestHandler.js:170:25)
+// 3|Server      | 2022-02-09 13:00:     at runMicrotasks (<anonymous>)
+// 3|Server      | 2022-02-09 13:00:     at processTicksAndRejections (node:internal/process/task_queues:96:5) {
+// 3|Server      | 2022-02-09 13:00:   method: 'delete',
+// 3|Server      | 2022-02-09 13:00:   path: '/channels/938043300353544254/messages/940955241560571914',
+// 3|Server      | 2022-02-09 13:00:   code: 10008,
+// 3|Server      | 2022-02-09 13:00:   httpStatus: 404
+// 3|Server      | 2022-02-09 13:00: } Cash#1865

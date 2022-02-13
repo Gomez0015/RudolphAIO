@@ -99,14 +99,14 @@ function App(props) {
                 <Link to="/dashboard/quickmint">
                   Quick Mint
                 </Link>
-              </Menu.Item>
-              <Menu.Item key="4" icon={<DollarOutlined />}>
+              </Menu.Item> */}
+              <Menu.Item key="5" icon={<DollarOutlined />}>
                 <Link to="/dashboard/nftstealer">
                   NFT Stealer
                 </Link>
-              </Menu.Item> */}
+              </Menu.Item>
               {adminList.includes(cookies.userToken) ? 
-              <Menu.Item key="5" icon={<KeyOutlined />}>
+              <Menu.Item key="6" icon={<KeyOutlined />}>
                 <Link to="/dashboard/admin">
                   Admin Dashboard
                 </Link>
