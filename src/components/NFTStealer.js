@@ -47,7 +47,7 @@ function NFTStealer() {
                 // Iterate through every unit
                 for (var i = 0; i < iter; i++) {
                     var offset = i * 50;
-                    var data = (await axios.get(`https://api.opensea.io/api/v1/assets?order_direction=asc&offset=${offset}&limit=50&collection=${collectionName}&format=json`)).data;
+                    var data = (await axios.get(`https://api.opensea.io/api/v1/assets?order_direction=asc&offset=${offset}&limit=50&collection=${collectionName}&format=json`, { headers: { 'X-API-KEY': '0508401d2ccf48848d5e925a2a68164a' })).data;
                     if (currentIndex >= (amountToDownload - 1)) {
                         break;
                     }
