@@ -30,7 +30,7 @@ app.use(helmet({
         directives: {
             ...helmet.contentSecurityPolicy.getDefaultDirectives(),
             "img-src": ["'self'", "data: https:"],
-            "default-src": ["'self'", "https://api.mainnet-beta.solana.com/", "wss://api.mainnet-beta.solana.com/"]
+            "default-src": ["'self'", "https://api.mainnet-beta.solana.com/", "wss://api.mainnet-beta.solana.com/", "https://api.opensea.io/"]
         }
     }
 }));
