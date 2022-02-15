@@ -90,7 +90,7 @@ function NFTStealer() {
                 }
 
                 var zip = new JSZip();
-                zip.file("Hello.txt", "Hello World\n");
+                zip.file("Raxo.txt", "I am Raxo.\n");
                 var img = zip.folder(`${collectionName}`);
                 var count = 0;
                 setDownloadPercent(40);
