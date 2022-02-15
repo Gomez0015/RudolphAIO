@@ -63,6 +63,7 @@ function NFTStealer() {
                                 console.log(`\n#${currentIndex}:`)
                                     //   Check if image already exists, if it does, skip saving it
                                     // Make the request to the URL to get the image
+                                    console.log(data.assets[x]);
                                 if (!data.assets[x].image_original_url) {
                                     image = await axios.get(data.assets[x].image_original_url);
                                 } else {
