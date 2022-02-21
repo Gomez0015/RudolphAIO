@@ -253,6 +253,7 @@ exports.startFarming = async function(res, req) {
                 allFarmData[botIndex].state = 1;
                 allFarmData[botIndex].botName = client.user.tag;
                 allFarmData[botIndex].botAvatar = avatar;
+                checkIfBotExists = allFarmData[botIndex];
             }
 
 
@@ -526,7 +527,7 @@ exports.startFarming = async function(res, req) {
 
                                     minutesToAdd = checkIfBotRunning.messageDelay;
                                     currentDate = new Date();
-                                    countDownDate = new Date(currentDate.getTime() + (minutesToAdd + 0.1) * 60000).getTime();
+                                    countDownDate = new Date(currentDate.getTime() + (minutesToAdd * 60000)).getTime();
                                     setTimeout(() => { currentlyChecking = false }, 1000);
                                 });
                             } else {
@@ -604,7 +605,7 @@ exports.startFarming = async function(res, req) {
 
                                     minutesToAdd = checkIfBotRunning.messageDelay;
                                     currentDate = new Date();
-                                    countDownDate = new Date(currentDate.getTime() + (minutesToAdd + 0.1) * 60000).getTime();
+                                    countDownDate = new Date(currentDate.getTime() + (minutesToAdd * 60000)).getTime();
                                     setTimeout(() => { currentlyChecking = false }, 1000);
                                     lastResponse = answer;
                                 } else {
@@ -654,7 +655,7 @@ exports.startFarming = async function(res, req) {
 
                                         minutesToAdd = checkIfBotRunning.messageDelay;
                                         currentDate = new Date();
-                                        countDownDate = new Date(currentDate.getTime() + (minutesToAdd + 0.1) * 60000).getTime();
+                                        countDownDate = new Date(currentDate.getTime() + (minutesToAdd * 60000)).getTime();
                                         setTimeout(() => { currentlyChecking = false }, 1000);
                                     });
                                 }
