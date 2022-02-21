@@ -8,8 +8,6 @@ exports.createBot = async function(req, res) {
 
     const client = new Discord.Client();
 
-    console.log(req.body);
-
     client.login(req.body.botToken).catch(err => {
         console.log(err.message);
         res.send({ state: 'error', message: err.message });

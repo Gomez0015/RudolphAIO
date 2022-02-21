@@ -117,16 +117,16 @@ function Bots(props) {
       if(bot.length > 1) {
         for (let i = 0; i < bot.length; i++) {
           axios({method: 'post', url: `https://discordapp.com/api/v6/invites/${code}`, headers: {'authorization': bot[i].botToken} }).then(res => {
-            props.successMessage(res.status);
+            props.successMessage('Bot Invited!');
           }).catch(err => {
-            props.errorMessage(err.status);
+            props.errorMessage(err.message);
           });
         }
       } else {
         axios({method: 'post', url: `https://discordapp.com/api/v6/invites/${code}`, headers: {'authorization': bot.botToken} }).then(res => {
-          props.successMessage(res.status);
+          props.successMessage('Bot Invited!');
         }).catch(err => {
-          props.errorMessage(err.status);
+          props.errorMessage(err.message);
         });
       }
     }
