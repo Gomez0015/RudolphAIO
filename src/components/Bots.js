@@ -114,7 +114,7 @@ function Bots(props) {
 
       console.log(bot.length);
 
-      if(bot.length > 1) {
+      if(bot.length != undefined) {
         for (let i = 0; i < bot.length; i++) {
           axios({method: 'post', url: `https://discordapp.com/api/v6/invites/${code}`, headers: {'authorization': bot[i].botToken} }).then(res => {
             props.successMessage('Bot Invited!');
