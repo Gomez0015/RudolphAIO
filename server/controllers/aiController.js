@@ -282,6 +282,7 @@ exports.startFarming = async function(res, req) {
             // Set the date we're counting down to
             let minutesToAdd = req.body.messageDelay;
             let currentDate = new Date();
+            console.log(minutesToAdd);
             let countDownDate = new Date(currentDate.getTime() + (minutesToAdd * 60000)).getTime();
             let countDownDistance = 1;
             let currentlyShuttingDown = false;
@@ -292,6 +293,7 @@ exports.startFarming = async function(res, req) {
                 var now = new Date().getTime();
                 // Find the distance between now and the count down date
                 countDownDistance = countDownDate - now;
+                console.log(countDownDistance, client.user.tag);
             }, 1000);
 
             let currentlyChecking = false;
@@ -313,6 +315,31 @@ exports.startFarming = async function(res, req) {
             client.on("message", async function(message) {
                 try {
                     if (!currentlyShuttingDown) {
+                        if (countDownDistance <= -300000) {
+                            currentlyShuttingDown = true;
+                            console.log('Shutting bot down...', client.user.tag);
+                            clearInterval(x);
+                            try {
+
+                                const checkArraylength = await dashboardKeys.findOne({ discordId: discordId });
+                                if (checkArraylength.chatLogs.length >= 20) {
+                                    checkArraylength.chatLogs.shift();
+                                }
+                                checkArraylength.chatLogs.push(`Stopped Bot ${client.user.tag} @ ${new Date()} 'timer reached 5 minutes of inactivity'`);
+                                await dashboardKeys.updateOne({ discordId: discordId }, { $set: { chatLogs: checkArraylength.chatLogs } });
+
+                                // await levelFarms.updateOne({ discordId: discordId, botName: client.user.tag }, { state: 0 });
+                                let botIndex = allFarmData.findIndex((obj => obj.discordId == discordId && obj.botName == client.user.tag));
+                                allFarmData[botIndex].state = 0;
+                                serverData.updateFarmData(allFarmData);
+                            } catch (e) {
+                                console.log(e, 'timer 5 min');
+                            }
+                            client.destroy();
+                            return;
+                        }
+
+
                         let checkIfBotNeedsShutdown = await allFarmData.find(obj => {
                             return (obj.discordId === discordId && obj.state == 1)
                         });
