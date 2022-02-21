@@ -5,6 +5,7 @@ const mintController = require('./controllers/mintController');
 const aiController = require('./controllers/aiController');
 const userAuthController = require('./controllers/userAuthController');
 const adminController = require('./controllers/adminController');
+const botController = require('./controllers/botController');
 const levelFarms = require('./models/levelFarmModel');
 const dashboardKeys = require('./models/dashboardKeysModel');
 const axios = require('axios');
@@ -20,8 +21,21 @@ const port = 3000
 
 mongoose.connect('mongodb+srv://admin:' + process.env.MONGODB_PASSWORD + '@main.dyjqy.mongodb.net/rudolphAioDB?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true });
 
+let allFarmData = [];
+async function getAllFarms() {
+    allFarmData = await levelFarms.find({});
+    exports.allFarmData = allFarmData;
+}
+
+exports.updateFarmData = async function(allFarmData) {
+    exports.allFarmData = allFarmData;
+}
+
+exports.allFarmData = allFarmData;
+
 db.once("open", async function() {
     console.log("Database Connected successfully");
+    getAllFarms();
 });
 
 app.use(helmet({
@@ -30,7 +44,7 @@ app.use(helmet({
         directives: {
             ...helmet.contentSecurityPolicy.getDefaultDirectives(),
             "img-src": ["'self'", "data: https:"],
-            "default-src": ["'self'", "https://api.mainnet-beta.solana.com/", "wss://api.mainnet-beta.solana.com/", "https://api.opensea.io/", "https://lh3.googleusercontent.com/"]
+            "default-src": ["'self'", "https://api.mainnet-beta.solana.com/", "wss://api.mainnet-beta.solana.com/", "https://api.opensea.io/", "https://lh3.googleusercontent.com/", "https://discordapp.com/"]
         }
     }
 }));
@@ -55,6 +69,10 @@ app.post('/api/askRudolph', (req, res) => {
     aiController.getAnswer(res, req);
 });
 
+app.post('/api/createBot', (req, res) => {
+    botController.createBot(req, res);
+});
+
 app.post('/api/startFarming', (req, res) => {
     aiController.startFarming(res, req);
 });
@@ -63,21 +81,34 @@ app.post('/api/stopFarming', (req, res) => {
     aiController.stopFarming(res, req);
 });
 
-app.post('/api/getFarmingData', (req, res) => {
-    aiController.getFarmingData(res, req);
+app.post('/api/getBots', (req, res) => {
+    botController.getBots(res, req);
 });
 
 app.post('/api/updateBotSettings', (req, res) => {
-    aiController.updateBotSettings(res, req);
+    botController.updateBotSettings(res, req);
 });
 
 app.post('/api/deleteBot', (req, res) => {
-    aiController.deleteBot(res, req);
+    botController.deleteBot(res, req);
 });
 
-app.post('/api/mint', (req, res) => {
-    scraperController.getScript(req.body.url, req.body.seed, res, req);
+app.post('/api/mintUrl', (req, res) => {
+    scraperController.getScript(req.body.url, req.body.privateKey, res, req);
 });
+
+app.post('/api/mintId', (req, res) => {
+    if (req.body.amountToMint > 1) {
+        mintController.mintMultiple(req.body.candyId, req.body.privateKey, res, req);
+    } else {
+        mintController.mintOne(req.body.candyId, req.body.privateKey, res, req);
+    }
+});
+
+app.post('/api/getMintData', (req, res) => {
+    mintController.getMintData(req, res);
+});
+
 
 app.post('/api/getAdminData', (req, res) => {
     adminController.getAdminData(req, res);

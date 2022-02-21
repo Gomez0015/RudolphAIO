@@ -11,6 +11,7 @@ var emoji_pattern = /(<a?)?:\w+:(\d{18}>)?/g;
 const emoji_check = /(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])/gi;
 var Filter = require('bad-words'),
     filter = new Filter();
+const serverData = require('../server.js');
 
 // Open AI
 const { Configuration, OpenAIApi } = require("openai");
@@ -27,13 +28,17 @@ function isUpperCase(str) {
     return str === str.toUpperCase();
 }
 
-allFarmData = [];
+// allFarmData = [];
 
-async function getAllFarms() {
-    allFarmData = await levelFarms.find({});
-}
+// async function getAllFarms() {
+//     allFarmData = await levelFarms.find({});
+// }
+
+// getAllFarms();
 
 exports.saveFarmData = async function() {
+    let allFarmData = serverData.allFarmData;
+
     const oldFarmData = await levelFarms.find({});
     console.log(oldFarmData.length);
     console.log(allFarmData.length);
@@ -65,8 +70,6 @@ exports.saveFarmData = async function() {
 
     await levelFarms.updateMany({ $set: { state: 0 } });
 }
-
-getAllFarms();
 
 exports.getAnswer = async function(res, req) {
     let tempChatLogs = req.body.chatLogs;
@@ -130,22 +133,9 @@ exports.getAnswer = async function(res, req) {
     }
 }
 
-exports.getFarmingData = async function(res, req) {
-    // const botData = await levelFarms.find({ discordId: req.body.userToken });
-    const botData = await allFarmData.filter(obj => {
-        return (obj.discordId === req.body.userToken)
-    });
-
-    const userData = await dashboardKeys.find({ discordId: req.body.userToken });
-    if (botData) {
-        let data = { botList: botData, userChatLogs: userData[0].chatLogs }
-        res.send(data);
-    } else {
-        res.send([]);
-    }
-}
-
 exports.stopFarming = async function(res, req) {
+    let allFarmData = serverData.allFarmData;
+
     // const data = await levelFarms.findOne({ discordId: req.body.userToken, state: 1 });
     const data = await allFarmData.find(obj => {
         return (obj.discordId === req.body.userToken && obj.state === 1);
@@ -159,63 +149,14 @@ exports.stopFarming = async function(res, req) {
     } else {
         res.send({ state: 'error', message: 'You have no bots currently farming' });
     }
-}
 
-exports.updateBotSettings = async function(res, req) {
-    // const data = await levelFarms.findOne({ discordId: req.body.userToken, botName: req.body.botData.botName });
-    const data = await allFarmData.find(obj => {
-        return (obj.discordId === req.body.userToken && obj.botName === req.body.botData.botName);
-    });
-    if (data) {
-        // await levelFarms.updateOne(data, { endTimer: req.body.botData.endTimer, messageDelay: req.body.botData.messageDelay, channelId: req.body.botData.channelId, collectionName: req.body.botData.collectionName, mintDate: req.body.botData.mintDate, customPrompt: req.body.botData.customPrompt, spam: req.body.botData.spam, delete: req.body.botData.delete });
-        let botIndex = allFarmData.findIndex((obj => obj == data));
-        allFarmData[botIndex].endTimer = req.body.botData.endTimer;
-        allFarmData[botIndex].messageDelay = req.body.botData.messageDelay;
-        allFarmData[botIndex].channelId = req.body.botData.channelId;
-        allFarmData[botIndex].collectionName = req.body.botData.collectionName;
-        allFarmData[botIndex].mintDate = req.body.botData.mintDate;
-        allFarmData[botIndex].customPrompt = req.body.botData.customPrompt;
-        allFarmData[botIndex].spam = req.body.botData.spam;
-        allFarmData[botIndex].delete = req.body.botData.delete;
-
-        const checkArraylength = await dashboardKeys.findOne({ discordId: req.body.userToken });
-        if (checkArraylength.chatLogs.length >= 20) {
-            checkArraylength.chatLogs.shift();
-        }
-        checkArraylength.chatLogs.push(`Updated Bot ${data.botName} @ ${new Date()}`);
-        await dashboardKeys.updateOne({ discordId: req.body.userToken }, { $set: { chatLogs: checkArraylength.chatLogs } });
-
-        res.send({ state: 'success', message: 'Successfully updated settings' });
-    } else {
-        res.send({ state: 'error', message: 'Couldnt seem to find the bot' });
-    }
-}
-
-exports.deleteBot = async function(res, req) {
-    // const data = await levelFarms.findOne({ discordId: req.body.userToken, botName: req.body.botData.botName });
-    const data = await allFarmData.find(obj => {
-        return (obj.discordId === req.body.userToken && obj.botName === req.body.botData.botName);
-    });
-    if (data) {
-        // await levelFarms.deleteOne(data);
-        allFarmData = allFarmData.filter((obj) => obj != data);
-
-        const checkArraylength = await dashboardKeys.findOne({ discordId: req.body.userToken });
-        if (checkArraylength.chatLogs.length >= 20) {
-            checkArraylength.chatLogs.shift();
-        }
-        checkArraylength.chatLogs.push(`Deleted Bot ${data.botName} @ ${new Date()}`);
-        await dashboardKeys.updateOne({ discordId: req.body.userToken }, { $set: { chatLogs: checkArraylength.chatLogs } });
-
-        // await getAllFarms();
-        res.send({ state: 'success', message: 'Successfully deleted bot' });
-    } else {
-        res.send({ state: 'error', message: 'Couldnt seem to find the bot' });
-    }
+    serverData.updateFarmData(allFarmData);
 }
 
 // State changes to 2 on its own!
 exports.startFarming = async function(res, req) {
+    let allFarmData = serverData.allFarmData;
+
     // let checkIfFarming = await levelFarms.findOne({ discordId: req.body.userToken, state: { $in: [1, 2] } });
     let checkIfFarming = await allFarmData.find(obj => {
         return (obj.discordId === req.body.userToken && (obj.state == 1 | obj.state == 2));
@@ -314,7 +255,8 @@ exports.startFarming = async function(res, req) {
                 allFarmData[botIndex].botAvatar = avatar;
             }
 
-            // await getAllFarms();
+
+            serverData.updateFarmData(allFarmData);
 
             let channelExists = await client.channels.cache.get(checkIfBotExists.channelId);
 
@@ -332,6 +274,7 @@ exports.startFarming = async function(res, req) {
                 res.send({ state: 'error', message: 'No Access to Channel!' });
                 let botIndex = allFarmData.findIndex((obj => obj.discordId == req.body.userToken && obj.botName == client.user.tag));
                 allFarmData[botIndex].state = 0;
+                serverData.updateFarmData(allFarmData);
                 client.destroy();
                 return;
             }
@@ -396,6 +339,7 @@ exports.startFarming = async function(res, req) {
                                 // await levelFarms.updateOne({ discordId: discordId, botName: client.user.tag }, { state: 0 });
                                 let botIndex = allFarmData.findIndex((obj => obj.discordId == discordId && obj.botName == client.user.tag));
                                 allFarmData[botIndex].state = 0;
+                                serverData.updateFarmData(allFarmData);
                             } catch (e) {
                                 console.log(e, 69);
                             }
@@ -424,6 +368,7 @@ exports.startFarming = async function(res, req) {
                             // await levelFarms.updateOne({ discordId: discordId, botName: client.user.tag }, { state: 0 });
                             let botIndex = allFarmData.findIndex((obj => obj.discordId == discordId && obj.botName == client.user.tag));
                             allFarmData[botIndex].state = 0;
+                            serverData.updateFarmData(allFarmData);
                             client.destroy();
                             return;
                         }
@@ -443,6 +388,7 @@ exports.startFarming = async function(res, req) {
                             // await levelFarms.updateOne({ discordId: discordId, botName: client.user.tag }, { state: 0 });
                             let botIndex = allFarmData.findIndex((obj => obj.discordId == discordId && obj.botName == client.user.tag));
                             allFarmData[botIndex].state = 0;
+                            serverData.updateFarmData(allFarmData);
                             client.destroy();
                             return;
                         }
@@ -549,6 +495,7 @@ exports.startFarming = async function(res, req) {
                                     // await levelFarms.findOneAndUpdate({ discordId: discordId, botName: client.user.tag }, { messages: data });
                                     let botIndex = allFarmData.findIndex((obj => obj.discordId == discordId && obj.botName == client.user.tag));
                                     allFarmData[botIndex].messages = data;
+                                    serverData.updateFarmData(allFarmData);
 
                                     minutesToAdd = checkIfBotRunning.messageDelay;
                                     currentDate = new Date();
@@ -570,6 +517,7 @@ exports.startFarming = async function(res, req) {
                                 // await levelFarms.updateOne({ discordId: discordId, botName: client.user.tag }, { state: 0 });
                                 let botIndex = allFarmData.findIndex((obj => obj.discordId == discordId && obj.botName == client.user.tag));
                                 allFarmData[botIndex].state = 0;
+                                serverData.updateFarmData(allFarmData);
                                 client.destroy();
                                 return;
                             }
@@ -625,6 +573,7 @@ exports.startFarming = async function(res, req) {
                                     // await levelFarms.findOneAndUpdate({ discordId: discordId, botName: client.user.tag }, { messages: data });
                                     let botIndex = allFarmData.findIndex((obj => obj.discordId == discordId && obj.botName == client.user.tag));
                                     allFarmData[botIndex].messages = data;
+                                    serverData.updateFarmData(allFarmData);
 
                                     minutesToAdd = checkIfBotRunning.messageDelay;
                                     currentDate = new Date();
@@ -674,6 +623,7 @@ exports.startFarming = async function(res, req) {
                                         // await levelFarms.findOneAndUpdate({ discordId: discordId, botName: client.user.tag }, { messages: data });
                                         let botIndex = allFarmData.findIndex((obj => obj.discordId == discordId && obj.botName == client.user.tag));
                                         allFarmData[botIndex].messages = data;
+                                        serverData.updateFarmData(allFarmData);
 
                                         minutesToAdd = checkIfBotRunning.messageDelay;
                                         currentDate = new Date();
@@ -696,6 +646,8 @@ exports.startFarming = async function(res, req) {
                                 // await levelFarms.updateOne({ discordId: discordId, botName: client.user.tag }, { state: 0 });
                                 let botIndex = allFarmData.findIndex((obj => obj.discordId == discordId && obj.botName == client.user.tag));
                                 allFarmData[botIndex].state = 0;
+                                serverData.updateFarmData(allFarmData);
+
                                 client.destroy();
                                 return;
                             }
@@ -717,16 +669,6 @@ exports.startFarming = async function(res, req) {
         });
     }
 }
-
-
-// 3|Server  | 2022-02-09 12:58: HTTPError [DiscordjsError]: Request to use token, but token was unavailable to the client.
-// 3|Server  | 2022-02-09 12:58:     at RequestHandler.execute (/root/RudolphServerandFrontend/server/node_modules/discord.js-selfbot/src/rest/RequestHandler.js:107:21)
-// 3|Server  | 2022-02-09 12:58:     at RequestHandler.run (/root/RudolphServerandFrontend/server/node_modules/discord.js-selfbot/src/rest/RequestHandler.js:47:17)
-// 3|Server  | 2022-02-09 12:58:     at RequestHandler.execute (/root/RudolphServerandFrontend/server/node_modules/discord.js-selfbot/src/rest/RequestHandler.js:153:19) {
-// 3|Server  | 2022-02-09 12:58:   code: 500,
-// 3|Server  | 2022-02-09 12:58:   method: 'post',
-// 3|Server  | 2022-02-09 12:58:   path: '/channels/938043300353544254/messages'
-// 3|Server  | 2022-02-09 12:58: } 1
 
 
 // 3|Server   | 2022-02-09 12:49: message_reference: Message inconnu

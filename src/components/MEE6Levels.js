@@ -116,7 +116,7 @@ function MEE6Levels(props) {
 
     const fetchMoreData = () => {
         setDataLoading(true);
-        axios.post(process.env.REACT_APP_SERVER_URI + "/api/getFarmingData", {userToken: props.cookies.userToken})
+        axios.post(process.env.REACT_APP_SERVER_URI + "/api/getBots", {userToken: props.cookies.userToken})
             .then(res => {
               for (let i = 0; i < res.data.botList.length; i++) {
                 if(res.data.botList[i].state == 1) {

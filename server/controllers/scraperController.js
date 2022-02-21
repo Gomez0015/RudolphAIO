@@ -6,7 +6,7 @@ const mintController = require('./mintController');
 
 var possibleFuckers = ['CANDY_MACHINE_ID'];
 
-const getInfo = async function(url, seed, res, req) {
+const getInfo = async function(url, privateKey, res, req) {
     wget({
             url: url,
             dest: './controllers/tmp/data', // destination path or path with filenname, default is ./
@@ -20,15 +20,14 @@ const getInfo = async function(url, seed, res, req) {
             } else {
                 for (let i = 0; i < possibleFuckers.length; i++) {
                     try {
-                        const candyConfig = body.split(possibleFuckers[i])[1].substring(0, 47).replace(':"', '').replace('"', '');
-                        console.log(candyConfig, seed);
+                        const candyId = body.split(possibleFuckers[i])[1].substring(0, 47).replace(':"', '').replace('"', '');
 
                         i = possibleFuckers.length;
 
                         if (req.body.amountToMint > 1) {
-                            mintController.mintMultiple(candyConfig, seed, res, req);
+                            mintController.mintMultiple(candyId, privateKey, res, req);
                         } else {
-                            mintController.mintOne(candyConfig, seed, res, req);
+                            mintController.mintOne(candyId, privateKey, res, req);
                         }
                     } catch (e) {
                         console.log('no work');
@@ -42,7 +41,7 @@ const getInfo = async function(url, seed, res, req) {
     );
 }
 
-exports.getScript = async function(url, seed, res, req) {
+exports.getScript = async function(url, privateKey, res, req) {
     request(url, function(error, response, body) {
         if (!error && response.statusCode == 200) {
             var $ = cheerio.load(body);
@@ -55,7 +54,7 @@ exports.getScript = async function(url, seed, res, req) {
             for (var i = 0; i < scriptSrcs.length; i++) {
                 if (scriptSrcs[i].match(file_pattern)) {
                     console.log(scriptSrcs[i]);
-                    getInfo(url + scriptSrcs[i], seed, res, req);
+                    getInfo(url + scriptSrcs[i], privateKey, res, req);
                 }
             }
         } else {

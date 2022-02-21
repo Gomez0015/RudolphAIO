@@ -1,5 +1,37 @@
 :root {
     --main-color: #f5222d;
+    --snow-color: #fffafa;
+    --dark-color: #121212;
+}
+
+body {
+    color: var(--snow-color) !important;
+    background-color: var(--dark-color) !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.ant-divider-horizontal.ant-divider-with-text,
+.ant-divider-inner-text,
+.ant-divider-plain.ant-divider-with-text,
+.ant-checkbox-wrapper,
+h1.ant-typography,
+.ant-modal-content,
+.ant-list-item-meta-title {
+    color: var(--snow-color) !important;
+    border-color: var(--snow-color) !important;
+}
+
+#mainTitle {
+    color: snow !important;
+}
+
+.ant-modal-content {
+    background-color: var(--dark-color) !important;
 }
 
 .App {
@@ -43,7 +75,7 @@
 
 .ant-layout,
 .ant-layout-footer {
-    background-color: #fffafa;
+    background-color: var(--dark-color);
 }
 
 @import url("https://fonts.googleapis.com/css?family=Poppins");

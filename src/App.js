@@ -17,7 +17,10 @@ import {
   RobotOutlined,
   KeyOutlined,
   LineChartOutlined,
-  ExperimentOutlined
+  ExperimentOutlined,
+  ThunderboltOutlined,
+  UsbOutlined,
+  BugOutlined
 } from '@ant-design/icons';
 import QuickMint from './components/QuickMint';
 import NFTStealer from './components/NFTStealer';
@@ -27,6 +30,7 @@ import LoginPage from './components/LoginPage';
 import AdminDashboard from './components/AdminDashboard';
 import Donations from './components/Donations';
 import MobileLogin from './components/mobile/MobileLogin';
+import Bots from './components/Bots';
 // import Stats from './components/Stats';
 
 const { Title } = Typography;
@@ -39,6 +43,7 @@ function App(props) {
   const [collapsed, setCollapsed] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
   const [cookies, setCookie] = useCookies(["userToken", "newKey", "buyKey"]);
+  const [darkMode, setDarkMode] = useState(true);
 
   const successMessage = (text) => {
     message.success(
@@ -62,6 +67,21 @@ function App(props) {
     });
   };
 
+  const updateStyleMode = () => {
+
+    if(!darkMode) {
+      let root = document.documentElement;
+      root.style.setProperty('--snow-color', 'snow');
+      root.style.setProperty('--dark-color', '#121212');
+      setDarkMode(!darkMode);
+    } else {
+      let root = document.documentElement;
+      root.style.setProperty('--snow-color', '#121212');
+      root.style.setProperty('--dark-color', 'snow');
+      setDarkMode(!darkMode);
+    }
+  }
+
   return (
     <>
     <BrowserView>
@@ -69,7 +89,8 @@ function App(props) {
     <Layout> 
         <Header className="header">
           <div className="logo" />
-          <Title style={{color: 'white', marginTop: '5px', marginLeft: '-30px'}}>Rudolph AIO</Title>
+          <Button onClick={updateStyleMode} style={{display: 'inline-block', marginLeft: '-30px'}}>{darkMode ? 'Light Mode' : 'Dark Mode'}</Button>
+          <Title id='mainTitle' style={{color: 'white', marginTop: '5px', marginLeft: '15px', display: 'inline-block'}}>Rudolph AIO</Title>
         </Header>
         <Layout style={{ minHeight: '95vh' }}>
           <Sider collapsible collapsed={collapsed} onCollapse={() => { setCollapsed(!collapsed)}}>
@@ -81,32 +102,37 @@ function App(props) {
                 </Link>
               </Menu.Item>
               <Menu.Item key="2" icon={<RobotOutlined />}>
+                <Link to="/dashboard/bots">
+                  Bots
+                </Link>
+              </Menu.Item>
+              <Menu.Item key="3" icon={<BugOutlined />}>
                 <Link to="/dashboard/mee6levels">
                   MEE6 Levels
                 </Link>
               </Menu.Item>
-              <Menu.Item key="3" icon={<ExperimentOutlined />}>
+              <Menu.Item key="4" icon={<ExperimentOutlined />}>
                 <Link to="/dashboard/generators">
                   Generators
                 </Link>
               </Menu.Item>
-              <Menu.Item key="4" icon={<DollarOutlined />}>
-                <Link to="/dashboard/donate">
-                  Donations :)
-                </Link>
-              </Menu.Item>
-              {/* <Menu.Item key="3" icon={<DollarOutlined />}>
+              {/* <Menu.Item key="5" icon={<ThunderboltOutlined />}>
                 <Link to="/dashboard/quickmint">
                   Quick Mint
                 </Link>
               </Menu.Item> */}
-              <Menu.Item key="5" icon={<DollarOutlined />}>
+              <Menu.Item key="5" icon={<UsbOutlined />}>
                 <Link to="/dashboard/nftstealer">
                   NFT Stealer
                 </Link>
               </Menu.Item>
+              <Menu.Item key="6" icon={<DollarOutlined />}>
+                <Link to="/dashboard/donate">
+                  Donations :)
+                </Link>
+              </Menu.Item>
               {adminList.includes(cookies.userToken) ? 
-              <Menu.Item key="6" icon={<KeyOutlined />}>
+              <Menu.Item key="8" icon={<KeyOutlined />}>
                 <Link to="/dashboard/admin">
                   Admin Dashboard
                 </Link>
@@ -119,11 +145,12 @@ function App(props) {
               <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
                   <Routes>
                     <Route path="/dashboard/stats" element={<h1>Stats</h1>} />
-                    <Route path="/dashboard/quickmint" element={<QuickMint />} />
+                    <Route path="/dashboard/quickmint" element={<QuickMint cookies={cookies} successMessage={successMessage} errorMessage={errorMessage}/>} />
                     <Route path="/dashboard/nftstealer" element={<NFTStealer />} />
                     <Route path="/dashboard/donate" element={<Donations successMessage={successMessage} errorMessage={errorMessage} />} />
                     <Route path="/dashboard/mee6levels" element={<MEE6Levels cookies={cookies} successMessage={successMessage} errorMessage={errorMessage}/>} />
                     <Route path="/dashboard/generators" element={<Generators successMessage={successMessage} errorMessage={errorMessage}/>} />
+                    <Route path="/dashboard/bots" element={<Bots cookies={cookies} successMessage={successMessage} errorMessage={errorMessage}/>} />
                     {adminList.includes(cookies.userToken) ? 
                       <Route path="/dashboard/admin" element={<AdminDashboard cookies={cookies} successMessage={successMessage} errorMessage={errorMessage}/>} />
                     : null}
