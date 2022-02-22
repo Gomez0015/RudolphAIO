@@ -220,7 +220,7 @@ exports.startFarming = async function(res, req) {
             console.log(`Logged in as ${client.user.tag}!`);
             // let checkIfBotExists = await levelFarms.findOne({ discordId: req.body.userToken, botName: client.user.tag });
             let checkIfBotExists = await allFarmData.find(obj => {
-                return (obj.discordId === req.body.userToken && obj.botName === client.user.tag);
+                return (obj.discordId === req.body.userToken && obj.botToken === req.body.token);
             });
 
             let avatar = 'https://sbcf.fr/wp-content/uploads/2018/03/sbcf-default-avatar.png'
