@@ -22,7 +22,6 @@ function Bots(props) {
     const [botSettings, setBotSettings] = useState({settingsVisible: false});
     const [spamSettingsCheckbox, setSpamSettingsCheckbox] = useState(false);
     const [deleteSettingsCheckbox, setDeleteSettingsCheckbox] = useState(false);
-    const [channelIdInput, setChannelIdInput] = useState('');
 
     const addBot = (e) => {
         setAddBotLoading(true);
@@ -148,7 +147,7 @@ function Bots(props) {
         >
           <form action='#' style={{textAlign: 'center'}} autocomplete="off" onSubmit={saveSettings}>
             <p>Change Channel Id</p>
-            <Input autocomplete="off" required type="text" value={channelIdInput} onChange={e => setChannelIdInput(e.target.value)} name="channelId" placeholder="Channel Id" defaultValue={botSettings.channelId}  style={{textAlign: 'center', width: '50%'}}/>
+            <Input autocomplete="off" required type="text" name="channelId" placeholder="Channel Id" defaultValue={botSettings.channelId}  style={{textAlign: 'center', width: '50%'}}/>
             <br />
             <p style={{marginTop: '30px'}}>Change Message Delay (minutes)</p>
             <Input autocomplete="off" required type="number" name="messageDelay" step="0.1" min='1' placeholder="Message Delay (minutes)" defaultValue={botSettings.messageDelay}  style={{textAlign: 'center', width: '50%'}}/>
@@ -190,7 +189,7 @@ function Bots(props) {
             <Card
               style={{ width: 300, display: 'inline-block', margin: '25px' }}
               actions={[
-                <SettingOutlined title="Edit Bot" key="edit" onClick={() => {setBotSettings(bot); setSpamSettingsCheckbox(bot.spam); setDeleteSettingsCheckbox(bot.delete); setChannelIdInput(bot.channelId); bot.settingsVisible = true;}}/>,
+                <SettingOutlined title="Edit Bot" key="edit" onClick={() => { setBotSettings(bot); setSpamSettingsCheckbox(bot.spam); setDeleteSettingsCheckbox(bot.delete); bot.settingsVisible = true;}}/>,
                 <PlusCircleOutlined title="Invite Bot" key="invite" onClick={() => {inviteBot(bot, prompt('Server Invite Code'));}}/>,
                 <Checkbox title="Select Bot" key="select" onClick={() => {selectBot(bot)}} />
               ]}
