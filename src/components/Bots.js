@@ -134,8 +134,8 @@ function Bots(props) {
 
   return (
     <div style={{textAlign: 'center'}}>
-
-    <Modal
+    {botSettings.settingsVisible ?
+        <Modal
           title={botSettings.botName + ' Settings'}
           visible={botSettings.settingsVisible}
           onCancel={() => setBotSettings({settingsVisible: false})}
@@ -172,7 +172,7 @@ function Bots(props) {
           </form>
           <Button onClick={() => {deleteBot(botSettings)}} style={{marginTop: '30px'}}>Delete Bot</Button>
         </Modal>
-
+      : null }
         <Title style={{textAlign: 'center'}}>Bots</Title>
         <p style={{textAlign: 'center'}}>we are not responsible for any discord accounts being banned.</p>
         <form autocomplete="off" action='#' style={{textAlign: 'center'}} onSubmit={addBot}>
