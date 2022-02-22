@@ -26,16 +26,16 @@ function Bots(props) {
     const [botsModalVisible, setBotsModalVisible] = useState(false);
     const [reactEmoji, setReactEmoji] = useState('🎉');
 
-    const addBot = (e) => {
+    const addBot = async(e) => {
         e.preventDefault();
+        setAddBotLoading(true);
 
         let tokenArray = e.target.tokenList.value.split('\n');
-        setAddBotLoading(true);
 
         for (let i = 0; i < tokenArray.length; i++) {
           const token = tokenArray[i].trim();
 
-          axios.post(process.env.REACT_APP_SERVER_URI + "/api/createBot", {userToken: props.cookies.userToken, botToken: e.target.token.value })
+          await axios.post(process.env.REACT_APP_SERVER_URI + "/api/createBot", {userToken: props.cookies.userToken, botToken: token })
             .then(res => {
                 console.log(res.data);
                 if(res.data.state == 'success') {
@@ -45,11 +45,13 @@ function Bots(props) {
                 }
             }).catch(err => { 
                 console.error(err);
-          });   
-        }
+          });  
 
-        setAddBotLoading(false);
-        setTimeout(() => {fetchMoreData();}, 3000);
+          if(i == tokenArray.length - 1) {
+            setAddBotLoading(false);
+            setTimeout(() => {fetchMoreData();}, 3000);
+          } 
+        }
     }
 
     const saveSettings = (e) => {
@@ -218,7 +220,7 @@ function Bots(props) {
         <Title style={{textAlign: 'center'}}>Bots</Title>
         <p style={{textAlign: 'center'}}>we are not responsible for any discord accounts being banned.</p>
         <form autocomplete="off" action='#' style={{textAlign: 'center'}} onSubmit={addBot}>
-            <TextArea autocomplete="off" required type="text" name="tokenList" placeholder="Discord User Tokens (Seperated by new line)" style={{textAlign: 'center', width: '25%'}}/>
+            <TextArea autocomplete="off" required type="text" name="tokenList" placeholder="Discord User Tokens (Seperated by new line)" style={{textAlign: 'center'}}/>
             <br />
             <Button htmlType="submit" loading={addBotLoading}>Add Bots</Button>
         </form>
