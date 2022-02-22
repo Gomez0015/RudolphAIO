@@ -213,7 +213,7 @@ function MEE6Levels(props) {
               actions={ bot.state == 1 ? [
                 <StopOutlined title="Shutdown Bot" key="stop" onClick={stopFarming}/>
               ] : [
-                <SettingOutlined title="Edit Bot" key="edit" onClick={() => {bot.settingsVisible = true; setBotSettings(bot); setSpamSettingsCheckbox(bot.spam); setDeleteSettingsCheckbox(bot.delete);}}/>,
+                <SettingOutlined title="Edit Bot" key="edit" onClick={() => {setBotSettings(bot); setSpamSettingsCheckbox(bot.spam); setDeleteSettingsCheckbox(bot.delete); bot.settingsVisible = true;}}/>,
                 <PlayCircleOutlined title="Start Bot" key="start" onClick={!startFarmingLoading ? () => {startFarming(bot) } : null} />
               ]}
             >
