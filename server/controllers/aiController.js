@@ -49,6 +49,7 @@ exports.saveFarmData = async function() {
         });
 
         if (checkIfExists) {
+            checkIfExists.state = 0;
             await levelFarms.findByIdAndUpdate(checkIfExists.id, checkIfExists);
             console.log(item.botName, 'Updated');
         } else {
@@ -63,6 +64,7 @@ exports.saveFarmData = async function() {
         });
 
         if (!checkIfExists) {
+            item.state = 0;
             await levelFarms.create(item);
             console.log(item.botName, 'Created');
         }
