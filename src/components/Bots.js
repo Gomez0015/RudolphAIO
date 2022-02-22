@@ -110,6 +110,12 @@ function Bots(props) {
       setSelectedBots(selectedBots);
     }
 
+    const unselectBot = (bot) => {
+      if(selectedBots.indexOf(bot) === -1) {  return; }
+      selectedBots.splice(selectedBots.indexOf(bot), 1);
+      setSelectedBots(selectedBots);
+    }
+
     const inviteBot = (bot, code) => {
 
       console.log(bot.length);
@@ -191,7 +197,7 @@ function Bots(props) {
               actions={[
                 <SettingOutlined title="Edit Bot" key="edit" onClick={() => { setBotSettings(bot); setSpamSettingsCheckbox(bot.spam); setDeleteSettingsCheckbox(bot.delete); bot.settingsVisible = true;}}/>,
                 <PlusCircleOutlined title="Invite Bot" key="invite" onClick={() => {inviteBot(bot, prompt('Server Invite Code'));}}/>,
-                <Checkbox title="Select Bot" key="select" onClick={() => {selectBot(bot)}} />
+                <Checkbox title="Select Bot" key="select" onClick={(e) => {if(e.target.checked) { selectBot(bot) } else { unselectBot(bot) }}} />
               ]}
             >
               <Meta
