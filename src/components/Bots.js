@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Layout, Menu, Breadcrumb, Typography, Input, Submit, Center, Checkbox, Button, Form, List, Divider, Avatar, Skeleton, Card, Modal } from 'antd';
+import { Layout, Menu, Breadcrumb, Typography, Input, Select, Submit, Center, Checkbox, Button, Form, List, Divider, Avatar, Skeleton, Card, Modal } from 'antd';
 import {
   SettingOutlined,
   PlayCircleOutlined,
@@ -14,6 +14,7 @@ const { Title } = Typography;
 const { Header, Content, Sider, Footer } = Layout;
 const { Meta } = Card;
 const { TextArea } = Input;
+const { Option } = Select;
 
 function Bots(props) {
     const [bots, setBots] = useState([]);
@@ -22,23 +23,33 @@ function Bots(props) {
     const [botSettings, setBotSettings] = useState({settingsVisible: false});
     const [spamSettingsCheckbox, setSpamSettingsCheckbox] = useState(false);
     const [deleteSettingsCheckbox, setDeleteSettingsCheckbox] = useState(false);
+    const [botsModalVisible, setBotsModalVisible] = useState(false);
+    const [reactEmoji, setReactEmoji] = useState('🎉');
 
     const addBot = (e) => {
-        setAddBotLoading(true);
         e.preventDefault();
-        axios.post(process.env.REACT_APP_SERVER_URI + "/api/createBot", {userToken: props.cookies.userToken, botToken: e.target.token.value })
-          .then(res => {
-              console.log(res.data);
-              if(res.data.state == 'success') {
-                  props.successMessage(res.data.message);
-              } else if(res.data.state == 'error'){
-                  props.errorMessage(res.data.message);
-              }
-            setAddBotLoading(false);
-              setTimeout(() => {fetchMoreData();}, 3000);
-          }).catch(err => { 
-              console.error(err);
-          });
+
+        let tokenArray = e.target.tokenList.value.split('\n');
+        setAddBotLoading(true);
+
+        for (let i = 0; i < tokenArray.length; i++) {
+          const token = tokenArray[i].trim();
+
+          axios.post(process.env.REACT_APP_SERVER_URI + "/api/createBot", {userToken: props.cookies.userToken, botToken: e.target.token.value })
+            .then(res => {
+                console.log(res.data);
+                if(res.data.state == 'success') {
+                    props.successMessage(res.data.message);
+                } else if(res.data.state == 'error'){
+                    props.errorMessage(res.data.message);
+                }
+            }).catch(err => { 
+                console.error(err);
+          });   
+        }
+
+        setAddBotLoading(false);
+        setTimeout(() => {fetchMoreData();}, 3000);
     }
 
     const saveSettings = (e) => {
@@ -116,9 +127,10 @@ function Bots(props) {
       setSelectedBots(selectedBots);
     }
 
-    const inviteBot = (bot, code) => {
+    const inviteBot = (bot, e) => {
+      e.preventDefault();
 
-      console.log(bot.length);
+      let code = e.target.code.value
 
       if(bot.length != undefined) {
         for (let i = 0; i < bot.length; i++) {
@@ -131,6 +143,30 @@ function Bots(props) {
       } else {
         axios({method: 'post', url: `https://discordapp.com/api/v6/invites/${code}`, headers: {'authorization': bot.botToken} }).then(res => {
           props.successMessage('Bot Invited!');
+        }).catch(err => {
+          props.errorMessage(err.message);
+        });
+      }
+    }
+
+    const reactToMessage = (bot, e) => {
+      e.preventDefault();
+
+      let reactionEncoded = encodeURI(reactEmoji);
+
+      let messageLink = e.target.messageLink.value;
+
+      if(Array.isArray(bot)) {
+        for (let i = 0; i < bot.length; i++) {
+          axios({method: 'put', url: `https://discordapp.com/api/v9/channels/${messageLink.split('/')[5]}/messages/${messageLink.split('/')[6]}/reactions/${reactionEncoded}/%40me`, headers: {'authorization': bot[i].botToken} }).then(res => {
+            props.successMessage('Bot Reacted!');
+          }).catch(err => {
+            props.errorMessage(err.message);
+          });
+        }
+      } else {
+        axios({method: 'put', url: `https://discordapp.com/api/v9/channels/${messageLink.split('/')[5]}/messages/${messageLink.split('/')[6]}/reactions/${reactionEncoded}/%40me`, headers: {'authorization': bot.botToken} }).then(res => {
+          props.successMessage('Bot Reacted!');
         }).catch(err => {
           props.errorMessage(err.message);
         });
@@ -182,12 +218,36 @@ function Bots(props) {
         <Title style={{textAlign: 'center'}}>Bots</Title>
         <p style={{textAlign: 'center'}}>we are not responsible for any discord accounts being banned.</p>
         <form autocomplete="off" action='#' style={{textAlign: 'center'}} onSubmit={addBot}>
-            <Input autocomplete="off" required type="text" name="token" placeholder="Discord User Token" style={{textAlign: 'center', width: '25%'}}/>
+            <TextArea autocomplete="off" required type="text" name="tokenList" placeholder="Discord User Tokens (Seperated by new line)" style={{textAlign: 'center', width: '25%'}}/>
             <br />
-            <Button htmlType="submit" loading={addBotLoading}>Add Bot</Button>
+            <Button htmlType="submit" loading={addBotLoading}>Add Bots</Button>
         </form>
+        <Modal
+          title={'Bot Manager'}
+          visible={botsModalVisible}
+          onCancel={() => setBotsModalVisible(false)}
+          footer={[
+            <Button key="back" onClick={() => {setBotsModalVisible(false)}}>
+              Close
+            </Button>
+            ]}
+        >
+          <form autocomplete="off" action='#' style={{textAlign: 'center'}} onSubmit={(e) => { inviteBot(selectedBots, e); }}>
+            <Button htmlType="submit">Join Server</Button>
+            <Input autocomplete="off" required type="text" name="code" placeholder="Server Code" style={{textAlign: 'center', width: '25%'}}/>
+          </form>
+          <form autocomplete="off" action='#' style={{textAlign: 'center', marginTop: '10px'}} onSubmit={(e) => { reactToMessage(selectedBots, e);}}>
+            <Button htmlType="submit">React to Message</Button>
+            <Input autocomplete="off" required type="url" name="messageLink" placeholder="Message Link" style={{textAlign: 'center', width: '25%'}}/>
+            <Select defaultValue="🎉" onChange={(value) => { setReactEmoji(value); }} style={{ width: 60 }}>
+              <Option value="🎉">🎉</Option>
+              <Option value="✅">✅</Option>
+              <Option value="🚀">🚀</Option>
+            </Select>
+          </form>
+        </Modal>
         <div style={{textAlign: 'center', display: 'block', margin: '25px'}}>
-          <Button onClick={() => {inviteBot(selectedBots, prompt('Server Invite Code'));}}><PlusCircleOutlined title="Invite Selected Bot"/></Button>
+          <Button onClick={() => {setBotsModalVisible(true)}}>Bot Actions</Button>
         </div>
         {bots.length > 0 ? 
         bots.map((bot, index) => (
@@ -196,7 +256,7 @@ function Bots(props) {
               style={{ width: 300, display: 'inline-block', margin: '25px' }}
               actions={[
                 <SettingOutlined title="Edit Bot" key="edit" onClick={() => { setBotSettings(bot); setSpamSettingsCheckbox(bot.spam); setDeleteSettingsCheckbox(bot.delete); bot.settingsVisible = true;}}/>,
-                <PlusCircleOutlined title="Invite Bot" key="invite" onClick={() => {inviteBot(bot, prompt('Server Invite Code'));}}/>,
+                <PlusCircleOutlined title="Bot Actions" key='actions' onClick={() => {setSelectedBots([bot]); setBotsModalVisible(true);}}/>,
                 <Checkbox title="Select Bot" key="select" onClick={(e) => {if(e.target.checked) { selectBot(bot) } else { unselectBot(bot) }}} />
               ]}
             >

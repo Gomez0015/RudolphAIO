@@ -1,5 +1,5 @@
-import 'antd/dist/antd.css';
 import './App.css';
+import 'antd/dist/antd.dark.css';
 import React, { useState } from 'react';
 import { BrowserView, MobileView, isBrowser, isMobile } from 'react-device-detect';
 import { Layout, Menu, Breadcrumb, Typography, message, Button } from 'antd';
@@ -43,7 +43,7 @@ function App(props) {
   const [collapsed, setCollapsed] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
   const [cookies, setCookie] = useCookies(["userToken", "newKey", "buyKey"]);
-  const [darkMode, setDarkMode] = useState(true);
+  // const [darkMode, setDarkMode] = useState(true);
 
   const successMessage = (text) => {
     message.success(
@@ -67,20 +67,20 @@ function App(props) {
     });
   };
 
-  const updateStyleMode = () => {
+  // const updateStyleMode = () => {
 
-    if(!darkMode) {
-      let root = document.documentElement;
-      root.style.setProperty('--snow-color', 'snow');
-      root.style.setProperty('--dark-color', '#121212');
-      setDarkMode(!darkMode);
-    } else {
-      let root = document.documentElement;
-      root.style.setProperty('--snow-color', '#121212');
-      root.style.setProperty('--dark-color', 'snow');
-      setDarkMode(!darkMode);
-    }
-  }
+  //   if(!darkMode) {
+  //     let root = document.documentElement;
+  //     root.classList.remove('dark-mode');
+  //     root.classList.add('light-mode');
+  //     setDarkMode(!darkMode);
+  //   } else {
+  //     let root = document.documentElement;
+  //     root.classList.remove('light-mode');
+  //     root.classList.add('dark-mode');
+  //     setDarkMode(!darkMode);
+  //   }
+  // }
 
   return (
     <>
@@ -89,7 +89,7 @@ function App(props) {
     <Layout> 
         <Header className="header">
           <div className="logo" />
-          <Button onClick={updateStyleMode} style={{display: 'inline-block', marginLeft: '-30px'}}>{darkMode ? 'Light Mode' : 'Dark Mode'}</Button>
+          {/* <Button onClick={updateStyleMode} style={{display: 'inline-block', marginLeft: '-30px'}}>{darkMode ? 'Light Mode' : 'Dark Mode'}</Button> */}
           <Title id='mainTitle' style={{color: 'white', marginTop: '5px', marginLeft: '15px', display: 'inline-block'}}>Rudolph AIO</Title>
         </Header>
         <Layout style={{ minHeight: '95vh' }}>

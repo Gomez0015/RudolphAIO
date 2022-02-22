@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import King from './King';
 import {   
   BrowserRouter,
   Routes,
@@ -11,7 +11,7 @@ import { CookiesProvider } from "react-cookie";
 ReactDOM.render(
   <BrowserRouter>
       <CookiesProvider>
-        <App />
+        <King />
       </CookiesProvider>
   </BrowserRouter>,
   document.getElementById('root')
