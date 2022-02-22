@@ -144,6 +144,7 @@ function MEE6Levels(props) {
 
   return (
     <div style={{textAlign: 'center'}}>
+      {botSettings.settingsVisible ?
         <Modal
           title={botSettings.botName + ' Settings'}
           visible={botSettings.settingsVisible}
@@ -181,6 +182,7 @@ function MEE6Levels(props) {
           </form>
           <Button onClick={() => {deleteBot(botSettings)}} style={{marginTop: '30px'}}>Delete Bot</Button>
         </Modal>
+      : null }
 
         <Title style={{textAlign: 'center'}}>MEE6 Levels</Title>
         <p style={{textAlign: 'center'}}>we are not responsible for any discord accounts being banned. use a burner. dont be lazy.</p>
