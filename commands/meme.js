@@ -1,9 +1,8 @@
-const memes = require("random-memes");
+const { getPost, getImage } = require('random-reddit')
 
 exports.run = async(bot, message, args) => {
-    memes.random().then(meme => {
-        message.channel.send(meme.image);
-    });
+    const image = await getImage('memes')
+    message.channel.send(image);
 }
 
 exports.info = {
