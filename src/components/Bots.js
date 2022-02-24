@@ -25,6 +25,7 @@ function Bots(props) {
     const [deleteSettingsCheckbox, setDeleteSettingsCheckbox] = useState(false);
     const [botsModalVisible, setBotsModalVisible] = useState(false);
     const [reactEmoji, setReactEmoji] = useState('🎉');
+    const [inviteBotLoading, setInviteBotLoading] = useState(false);
 
     const addBot = async(e) => {
         e.preventDefault();
@@ -129,74 +130,83 @@ function Bots(props) {
       setSelectedBots(selectedBots);
     }
 
-    const inviteBot = (bot, e) => {
+    const inviteBot = async(bot, e) => {
       e.preventDefault();
+      setInviteBotLoading(true);
 
       let code = e.target.code.value
       let userCaptchaApiKey = e.target.key.value
 
       if(bot.length != undefined) {
         for (let i = 0; i < bot.length; i++) {
-          axios({method: 'post', url: `https://discordapp.com/api/v6/invites/${code}`, headers: {'authorization': bot[i].botToken} }).then(res => {
+          await axios({method: 'post', url: `https://discordapp.com/api/v6/invites/${code}`, headers: {'authorization': bot[i].botToken} }).then(async (res) => {
             props.successMessage('Bot Invited!');
+            setInviteBotLoadin(false);
           }).catch(err => {
             console.log(err.response.data);
             if(err.response.data.captcha_sitekey) {
-              props.errorMessage('Detected Captcha trying to solve it...');
-              axios({method: 'post', url: `http://2captcha.com/in.php`, data: {json: 1, key: userCaptchaApiKey, method: 'hcaptcha', sitekey: err.response.data.captcha_sitekey, pageurl: 'https://discordapp.com/api/v6/invites/' + code}}). then(response => {
-                 console.log(response.data);
-                 setTimeout(() => {
-                   axios({method: 'get', url: `http://2captcha.com/res.php?action=get&key=${userCaptchaApiKey}&id=${response.data.request}`}). then(response => {
-                    console.log(response.data);
-                    let captchaSolved = response.data.request;
+              props.successMessage('Detected Captcha trying to solve it...');
 
-                    axios({method: 'post', url: `https://discordapp.com/api/v6/invites/${code}`, data: {captcha_key:captchaSolved }, headers: {'authorization': bot[i].botToken} }).then(res => {
-                      props.successMessage('Bot Invited!');
+              axios.post(process.env.REACT_APP_SERVER_URI + "/api/solveCaptcha", {apiKey: userCaptchaApiKey, serverCode: code, captcha_sitekey: err.response.data.captcha_sitekey, method: err.response.data.captcha_service}).then(async (response) => {
+                  console.log(response.data);
+
+                  if(response.data.state == 'success') {
+                    await axios({ method: 'post', url: `https://discordapp.com/api/v6/invites/${code}`, data: { captcha_key: response.data.captchaSolved }, headers: { 'authorization': bot[i].botToken } }).then(async (response) => {
+                        props.successMessage('Bot Invited!');
+                        setInviteBotLoadin(false);
                     }).catch(err => {
-                      props.errorMessage(err.message);
+                        props.errorMessage(err.message);
+                        setInviteBotLoadin(false);
                     });
+                  } else {
+                    props.errorMessage(response.data.message);
+                    setInviteBotLoadin(false);
+                  }
 
-                   }).catch(err => {
-                    props.errorMessage(err.message);
-                  });;
-                 }, 20000);
               }).catch(err => {
                 props.errorMessage(err.message);
+                setInviteBotLoadin(false);
               });
+
             } else {
-              props.errorMessage(err.message);
+              props.errorMessage(err.response.data.message);
+              setInviteBotLoadin(false);
             }
           });
         }
       } else {
-        axios({method: 'post', url: `https://discordapp.com/api/v6/invites/${code}`, headers: {'authorization': bot.botToken} }).then(res => {
+        await axios({method: 'post', url: `https://discordapp.com/api/v6/invites/${code}`, headers: {'authorization': bot.botToken} }).then(async (res) => {
             props.successMessage('Bot Invited!');
+            setInviteBotLoadin(false);
           }).catch(err => {
             console.log(err.response.data);
             if(err.response.data.captcha_sitekey) {
-              props.errorMessage('Detected Captcha trying to solve it...');
-              axios({method: 'post', url: `http://2captcha.com/in.php`, data: {json: 1, key: userCaptchaApiKey, method: 'hcaptcha', sitekey: err.response.data.captcha_sitekey, pageurl: 'https://discordapp.com/api/v6/invites/' + code}}). then(response => {
-                 console.log(response.data);
-                 setTimeout(() => {
-                   axios({method: 'get', url: `http://2captcha.com/res.php?action=get&key=${userCaptchaApiKey}&id=${response.data.request}`}). then(response => {
-                    console.log(response.data);
-                    let captchaSolved = response.data.request;
+              props.successMessage('Detected Captcha trying to solve it...');
 
-                    axios({method: 'post', url: `https://discordapp.com/api/v6/invites/${code}`, data: {captcha_key:captchaSolved }, headers: {'authorization': bot.botToken} }).then(res => {
-                      props.successMessage('Bot Invited!');
+              axios.post(process.env.REACT_APP_SERVER_URI + "/api/solveCaptcha", {apiKey: userCaptchaApiKey, serverCode: code, captcha_sitekey: err.response.data.captcha_sitekey, method: err.response.data.captcha_service}).then(async (response) => {
+                  console.log(response.data);
+
+                  if(response.data.state == 'success') {
+                    await axios({ method: 'post', url: `https://discordapp.com/api/v6/invites/${code}`, data: { captcha_key: response.data.captchaSolved }, headers: { 'authorization': bot.botToken } }).then(async (response) => {
+                        props.successMessage('Bot Invited!');
+                        setInviteBotLoadin(false);
                     }).catch(err => {
-                      props.errorMessage(err.message);
+                        props.errorMessage(err.message);
+                        setInviteBotLoadin(false);
                     });
+                  } else {
+                    props.errorMessage(response.data.message);
+                    setInviteBotLoadin(false);
+                  }
 
-                   }).catch(err => {
-                    props.errorMessage(err.message);
-                  });;
-                 }, 20000);
               }).catch(err => {
                 props.errorMessage(err.message);
+                setInviteBotLoadin(false);
               });
+
             } else {
-              props.errorMessage(err.message);
+              props.errorMessage(err.response.data.message);
+              setInviteBotLoadin(false);
             }
           });
       }
@@ -286,12 +296,12 @@ function Bots(props) {
             ]}
         >
           <form autocomplete="off" action='#' style={{textAlign: 'center'}} onSubmit={(e) => { inviteBot(selectedBots, e); }}>
-            <Button htmlType="submit">Join Server</Button>
+            <Button htmlType="submit" loading={inviteBotLoading}>Join Server</Button>
             <Input autocomplete="off" required type="text" name="code" placeholder="Server Code" style={{textAlign: 'center', width: '25%'}}/>
             <Input autocomplete="off" type="text" name="key" placeholder="2Captcha API Key" style={{textAlign: 'center', width: '25%'}}/>
           </form>
           <form autocomplete="off" action='#' style={{textAlign: 'center', marginTop: '10px'}} onSubmit={(e) => { reactToMessage(selectedBots, e);}}>
-            <Button htmlType="submit">React to Message</Button>
+            <Button htmlType="submit" loading={inviteBotLoading}>React to Message</Button>
             <Input autocomplete="off" required type="url" name="messageLink" placeholder="Message Link" style={{textAlign: 'center', width: '25%'}}/>
             <Select defaultValue="🎉" onChange={(value) => { setReactEmoji(value); }} style={{ width: 60 }}>
               <Option value="🎉">🎉</Option>

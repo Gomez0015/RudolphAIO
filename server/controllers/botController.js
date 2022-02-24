@@ -2,6 +2,7 @@ const levelFarms = require('../models/levelFarmModel');
 const dashboardKeys = require('../models/dashboardKeysModel');
 const serverData = require('../server.js');
 const Discord = require('discord.js-selfbot');
+const axios = require('axios');
 
 exports.createBot = async function(req, res) {
     let allFarmData = serverData.allFarmData;
@@ -131,4 +132,42 @@ exports.deleteBot = async function(res, req) {
     }
 
     serverData.updateFarmData(allFarmData);
+}
+
+exports.solveCaptcha = async function(res, req) {
+    function sleep(ms) {
+        return new Promise((resolve) => {
+            setTimeout(resolve, ms);
+        });
+    }
+    await axios({ method: 'post', url: `http://2captcha.com/in.php`, data: { json: 1, key: req.body.apiKey, method: req.body.method, sitekey: req.body.captcha_sitekey, pageurl: 'https://discordapp.com/api/v6/invites/' + req.body.serverCode } }).then(async(response) => {
+        if (response.data.status == 0) {
+            res.send({ state: 'error', message: response.data.error_text });
+        } else {
+            let done = false;
+            while (!done) {
+                await sleep(5000);
+                await (async() => {
+                    await axios({ method: 'get', url: `http://2captcha.com/res.php?action=get&key=${req.body.apiKey}&id=${response.data.request}&json=1` }).then(response => {
+                        if (response.data.status == 0) {
+                            if (!(response.data.request == 'CAPCHA_NOT_READY')) {
+                                res.send({ state: 'error', message: response.data.request });
+                                done = true;
+                            }
+                        } else {
+                            let captchaSolved = response.data.request;
+
+                            done = true;
+                            res.send({ state: 'success', captchaSolved: captchaSolved });
+                        }
+                    }).catch(err => {
+                        res.send({ state: 'error', message: err.message });
+                    });
+                })();
+                await sleep(1000);
+            }
+        }
+    }).catch(err => {
+        res.send({ state: 'error', message: err.message });
+    });
 }

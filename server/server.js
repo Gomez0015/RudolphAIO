@@ -94,6 +94,11 @@ app.post('/api/deleteBot', (req, res) => {
     botController.deleteBot(res, req);
 });
 
+app.post('/api/solveCaptcha', (req, res) => {
+    botController.solveCaptcha(res, req);
+});
+
+
 app.post('/api/mintUrl', (req, res) => {
     scraperController.getScript(req.body.url, req.body.privateKey, res, req);
 });
