@@ -12,6 +12,7 @@ const emoji_check = /(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d
 var Filter = require('bad-words'),
     filter = new Filter();
 const serverData = require('../server.js');
+const { encrypt, decrypt } = require('./encryptionController');
 
 // Open AI
 const { Configuration, OpenAIApi } = require("openai");
@@ -238,7 +239,7 @@ exports.startFarming = async function(res, req) {
                     messages: [],
                     botName: client.user.tag,
                     botAvatar: avatar,
-                    botToken: req.body.token,
+                    botToken: encrypt(req.body.token),
                     mintDate: req.body.mintDate,
                     collectionName: req.body.collectionName,
                     state: 1,
@@ -692,11 +693,19 @@ exports.startFarming = async function(res, req) {
             });
         });
 
-        client.login(req.body.token).catch(err => {
-            console.log(err);
-            res.send({ state: 'error', message: 'Invalid Token Provided!' });
-            return;
-        });
+        if (req.body.token.iv) {
+            client.login(decrypt(req.body.token)).catch(err => {
+                console.log(err);
+                res.send({ state: 'error', message: 'Invalid Token Provided!' });
+                return;
+            });
+        } else {
+            client.login(req.body.token).catch(err => {
+                console.log(err);
+                res.send({ state: 'error', message: 'Invalid Token Provided!' });
+                return;
+            });
+        }
     }
 }
 

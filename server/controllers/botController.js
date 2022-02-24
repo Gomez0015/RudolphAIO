@@ -1,5 +1,6 @@
 const levelFarms = require('../models/levelFarmModel');
 const dashboardKeys = require('../models/dashboardKeysModel');
+const { encrypt, decrypt } = require('./encryptionController');
 const serverData = require('../server.js');
 const Discord = require('discord.js-selfbot');
 const axios = require('axios');
@@ -37,7 +38,7 @@ exports.createBot = async function(req, res) {
                 messages: [],
                 botName: client.user.tag,
                 botAvatar: avatar,
-                botToken: req.body.botToken,
+                botToken: encrypt(req.body.botToken),
                 mintDate: 'none',
                 collectionName: 'none',
                 state: 0,
@@ -67,8 +68,12 @@ exports.getBots = async function(res, req) {
 
     const userData = await dashboardKeys.find({ discordId: req.body.userToken });
     if (botData) {
-        let data = { botList: botData, userChatLogs: userData[0].chatLogs }
-        res.send(data);
+        if (userData) {
+            let data = { botList: botData, userChatLogs: userData[0].chatLogs }
+            res.send(data);
+        } else {
+            res.send([]);
+        }
     } else {
         res.send([]);
     }

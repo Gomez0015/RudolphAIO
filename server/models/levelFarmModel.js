@@ -31,7 +31,7 @@ var levelFarmSchema = new Schema({
         type: String
     },
     botToken: {
-        type: String,
+        type: Object,
         required: true
     },
     messageDelay: {
