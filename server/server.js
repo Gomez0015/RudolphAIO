@@ -9,11 +9,12 @@ const botController = require('./controllers/botController');
 const levelFarms = require('./models/levelFarmModel');
 const dashboardKeys = require('./models/dashboardKeysModel');
 const axios = require('axios');
+const { v4: uuidv4 } = require('uuid');
 const mongoose = require('mongoose');
 const path = require("path");
 const helmet = require("helmet");
 const db = mongoose.connection;
-const dotenv = require('dotenv')
+const dotenv = require('dotenv');
 dotenv.config()
 
 const app = express()
@@ -156,12 +157,19 @@ app.post('/api/getDiscordAuthInfo', async(req, res) => {
             const result = await userResult.data;
 
             if (result.code != 0) {
+                let generatedAuthToken = uuidv4();
+                await dashboardKeys.updateOne({ discordId: result.id }, { authToken: generatedAuthToken });
+                result.authToken = generatedAuthToken;
+
                 res.send(result);
             } else {
                 res.send({ state: 'error', message: 'Error getting user info' });
             }
         }
-    }).catch((err) => res.send({ state: 'error', message: 'Error getting user info' }));
+    }).catch((err) => {
+        console.log(err.message, 1);
+        res.send({ state: 'error', message: 'Error getting user info' })
+    });
 });
 
 app.get('/api/discordLogin', (req, res) => {
