@@ -20,7 +20,7 @@ exports.createBot = async function(req, res) {
         console.log(`Logged in as ${client.user.tag}!`);
 
         let checkIfBotExists = await allFarmData.find(obj => {
-            return (obj.discordId === req.body.userToken && obj.botToken === req.body.botToken);
+            return (obj.discordId === req.body.userToken && decrypt(obj.botToken) === req.body.botToken);
         });
 
         let avatar = 'https://sbcf.fr/wp-content/uploads/2018/03/sbcf-default-avatar.png'
