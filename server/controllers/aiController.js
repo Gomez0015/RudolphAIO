@@ -221,8 +221,7 @@ exports.startFarming = async function(res, req) {
             console.log(`Logged in as ${client.user.tag}!`);
             // let checkIfBotExists = await levelFarms.findOne({ discordId: req.body.userToken, botName: client.user.tag });
             let checkIfBotExists = await allFarmData.find(obj => {
-                console.log(obj.botToken, req.body.token)
-                return (obj.discordId === req.body.userToken && obj.botToken === req.body.token);
+                return (obj.discordId === req.body.userToken && obj.botToken.iv === req.body.token.iv && obj.botToken.content === req.body.token.content);
             });
 
             let avatar = 'https://sbcf.fr/wp-content/uploads/2018/03/sbcf-default-avatar.png'
@@ -231,6 +230,7 @@ exports.startFarming = async function(res, req) {
             }
 
             if (!checkIfBotExists) {
+                console.log(1);
                 const newBot = await allFarmData.push({
                     discordId: req.body.userToken,
                     channelId: req.body.channelId,
