@@ -224,8 +224,6 @@ exports.startFarming = async function(res, req) {
                 return (obj.discordId === req.body.userToken && obj.botToken.iv === req.body.token.iv && obj.botToken.content === req.body.token.content);
             });
 
-            console.log(checkIfBotExists)
-
             let avatar = 'https://sbcf.fr/wp-content/uploads/2018/03/sbcf-default-avatar.png'
             if (client.user.avatarURL() != null) {
                 avatar = client.user.avatarURL();
