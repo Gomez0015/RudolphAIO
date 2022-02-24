@@ -141,7 +141,7 @@ function Bots(props) {
         for (let i = 0; i < bot.length; i++) {
           await axios({method: 'post', url: `https://discordapp.com/api/v6/invites/${code}`, headers: {'authorization': bot[i].botToken} }).then(async (res) => {
             props.successMessage('Bot Invited!');
-            setInviteBotLoadin(false);
+            setInviteBotLoading(false);
           }).catch(err => {
             console.log(err.response.data);
             if(err.response.data.captcha_sitekey) {
@@ -153,31 +153,31 @@ function Bots(props) {
                   if(response.data.state == 'success') {
                     await axios({ method: 'post', url: `https://discordapp.com/api/v6/invites/${code}`, data: { captcha_key: response.data.captchaSolved }, headers: { 'authorization': bot[i].botToken } }).then(async (response) => {
                         props.successMessage('Bot Invited!');
-                        setInviteBotLoadin(false);
+                        setInviteBotLoading(false);
                     }).catch(err => {
                         props.errorMessage(err.message);
-                        setInviteBotLoadin(false);
+                        setInviteBotLoading(false);
                     });
                   } else {
                     props.errorMessage(response.data.message);
-                    setInviteBotLoadin(false);
+                    setInviteBotLoading(false);
                   }
 
               }).catch(err => {
                 props.errorMessage(err.message);
-                setInviteBotLoadin(false);
+                setInviteBotLoading(false);
               });
 
             } else {
               props.errorMessage(err.response.data.message);
-              setInviteBotLoadin(false);
+              setInviteBotLoading(false);
             }
           });
         }
       } else {
         await axios({method: 'post', url: `https://discordapp.com/api/v6/invites/${code}`, headers: {'authorization': bot.botToken} }).then(async (res) => {
             props.successMessage('Bot Invited!');
-            setInviteBotLoadin(false);
+            setInviteBotLoading(false);
           }).catch(err => {
             console.log(err.response.data);
             if(err.response.data.captcha_sitekey) {
@@ -189,24 +189,24 @@ function Bots(props) {
                   if(response.data.state == 'success') {
                     await axios({ method: 'post', url: `https://discordapp.com/api/v6/invites/${code}`, data: { captcha_key: response.data.captchaSolved }, headers: { 'authorization': bot.botToken } }).then(async (response) => {
                         props.successMessage('Bot Invited!');
-                        setInviteBotLoadin(false);
+                        setInviteBotLoading(false);
                     }).catch(err => {
                         props.errorMessage(err.message);
-                        setInviteBotLoadin(false);
+                        setInviteBotLoading(false);
                     });
                   } else {
                     props.errorMessage(response.data.message);
-                    setInviteBotLoadin(false);
+                    setInviteBotLoading(false);
                   }
 
               }).catch(err => {
                 props.errorMessage(err.message);
-                setInviteBotLoadin(false);
+                setInviteBotLoading(false);
               });
 
             } else {
               props.errorMessage(err.response.data.message);
-              setInviteBotLoadin(false);
+              setInviteBotLoading(false);
             }
           });
       }
