@@ -44,10 +44,11 @@ app.use(helmet({
         directives: {
             ...helmet.contentSecurityPolicy.getDefaultDirectives(),
             "img-src": ["'self'", "data: https:"],
-            "default-src": ["'self'", "https://api.mainnet-beta.solana.com/", "wss://api.mainnet-beta.solana.com/", "https://api.opensea.io/", "https://lh3.googleusercontent.com/", "https://discordapp.com/"]
+            "default-src": ["'self'", "https://api.mainnet-beta.solana.com/", "wss://api.mainnet-beta.solana.com/", "https://api.opensea.io/", "https://lh3.googleusercontent.com/", "https://discordapp.com/", "http://2captcha.com/"]
         }
     }
 }));
+
 app.use(express.static(path.join(__dirname, "..", "build")));
 app.use(bodyParser.urlencoded({
     extended: true

@@ -133,21 +133,72 @@ function Bots(props) {
       e.preventDefault();
 
       let code = e.target.code.value
+      let userCaptchaApiKey = e.target.key.value
 
       if(bot.length != undefined) {
         for (let i = 0; i < bot.length; i++) {
           axios({method: 'post', url: `https://discordapp.com/api/v6/invites/${code}`, headers: {'authorization': bot[i].botToken} }).then(res => {
             props.successMessage('Bot Invited!');
           }).catch(err => {
-            props.errorMessage(err.message);
+            console.log(err.response.data);
+            if(err.response.data.captcha_sitekey) {
+              props.errorMessage('Detected Captcha trying to solve it...');
+              axios({method: 'post', url: `http://2captcha.com/in.php`, data: {json: 1, key: userCaptchaApiKey, method: 'hcaptcha', sitekey: err.response.data.captcha_sitekey, pageurl: 'https://discordapp.com/api/v6/invites/' + code}}). then(response => {
+                 console.log(response.data);
+                 setTimeout(() => {
+                   axios({method: 'get', url: `http://2captcha.com/res.php?action=get&key=${userCaptchaApiKey}&id=${response.data.request}`}). then(response => {
+                    console.log(response.data);
+                    let captchaSolved = response.data.request;
+
+                    axios({method: 'post', url: `https://discordapp.com/api/v6/invites/${code}`, data: {captcha_key:captchaSolved }, headers: {'authorization': bot[i].botToken} }).then(res => {
+                      props.successMessage('Bot Invited!');
+                    }).catch(err => {
+                      props.errorMessage(err.message);
+                    });
+
+                   }).catch(err => {
+                    props.errorMessage(err.message);
+                  });;
+                 }, 20000);
+              }).catch(err => {
+                props.errorMessage(err.message);
+              });
+            } else {
+              props.errorMessage(err.message);
+            }
           });
         }
       } else {
         axios({method: 'post', url: `https://discordapp.com/api/v6/invites/${code}`, headers: {'authorization': bot.botToken} }).then(res => {
-          props.successMessage('Bot Invited!');
-        }).catch(err => {
-          props.errorMessage(err.message);
-        });
+            props.successMessage('Bot Invited!');
+          }).catch(err => {
+            console.log(err.response.data);
+            if(err.response.data.captcha_sitekey) {
+              props.errorMessage('Detected Captcha trying to solve it...');
+              axios({method: 'post', url: `http://2captcha.com/in.php`, data: {json: 1, key: userCaptchaApiKey, method: 'hcaptcha', sitekey: err.response.data.captcha_sitekey, pageurl: 'https://discordapp.com/api/v6/invites/' + code}}). then(response => {
+                 console.log(response.data);
+                 setTimeout(() => {
+                   axios({method: 'get', url: `http://2captcha.com/res.php?action=get&key=${userCaptchaApiKey}&id=${response.data.request}`}). then(response => {
+                    console.log(response.data);
+                    let captchaSolved = response.data.request;
+
+                    axios({method: 'post', url: `https://discordapp.com/api/v6/invites/${code}`, data: {captcha_key:captchaSolved }, headers: {'authorization': bot.botToken} }).then(res => {
+                      props.successMessage('Bot Invited!');
+                    }).catch(err => {
+                      props.errorMessage(err.message);
+                    });
+
+                   }).catch(err => {
+                    props.errorMessage(err.message);
+                  });;
+                 }, 20000);
+              }).catch(err => {
+                props.errorMessage(err.message);
+              });
+            } else {
+              props.errorMessage(err.message);
+            }
+          });
       }
     }
 
@@ -237,6 +288,7 @@ function Bots(props) {
           <form autocomplete="off" action='#' style={{textAlign: 'center'}} onSubmit={(e) => { inviteBot(selectedBots, e); }}>
             <Button htmlType="submit">Join Server</Button>
             <Input autocomplete="off" required type="text" name="code" placeholder="Server Code" style={{textAlign: 'center', width: '25%'}}/>
+            <Input autocomplete="off" type="text" name="key" placeholder="2Captcha API Key" style={{textAlign: 'center', width: '25%'}}/>
           </form>
           <form autocomplete="off" action='#' style={{textAlign: 'center', marginTop: '10px'}} onSubmit={(e) => { reactToMessage(selectedBots, e);}}>
             <Button htmlType="submit">React to Message</Button>
