@@ -213,7 +213,7 @@ exports.startFarming = async function(res, req) {
             console.log('DISCORD ERROR: A websocket connection encountered an error:', error.message);
         });
         process.on('unhandledRejection', error => {
-            console.log('DISCORD ERROR: Unhandled promise rejection:', error.message);
+            console.log('DISCORD ERROR: Unhandled promise rejection:', error);
         });
 
 
@@ -221,6 +221,7 @@ exports.startFarming = async function(res, req) {
             console.log(`Logged in as ${client.user.tag}!`);
             // let checkIfBotExists = await levelFarms.findOne({ discordId: req.body.userToken, botName: client.user.tag });
             let checkIfBotExists = await allFarmData.find(obj => {
+                console.log(obj.botToken, req.body.token)
                 return (obj.discordId === req.body.userToken && obj.botToken === req.body.token);
             });
 
@@ -694,7 +695,6 @@ exports.startFarming = async function(res, req) {
         });
 
         if (req.body.token.iv) {
-            console.log(req.body.token, decrypt(req.body.token));
             client.login(decrypt(req.body.token)).catch(err => {
                 console.log(err);
                 res.send({ state: 'error', message: 'Invalid Token Provided!' });
