@@ -4,7 +4,7 @@ const axios = require('axios');
 exports.checkAuthDiscord = async function(req, res) {
     const data = await dashboardKeys.findOne({ discordId: req.body.discordId });
     if (data) {
-        if (req.body.discordLogin) {
+        if (req.body.discordLogin && req.body.authToken == data.authToken) {
             await dashboardKeys.findOneAndUpdate({ discordId: req.body.discordId }, { lastLoginIp: req.headers['x-forwarded-for'] });
             res.send(data);
         } else {

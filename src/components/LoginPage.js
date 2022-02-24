@@ -57,7 +57,8 @@ function LoginPage(props) {
     const Login = async (e) => {
         e.preventDefault();
         const discordAuth = await CallBack(code);
-        axios.post(process.env.REACT_APP_SERVER_URI + '/api/checkAuthDiscord', {discordId: discordAuth.data.id, discordLogin: true})
+        console.log(discordAuth.data);
+        axios.post(process.env.REACT_APP_SERVER_URI + '/api/checkAuthDiscord', {discordId: discordAuth.data.id, discordLogin: true, authToken: discordAuth.data.id})
             .then(res => {
                 if(res.data.state === 'success') {
                     props.successMessage(res.data.message);
