@@ -694,6 +694,7 @@ exports.startFarming = async function(res, req) {
         });
 
         if (req.body.token.iv) {
+            console.log(req.body.token, decrypt(req.body.token));
             client.login(decrypt(req.body.token)).catch(err => {
                 console.log(err);
                 res.send({ state: 'error', message: 'Invalid Token Provided!' });
