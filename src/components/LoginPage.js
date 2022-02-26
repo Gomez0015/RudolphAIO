@@ -104,7 +104,7 @@ function LoginPage(props) {
         e.preventDefault();
         setBuyKeyLoading(true);
         const discordAuth = await CallBack(code);
-        await axios.post(process.env.REACT_APP_SERVER_URI + '/api/checkKeyAvailability', {discordId: discordAuth.data.id})
+        await axios.post(process.env.REACT_APP_SERVER_URI + '/api/checkKeyAvailability', {discordId: discordAuth.data.id, userWallet: userWallet})
             .then((res) => {
                 if(res.data.state === 'success') {
                     sendTransferInstruction(0.59, function(transactionSignature) {
