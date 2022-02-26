@@ -104,31 +104,35 @@ function LoginPage(props) {
         e.preventDefault();
         setBuyKeyLoading(true);
         const discordAuth = await CallBack(code);
-        if(process.env.REACT_APP_WHITE_LIST.includes(discordAuth.data.id)){
-            await sendTransferInstruction(0.35, async function(transactionSignature) {
-                axios.post(process.env.REACT_APP_SERVER_URI + '/api/generateNewKey', {discordId: discordAuth.data.id, signature: transactionSignature})
-                    .then(res => {
-                        setBuyKeyCookie(false);
-                        setBuyKeyLoading(false);
-
-                        if(res.data.state === 'success') {
-                            navigate("/dashboard", { replace: true })
-                            props.successMessage(res.data.message);
-                            props.setCookie("userToken", discordAuth.data.id, {
-                                path: "/"
+        axios.post(process.env.REACT_APP_SERVER_URI + '/api/generateNewKey', {discordId: discordAuth.data.id})
+            .then(res => {
+                if(res.data.state === 'success') {
+                    await sendTransferInstruction(0.35, async function(transactionSignature) {
+                        axios.post(process.env.REACT_APP_SERVER_URI + '/api/generateNewKey', {discordId: discordAuth.data.id, signature: transactionSignature})
+                            .then(res => {
+                                setBuyKeyCookie(false);
+                                setBuyKeyLoading(false);
+                                if(res.data.state === 'success') {
+                                    navigate("/dashboard", { replace: true })
+                                    props.successMessage(res.data.message);
+                                    props.setCookie("userToken", discordAuth.data.id, {
+                                        path: "/"
+                                    });
+                                } else if(res.data.state === 'error'){
+                                    navigate("/dashboard", { replace: true })
+                                    props.errorMessage(res.data.message);
+                                }
+                            }).catch(err => {
+                                console.error(err);
                             });
-                        } else if(res.data.state === 'error'){
-                            navigate("/dashboard", { replace: true })
-                            props.errorMessage(res.data.message);
-                        }
-
-                    }).catch(err => {
-                        console.error(err);
                     });
+                } else if(res.data.state === 'error'){
+                    props.errorMessage(res.data.message);
+                }
+            }).catch(err => {
+                console.error(err);
+                props.errorMessage(err.message);
             });
-        } else {
-            props.errorMessage('You are not in the whitelist!');
-        }
     }
 
     const CallBack = async (code) => {

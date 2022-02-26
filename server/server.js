@@ -184,6 +184,11 @@ app.post('/api/linkKeyDiscord', (req, res) => {
     userAuthController.linkKeyDiscord(res, req);
 });
 
+app.post('/api/checkKeyAvailability', (req, res) => {
+    userAuthController.checkKeyAvailability(req, res);
+});
+
+
 app.post('/api/generateNewKey', (req, res) => {
     userAuthController.generateNewKey(req, res);
 });
