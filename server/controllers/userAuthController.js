@@ -55,63 +55,65 @@ exports.checkKeyAvailability = async function(req, res) {
 exports.generateNewKey = async function(req, res) {
     const checkUserHasKey = await dashboardKeys.findOne({ discordId: req.body.discordId });
     await axios.get('https://public-api.solscan.io/transaction/' + req.body.signature).then(async function(response) {
-        let now = new Date().getTime();
-        const thirtyminutes = 1800000;
+        // let now = new Date();
+        // const thirtyminutes = 1800000;
 
-        if ((now - (new Date(response.data.blockTime).getTime())) < thirtyminutes) {
-            if (response.data.solTransfers[0].destination == '9St1VZtnsTQ8KLvjjySt4Ra5k2PX8HpoLCTau86t3imZ') {
-                if (response.data.status.toLowerCase() == "success") {
-                    // if (process.env.WHITE_LIST.includes(req.body.discordId)) {
-                    // } else {
-                    //     console.log('no whitelist error', req.body.discordId, req.body.signature);
-                    //     res.send({ state: 'error', message: 'You are not whitelisted!' });
-                    // }
-                    async function genKey(length) {
-                        // Use crypto.getRandomValues if available
-                        if (
-                            typeof crypto !== 'undefined' &&
-                            typeof crypto.getRandomValues === 'function'
-                        ) {
-                            var tmp = new Uint8Array(Math.max((~~length) / 2));
-                            crypto.getRandomValues(tmp);
-                            return Array.from(tmp)
-                                .map(n => ('0' + n.toString(16)).substr(-2))
-                                .join('')
-                                .substr(0, length);
-                        }
+        // console.log(now, new Date(response.data.blockTime), moment.utc(moment(now, "DD/MM/YYYY HH:mm:ss").diff(moment(new Date(response.data.blockTime), "DD/MM/YYYY HH:mm:ss"))).format("HH:mm:ss"));
 
-                        // fallback to Math.getRandomValues
-                        var ret = "";
-                        while (ret.length < length) {
-                            ret += Math.random().toString(16).substring(2);
-                        }
-                        return ret.substring(0, length);
+        // if ((now - (new Date(response.data.blockTime))) < thirtyminutes) {
+        if (response.data.solTransfers[0].destination == '9St1VZtnsTQ8KLvjjySt4Ra5k2PX8HpoLCTau86t3imZ') {
+            if (response.data.status.toLowerCase() == "success") {
+                // if (process.env.WHITE_LIST.includes(req.body.discordId)) {
+                // } else {
+                //     console.log('no whitelist error', req.body.discordId, req.body.signature);
+                //     res.send({ state: 'error', message: 'You are not whitelisted!' });
+                // }
+                async function genKey(length) {
+                    // Use crypto.getRandomValues if available
+                    if (
+                        typeof crypto !== 'undefined' &&
+                        typeof crypto.getRandomValues === 'function'
+                    ) {
+                        var tmp = new Uint8Array(Math.max((~~length) / 2));
+                        crypto.getRandomValues(tmp);
+                        return Array.from(tmp)
+                            .map(n => ('0' + n.toString(16)).substr(-2))
+                            .join('')
+                            .substr(0, length);
                     }
 
-                    const generatedKey = await genKey(29);
-                    const checkKeyExists = await dashboardKeys.findOne({ key: generatedKey });
-
-                    if (!checkKeyExists) {
-                        await dashboardKeys.create({ key: generatedKey.toUpperCase(), discordId: req.body.discordId, expired: 'false', start_date: new Date() });
-                        res.send({ state: 'success', message: 'Key has been generated, you can now login!' });
-                    } else {
-                        console.log('recall function, key already exists', req.body.discordId, req.body.signature);
-                        res.send({ state: 'error', message: 'Contact a server Administrator, an error has occurred' });
+                    // fallback to Math.getRandomValues
+                    var ret = "";
+                    while (ret.length < length) {
+                        ret += Math.random().toString(16).substring(2);
                     }
+                    return ret.substring(0, length);
+                }
+
+                const generatedKey = await genKey(29);
+                const checkKeyExists = await dashboardKeys.findOne({ key: generatedKey });
+
+                if (!checkKeyExists) {
+                    await dashboardKeys.create({ key: generatedKey.toUpperCase(), discordId: req.body.discordId, expired: 'false', start_date: new Date() });
+                    res.send({ state: 'success', message: 'Key has been generated, you can now login!' });
                 } else {
-                    console.log('solana transaction failed', req.body.discordId, req.body.signature);
-                    res.send({ state: 'error', message: 'SOL Transactions Failed! Contact a server Administrator, if this is false' });
+                    console.log('recall function, key already exists', req.body.discordId, req.body.signature, 5);
+                    res.send({ state: 'error', message: 'Contact a server Administrator, an error has occurred' });
                 }
             } else {
-                console.log('solana transaction failed', req.body.discordId, req.body.signature);
+                console.log('solana transaction failed', req.body.discordId, req.body.signature, 4);
                 res.send({ state: 'error', message: 'SOL Transactions Failed! Contact a server Administrator, if this is false' });
             }
         } else {
-            console.log('solana transaction failed', req.body.discordId, req.body.signature);
+            console.log('solana transaction failed', req.body.discordId, req.body.signature, 3);
             res.send({ state: 'error', message: 'SOL Transactions Failed! Contact a server Administrator, if this is false' });
         }
+        // } else {
+        //     console.log('solana transaction failed', req.body.discordId, req.body.signature, 2);
+        //     res.send({ state: 'error', message: 'SOL Transactions Failed! Contact a server Administrator, if this is false' });
+        // }
     }).catch((err) => {
-        console.log('axios request for solscan had an error', req.body.discordId, req.body.signature);
+        console.log('axios request for solscan had an error', req.body.discordId, req.body.signature, 1);
         res.send({ state: 'error', message: 'Contact a server Administrator, an error has occurred' })
     });
 }

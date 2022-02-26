@@ -104,7 +104,7 @@ function LoginPage(props) {
         e.preventDefault();
         setBuyKeyLoading(true);
         const discordAuth = await CallBack(code);
-        await axios.post(process.env.REACT_APP_SERVER_URI + '/api/generateNewKey', {discordId: discordAuth.data.id})
+        await axios.post(process.env.REACT_APP_SERVER_URI + '/api/checkKeyAvailability', {discordId: discordAuth.data.id})
             .then((res) => {
                 if(res.data.state === 'success') {
                     sendTransferInstruction(0.59, function(transactionSignature) {
@@ -124,14 +124,18 @@ function LoginPage(props) {
                                 }
                             }).catch(err => {
                                 console.error(err);
+                                props.errorMessage(err.message);
+                                setBuyKeyLoading(false);
                             });
                     });
                 } else if(res.data.state === 'error'){
                     props.errorMessage(res.data.message);
+                    setBuyKeyLoading(false);
                 }
             }).catch(err => {
                 console.error(err);
                 props.errorMessage(err.message);
+                setBuyKeyLoading(false);
             });
     }
 
