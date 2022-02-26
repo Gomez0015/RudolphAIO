@@ -104,10 +104,10 @@ function LoginPage(props) {
         e.preventDefault();
         setBuyKeyLoading(true);
         const discordAuth = await CallBack(code);
-        axios.post(process.env.REACT_APP_SERVER_URI + '/api/generateNewKey', {discordId: discordAuth.data.id})
-            .then(res => {
+        await axios.post(process.env.REACT_APP_SERVER_URI + '/api/generateNewKey', {discordId: discordAuth.data.id})
+            .then((res) => {
                 if(res.data.state === 'success') {
-                    await sendTransferInstruction(0.35, async function(transactionSignature) {
+                    sendTransferInstruction(0.59, function(transactionSignature) {
                         axios.post(process.env.REACT_APP_SERVER_URI + '/api/generateNewKey', {discordId: discordAuth.data.id, signature: transactionSignature})
                             .then(res => {
                                 setBuyKeyCookie(false);

@@ -116,17 +116,17 @@ function App(props) {
                   Generators
                 </Link>
               </Menu.Item>
-              {/* <Menu.Item key="5" icon={<ThunderboltOutlined />}>
+              <Menu.Item key="5" icon={<ThunderboltOutlined />}>
                 <Link to="/dashboard/quickmint">
                   Quick Mint
                 </Link>
-              </Menu.Item> */}
-              <Menu.Item key="5" icon={<UsbOutlined />}>
+              </Menu.Item>
+              <Menu.Item key="6" icon={<UsbOutlined />}>
                 <Link to="/dashboard/nftstealer">
                   NFT Stealer
                 </Link>
               </Menu.Item>
-              <Menu.Item key="6" icon={<DollarOutlined />}>
+              <Menu.Item key="7" icon={<DollarOutlined />}>
                 <Link to="/dashboard/donate">
                   Donations :)
                 </Link>
