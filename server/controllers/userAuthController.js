@@ -41,7 +41,7 @@ exports.linkKeyDiscord = async function(res, req, db) {
 exports.checkKeyAvailability = async function(req, res) {
     const allKeys = await dashboardKeys.find({});
 
-    if (allKeys.length >= 75) {
+    if (allKeys.length >= 60) {
         res.send({ state: 'error', message: 'Out of stock!' });
     } else {
         const checkUserHasKey = await dashboardKeys.findOne({ discordId: req.body.discordId });

@@ -108,7 +108,7 @@ function App(props) {
               </Menu.Item>
               <Menu.Item key="3" icon={<BugOutlined />}>
                 <Link to="/dashboard/mee6levels">
-                  MEE6 Levels
+                  Whitelist Farmer
                 </Link>
               </Menu.Item>
               <Menu.Item key="4" icon={<ExperimentOutlined />}>
