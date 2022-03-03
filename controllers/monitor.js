@@ -1,4 +1,4 @@
-const dashboardKeys = require('../models/dashboardKeysModel.js');
+const dashboardKeys = require('./models/dashboardKeysModel.js');
 const axios = require('axios');
 
 exports.checkMonitors = async function(bot) {
