@@ -24,7 +24,6 @@ function Bots(props) {
     const [spamSettingsCheckbox, setSpamSettingsCheckbox] = useState(false);
     const [deleteSettingsCheckbox, setDeleteSettingsCheckbox] = useState(false);
     const [botsModalVisible, setBotsModalVisible] = useState(false);
-    const [reactEmoji, setReactEmoji] = useState('🎉');
     const [inviteBotLoading, setInviteBotLoading] = useState(false);
 
     const addBot = async(e) => {
@@ -217,7 +216,9 @@ function Bots(props) {
     const reactToMessage = (bot, e) => {
       e.preventDefault();
 
-      let reactionEncoded = encodeURI(reactEmoji);
+      let reactionEncoded = encodeURI(e.target.emoji.value);
+
+      console.log(reactionEncoded, e.target.emoji.value);
 
       let messageLink = e.target.messageLink.value;
 
@@ -305,11 +306,7 @@ function Bots(props) {
           <form autocomplete="off" action='#' style={{textAlign: 'center', marginTop: '10px'}} onSubmit={(e) => { reactToMessage(selectedBots, e);}}>
             <Button htmlType="submit" loading={inviteBotLoading}>React to Message</Button>
             <Input autocomplete="off" required type="url" name="messageLink" placeholder="Message Link" style={{textAlign: 'center', width: '25%'}}/>
-            <Select defaultValue="🎉" onChange={(value) => { setReactEmoji(value); }} style={{ width: 60 }}>
-              <Option value="🎉">🎉</Option>
-              <Option value="✅">✅</Option>
-              <Option value="🚀">🚀</Option>
-            </Select>
+            <Input autocomplete="off" required type="emoji" name="emoji" placeholder="🚀" style={{textAlign: 'center', width: '25%'}}/>
           </form>
         </Modal>
         <div style={{textAlign: 'center', display: 'block', margin: '25px'}}>
