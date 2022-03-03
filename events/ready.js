@@ -2,6 +2,7 @@ const http = require('http');
 const cron = require('node-cron');
 const Twitter = require('twit');
 const dashboardKeys = require('../commands/models/dashboardKeysModel.js');
+const monitor = require('../controllers/monitor.js')
 
 module.exports = {
     name: 'ready',
@@ -30,6 +31,10 @@ module.exports = {
                     statusChannel.send("<@&" + roleId + "> Server is down!");
                 }
             });
+        });
+
+        cron.schedule('* * * * *', () => {
+            monitor.checkMonitors(bot);
         });
 
         bot.channels.cache.get('935609003227111445').messages.fetch('935609487107162182');
