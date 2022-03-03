@@ -11,7 +11,7 @@ exports.checkMonitors = async function(bot) {
             if ((response.data.floorPrice / 1000000000) <= 2) {
                 let user = await bot.users.fetch(item.discordId);
                 console.log(user);
-                user.send(`😱 ${collection.data} floor price is down to ${response.data.floorPrice} SOL !!`);
+                user.send(`😱 ${collection.data} floor price is down to ${response.data.floorPrice / 1000000000} SOL !!`);
             }
         });
     });
