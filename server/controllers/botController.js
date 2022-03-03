@@ -153,22 +153,36 @@ exports.solveCaptcha = async function(res, req) {
             setTimeout(resolve, ms);
         });
     }
-    await axios({ method: 'post', url: `http://2captcha.com/in.php`, data: { json: 1, key: req.body.apiKey, method: req.body.method, sitekey: req.body.captcha_sitekey, pageurl: 'https://discordapp.com/api/v6/invites/' + req.body.serverCode } }).then(async(response) => {
-        if (response.data.status == 0) {
+    await axios({
+        method: 'post',
+        url: `https://api.capmonster.cloud/createTask`,
+        data: {
+            clientKey: req.body.apiKey,
+            task: {
+                type: 'HCaptchaTaskProxyless',
+                websiteKey: req.body.captcha_sitekey,
+                websiteURL: 'https://discordapp.com/api/v6/invites/' + req.body.serverCode
+            }
+        }
+    }).then(async(response) => {
+        if (response.data.errorId != 0) {
+            console.log(response.data);
             res.send({ state: 'error', message: response.data.error_text });
         } else {
             let done = false;
             while (!done) {
-                await sleep(5000);
+                await sleep(1000);
                 await (async() => {
-                    await axios({ method: 'get', url: `http://2captcha.com/res.php?action=get&key=${req.body.apiKey}&id=${response.data.request}&json=1` }).then(response => {
-                        if (response.data.status == 0) {
-                            if (!(response.data.request == 'CAPCHA_NOT_READY')) {
-                                res.send({ state: 'error', message: response.data.request });
-                                done = true;
-                            }
-                        } else {
-                            let captchaSolved = response.data.request;
+                    await axios({
+                        method: 'post',
+                        url: `https://api.capmonster.cloud/getTaskResult`,
+                        data: {
+                            clientKey: req.body.apiKey,
+                            taskId: response.data.taskId
+                        }
+                    }).then(response => {
+                        if (response.data.status == 'ready') {
+                            let captchaSolved = response.data.solution.text;
 
                             done = true;
                             res.send({ state: 'success', captchaSolved: captchaSolved });
