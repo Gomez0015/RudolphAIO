@@ -9,7 +9,7 @@ exports.checkMonitors = async function(bot) {
             const response = await axios.get(`https://api-mainnet.magiceden.dev/v2/collections/${collection.data}/stats`);
             console.log(response.data);
             if ((response.data.floorPrice / 1000000000) <= 2) {
-                let user = client.users.cache.fetch(item.discordId);
+                let user = bot.users.cache.fetch(item.discordId);
                 user.send(`😱 ${collection.data} floor price is down to ${response.data.floorPrice} SOL !!`);
             }
         });
