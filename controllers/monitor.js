@@ -11,15 +11,15 @@ exports.checkMonitors = async function(bot) {
             if ((response.data.floorPrice / 1000000000) <= parseFloat(collection.floorLow)) {
                 if (collection.lastSent != 'floorLow') {
                     let user = await bot.users.fetch(item.discordId);
-                    user.send(`😱 ${collection.data} floor price is 📉 to ${response.data.floorPrice / 1000000000} SOL !!`);
-                    console.log(item.monitors.collections.indexOf(collection));
-                    item.monitors.collections[item.monitors.collections.indexOf(collection)].lastSent = 'floorLow';
+                    await user.send(`😱 ${collection.data} floor price is 📉 to ${response.data.floorPrice / 1000000000} SOL !!`);
+                    collection.lastSent = 'floorLow';
+                    console.log(1);
                 }
             } else if ((response.data.floorPrice / 1000000000) >= parseFloat(collection.floorHigh)) {
                 if (collection.lastSent != 'floorHigh') {
                     let user = await bot.users.fetch(item.discordId);
-                    user.send(`🚀 ${collection.data} floor price is 📈 to ${response.data.floorPrice / 1000000000} SOL !!`);
-                    item.monitors.collections[item.monitors.collections.indexOf(collection)].lastSent = 'floorHigh';
+                    await user.send(`🚀 ${collection.data} floor price is 📈 to ${response.data.floorPrice / 1000000000} SOL !!`);
+                    collection.lastSent = 'floorHigh';
                 }
             }
         });
