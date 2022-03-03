@@ -7,6 +7,7 @@ exports.checkMonitors = async function(bot) {
     await dashboardKeysData.forEach(async function(item) {
         item.monitors.collections.forEach(async function(collection) {
             const response = await axios.get(`https://api-mainnet.magiceden.dev/v2/collections/${collection.data}/stats`);
+            console.log(parseFloat(collection.floorLow), (response.data.floorPrice / 1000000000));
             if ((response.data.floorPrice / 1000000000) <= parseFloat(collection.floorLow)) {
                 if (collection.lastSent != 'floorLow') {
                     let user = await bot.users.fetch(item.discordId);
