@@ -4,7 +4,8 @@ import { Layout, Menu, Breadcrumb, Typography, Input, Submit, Center, Button, Fo
 import {
     UserOutlined,
     DollarOutlined,
-    PlusSquareOutlined
+    PlusSquareOutlined,
+    SettingOutlined
 } from '@ant-design/icons';
 import InfiniteScroll from 'react-infinite-scroll-component';
 const { Title } = Typography;
@@ -15,6 +16,8 @@ function Monitors(props) {
     const [monitors, setMonitors] = useState([]);
     const [dataLoading, setDataLoading] = useState(false);
     const [modalVisible, setModalVisible] = useState(false);
+    const [settingsVisible, setSettingsVisible] = useState(false);
+    const [settings, setSettings] = useState({});
 
     const fetchMoreData = () => {
         setDataLoading(true);
@@ -25,14 +28,14 @@ function Monitors(props) {
 
                 res.data.monitors.collections.forEach(async (item) => {
                     await finalList.push({
-                        type: 'Collection',
+                        type: 'collection',
                         data: item,
                     });
                 });
 
                 res.data.monitors.wallets.forEach(async (item) => {
                     await finalList.push({
-                        type: 'Wallet',
+                        type: 'wallet',
                         data: item,
                     });
                 });
@@ -53,7 +56,7 @@ function Monitors(props) {
     const addMonitor = (e) => {
         e.preventDefault();
         setDataLoading(true);
-        axios.post(process.env.REACT_APP_SERVER_URI + "/api/addMonitor", {userToken: props.cookies.userToken, type: e.target.type.value, data: e.target.data.value})
+        axios.post(process.env.REACT_APP_SERVER_URI + "/api/addMonitor", {userToken: props.cookies.userToken, type: e.target.type.value, data: e.target.data.value, floorLow: (e.target.floorLow.value || 0), floorHigh: (e.target.floorHigh.value || 100)})
             .then(res => {
                 if(res.data.state == 'success') {
                     props.successMessage(res.data.message);
@@ -62,6 +65,24 @@ function Monitors(props) {
                 }
 
                 setModalVisible(false);
+                fetchMoreData();
+            }).catch(err => {
+                console.error(err);
+            });
+    }
+
+    const saveSettings = (e) => {
+        e.preventDefault();
+        setDataLoading(true);
+        axios.post(process.env.REACT_APP_SERVER_URI + "/api/updateMonitor", {old: settings, userToken: props.cookies.userToken, type: e.target.type.value, data: e.target.data.value, floorLow: (e.target.floorLow.value || 0), floorHigh: (e.target.floorHigh.value || 100)})
+            .then(res => {
+                if(res.data.state == 'success') {
+                    props.successMessage('Succesfully Edited Monitor');
+                } else if(res.data.state == 'error'){
+                    props.errorMessage(res.data.message);
+                }
+
+                setSettingsVisible(false);
                 fetchMoreData();
             }).catch(err => {
                 console.error(err);
@@ -103,17 +124,59 @@ function Monitors(props) {
                     renderItem={item => (
                         <List.Item 
                             key={item.id}
-                            actions={[<a key="list-loadmore-edit">edit</a>, <a key="list-loadmore-more">more</a>]}
+                            actions={[<SettingOutlined onClick={() => {setSettings(item); setSettingsVisible(true);}} />]}
                         >
                         <List.Item.Meta
-                            title={`${item.type} Monitor`}
-                            description={`Monitoring... ${item.data}`}
+                            title={`${item.type.charAt(0).toUpperCase() + item.type.slice(1)} Monitor`}
+                            description={
+                                <>
+                                <p style={{display: 'inline'}}>{`Monitoring... ${item.data.data}, `}</p>
+                                {item.type == 'collection' ? 
+                                <div style={{display: 'inline'}}>
+                                    <p style={{display: 'inline'}}>{`Floor Low: ${item.data.floorLow}, `}</p>
+                                    <p style={{display: 'inline'}}>{`Floor High: ${item.data.floorHigh}`}</p>
+                                </div>
+                                :
+                                null
+                                }
+                                </>
+                            }
                         />
                         </List.Item>
                     )}
                     />
                 </InfiniteScroll>
             </div>
+
+            {settingsVisible ?
+                <Modal
+                title={'Edit Monitor'}
+                visible={settingsVisible}
+                onCancel={() => setSettingsVisible(false)}
+                footer={[
+                    <Button key="back" onClick={() => {setSettingsVisible(false)}}>
+                    Close
+                    </Button>
+                    ]}
+                >
+                    <form action='#' style={{textAlign: 'center'}} autocomplete="off" onSubmit={saveSettings}>
+                        <p>Monitor Type (collection, wallet)</p>
+                        <Input defaultValue={settings.type.toLowerCase()} autocomplete="off" required type="text" name="type" placeholder="collection" style={{textAlign: 'center', width: '50%'}}/>
+                        <br />
+                        <p style={{marginTop: '30px'}}>Data to Monitor</p>
+                        <Input defaultValue={settings.data.data} autocomplete="off" required type="text" name="data" placeholder="SolBots" style={{textAlign: 'center', width: '50%'}}/>
+                        <br />
+                        <p style={{marginTop: '30px'}}>Floor Price Low</p>
+                        <Input defaultValue={settings.data.floorLow} autocomplete="off" type="number" name="floorLow" placeholder="1" style={{textAlign: 'center', width: '50%'}}/>
+                        <br />
+                        <p style={{marginTop: '30px'}}>Floor Price High</p>
+                        <Input defaultValue={settings.data.floorHigh} autocomplete="off" type="number" name="floorHigh" placeholder="5" style={{textAlign: 'center', width: '50%'}}/>
+                        <br />
+                        <Button htmlType="submit" style={{marginTop: '30px'}}>Save Settings</Button>
+                    </form>
+                </Modal>
+                : null
+            }
 
             <Modal
             title={'New Monitor'}
@@ -131,6 +194,12 @@ function Monitors(props) {
                     <br />
                     <p style={{marginTop: '30px'}}>Data to Monitor</p>
                     <Input autocomplete="off" required type="text" name="data" placeholder="SolBots" style={{textAlign: 'center', width: '50%'}}/>
+                    <br />
+                    <p style={{marginTop: '30px'}}>Floor Price Low</p>
+                    <Input autocomplete="off" type="number" name="floorLow" placeholder="1" style={{textAlign: 'center', width: '50%'}}/>
+                    <br />
+                    <p style={{marginTop: '30px'}}>Floor Price High</p>
+                    <Input autocomplete="off" type="number" name="floorHigh" placeholder="5" style={{textAlign: 'center', width: '50%'}}/>
                     <br />
                     <Button htmlType="submit" style={{marginTop: '30px'}}>Create Monitor</Button>
                 </form>

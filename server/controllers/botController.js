@@ -66,16 +66,21 @@ exports.getBots = async function(res, req) {
         return (obj.discordId === req.body.userToken)
     });
 
+    const tempBotData = [...botData];
+
     const userData = await dashboardKeys.find({ discordId: req.body.userToken });
-    if (botData) {
+    if (tempBotData) {
         if (userData) {
             if (userData[0].authToken == req.body.authToken) {
-                botData.forEach(obj => {
+                await tempBotData.forEach(obj => {
                     obj.botToken = decrypt(obj.botToken);
                 });
 
-                let data = { botList: botData, userChatLogs: userData[0].chatLogs }
+                let data = { botList: tempBotData, userChatLogs: userData[0].chatLogs }
                 res.send(data);
+                await tempBotData.forEach(obj => {
+                    obj.botToken = encrypt(obj.botToken);
+                });
             } else {
                 res.send([]);
             }

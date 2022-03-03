@@ -92,6 +92,10 @@ app.post('/api/addMonitor', (req, res) => {
     monitorController.addMonitor(req, res);
 });
 
+app.post('/api/updateMonitor', (req, res) => {
+    monitorController.updateMonitor(req, res);
+});
+
 app.post('/api/getBots', (req, res) => {
     botController.getBots(res, req);
 });
