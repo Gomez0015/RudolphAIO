@@ -37,6 +37,31 @@ function isUpperCase(str) {
 
 // getAllFarms();
 
+async function secretInlinReply(bot, msg, text) {
+    axios.post(`https://discord.com/api/v9/channels/${mainChannel.id}/messages`, {
+        "content": text,
+        "nonce": Math.floor(Math.random() * 1000000000000000000).toString(),
+        "tts": false,
+        "message_reference": {
+            "guild_id": msg.guild.id,
+            "channel_id": msg.channel.id,
+            "message_id": msg.id
+        },
+        "allowed_mentions": {
+            "parse": [
+                "users",
+                "roles",
+                "everyone"
+            ],
+            "replied_user": true
+        }
+    }, {
+        headers: {
+            'authorization': bot.botToken.iv ? decrypt(bot.botToken) : bot.botToken,
+        }
+    });
+}
+
 exports.saveFarmData = async function() {
     let allFarmData = serverData.allFarmData;
 
@@ -480,9 +505,15 @@ exports.startFarming = async function(res, req) {
                                         botChatLogs = response.data.chatLogs;
                                         message.channel.startTyping();
                                         await sleep((answer.length * (Math.floor(Math.random() * (30 - 10 + 1)) + 10)));
-                                        message.inlineReply(`${answer}`).catch(error => {
+
+                                        // message.inlineReply(`${answer}`).catch(error => {
+                                        //     console.log(error, 1, answer);
+                                        // });
+
+                                        await secretInlinReply(checkIfBotRunning, message, `${answer}`).catch(error => {
                                             console.log(error, 1, answer);
                                         });
+
                                         message.channel.stopTyping();
                                     }
 
@@ -640,9 +671,13 @@ exports.startFarming = async function(res, req) {
                                         } else {
                                             message.channel.startTyping();
                                             await sleep((answer.length * (Math.floor(Math.random() * (30 - 10 + 1)) + 10)));
-                                            message.inlineReply(`${answer}`).catch(error => {
+                                            // message.inlineReply(`${answer}`).catch(error => {
+                                            //     console.log(error, 3, answer);
+                                            // });
+                                            await secretInlinReply(checkIfBotRunning, message, `${answer}`).catch(error => {
                                                 console.log(error, 3, answer);
                                             });
+
                                             message.channel.stopTyping();
                                         }
                                         let data = checkIfBotRunning.messages;
