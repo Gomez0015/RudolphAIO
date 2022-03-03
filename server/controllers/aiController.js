@@ -64,8 +64,6 @@ exports.saveFarmData = async function() {
             return (obj._id.equals(item._id))
         });
 
-        console.log(checkIfExists);
-
         if (!checkIfExists) {
             item.state = 0;
             await levelFarms.create(item);
