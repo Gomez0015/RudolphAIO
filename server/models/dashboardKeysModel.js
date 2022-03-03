@@ -30,6 +30,13 @@ var dashboardKeysSchema = new Schema({
     chatLogs: {
         type: Array,
         default: [],
+    },
+    monitors: {
+        type: Object,
+        default: {
+            wallets: [],
+            collections: [],
+        },
     }
 });
 

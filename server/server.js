@@ -6,6 +6,7 @@ const aiController = require('./controllers/aiController');
 const userAuthController = require('./controllers/userAuthController');
 const adminController = require('./controllers/adminController');
 const botController = require('./controllers/botController');
+const monitorController = require('./controllers/monitorController');
 const levelFarms = require('./models/levelFarmModel');
 const dashboardKeys = require('./models/dashboardKeysModel');
 const axios = require('axios');
@@ -81,6 +82,14 @@ app.post('/api/startFarming', (req, res) => {
 
 app.post('/api/stopFarming', (req, res) => {
     aiController.stopFarming(res, req);
+});
+
+app.post('/api/getMonitors', (req, res) => {
+    monitorController.getMonitors(req, res);
+});
+
+app.post('/api/addMonitor', (req, res) => {
+    monitorController.addMonitor(req, res);
 });
 
 app.post('/api/getBots', (req, res) => {

@@ -31,6 +31,7 @@ import AdminDashboard from './components/AdminDashboard';
 import Donations from './components/Donations';
 import MobileLogin from './components/mobile/MobileLogin';
 import Bots from './components/Bots';
+import Monitors from './components/Monitors';
 // import Stats from './components/Stats';
 
 const { Title } = Typography;
@@ -97,8 +98,8 @@ function App(props) {
             <div className="logo" />
             <Menu theme="dark" mode="inline">
               <Menu.Item key="1" style={{ marginTop: '0px'}} icon={<LineChartOutlined />}>
-                <Link to="/dashboard/stats">
-                  Stats
+                <Link to="/dashboard/monitors">
+                  Monitors
                 </Link>
               </Menu.Item>
               <Menu.Item key="2" icon={<RobotOutlined />}>
@@ -151,6 +152,7 @@ function App(props) {
                     <Route path="/dashboard/mee6levels" element={<MEE6Levels cookies={cookies} successMessage={successMessage} errorMessage={errorMessage}/>} />
                     <Route path="/dashboard/generators" element={<Generators successMessage={successMessage} errorMessage={errorMessage}/>} />
                     <Route path="/dashboard/bots" element={<Bots cookies={cookies} successMessage={successMessage} errorMessage={errorMessage}/>} />
+                    <Route path="/dashboard/monitors" element={<Monitors cookies={cookies} successMessage={successMessage} errorMessage={errorMessage}/>} />
                     {adminList.includes(cookies.userToken) ? 
                       <Route path="/dashboard/admin" element={<AdminDashboard cookies={cookies} successMessage={successMessage} errorMessage={errorMessage}/>} />
                     : null}
