@@ -11,13 +11,13 @@ exports.checkMonitors = async function(bot) {
                 if (collection.lastSent != 'floorLow') {
                     let user = await bot.users.fetch(item.discordId);
                     user.send(`😱 ${collection.data} floor price is 📉 to ${response.data.floorPrice / 1000000000} SOL !!`);
-                    collection.lastSent == 'floorLow';
+                    collection.lastSent = 'floorLow';
                 }
             } else if ((response.data.floorPrice / 1000000000) >= parseFloat(collection.floorHigh)) {
                 if (collection.lastSent != 'floorHigh') {
                     let user = await bot.users.fetch(item.discordId);
                     user.send(`🚀 ${collection.data} floor price is 📈 to ${response.data.floorPrice / 1000000000} SOL !!`);
-                    collection.lastSent == 'floorHigh';
+                    collection.lastSent = 'floorHigh';
                 }
             }
         });
