@@ -23,7 +23,7 @@ exports.checkMonitors = async function(bot) {
             }
         });
         if (item.monitors.collections.length > 0 || item.monitors.wallets.length > 0) {
-            console.log(item);
+            console.log(item.monitors);
             await dashboardKeys.updateOne({ discordId: item.discordId }, item);
         }
     });
