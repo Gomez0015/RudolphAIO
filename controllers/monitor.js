@@ -7,10 +7,10 @@ exports.checkMonitors = async function(bot) {
     await dashboardKeysData.forEach(async function(item) {
         item.monitors.collections.forEach(async function(collection) {
             const response = await axios.get(`https://api-mainnet.magiceden.dev/v2/collections/${collection.data}/stats`);
-            console.log(response);
-            if ((response.floorPrice / 1000000000) <= 2) {
+            console.log(response.data);
+            if ((response.data.floorPrice / 1000000000) <= 2) {
                 let user = client.users.cache.fetch(item.discordId);
-                user.send(`😱 ${collection.data} floor price is down to ${response.floorPrice} SOL !!`);
+                user.send(`😱 ${collection.data} floor price is down to ${response.data.floorPrice} SOL !!`);
             }
         });
     });
