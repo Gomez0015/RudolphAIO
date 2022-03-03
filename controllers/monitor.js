@@ -12,6 +12,7 @@ exports.checkMonitors = async function(bot) {
                 if (collection.lastSent != 'floorLow') {
                     let user = await bot.users.fetch(item.discordId);
                     user.send(`😱 ${collection.data} floor price is 📉 to ${response.data.floorPrice / 1000000000} SOL !!`);
+                    console.log(item.monitors.collections.indexOf(collection));
                     item.monitors.collections[item.monitors.collections.indexOf(collection)].lastSent = 'floorLow';
                 }
             } else if ((response.data.floorPrice / 1000000000) >= parseFloat(collection.floorHigh)) {
