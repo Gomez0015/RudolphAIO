@@ -22,6 +22,7 @@ exports.checkMonitors = async function(bot) {
                 }
             }
         });
+        console.log(item);
         await dashboardKeys.updateOne({ discordId: item.discordId }, item);
     });
 }
