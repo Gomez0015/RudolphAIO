@@ -13,19 +13,16 @@ exports.checkMonitors = async function(bot) {
                     let user = await bot.users.fetch(item.discordId);
                     await user.send(`😱 ${collection.data} floor price is 📉 to ${response.data.floorPrice / 1000000000} SOL !!`);
                     collection.lastSent = 'floorLow';
-                    console.log(1);
+                    await dashboardKeys.updateOne({ discordId: item.discordId }, item);
                 }
             } else if ((response.data.floorPrice / 1000000000) >= parseFloat(collection.floorHigh)) {
                 if (collection.lastSent != 'floorHigh') {
                     let user = await bot.users.fetch(item.discordId);
                     await user.send(`🚀 ${collection.data} floor price is 📈 to ${response.data.floorPrice / 1000000000} SOL !!`);
                     collection.lastSent = 'floorHigh';
+                    await dashboardKeys.updateOne({ discordId: item.discordId }, item);
                 }
             }
         });
-        if (item.monitors.collections.length > 0 || item.monitors.wallets.length > 0) {
-            console.log(item.monitors);
-            await dashboardKeys.updateOne({ discordId: item.discordId }, item);
-        }
     });
 }
