@@ -65,6 +65,9 @@ function LoginPage(props) {
                     props.errorMessage(res.data.message);
                 }
                 if(res.data.key != 'none' && res.data.expired != 'false' && res.data.key != undefined) {
+                    props.setCookie("authToken", discordAuth.data.authToken, {
+                        path: "/"
+                    });
                     props.setCookie("userToken", res.data.discordId, {
                         path: "/"
                     });

@@ -97,19 +97,21 @@ function Bots(props) {
 
     const fetchMoreData = () => {
         // setDataLoading(true);
-        axios.post(process.env.REACT_APP_SERVER_URI + "/api/getBots", {userToken: props.cookies.userToken})
+        axios.post(process.env.REACT_APP_SERVER_URI + "/api/getBots", {userToken: props.cookies.userToken, authToken: props.cookies.authToken})
             .then(res => {
-              for (let i = 0; i < res.data.botList.length; i++) {
-                res.data.botList[i].settingsVisible = false;
-                res.data.botList[i].messages = res.data.botList[i].messages.reverse();
+              if(res.data.botList) {
+                 for (let i = 0; i < res.data.botList.length; i++) {
+                  res.data.botList[i].settingsVisible = false;
+                  res.data.botList[i].messages = res.data.botList[i].messages.reverse();
+                }
+
+                // if (res.data.userChatLogs) {
+                //     setUserChatLogs(res.data.userChatLogs.reverse());
+                // }
+
+                setBots(res.data.botList.sort((a, b) => b - a));
+                // setDataLoading(false);
               }
-
-              // if (res.data.userChatLogs) {
-              //     setUserChatLogs(res.data.userChatLogs.reverse());
-              // }
-
-              setBots(res.data.botList.sort((a, b) => b - a));
-              // setDataLoading(false);
             }).catch(err => {
                 console.error(err);
             });

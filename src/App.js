@@ -42,7 +42,7 @@ const adminList = process.env.REACT_APP_ADMIN_LIST;
 function App(props) {
   const [collapsed, setCollapsed] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
-  const [cookies, setCookie] = useCookies(["userToken", "newKey", "buyKey"]);
+  const [cookies, setCookie] = useCookies(["userToken", "newKey", "buyKey", "authToken"]);
   // const [darkMode, setDarkMode] = useState(true);
 
   const successMessage = (text) => {
