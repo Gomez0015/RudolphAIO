@@ -24,5 +24,17 @@ exports.checkMonitors = async function(bot) {
                 }
             }
         });
+
+        await item.monitors.wallets.forEach(async function(wallet) {
+            const response = await axios.get(`https://api-mainnet.magiceden.dev/v2/wallets/${wallet.data}/activities?offset=0&limit=1`);
+
+            if (wallet.lastSent != response[0]) {
+                let user = await bot.users.fetch(item.discordId);
+                await user.send(JSON.stringify(response[0]));
+                wallet.lastSent = response[0];
+                await dashboardKeys.updateOne({ discordId: item.discordId }, item);
+            }
+
+        });
     });
 }
