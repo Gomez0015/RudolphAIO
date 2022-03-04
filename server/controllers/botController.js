@@ -45,6 +45,7 @@ exports.createBot = async function(req, res) {
                 customPrompt: 'none',
                 spam: false,
                 delete: false,
+                instantDelete: false,
             });
             res.send({ state: 'success', message: 'Bot has been created!' });
             serverData.updateFarmData(allFarmData);
@@ -109,6 +110,7 @@ exports.updateBotSettings = async function(res, req) {
         allFarmData[botIndex].customPrompt = req.body.botData.customPrompt;
         allFarmData[botIndex].spam = req.body.botData.spam;
         allFarmData[botIndex].delete = req.body.botData.delete;
+        allFarmData[botIndex].instantDelete = req.body.botData.instantDelete;
 
         const checkArraylength = await dashboardKeys.findOne({ discordId: req.body.userToken });
         if (checkArraylength.chatLogs.length >= 20) {

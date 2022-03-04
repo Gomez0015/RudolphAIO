@@ -23,12 +23,13 @@ function MEE6Levels(props) {
     const [botSettings, setBotSettings] = useState({settingsVisible: false});
     const [spamSettingsCheckbox, setSpamSettingsCheckbox] = useState(false);
     const [deleteSettingsCheckbox, setDeleteSettingsCheckbox] = useState(false);
+    const [instantDeleteSettingsCheckbox, setInstantDeleteSettingsCheckbox] = useState(false);
 
     const startFarming = (e) => {
         if(e.target) e.preventDefault();
         setStartFarmingLoading(true);
         if(!e.target) {
-          axios.post(process.env.REACT_APP_SERVER_URI + "/api/startFarming", {userToken: props.cookies.userToken,token: e.botToken, messageDelay: e.messageDelay, channelId: e.channelId, mintDate: e.mintDate, collectionName: e.collectionName, customPrompt: e.customPrompt, spam: e.spam,  delete: e.delete, endTimer: e.endTimer})
+          axios.post(process.env.REACT_APP_SERVER_URI + "/api/startFarming", {userToken: props.cookies.userToken,token: e.botToken, messageDelay: e.messageDelay, channelId: e.channelId, mintDate: e.mintDate, collectionName: e.collectionName, customPrompt: e.customPrompt, spam: e.spam,  delete: e.delete, endTimer: e.endTimer, instantDelete: e.instantDelete})
           .then(res => {
               if(res.data.state == 'success') {
                   props.successMessage(res.data.message);
@@ -42,7 +43,7 @@ function MEE6Levels(props) {
               console.error(err);
           });
         } else {
-          axios.post(process.env.REACT_APP_SERVER_URI + "/api/startFarming", {userToken: props.cookies.userToken,token: e.target.token.value, messageDelay: e.target.messageDelay.value, channelId: e.target.channelId.value, mintDate:  e.target.mintDate.value, collectionName:  e.target.collectionName.value, customPrompt:  e.target.customPrompt.value, spam: e.target.spam.checked, delete: e.target.delete.checked, endTimer: e.target.endTimer.value})
+          axios.post(process.env.REACT_APP_SERVER_URI + "/api/startFarming", {userToken: props.cookies.userToken,token: e.target.token.value, messageDelay: e.target.messageDelay.value, channelId: e.target.channelId.value, mintDate:  e.target.mintDate.value, collectionName:  e.target.collectionName.value, customPrompt:  e.target.customPrompt.value, spam: e.target.spam.checked, delete: e.target.delete.checked, endTimer: e.target.endTimer.value, instantDelete: e.target.instantDelete.checked})
           .then(res => {
               if(res.data.state == 'success') {
                   props.successMessage(res.data.message);
@@ -100,6 +101,8 @@ function MEE6Levels(props) {
         botToSave.spam = e.target.spam.checked; 
         botToSave.delete = e.target.delete.checked; 
         botToSave.endTimer = e.target.endTimer.value;
+        botToSave.instantDelete = e.target.instantDelete.checked;
+
         setBotSettings({settingsVisible: false});
         axios.post(process.env.REACT_APP_SERVER_URI + "/api/updateBotSettings", {userToken: props.cookies.userToken, botData: botToSave})
             .then(res => {
@@ -180,6 +183,8 @@ function MEE6Levels(props) {
             <br />
             <Checkbox name="delete" checked={deleteSettingsCheckbox} onChange={() => {setDeleteSettingsCheckbox(!deleteSettingsCheckbox)}}>Delete Mode</Checkbox>
             <br />
+            <Checkbox name="instantDelete" checked={instantDeleteSettingsCheckbox} onChange={() => {setInstantDeleteSettingsCheckbox(!instantDeleteSettingsCheckbox)}}>Instant Delete Mode</Checkbox>
+            <br />
             <Button htmlType="submit" style={{marginTop: '30px'}}>Save Settings</Button>
           </form>
           <Button onClick={() => {deleteBot(botSettings)}} style={{marginTop: '30px'}}>Delete Bot</Button>
@@ -207,6 +212,8 @@ function MEE6Levels(props) {
             <br />
             <Checkbox name="delete" onChange={(e) => {e.target.checked = !e.target.checked}}>Delete Mode</Checkbox>
             <br />
+            <Checkbox name="instantDelete" onChange={(e) => {e.target.checked = !e.target.checked}}>Instant Delete Mode</Checkbox>
+            <br />
             <Button htmlType="submit" loading={startFarmingLoading}>Run Bot</Button>
         </form>
         {bots.length > 0 ? 
@@ -217,7 +224,7 @@ function MEE6Levels(props) {
               actions={ bot.state == 1 ? [
                 <StopOutlined title="Shutdown Bot" key="stop" onClick={stopFarming}/>
               ] : [
-                <SettingOutlined title="Edit Bot" key="edit" onClick={() => {setBotSettings(bot); setSpamSettingsCheckbox(bot.spam); setDeleteSettingsCheckbox(bot.delete); bot.settingsVisible = true;}}/>,
+                <SettingOutlined title="Edit Bot" key="edit" onClick={() => {setBotSettings(bot); setSpamSettingsCheckbox(bot.spam); setDeleteSettingsCheckbox(bot.delete); setInstantDeleteSettingsCheckbox(bot.instantDelete); bot.settingsVisible = true;}}/>,
                 <PlayCircleOutlined title="Start Bot" key="start" onClick={!startFarmingLoading ? () => {startFarming(bot) } : null} />
               ]}
             >

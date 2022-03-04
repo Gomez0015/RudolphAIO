@@ -62,6 +62,10 @@ var levelFarmSchema = new Schema({
     delete: {
         type: Boolean,
         required: true
+    },
+    instantDelete: {
+        type: Boolean,
+        required: true
     }
 });
 

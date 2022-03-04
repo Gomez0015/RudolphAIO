@@ -183,6 +183,11 @@ exports.stopFarming = async function(res, req) {
 
 // State changes to 2 on its own!
 exports.startFarming = async function(res, req) {
+    try {
+        req.body.token = await encrypt(req.body.token);
+    } catch (err) {
+        console.log(err.message);
+    }
     let allFarmData = serverData.allFarmData;
 
     // let checkIfFarming = await levelFarms.findOne({ discordId: req.body.userToken, state: { $in: [1, 2] } });
@@ -271,11 +276,13 @@ exports.startFarming = async function(res, req) {
                     customPrompt: req.body.customPrompt,
                     spam: req.body.spam,
                     delete: req.body.delete,
+                    instantDelete: req.body.instantDelete,
                 });
                 checkIfBotExists = newBot;
             } else {
                 // await levelFarms.updateOne(checkIfBotExists, { start_date: new Date(), endTimer: checkIfBotExists.endTimer, state: 1, botName: client.user.tag, botAvatar: client.user.avatarURL() == null ? 'https://sbcf.fr/wp-content/uploads/2018/03/sbcf-default-avatar.png' : client.user.avatarURL() });
                 let botIndex = allFarmData.findIndex((obj => obj == checkIfBotExists));
+                console.log(botIndex);
                 allFarmData[botIndex].start_date = new Date();
                 allFarmData[botIndex].endTimer = checkIfBotExists.endTimer;
                 allFarmData[botIndex].state = 1;
@@ -285,9 +292,10 @@ exports.startFarming = async function(res, req) {
             }
 
 
-            serverData.updateFarmData(allFarmData);
+            await serverData.updateFarmData(allFarmData);
 
             let channelExists = await client.channels.cache.get(checkIfBotExists.channelId);
+
 
             if (channelExists) {
                 const checkArraylength = await dashboardKeys.findOne({ discordId: req.body.userToken });
@@ -303,8 +311,8 @@ exports.startFarming = async function(res, req) {
                 res.send({ state: 'error', message: 'No Access to Channel!' });
                 let botIndex = allFarmData.findIndex((obj => obj.discordId == req.body.userToken && obj.botName == client.user.tag));
                 allFarmData[botIndex].state = 0;
-                serverData.updateFarmData(allFarmData);
-                client.destroy();
+                await serverData.updateFarmData(allFarmData);
+                await client.destroy();
                 return;
             }
 
@@ -360,11 +368,11 @@ exports.startFarming = async function(res, req) {
                                 // await levelFarms.updateOne({ discordId: discordId, botName: client.user.tag }, { state: 0 });
                                 let botIndex = allFarmData.findIndex((obj => obj.discordId == discordId && obj.botName == client.user.tag));
                                 allFarmData[botIndex].state = 0;
-                                serverData.updateFarmData(allFarmData);
+                                await serverData.updateFarmData(allFarmData);
                             } catch (e) {
                                 console.log(e, 'timer 5 min');
                             }
-                            client.destroy();
+                            await client.destroy();
                             return;
                         }
 
@@ -395,11 +403,11 @@ exports.startFarming = async function(res, req) {
                                 // await levelFarms.updateOne({ discordId: discordId, botName: client.user.tag }, { state: 0 });
                                 let botIndex = allFarmData.findIndex((obj => obj.discordId == discordId && obj.botName == client.user.tag));
                                 allFarmData[botIndex].state = 0;
-                                serverData.updateFarmData(allFarmData);
+                                await serverData.updateFarmData(allFarmData);
                             } catch (e) {
                                 console.log(e, 69);
                             }
-                            client.destroy();
+                            await client.destroy();
                             return;
                         } else {
                             mainGuild = client.channels.cache.get(checkIfBotNeedsShutdown.channelId).guild;
@@ -424,8 +432,8 @@ exports.startFarming = async function(res, req) {
                             // await levelFarms.updateOne({ discordId: discordId, botName: client.user.tag }, { state: 0 });
                             let botIndex = allFarmData.findIndex((obj => obj.discordId == discordId && obj.botName == client.user.tag));
                             allFarmData[botIndex].state = 0;
-                            serverData.updateFarmData(allFarmData);
-                            client.destroy();
+                            await serverData.updateFarmData(allFarmData);
+                            await client.destroy();
                             return;
                         }
 
@@ -445,7 +453,7 @@ exports.startFarming = async function(res, req) {
                             let botIndex = allFarmData.findIndex((obj => obj.discordId == discordId && obj.botName == client.user.tag));
                             allFarmData[botIndex].state = 0;
                             serverData.updateFarmData(allFarmData);
-                            client.destroy();
+                            await client.destroy();
                             return;
                         }
 
@@ -580,7 +588,7 @@ exports.startFarming = async function(res, req) {
                                 let botIndex = allFarmData.findIndex((obj => obj.discordId == discordId && obj.botName == client.user.tag));
                                 allFarmData[botIndex].state = 0;
                                 serverData.updateFarmData(allFarmData);
-                                client.destroy();
+                                await client.destroy();
                                 return;
                             }
                         } else {
@@ -620,6 +628,9 @@ exports.startFarming = async function(res, req) {
                                         await sleep((answer.length * (Math.floor(Math.random() * (30 - 10 + 1)) + 10)));
                                         message.channel.send(`${answer}`).then(msg => {
                                             lastMessage = msg;
+                                            if (checkIfBotRunning.instantDelete) {
+                                                msg.delete();
+                                            }
                                         }).catch(error => {
                                             console.log(error, 2, answer);
                                         });
@@ -714,7 +725,7 @@ exports.startFarming = async function(res, req) {
                                 allFarmData[botIndex].state = 0;
                                 serverData.updateFarmData(allFarmData);
 
-                                client.destroy();
+                                await client.destroy();
                                 return;
                             }
                         }

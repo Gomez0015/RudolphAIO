@@ -23,6 +23,7 @@ function Bots(props) {
     const [botSettings, setBotSettings] = useState({settingsVisible: false});
     const [spamSettingsCheckbox, setSpamSettingsCheckbox] = useState(false);
     const [deleteSettingsCheckbox, setDeleteSettingsCheckbox] = useState(false);
+    const [instantDeleteSettingsCheckbox, setInstantDeleteSettingsCheckbox] = useState(false);
     const [botsModalVisible, setBotsModalVisible] = useState(false);
     const [inviteBotLoading, setInviteBotLoading] = useState(false);
 
@@ -64,6 +65,7 @@ function Bots(props) {
         botToSave.customPrompt = e.target.customPrompt.value; 
         botToSave.spam = e.target.spam.checked; 
         botToSave.delete = e.target.delete.checked; 
+        botToSave.instantDelete = e.target.instantDelete.checked;
         botToSave.endTimer = e.target.endTimer.value;
         setBotSettings({settingsVisible: false});
         axios.post(process.env.REACT_APP_SERVER_URI + "/api/updateBotSettings", {userToken: props.cookies.userToken, botData: botToSave})
@@ -277,6 +279,8 @@ function Bots(props) {
             <br />
             <Checkbox name="delete" checked={deleteSettingsCheckbox} onChange={() => {setDeleteSettingsCheckbox(!deleteSettingsCheckbox)}}>Delete Mode</Checkbox>
             <br />
+            <Checkbox name="instantDelete" checked={instantDeleteSettingsCheckbox} onChange={() => {setInstantDeleteSettingsCheckbox(!instantDeleteSettingsCheckbox)}}>Instant Delete Mode</Checkbox>
+            <br />
             <Button htmlType="submit" style={{marginTop: '30px'}}>Save Settings</Button>
           </form>
           <Button onClick={() => {deleteBot(botSettings)}} style={{marginTop: '30px'}}>Delete Bot</Button>
@@ -319,7 +323,7 @@ function Bots(props) {
             <Card
               style={{ width: 300, display: 'inline-block', margin: '25px' }}
               actions={[
-                <SettingOutlined title="Edit Bot" key="edit" onClick={() => { setBotSettings(bot); setSpamSettingsCheckbox(bot.spam); setDeleteSettingsCheckbox(bot.delete); bot.settingsVisible = true;}}/>,
+                <SettingOutlined title="Edit Bot" key="edit" onClick={() => { setBotSettings(bot); setSpamSettingsCheckbox(bot.spam); setDeleteSettingsCheckbox(bot.delete); setInstantDeleteSettingsCheckbox(bot.instantDelete); bot.settingsVisible = true;}}/>,
                 <PlusCircleOutlined title="Bot Actions" key='actions' onClick={() => {setSelectedBots([bot]); setBotsModalVisible(true);}}/>,
                 <Checkbox title="Select Bot" key="select" onClick={(e) => {if(e.target.checked) { selectBot(bot) } else { unselectBot(bot) }}} />
               ]}
