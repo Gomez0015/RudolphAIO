@@ -48,7 +48,7 @@ exports.checkMonitors = async function(bot) {
                     .setFooter({ text: 'RudolphAIO Monitors', iconURL: 'https://i.imgur.com/AfFp7pu.png' });
 
                 await user.send({ embeds: [walletEmbed] });
-                wallet.lastSent = response[0].data;
+                wallet.lastSent = response.data[0];
                 await dashboardKeys.updateOne({ discordId: item.discordId }, item);
             }
 
