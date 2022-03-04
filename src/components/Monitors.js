@@ -22,7 +22,6 @@ function Monitors(props) {
 
     const fetchMoreData = () => {
         setDataLoading(true);
-        console.log(props.cookies.authToken);
         axios.post(process.env.REACT_APP_SERVER_URI + "/api/getMonitors", {userToken: props.cookies.userToken, authToken: props.cookies.authToken})
             .then(res => {
               if(res.data.monitors) {
