@@ -254,6 +254,7 @@ function Bots(props) {
             ]}
         >
           <form action='#' style={{textAlign: 'center'}} autocomplete="off" onSubmit={saveSettings}>
+            <p>{`Bot Token: ${botSettings.botToken}`}</p>
             <p>Change Channel Id</p>
             <Input autocomplete="off" required type="text" name="channelId" placeholder="Channel Id" defaultValue={botSettings.channelId}  style={{textAlign: 'center', width: '50%'}}/>
             <br />
