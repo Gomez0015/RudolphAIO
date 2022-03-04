@@ -45,7 +45,7 @@ exports.checkMonitors = async function(bot) {
             const row = new MessageActionRow()
                 .addComponents(
                     new MessageButton()
-                    .setLabel('Show Collection')
+                    .setLabel('Show Item')
                     .setStyle('LINK')
                     .setURL(`https://magiceden.io/item-details/${response.data[0].tokenMint}`)
                 );
