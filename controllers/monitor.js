@@ -12,9 +12,9 @@ exports.checkMonitors = async function(bot) {
             const row = new MessageActionRow()
                 .addComponents(
                     new MessageButton()
-                    .setCustomId('primary')
-                    .setLabel('Primary')
-                    .setStyle('PRIMARY'),
+                    .setLabel('Show Collection')
+                    .setStyle('LINK'),
+                    .setURL(`https://magiceden.io/marketplace/${collection.data}`)
                 );
 
             if ((response.data.floorPrice / 1000000000) <= parseFloat(collection.floorLow)) {
