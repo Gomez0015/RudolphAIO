@@ -17,7 +17,7 @@ exports.addMonitor = async function(req, res) {
                     res.send({ state: 'success', message: 'Collection Monitor Created' });
                     break;
                 case 'wallet':
-                    await userData.monitors.wallets.push({ data: data, lastSent: [], id: Math.floor(Math.random() * 1000000000) });
+                    await userData.monitors.wallets.push({ data: data, lastSent: 'none', id: Math.floor(Math.random() * 1000000000) });
                     await dashboardKeys.updateOne({ discordId: req.body.userToken }, userData);
                     res.send({ state: 'success', message: 'Wallet Monitor Created' });
                     break;
@@ -89,8 +89,6 @@ exports.updateMonitor = async function(req, res) {
     if (userData) {
         switch (req.body.type) {
             case 'collection':
-
-                userData.monitors.collections[findWithAttr(userData.monitors.collections, 'id', req.body.old.data.id)].type = req.body.type;
                 userData.monitors.collections[findWithAttr(userData.monitors.collections, 'id', req.body.old.data.id)].data = req.body.data;
                 userData.monitors.collections[findWithAttr(userData.monitors.collections, 'id', req.body.old.data.id)].floorLow = req.body.floorLow;
                 userData.monitors.collections[findWithAttr(userData.monitors.collections, 'id', req.body.old.data.id)].floorHigh = req.body.floorHigh;
@@ -100,7 +98,6 @@ exports.updateMonitor = async function(req, res) {
                 res.send({ state: 'success', message: 'Collection Monitor Deleted' });
                 break;
             case 'wallet':
-                userData.monitors.wallets[findWithAttr(userData.monitors.wallets, 'id', req.body.old.data.id)].type = req.body.type;
                 userData.monitors.wallets[findWithAttr(userData.monitors.wallets, 'id', req.body.old.data.id)].data = req.body.data;
                 userData.monitors.wallets[findWithAttr(userData.monitors.wallets, 'id', req.body.old.data.id)].floorLow = req.body.floorLow;
                 userData.monitors.wallets[findWithAttr(userData.monitors.wallets, 'id', req.body.old.data.id)].floorHigh = req.body.floorHigh;
