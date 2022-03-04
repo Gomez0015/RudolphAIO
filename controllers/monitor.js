@@ -42,7 +42,7 @@ exports.checkMonitors = async function(bot) {
                         value: response.data[0].collection
                     }, {
                         name: 'Price',
-                        value: response.data[0].price,
+                        value: response.data[0].price.toString(),
                     }, )
                     .setTimestamp()
                     .setFooter({ text: 'RudolphAIO Monitors', iconURL: 'https://i.imgur.com/AfFp7pu.png' });
