@@ -42,6 +42,14 @@ exports.checkMonitors = async function(bot) {
             const response = await axios.get(`https://api-mainnet.magiceden.dev/v2/wallets/${wallet.data}/activities?offset=0&limit=1`);
             const tokenResponse = await axios.get(`https://api-mainnet.magiceden.dev/v2/tokens/${response.data[0].tokenMint}`);
 
+            const row = new MessageActionRow()
+                .addComponents(
+                    new MessageButton()
+                    .setLabel('Show Collection')
+                    .setStyle('LINK')
+                    .setURL(`https://magiceden.io/item-details/${response.data[0].tokenMint}`)
+                );
+
             if (wallet.lastSent != response.data[0].signature) {
                 let user = await bot.users.fetch(item.discordId);
                 let alert = 'Impossible!'
@@ -76,7 +84,7 @@ exports.checkMonitors = async function(bot) {
                         console.log('bruh');
                 }
 
-                await user.send(alert);
+                await user.send({ content: alert, components: [row] });
                 wallet.lastSent = response.data[0].signature;
                 await dashboardKeys.updateOne({ discordId: item.discordId }, item);
             }
