@@ -621,7 +621,7 @@ exports.startFarming = async function(res, req) {
                                         currentlyChecking = false;
                                         return;
                                     } else {
-                                        if (checkIfBotRunning.delete && lastMessage.length > 0) {
+                                        if (checkIfBotRunning.delete && lastMessage.length > 0 && !checkIfBotRunning.instantDelete) {
                                             await lastMessage.delete();
                                         }
                                         message.channel.startTyping();
