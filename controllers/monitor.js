@@ -20,9 +20,8 @@ exports.checkMonitors = async function(bot) {
             if ((response.data.floorPrice / 1000000000) <= parseFloat(collection.floorLow)) {
                 if (collection.lastSent != 'floorLow') {
                     let user = await bot.users.fetch(item.discordId);
-                    let alert = `😱 ${collection.data} floor price is 📉 to ${response.data.floorPrice / 1000000000} SOL !!`;
+                    let alert = `😱 ${collection.data} floor price is 📉 to **${response.data.floorPrice / 1000000000}** SOL !!`;
 
-                    console.log(alert);
                     await user.send({ content: alert, components: [row] });
                     collection.lastSent = 'floorLow';
                     await dashboardKeys.updateOne({ discordId: item.discordId }, item);
@@ -30,7 +29,7 @@ exports.checkMonitors = async function(bot) {
             } else if ((response.data.floorPrice / 1000000000) >= parseFloat(collection.floorHigh)) {
                 if (collection.lastSent != 'floorHigh') {
                     let user = await bot.users.fetch(item.discordId);
-                    let alert = `🚀 ${collection.data} floor price is 📈 to ${response.data.floorPrice / 1000000000} SOL !!`
+                    let alert = `🚀 ${collection.data} floor price is 📈 to **${response.data.floorPrice / 1000000000}** SOL !!`
 
                     await user.send({ content: alert, components: [row] });
                     collection.lastSent = 'floorHigh';
@@ -41,6 +40,7 @@ exports.checkMonitors = async function(bot) {
 
         await item.monitors.wallets.forEach(async function(wallet) {
             const response = await axios.get(`https://api-mainnet.magiceden.dev/v2/wallets/${wallet.data}/activities?offset=0&limit=1`);
+            const tokenResponse = await axios.get(`https://api-mainnet.magiceden.dev/v2/tokens/${response.data[0].tokenMint}`);
 
             if (wallet.lastSent != response.data[0].signature) {
                 let user = await bot.users.fetch(item.discordId);
@@ -48,28 +48,28 @@ exports.checkMonitors = async function(bot) {
 
                 switch (response.data[0].type) {
                     case 'list':
-                        alert = `Listed new ${response.data[0].collection} item for ${response.data[0].price} SOL!`
+                        alert = `🏳️ Listed **${tokenResponse.data.name}** on ${response.data[0].collection} collection for **${response.data[0].price}** SOL!`
                         break;
                     case 'delist':
-                        alert = `Delisted ${response.data[0].collection} item!`
+                        alert = `🚫 Canceled Listing of **${tokenResponse.data.name}** on ${response.data[0].collection} collection`
                         break;
                     case 'buyNow':
                         if (response.data[0].seller == wallet.data) {
-                            alert = `Sold ${response.data[0].collection} item, for ${response.data[0].price} SOL!`
+                            alert = `💰 Sold **${tokenResponse.data.name}**, for **${response.data[0].price}** SOL!`
                         } else {
-                            alert = `Bought ${response.data[0].collection} item, for ${response.data[0].price} SOL!`
+                            alert = `🎉 Bought **${tokenResponse.data.name}**, for **${response.data[0].price}** SOL!`
                         }
                         break;
                     case 'bid':
                         if (response.data[0].buyer == wallet.data) {
-                            alert = `Placed new bid on ${response.data[0].collection} item, @ ${response.data[0].price} SOL!`
+                            alert = `🖊️ Placed new bid on **${tokenResponse.data.name}**, @ **${response.data[0].price}** SOL!`
                         } else {
-                            alert = `Recieved new bid on ${response.data[0].collection} item, # ${response.data[0].price} SOL!`
+                            alert = `🤑 Recieved new bid on **${tokenResponse.data.name}**, @ **${response.data[0].price}**  SOL!`
                         }
                         break;
                     case 'cancelBid':
                         if (response.data[0].buyer == wallet.data) {
-                            alert = `Canceled bid on ${response.data[0].collection} item, @ ${response.data[0].price} SOL!`
+                            alert = `😢 Canceled bid on **${tokenResponse.data.name}**, @ **${response.data[0].price}** SOL!`
                         }
                         break;
                     default:
