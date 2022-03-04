@@ -29,7 +29,7 @@ exports.checkMonitors = async function(bot) {
         await item.monitors.wallets.forEach(async function(wallet) {
             const response = await axios.get(`https://api-mainnet.magiceden.dev/v2/wallets/${wallet.data}/activities?offset=0&limit=1`);
 
-            if (wallet.lastSent != response.data[0]) {
+            if (wallet.lastSent != response.data[0].signature) {
                 let user = await bot.users.fetch(item.discordId);
                 let alert = 'Impossible!'
 
@@ -64,7 +64,7 @@ exports.checkMonitors = async function(bot) {
                 }
 
                 await user.send(alert);
-                wallet.lastSent = response.data[0];
+                wallet.lastSent = response.data[0].signature;
                 await dashboardKeys.updateOne({ discordId: item.discordId }, item);
             }
 
