@@ -13,7 +13,7 @@ exports.checkMonitors = async function(bot) {
                 .addComponents(
                     new MessageButton()
                     .setLabel('Show Collection')
-                    .setStyle('LINK'),
+                    .setStyle('LINK')
                     .setURL(`https://magiceden.io/marketplace/${collection.data}`)
                 );
 
