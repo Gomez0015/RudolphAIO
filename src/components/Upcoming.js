@@ -13,10 +13,10 @@ const { Title } = Typography;
 const { SubMenu } = Menu;
 const { Header, Content, Sider, Footer } = Layout;
 
-function Monitors(props) {
+function Upcoming(props) {
     const [calendarData, setCalendarData] = useState([]);
 
-    const fetchUpcommingLaunches = () => {
+    const fetchUpcomingLaunches = () => {
         axios.get('https://api-mainnet.magiceden.dev/v2/launchpad/collections?offset=0&limit=200').then(response => {
             setCalendarData(response.data);
         });
@@ -24,7 +24,7 @@ function Monitors(props) {
 
 
     useEffect(() => {
-        fetchUpcommingLaunches();
+        fetchUpcomingLaunches();
       }, []);
 
     function getListData(value) {
@@ -77,4 +77,4 @@ function Monitors(props) {
     );
 }
 
-export default Monitors;
+export default Upcoming;
