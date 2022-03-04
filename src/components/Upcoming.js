@@ -30,20 +30,11 @@ function Upcoming(props) {
     function getListData(value) {
         let listData;
 
-        // calendarData.forEach(event => {
-        //     if (event.launchDatetime)
-        // });
-
         var result = calendarData.find(obj => {
             if(obj.launchDatetime != undefined) {
                 return value.isSame(obj.launchDatetime, 'day');
             }
         });
-
-        // listData = [
-        //     { type: 'warning', content:<><p>This is warning event.</p><Button onClick={() => {alert('Warning');}}>Hello!</Button></> },
-        //     { type: 'success', content: 'This is usual event.' },
-        //   ];
 
         if(result != undefined) {
             listData = [

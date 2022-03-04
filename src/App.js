@@ -34,7 +34,6 @@ import MobileLogin from './components/mobile/MobileLogin';
 import Bots from './components/Bots';
 import Monitors from './components/Monitors';
 import Upcoming from './components/Upcoming';
-// import Stats from './components/Stats';
 
 const { Title } = Typography;
 const { SubMenu } = Menu;
