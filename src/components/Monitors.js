@@ -8,6 +8,7 @@ import {
     SettingOutlined
 } from '@ant-design/icons';
 import InfiniteScroll from 'react-infinite-scroll-component';
+
 const { Title } = Typography;
 const { SubMenu } = Menu;
 const { Header, Content, Sider, Footer } = Layout;
@@ -88,7 +89,6 @@ function Monitors(props) {
                 console.error(err);
             });
     }
-
 
     return (
         <>

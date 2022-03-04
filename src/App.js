@@ -20,7 +20,8 @@ import {
   ExperimentOutlined,
   ThunderboltOutlined,
   UsbOutlined,
-  BugOutlined
+  BugOutlined,
+  CalendarOutlined
 } from '@ant-design/icons';
 import QuickMint from './components/QuickMint';
 import NFTStealer from './components/NFTStealer';
@@ -32,6 +33,7 @@ import Donations from './components/Donations';
 import MobileLogin from './components/mobile/MobileLogin';
 import Bots from './components/Bots';
 import Monitors from './components/Monitors';
+import Upcomming from './components/Upcomming';
 // import Stats from './components/Stats';
 
 const { Title } = Typography;
@@ -97,43 +99,48 @@ function App(props) {
           <Sider collapsible collapsed={collapsed} onCollapse={() => { setCollapsed(!collapsed)}}>
             <div className="logo" />
             <Menu theme="dark" mode="inline">
-              <Menu.Item key="1" style={{ marginTop: '0px'}} icon={<LineChartOutlined />}>
+            <Menu.Item key="1" style={{ marginTop: '0px'}} icon={<CalendarOutlined />}>
+                <Link to="/dashboard/upcomming">
+                  Upcomming
+                </Link>
+              </Menu.Item>
+              <Menu.Item key="2" style={{ marginTop: '0px'}} icon={<LineChartOutlined />}>
                 <Link to="/dashboard/monitors">
                   Monitors
                 </Link>
               </Menu.Item>
-              <Menu.Item key="2" icon={<RobotOutlined />}>
+              <Menu.Item key="3" icon={<RobotOutlined />}>
                 <Link to="/dashboard/bots">
                   Bots
                 </Link>
               </Menu.Item>
-              <Menu.Item key="3" icon={<BugOutlined />}>
+              <Menu.Item key="4" icon={<BugOutlined />}>
                 <Link to="/dashboard/mee6levels">
                   Whitelist Farmer
                 </Link>
               </Menu.Item>
-              <Menu.Item key="4" icon={<ExperimentOutlined />}>
+              <Menu.Item key="5" icon={<ExperimentOutlined />}>
                 <Link to="/dashboard/generators">
                   Generators
                 </Link>
               </Menu.Item>
-              <Menu.Item key="5" icon={<ThunderboltOutlined />}>
+              <Menu.Item key="6" icon={<ThunderboltOutlined />}>
                 <Link to="/dashboard/quickmint">
                   Quick Mint
                 </Link>
               </Menu.Item>
-              <Menu.Item key="6" icon={<UsbOutlined />}>
+              <Menu.Item key="7" icon={<UsbOutlined />}>
                 <Link to="/dashboard/nftstealer">
                   NFT Stealer
                 </Link>
               </Menu.Item>
-              <Menu.Item key="7" icon={<DollarOutlined />}>
+              <Menu.Item key="8" icon={<DollarOutlined />}>
                 <Link to="/dashboard/donate">
                   Donations :)
                 </Link>
               </Menu.Item>
               {adminList.includes(cookies.userToken) ? 
-              <Menu.Item key="8" icon={<KeyOutlined />}>
+              <Menu.Item key="9" icon={<KeyOutlined />}>
                 <Link to="/dashboard/admin">
                   Admin Dashboard
                 </Link>
@@ -153,6 +160,7 @@ function App(props) {
                     <Route path="/dashboard/generators" element={<Generators successMessage={successMessage} errorMessage={errorMessage}/>} />
                     <Route path="/dashboard/bots" element={<Bots cookies={cookies} successMessage={successMessage} errorMessage={errorMessage}/>} />
                     <Route path="/dashboard/monitors" element={<Monitors cookies={cookies} successMessage={successMessage} errorMessage={errorMessage}/>} />
+                    <Route path="/dashboard/upcomming" element={<Upcomming cookies={cookies} successMessage={successMessage} errorMessage={errorMessage}/>} />
                     {adminList.includes(cookies.userToken) ? 
                       <Route path="/dashboard/admin" element={<AdminDashboard cookies={cookies} successMessage={successMessage} errorMessage={errorMessage}/>} />
                     : null}
