@@ -31,23 +31,39 @@ exports.checkMonitors = async function(bot) {
 
             if (wallet.lastSent != response.data[0]) {
                 let user = await bot.users.fetch(item.discordId);
-                const walletEmbed = new MessageEmbed()
-                    .setTitle('New Wallet Activity')
-                    .setURL(`https://api-mainnet.magiceden.dev/v2/wallets/${wallet.data}/activities?offset=0&limit=1`)
-                    .addFields({
-                        name: 'Type',
-                        value: response.data[0].type
-                    }, {
-                        name: 'Collection',
-                        value: response.data[0].collection
-                    }, {
-                        name: 'Price',
-                        value: response.data[0].price.toString(),
-                    }, )
-                    .setTimestamp()
-                    .setFooter({ text: 'RudolphAIO Monitors', iconURL: 'https://i.imgur.com/AfFp7pu.png' });
+                let alert = 'Impossible!'
 
-                await user.send({ embeds: [walletEmbed] });
+                switch (response.data[0].type) {
+                    case 'list':
+                        alert = `Listed new ${response.data[0].collection} item for ${response.data[0].price} SOL!`
+                        break;
+                    case 'delist':
+                        alert = `Delisted ${response.data[0].collection} item!`
+                        break;
+                    case 'buyNow':
+                        if (response.data[0].seller == wallet.data) {
+                            alert = `Sold ${response.data[0].collection} item, for ${response.data[0].price} SOL!`
+                        } else {
+                            alert = `Bought ${response.data[0].collection} item, for ${response.data[0].price} SOL!`
+                        }
+                        break;
+                    case 'bid':
+                        if (response.data[0].buyer == wallet.data) {
+                            alert = `Placed new bid on ${response.data[0].collection} item, @ ${response.data[0].price} SOL!`
+                        } else {
+                            alert = `Recieved new bid on ${response.data[0].collection} item, # ${response.data[0].price} SOL!`
+                        }
+                        break;
+                    case 'cancelBid':
+                        if (response.data[0].buyer == wallet.data) {
+                            alert = `Canceled bid on ${response.data[0].collection} item, @ ${response.data[0].price} SOL!`
+                        }
+                        break;
+                    default:
+                        console.log('bruh');
+                }
+
+                await user.send(alert);
                 wallet.lastSent = response.data[0];
                 await dashboardKeys.updateOne({ discordId: item.discordId }, item);
             }
