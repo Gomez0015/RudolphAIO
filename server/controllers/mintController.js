@@ -1,6 +1,6 @@
 var axios = require('axios');
 require('dotenv').config();
-const network = 'devnet';
+const network = 'mainnet-beta';
 let mintData = new Map();
 
 exports.getMintData = async function(req, res) {
@@ -39,6 +39,7 @@ exports.getMintData = async function(req, res) {
 }
 
 async function getCandyVersion(candyId, _callback) {
+
     await axios({
             method: 'get',
             url: `https://api.blockchainapi.com/v1/solana/account/${network}/${candyId}/is_candy_machine`,
