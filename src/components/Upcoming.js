@@ -17,7 +17,7 @@ function Upcoming(props) {
     const [calendarData, setCalendarData] = useState([]);
 
     const fetchUpcomingLaunches = () => {
-        axios.get('https://api-mainnet.magiceden.dev/v2/launchpad/collections?offset=0&limit=200').then(response => {
+        axios.get(process.env.REACT_APP_SERVER_URI + "/api/getCalendarData").then(response => {
             setCalendarData(response.data);
         });
     }

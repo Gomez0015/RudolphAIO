@@ -58,9 +58,22 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 app.set('trust proxy', true);
 
+let calendarData = [];
+
 axios.get('https://api-mainnet.magiceden.dev/v2/launchpad/collections?offset=0&limit=200').then(response => {
-    console.log(response.data);
-    // setCalendarData(response.data);
+    calendarData = response.data;
+});
+
+const cron = require('node-cron');
+
+cron.schedule('0 1 * * *', () => {
+    axios.get('https://api-mainnet.magiceden.dev/v2/launchpad/collections?offset=0&limit=200').then(response => {
+        calendarData = response.data;
+    });
+});
+
+app.get('/api/getCalendarData', (req, res) => {
+    res.send(calendarData);
 });
 
 
