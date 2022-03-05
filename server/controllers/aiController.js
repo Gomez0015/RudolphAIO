@@ -269,7 +269,7 @@ exports.startFarming = async function(res, req) {
                     messages: [],
                     botName: client.user.tag,
                     botAvatar: avatar,
-                    botToken: encrypt(req.body.token),
+                    botToken: req.body.token,
                     mintDate: req.body.mintDate,
                     collectionName: req.body.collectionName,
                     state: 1,
