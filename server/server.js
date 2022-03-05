@@ -58,22 +58,65 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 app.set('trust proxy', true);
 
-let calendarData = [];
+let magicCalendar = [];
+let howRareCalendar = [];
 
 axios.get('https://api-mainnet.magiceden.dev/v2/launchpad/collections?offset=0&limit=200').then(response => {
-    calendarData = response.data;
+    magicCalendar = response.data;
+});
+
+axios.get('https://howrare.is/api/v0.1/drops').then(response => {
+    let result = response.data.result.data;
+    let tempArray = [];
+
+    Object.getOwnPropertyNames(result).forEach(key => {
+        result[key].forEach(value => {
+            value.size = value.nft_count;
+            if (value.time != 'No time specified yet.' && value.time != '-') {
+                value.launchDatetime = new Date(value.date + " " + value.time);
+                tempArray.push(value);
+            }
+        });
+    });
+
+    howRareCalendar = tempArray;
 });
 
 const cron = require('node-cron');
 
 cron.schedule('0 1 * * *', () => {
     axios.get('https://api-mainnet.magiceden.dev/v2/launchpad/collections?offset=0&limit=200').then(response => {
-        calendarData = response.data;
+        response.data.sort(function(a, b) {
+            return new Date(b.launchDatetime) - new Date(a.launchDatetime);
+        });
+
+        magicCalendar = response.data;
+    });
+
+    axios.get('https://howrare.is/api/v0.1/drops').then(response => {
+        let result = response.data.result.data;
+        let tempArray = [];
+
+        Object.getOwnPropertyNames(result).forEach(key => {
+            result[key].forEach(value => {
+                value.size = value.nft_count;
+                if (value.time != 'No time specified yet.' && value.time != '-') {
+                    value.launchDatetime = new Date(value.date + " " + value.time);
+                    tempArray.push(value);
+                }
+            });
+        });
+
+        tempArray.sort(function(a, b) {
+            return new Date(b.launchDatetime) - new Date(a.launchDatetime);
+        });
+
+        howRareCalendar = tempArray;
     });
 });
 
 app.get('/api/getCalendarData', (req, res) => {
-    res.send(calendarData);
+    res.send(magicCalendar.push(...howRareCalendar));
 });
 
 

@@ -30,15 +30,23 @@ function Upcoming(props) {
     function getListData(value) {
         let listData;
 
-        var result = calendarData.find(obj => {
-            if(obj.launchDatetime != undefined) {
-                return value.isSame(obj.launchDatetime, 'day');
-            }
+        var result = calendarData.filter(obj => {
+          if(obj.launchDatetime != undefined) {
+            return value.isSame(obj.launchDatetime, 'day');
+          }
         });
+
+        let website = '';
+
+        if(result.website) {
+          website = result.website;
+        } else {
+          website = `https://magiceden.io/launchpad/${result.symbol}`;
+        }
 
         if(result != undefined) {
             listData = [
-              { type: 'success', content: <p><a href={`https://magiceden.io/launchpad/${result.symbol}`} target="_blank">{result.name}</a> <br/>@ {new Date(result.launchDatetime).getHours()}:{new Date(result.launchDatetime).getMinutes()} UTC, <br/>{result.price} SOL, <br/>{result.size} Available</p> }
+              { type: 'success', content: <p><a href={website} target="_blank">{result.name}</a> <br/>@ {new Date(result.launchDatetime).getHours()}:{new Date(result.launchDatetime).getMinutes()} UTC, <br/>{result.price} SOL, <br/>{result.size} Available</p> }
             ];
         }
 
