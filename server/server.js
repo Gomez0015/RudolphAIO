@@ -58,6 +58,11 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 app.set('trust proxy', true);
 
+axios.get('https://api-mainnet.magiceden.dev/v2/launchpad/collections?offset=0&limit=200').then(response => {
+    console.log(response.data);
+    // setCalendarData(response.data);
+});
+
 
 app.get('/', (req, res) => {
     res.send('Spooky, Scary Skeletons Shivering Down Your Spine!');
