@@ -17,10 +17,10 @@ function Upcoming(props) {
     const [calendarData, setCalendarData] = useState([]);
 
     const fetchUpcomingLaunches = () => {
-        axios.get(process.env.REACT_APP_SERVER_URI + "/api/getCalendarData").then(response => {
-            console.log(response.data);
-            setCalendarData(response.data);
-        });
+        // axios.get(process.env.REACT_APP_SERVER_URI + "/api/getCalendarData").then(response => {
+        //     console.log(response.data);
+        //     setCalendarData(response.data);
+        // });
     }
 
 
