@@ -89,10 +89,13 @@ exports.saveFarmData = async function() {
             return (obj._id.equals(item._id))
         });
 
+
         if (!checkIfExists) {
             item.state = 0;
             await levelFarms.create(item);
             console.log(item.botName, 'Created');
+        } else {
+            console.log(item.botName, 'Already Exists')
         }
     });
 
