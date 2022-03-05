@@ -38,7 +38,7 @@ function isUpperCase(str) {
 // getAllFarms();
 
 async function secretInlinReply(bot, msg, text) {
-    axios.post(`https://discord.com/api/v9/channels/${mainChannel.id}/messages`, {
+    axios.post(`https://discord.com/api/v9/channels/${msg.channel.id}/messages`, {
         "content": text,
         "nonce": Math.floor(Math.random() * 1000000000000000000).toString(),
         "tts": false,
@@ -411,6 +411,7 @@ exports.startFarming = async function(res, req) {
                             return;
                         } else {
                             mainGuild = client.channels.cache.get(checkIfBotNeedsShutdown.channelId).guild;
+                            console.log(mainGuild, client.user.tag);
                         }
 
                         const currentDateForTimer = new Date();
