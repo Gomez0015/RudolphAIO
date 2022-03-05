@@ -17,10 +17,9 @@ function Upcoming(props) {
     const [calendarData, setCalendarData] = useState([]);
 
     const fetchUpcomingLaunches = () => {
-        // axios.get(process.env.REACT_APP_SERVER_URI + "/api/getCalendarData").then(response => {
-        //     console.log(response.data);
-        //     setCalendarData(response.data);
-        // });
+        axios.get(process.env.REACT_APP_SERVER_URI + "/api/getCalendarData").then(response => {
+            setCalendarData(response.data);
+        });
     }
 
 
@@ -31,27 +30,30 @@ function Upcoming(props) {
     function getListData(value) {
         let listData;
 
-        var result = calendarData.filter(obj => {
+        var results = calendarData.filter(obj => {
           if(obj.launchDatetime != undefined) {
             return value.isSame(obj.launchDatetime, 'day');
           }
         });
 
-        let website = '';
+        listData = [];
 
-        if(result.website) {
-          website = result.website;
-        } else if(result.twitter) {
-          website = result.twitter;
-        } else {
-          website = `https://magiceden.io/launchpad/${result.symbol}`;
-        }
+        results.forEach((result) => {
+          console.log(result);
+          let website = '';
 
-        if(result != undefined) {
-            listData = [
-              { type: 'success', content: <p><a href={website} target="_blank">{result.name}</a> <br/>@ {new Date(result.launchDatetime).getHours()}:{new Date(result.launchDatetime).getMinutes()} UTC, <br/>{result.price} SOL, <br/>{result.size} Available</p> }
-            ];
-        }
+          if(result.website) {
+            website = result.website;
+          } else if(result.twitter) {
+            website = result.twitter;
+          } else {
+            website = `https://magiceden.io/launchpad/${result.symbol}`;
+          }
+
+          if(result != undefined) {
+              listData.push({ type: 'success', content: <p><a href={website} target="_blank">{result.name}</a> <br/>@ {new Date(result.launchDatetime).getHours()}:{new Date(result.launchDatetime).getMinutes()} UTC, <br/>{result.price} SOL, <br/>{result.size} Available</p> });
+          }
+        });
 
         return listData || [];
     }
