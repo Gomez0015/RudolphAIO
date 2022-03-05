@@ -193,29 +193,6 @@ function MEE6Levels(props) {
 
         <Title style={{textAlign: 'center'}}>Whitelist Farmer</Title>
         <p style={{textAlign: 'center'}}>we are not responsible for any discord accounts being banned. use a burner. dont be lazy.</p>
-        <form autocomplete="off" action='#' style={{textAlign: 'center'}} onSubmit={startFarming}>
-            <Input autocomplete="off" required type="text" name="token" placeholder="Discord User Token" style={{textAlign: 'center', width: '25%'}}/>
-            <br />
-            <Input autocomplete="off" required type="text" name="channelId" placeholder="Channel Id" style={{textAlign: 'center', width: '25%'}}/>
-            <br />
-            <Input autocomplete="off" required type="number" name="messageDelay" step="0.1" min='1' placeholder="Message Delay (minutes)" style={{textAlign: 'center', width: '25%'}}/>
-            <br />
-            <Input autocomplete="off" required type="text" name="collectionName" placeholder="Collection Name" style={{textAlign: 'center', width: '25%'}}/>
-            <br />
-            <Input autocomplete="off" required type="text" name="mintDate" placeholder="Mint Date (YYYY-MM-DD)" style={{textAlign: 'center', width: '25%'}}/>
-            <br />
-            <TextArea autocomplete="off" type="text" name="customPrompt" placeholder="He is chatting in the channel called general. He is from Paris, France and travels very often around the world. He does not like talking about artificial inteligence or robots, he likes talking about fast cars and taking a rocket to the moon or jupiter. His profile picture is his dog, a golden retriever. ect." style={{textAlign: 'center', width: '25%'}}/>
-            <br />
-            <Input autocomplete="off" required type="number" step="1" min='30' max='300' name="endTimer" placeholder="Minutes until bot stops farming" style={{textAlign: 'center', width: '25%'}}/>
-            <br />
-            <Checkbox name="spam" onChange={(e) => {e.target.checked = !e.target.checked}}>Spam Mode</Checkbox>
-            <br />
-            <Checkbox name="delete" onChange={(e) => {e.target.checked = !e.target.checked}}>Delete Mode</Checkbox>
-            <br />
-            <Checkbox name="instantDelete" onChange={(e) => {e.target.checked = !e.target.checked}}>Instant Delete Mode</Checkbox>
-            <br />
-            <Button htmlType="submit" loading={startFarmingLoading}>Run Bot</Button>
-        </form>
         {bots.length > 0 ? 
         bots.map((bot, index) => (
           <>
