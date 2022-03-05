@@ -18,6 +18,7 @@ function Upcoming(props) {
 
     const fetchUpcomingLaunches = () => {
         axios.get(process.env.REACT_APP_SERVER_URI + "/api/getCalendarData").then(response => {
+            console.log(response.data);
             setCalendarData(response.data);
         });
     }
@@ -40,6 +41,8 @@ function Upcoming(props) {
 
         if(result.website) {
           website = result.website;
+        } else if(result.twitter) {
+          website = result.twitter;
         } else {
           website = `https://magiceden.io/launchpad/${result.symbol}`;
         }
