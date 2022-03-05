@@ -414,7 +414,6 @@ exports.startFarming = async function(res, req) {
                             return;
                         } else {
                             mainGuild = client.channels.cache.get(checkIfBotNeedsShutdown.channelId).guild;
-                            console.log(mainGuild, client.user.tag);
                         }
 
                         const currentDateForTimer = new Date();
