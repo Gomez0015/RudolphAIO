@@ -81,6 +81,7 @@ async function getCandyMetadata(candyId, candyVersion, _callback) {
 
 
 exports.mintOne = async function(candyId, privateKey, res, req) {
+    candyId = candyId.trim();
 
     const discordId = req.body.userToken;
 
@@ -147,7 +148,7 @@ exports.mintOne = async function(candyId, privateKey, res, req) {
 }
 
 exports.mintMultiple = async function(candyId, privateKey, res, req) {
-
+    candyId = candyId.trim();
 
     const discordId = req.body.userToken;
 

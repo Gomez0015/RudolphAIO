@@ -42,6 +42,12 @@ const getInfo = async function(url, privateKey, res, req) {
 }
 
 exports.getScript = async function(url, privateKey, res, req) {
+    var lastChar = url.charAt(url.length - 1);
+
+    if (lastChar === '/') {
+        url = url.slice(0, -1);
+    }
+
     request(url, function(error, response, body) {
         if (!error && response.statusCode == 200) {
             var $ = cheerio.load(body);

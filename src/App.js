@@ -99,7 +99,7 @@ function App(props) {
             <div className="logo" />
             <Menu theme="dark" mode="inline">
             <Menu.Item key="1" style={{ marginTop: '0px'}} icon={<CalendarOutlined />}>
-                <Link to="/dashboard/Upcoming">
+                <Link to="/dashboard/upcoming">
                   Upcoming
                 </Link>
               </Menu.Item>
@@ -114,7 +114,7 @@ function App(props) {
                 </Link>
               </Menu.Item>
               <Menu.Item key="4" icon={<BugOutlined />}>
-                <Link to="/dashboard/mee6levels">
+                <Link to="/dashboard/whitelistfarmer">
                   Whitelist Farmer
                 </Link>
               </Menu.Item>
@@ -155,11 +155,11 @@ function App(props) {
                     <Route path="/dashboard/quickmint" element={<QuickMint cookies={cookies} successMessage={successMessage} errorMessage={errorMessage}/>} />
                     <Route path="/dashboard/nftstealer" element={<NFTStealer />} />
                     <Route path="/dashboard/donate" element={<Donations successMessage={successMessage} errorMessage={errorMessage} />} />
-                    <Route path="/dashboard/mee6levels" element={<MEE6Levels cookies={cookies} successMessage={successMessage} errorMessage={errorMessage}/>} />
+                    <Route path="/dashboard/whitelistfarmer" element={<MEE6Levels cookies={cookies} successMessage={successMessage} errorMessage={errorMessage}/>} />
                     <Route path="/dashboard/generators" element={<Generators successMessage={successMessage} errorMessage={errorMessage}/>} />
                     <Route path="/dashboard/bots" element={<Bots cookies={cookies} successMessage={successMessage} errorMessage={errorMessage}/>} />
                     <Route path="/dashboard/monitors" element={<Monitors cookies={cookies} successMessage={successMessage} errorMessage={errorMessage}/>} />
-                    <Route path="/dashboard/Upcoming" element={<Upcoming cookies={cookies} successMessage={successMessage} errorMessage={errorMessage}/>} />
+                    <Route path="/dashboard/upcoming" element={<Upcoming cookies={cookies} successMessage={successMessage} errorMessage={errorMessage}/>} />
                     {adminList.includes(cookies.userToken) ? 
                       <Route path="/dashboard/admin" element={<AdminDashboard cookies={cookies} successMessage={successMessage} errorMessage={errorMessage}/>} />
                     : null}
