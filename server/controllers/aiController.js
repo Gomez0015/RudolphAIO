@@ -85,13 +85,15 @@ exports.saveFarmData = async function() {
     });
 
     await allFarmData.forEach(async(item) => {
+        console.log(item.botName, 1);
         let checkIfExists = await oldFarmData.find(obj => {
             return (obj._id.equals(item._id))
         });
-
+        console.log(item.botName, checkIfExists.botName, 2);
 
         if (!checkIfExists) {
             item.state = 0;
+            console.log(item.botName, 'Creating...');
             await levelFarms.create(item);
             console.log(item.botName, 'Created');
         } else {
