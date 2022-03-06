@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&family=Righteous&display=swap');
 :root {
     --main-color: #f5222d;
     --snow-color: #fffafa;
@@ -5,8 +6,8 @@
     --dark2-color: #0f0f0f;
 }
 
-.App {
-    text-align: center;
+* {
+    font-family: 'Fira Code', monospace;
 }
 
 .ant-btn:hover,

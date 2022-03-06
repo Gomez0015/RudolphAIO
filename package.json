@@ -3,6 +3,7 @@
     "version": "0.1.0",
     "private": true,
     "dependencies": {
+        "@ant-design/pro-layout": "^6.33.1",
         "@mui/material": "^5.2.7",
         "@nlpjs/core": "^4.22.7",
         "@nlpjs/lang-en-min": "^4.22.7",

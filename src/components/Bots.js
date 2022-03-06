@@ -286,7 +286,6 @@ function Bots(props) {
           <Button onClick={() => {deleteBot(botSettings)}} style={{marginTop: '30px'}}>Delete Bot</Button>
         </Modal>
       : null }
-        <Title style={{textAlign: 'center'}}>Bots</Title>
         <p style={{textAlign: 'center'}}>we are not responsible for any discord accounts being banned.</p>
         <form autocomplete="off" action='#' style={{textAlign: 'center'}} onSubmit={addBot}>
             <TextArea autocomplete="off" required type="text" name="tokenList" placeholder="Discord User Tokens (Seperated by new line)" style={{textAlign: 'center'}}/>

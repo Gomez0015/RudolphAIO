@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { BrowserView, MobileView, isBrowser, isMobile } from 'react-device-detect';
 import { Layout, Menu, Breadcrumb, Typography, message, Button } from 'antd';
 import { useCookies } from "react-cookie";
-import rudolph from './rudolph.png';
+import rudolph from './components/svgs/rudolph.svg';
 import {
   Outlet,
   Link,
@@ -81,14 +81,11 @@ function App(props) {
     <BrowserView>
     {loggedIn ?
     <Layout> 
-        <Header className="header">
-          <div className="logo" />
-          {/* <Button onClick={updateStyleMode} style={{display: 'inline-block', marginLeft: '-30px'}}>{darkMode ? 'Light Mode' : 'Dark Mode'}</Button> */}
-          <Title id='mainTitle' style={{color: 'white', marginTop: '5px', marginLeft: '15px', display: 'inline-block'}}>Rudolph AIO</Title>
-        </Header>
         <Layout style={{ minHeight: '95vh' }}>
           <Sider collapsible collapsed={collapsed} onCollapse={() => { setCollapsed(!collapsed)}}>
-            <div className="logo" />
+            <div className="logo" style={{textAlign: 'center' }}>
+              <img src={rudolph} style={{width: '50%'}} />
+            </div>
             <Menu theme="dark" mode="inline">
             <Menu.Item key="1" style={{ marginTop: '0px'}} icon={<CalendarOutlined />}>
                 <Link to="/dashboard/upcoming">

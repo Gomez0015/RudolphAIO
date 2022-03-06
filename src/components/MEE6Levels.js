@@ -191,7 +191,6 @@ function MEE6Levels(props) {
         </Modal>
       : null }
 
-        <Title style={{textAlign: 'center'}}>Whitelist Farmer</Title>
         <p style={{textAlign: 'center'}}>we are not responsible for any discord accounts being banned. use a burner. dont be lazy.</p>
         {bots.length > 0 ? 
         bots.map((bot, index) => (

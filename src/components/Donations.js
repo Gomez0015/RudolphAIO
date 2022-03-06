@@ -23,7 +23,6 @@ function Donations(props) {
 
     return (
         <div style={{textAlign: 'center'}}>
-            <Title style={{textAlign: 'center'}}>Donations</Title>
             <ConnectToPhantom setUserWallet={setUserWallet}/>
             {userWallet != 'none' ? 
             <form action='#' style={{textAlign: 'center'}} onSubmit={donate} >

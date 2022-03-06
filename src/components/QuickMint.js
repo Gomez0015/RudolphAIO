@@ -64,7 +64,6 @@ function QuickMint(props) {
 
   return (
     <>
-        <Title style={{textAlign: 'center'}}>Quick Mint</Title>
         <form action='#' style={{textAlign: 'center'}} onSubmit={Mint}>
             <Input required type="text" name="privateKey" placeholder="Burner Private Key" style={{textAlign: 'center', width: '25%'}}/>
             <br />

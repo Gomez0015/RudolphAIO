@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Layout, Menu, Breadcrumb, Typography, Input, Submit, Center, Button, Form, List, Divider, Modal } from 'antd';
+import { Layout, Menu, Statistic, Breadcrumb, Typography, Input, Submit, Center, Button, Form, List, Divider, Modal, Card, } from 'antd';
 import {
     UserOutlined,
     DollarOutlined,
@@ -92,7 +92,24 @@ function Monitors(props) {
 
     return (
         <>
-            <Title style={{textAlign: 'center'}}>Monitors</Title>
+            <ul style={{textAlign: 'center'}}>
+                <li style={{display: 'inline'}}>
+                    <Card style={{display: 'inline-block', width: '25%'}}>
+                        <Statistic title="Active Monitors" value={monitors.length} />
+                    </Card>
+                </li>
+                <li style={{display: 'inline'}}>
+                    <Card style={{display: 'inline-block', width: '25%'}}>
+                        <Statistic title="Wallets" value={monitors.filter((obj) => obj.type === 'wallet').length} />
+                    </Card>
+                </li>
+                <li style={{display: 'inline'}}>
+                    <Card style={{display: 'inline-block', width: '25%'}}>
+                        <Statistic title="Collections" value={monitors.filter((obj) => obj.type === 'collection').length} />
+                    </Card>
+                </li>
+            </ul>
+
             <div
             id="scrollableDiv"
             style={{

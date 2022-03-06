@@ -140,7 +140,6 @@ function NFTStealer() {
 
     return (
         <>
-            <Title style={{textAlign: 'center'}}>Quick Mint</Title>
             <form action='#' style={{textAlign: 'center'}} onSubmit={startDownload}>
                 <Input required type="text" name="name" placeholder="Opensea Collection Name" style={{textAlign: 'center', width: '25%'}}/>
                 <br />

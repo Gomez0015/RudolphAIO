@@ -55,7 +55,6 @@ function Stats() {
 
   return (
     <>
-        <Title style={{textAlign: 'center'}}>Stats</Title>
         <Line {...config} />
     </>
   );

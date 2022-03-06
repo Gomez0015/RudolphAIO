@@ -60,7 +60,6 @@ function AdminDashboard(props) {
               )}
             />         
         </Modal>
-        <Title style={{textAlign: 'center'}}>Admin Dashboard</Title>
         <div style={{textAlign: 'center'}}>
         {adminData.length > 0 ? 
         adminData.map((data, index) => (

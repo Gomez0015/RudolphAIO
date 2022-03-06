@@ -57,7 +57,6 @@ function Generators() {
 
   return (
     <div style={{textAlign: 'center'}}>
-        <Title>Generation Tools</Title>
         <form action='#' style={{textAlign: 'center', marginBottom: '25px'}} autocomplete="off" onSubmit={saveUserData}>
             <Input required type="text" name="userName" placeholder="User Name" style={{textAlign: 'center', width: '25%'}}/>
             <br />
