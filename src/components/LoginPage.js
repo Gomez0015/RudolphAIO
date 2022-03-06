@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Layout, Menu, Breadcrumb, Typography, Input, Submit, Center, Button, Form } from 'antd';
+import { Layout, Menu, Breadcrumb, Typography, Input, Submit, Center, Button, Divider, Form } from 'antd';
 import { useNavigate } from "react-router-dom";
 import {
   UserOutlined,
@@ -8,6 +8,8 @@ import {
 } from '@ant-design/icons';
 import ConnectToPhantom from "./Phantom/ConnectToPhantom.tsx";
 import sendTransferInstruction from './Phantom/SendTransaction.tsx'
+import rudolph from './svgs/rudolph.svg';
+import Wave from 'react-wavify';
 const { Title } = Typography;
 const { SubMenu } = Menu;
 const { Header, Content, Sider, Footer } = Layout;
@@ -154,8 +156,9 @@ function LoginPage(props) {
 
 
   return (
-    <div style={{textAlign: 'center'}}>
-        <Title>Login</Title>
+    <div style={{textAlign: 'center', display: 'flex', justifyContent: 'center', alignContent: 'center', flexWrap: 'wrap', flexDirection: 'column', alignItems: 'center',}}>
+        <img src={rudolph} style={{ width: "200px"}}/>
+        <Divider style={{ width: "20%", minWidth: "20%"}}/>
         {code && buyKey == 'true' && userWallet == 'none' ? 
         <ConnectToPhantom setUserWallet={setUserWallet}/>
         : code && buyKey == 'true' && userWallet != 'none' ? 
@@ -173,17 +176,47 @@ function LoginPage(props) {
             <Button onClick={Login}>Log in</Button>
         :
             <>
-            <form action='#' onSubmit={() => {setNewKeyCookie(false); setBuyKeyCookie(true); DiscordLogin();}}>
-                <Button htmlType="submit">Buy a Key</Button>
-            </form>
-            <form action='#' onSubmit={() => {setNewKeyCookie(true); setBuyKeyCookie(false); DiscordLogin();}}>
+            {/* <form action='#' onSubmit={() => {setNewKeyCookie(true); setBuyKeyCookie(false); DiscordLogin();}} style={{marginBottom: '15px'}}>
                 <Button htmlType="submit">Link new Key With Discord</Button>
-            </form>
-            <form action='#' onSubmit={() => {setNewKeyCookie(false); setBuyKeyCookie(false); DiscordLogin();}}>
+            </form> */}
+            <form action='#' onSubmit={() => {setNewKeyCookie(false); setBuyKeyCookie(false); DiscordLogin();}} style={{marginBottom: '15px'}}>
                 <Button htmlType="submit">Login with Discord</Button>
+            </form>
+            <form action='#' onSubmit={() => {setNewKeyCookie(false); setBuyKeyCookie(true); DiscordLogin();}} style={{marginBottom: '15px'}}>
+                <Button htmlType="submit">Buy a Key</Button>
             </form>
             </>
         }
+
+        <Wave fill='#7a1218'
+                paused={false}
+                options={{
+                    height: 1,
+                    amplitude: 20,
+                    speed: 0.3,
+                    points: 2
+                }}
+                style={{
+                    position: 'fixed',
+                    bottom: '0',
+                    display: 'block',
+                }}
+        />
+
+        <Wave fill='#f5222d'
+                paused={false}
+                options={{
+                    height: 30,
+                    amplitude: 20,
+                    speed: 0.4,
+                    points: 3
+                }}
+                style={{
+                    position: 'fixed',
+                    bottom: '0',
+                    display: 'block',
+                }}
+        />
     </div>
   );
 }

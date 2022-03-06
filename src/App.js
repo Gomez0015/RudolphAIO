@@ -51,10 +51,6 @@ function App(props) {
     message.success(
     {
       content: text,
-      style: {
-        position: 'relative',
-        right: '-6%',
-      },
     });
   };
 
@@ -62,10 +58,6 @@ function App(props) {
     message.error(
     {
       content: text,
-      style: {
-        position: 'relative',
-        right: '-6%',
-      },
     });
   };
 
