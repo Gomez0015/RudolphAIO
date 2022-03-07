@@ -7,7 +7,7 @@ exports.checkMonitors = async function(bot) {
 
     await dashboardKeysData.forEach(async function(item) {
         await item.monitors.collections.forEach(async function(collection) {
-            const response = await axios.get(`https://api-mainnet.magiceden.dev/v2/collections/${collection.data}/stats`);
+            const response = await axios.get(`https://api-mainnet.magiceden.dev/v2/collections/${collection.data}/stats`).catch(err => { console.log(err.message) });
 
             const row = new MessageActionRow()
                 .addComponents(
@@ -39,8 +39,8 @@ exports.checkMonitors = async function(bot) {
         });
 
         await item.monitors.wallets.forEach(async function(wallet) {
-            const response = await axios.get(`https://api-mainnet.magiceden.dev/v2/wallets/${wallet.data}/activities?offset=0&limit=1`);
-            const tokenResponse = await axios.get(`https://api-mainnet.magiceden.dev/v2/tokens/${response.data[0].tokenMint}`);
+            const response = await axios.get(`https://api-mainnet.magiceden.dev/v2/wallets/${wallet.data}/activities?offset=0&limit=1`).catch(err => { console.log(err.message) });
+            const tokenResponse = await axios.get(`https://api-mainnet.magiceden.dev/v2/tokens/${response.data[0].tokenMint}`).catch(err => { console.log(err.message) });
 
             const row = new MessageActionRow()
                 .addComponents(
