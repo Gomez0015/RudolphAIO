@@ -138,6 +138,10 @@ app.post('/api/updateMonitor', (req, res) => {
     monitorController.updateMonitor(req, res);
 });
 
+app.post('/api/deleteMonitor', (req, res) => {
+    monitorController.deleteMonitor(req, res);
+});
+
 app.post('/api/getBots', (req, res) => {
     botController.getBots(res, req);
 });

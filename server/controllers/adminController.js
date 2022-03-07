@@ -1,7 +1,7 @@
-const levelFarms = require('../models/levelFarmModel');
+const serverData = require('../server.js');
 
 exports.getAdminData = async function(req, res) {
-    const data = await levelFarms.find({});
+    const data = serverData.allFarmData;
     if (data) {
         res.send(data);
     } else {

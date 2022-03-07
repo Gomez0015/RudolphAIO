@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Layout, Menu, Statistic, Breadcrumb, Typography, Input, Submit, Center, Button, Form, List, Divider, Modal, Card, } from 'antd';
+import { Layout, Menu, Statistic, Breadcrumb, Typography, Input, Submit, Center, Button, Form, List, Divider, Modal, Card, Select } from 'antd';
 import {
     UserOutlined,
     DollarOutlined,
@@ -12,6 +12,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 const { Title } = Typography;
 const { SubMenu } = Menu;
 const { Header, Content, Sider, Footer } = Layout;
+const { Option } = Select;
 
 function Monitors(props) {
     const [monitors, setMonitors] = useState([]);
@@ -19,6 +20,7 @@ function Monitors(props) {
     const [modalVisible, setModalVisible] = useState(false);
     const [settingsVisible, setSettingsVisible] = useState(false);
     const [settings, setSettings] = useState({});
+    const [currentType, setCurrentType] = useState('none');
 
     const fetchMoreData = () => {
         setDataLoading(true);
@@ -57,7 +59,7 @@ function Monitors(props) {
     const addMonitor = (e) => {
         e.preventDefault();
         setDataLoading(true);
-        axios.post(process.env.REACT_APP_SERVER_URI + "/api/addMonitor", {userToken: props.cookies.userToken, type: e.target.type.value, data: e.target.data.value, floorLow: (e.target.floorLow.value || 0), floorHigh: (e.target.floorHigh.value || 100)})
+        axios.post(process.env.REACT_APP_SERVER_URI + "/api/addMonitor", {userToken: props.cookies.userToken, type: currentType, data: e.target.data.value, floorLow: (e.target.floorLow.value || 0), floorHigh: (e.target.floorHigh.value || 100)})
             .then(res => {
                 if(res.data.state == 'success') {
                     props.successMessage(res.data.message);
@@ -72,10 +74,26 @@ function Monitors(props) {
             });
     }
 
+    const deleteMonitor = (monitor) => {
+        axios.post(process.env.REACT_APP_SERVER_URI + "/api/deleteMonitor", {userToken: props.cookies.userToken, type: monitor.type.toLowerCase(), monitor: monitor.data})
+            .then(res => {
+                if(res.data.state == 'success') {
+                    props.successMessage(res.data.message);
+                } else if(res.data.state == 'error'){
+                    props.errorMessage(res.data.message);
+                }
+
+                setSettingsVisible(false);
+                fetchMoreData();
+            }).catch(err => {
+                console.error(err);
+            });
+    }
+
     const saveSettings = (e) => {
         e.preventDefault();
         setDataLoading(true);
-        axios.post(process.env.REACT_APP_SERVER_URI + "/api/updateMonitor", {old: settings, userToken: props.cookies.userToken, type: e.target.type.value, data: e.target.data.value, floorLow: (e.target.floorLow.value || 0), floorHigh: (e.target.floorHigh.value || 100)})
+        axios.post(process.env.REACT_APP_SERVER_URI + "/api/updateMonitor", {old: settings, userToken: props.cookies.userToken, type: currentType, data: e.target.data.value, floorLow: (e.target.floorLow.value || 0), floorHigh: (e.target.floorHigh.value || 100)})
             .then(res => {
                 if(res.data.state == 'success') {
                     props.successMessage('Succesfully Edited Monitor');
@@ -177,8 +195,11 @@ function Monitors(props) {
                     ]}
                 >
                     <form action='#' style={{textAlign: 'center'}} autocomplete="off" onSubmit={saveSettings}>
-                        <p>Monitor Type (collection, wallet)</p>
-                        <Input defaultValue={settings.type.toLowerCase()} autocomplete="off" required type="text" name="type" placeholder="collection" style={{textAlign: 'center', width: '50%'}}/>
+                        <p>Monitor Type</p>
+                        <Select onChange={(value) => {setCurrentType(value)}} required defaultValue={settings.data.type.toLowerCase()} style={{textAlign: 'center', width: '50%'}}>
+                            <Option value="collection">Collection</Option>
+                            <Option value="wallet">Wallet</Option>
+                        </Select>                        
                         <br />
                         <p style={{marginTop: '30px'}}>Data to Monitor</p>
                         <Input defaultValue={settings.data.data} autocomplete="off" required type="text" name="data" placeholder="solbots" style={{textAlign: 'center', width: '50%'}}/>
@@ -191,6 +212,7 @@ function Monitors(props) {
                         <br />
                         <Button htmlType="submit" style={{marginTop: '30px'}}>Save Settings</Button>
                     </form>
+                    <Button onClick={() => {deleteMonitor(settings)}} style={{marginTop: '30px'}}>Delete Monitor</Button>
                 </Modal>
                 : null
             }
@@ -206,8 +228,11 @@ function Monitors(props) {
                 ]}
             >
                 <form action='#' style={{textAlign: 'center'}} autocomplete="off" onSubmit={addMonitor}>
-                    <p>Monitor Type (collection, wallet)</p>
-                    <Input autocomplete="off" required type="text" name="type" placeholder="collection" style={{textAlign: 'center', width: '50%'}}/>
+                    <p>Monitor Type</p>
+                    <Select onChange={(value) => {setCurrentType(value)}} required defaultValue="collection" style={{textAlign: 'center', width: '50%'}}>
+                        <Option value="collection">Collection</Option>
+                        <Option value="wallet">Wallet</Option>
+                    </Select>
                     <br />
                     <p style={{marginTop: '30px'}}>Data to Monitor</p>
                     <Input autocomplete="off" required type="text" name="data" placeholder="solbots" style={{textAlign: 'center', width: '50%'}}/>

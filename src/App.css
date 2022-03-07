@@ -8,6 +8,7 @@
 
 * {
     font-family: 'Fira Code', monospace;
+    outline: none;
 }
 
 .ant-btn:hover,
@@ -17,8 +18,18 @@
     color: var(--main-color) !important;
 }
 
+.ant-select-item-option-active:not(.ant-select-item-option-disabled),
 .ant-menu-dark.ant-menu-dark:not(.ant-menu-horizontal) .ant-menu-item-selected {
     background-color: var(--main-color) !important;
+}
+
+.ant-select-focused:not(.ant-select-disabled).ant-select:not(.ant-select-customize-input) .ant-select-selector {
+    box-shadow: 0 0 0 2px rgb(220 23 23 / 20%) !important;
+    border-color: var(--main-color) !important;
+}
+
+.ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
+    background-color: #271111 !important;
 }
 
 .ant-input:hover,
@@ -28,6 +39,12 @@
 .ant-select-selector:focus,
 .ant-select-selector:active {
     border-color: var(--main-color) !important;
+}
+
+.ant-btn:focus,
+.ant-select-selector:focus,
+.ant-input:focus {
+    box-shadow: 0 0 0 2px rgb(220 23 23 / 20%) !important;
 }
 
 .anticon:hover {
