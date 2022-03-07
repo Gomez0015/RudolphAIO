@@ -111,6 +111,7 @@ exports.updateBotSettings = async function(res, req) {
         allFarmData[botIndex].spam = req.body.botData.spam;
         allFarmData[botIndex].delete = req.body.botData.delete;
         allFarmData[botIndex].instantDelete = req.body.botData.instantDelete;
+        allFarmData[botIndex].webhook = req.body.botData.webhook;
 
         const checkArraylength = await dashboardKeys.findOne({ discordId: req.body.userToken });
         if (checkArraylength.chatLogs.length >= 20) {

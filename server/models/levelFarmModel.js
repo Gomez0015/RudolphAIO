@@ -68,6 +68,10 @@ var levelFarmSchema = new Schema({
     instantDelete: {
         type: Boolean,
         required: true
+    },
+    webhook: {
+        type: String,
+        default: 'none'
     }
 });
 

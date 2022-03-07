@@ -102,6 +102,7 @@ function MEE6Levels(props) {
         botToSave.delete = e.target.delete.checked; 
         botToSave.endTimer = e.target.endTimer.value;
         botToSave.instantDelete = e.target.instantDelete.checked;
+        botToSave.webhook = e.target.webhook.value;
 
         setBotSettings({settingsVisible: false});
         axios.post(process.env.REACT_APP_SERVER_URI + "/api/updateBotSettings", {userToken: props.cookies.userToken, botData: botToSave})
@@ -178,6 +179,9 @@ function MEE6Levels(props) {
             <br />
             <p style={{marginTop: '30px'}}>End Timer (minutes)</p>
             <Input autocomplete="off" required type="number" step="1" min='30' max='300' name="endTimer" defaultValue={botSettings.endTimer} placeholder="Minutes until bot stops farming" style={{textAlign: 'center', width: '50%'}}/>
+            <br />
+            <p style={{marginTop: '30px'}}>Webhook Link</p>
+            <Input autocomplete="off" type="url" name="webhook" defaultValue={botSettings.webhook} placeholder="Webhook to send different bot alerts" style={{textAlign: 'center', width: '50%'}}/>
             <br />
             <Checkbox name="spam" checked={spamSettingsCheckbox} onChange={() => {setSpamSettingsCheckbox(!spamSettingsCheckbox)}}>Spam Mode</Checkbox>
             <br />

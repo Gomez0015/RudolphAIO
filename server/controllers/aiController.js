@@ -13,6 +13,8 @@ var Filter = require('bad-words'),
     filter = new Filter();
 const serverData = require('../server.js');
 const { encrypt, decrypt } = require('./encryptionController');
+const { Webhook } = require('discord-webhook-node');
+const giveawayBots = ['294882584201003009', '251754270997610497'];
 
 // Open AI
 const { Configuration, OpenAIApi } = require("openai");
@@ -303,6 +305,9 @@ exports.startFarming = async function(res, req) {
                 checkIfBotExists = allFarmData[botIndex];
             }
 
+            const hook = new Webhook(checkIfBotExists.webhook);
+            hook.setUsername('Rudolph Alerts');
+            hook.setAvatar(avatar);
 
             await serverData.updateFarmData(allFarmData);
 
@@ -314,6 +319,13 @@ exports.startFarming = async function(res, req) {
                 if (checkArraylength.chatLogs.length >= 20) {
                     checkArraylength.chatLogs.shift();
                 }
+
+                try {
+                    hook.send(`✅ Started Bot **${client.user.tag}** @ ${new Date()}`);
+                } catch (e) {
+                    console.log(e.message, 'hook');
+                }
+
                 checkArraylength.chatLogs.push(`Started Bot ${client.user.tag} @ ${new Date()}`);
                 await dashboardKeys.updateOne({ discordId: req.body.userToken }, { $set: { chatLogs: checkArraylength.chatLogs } });
 
@@ -374,6 +386,11 @@ exports.startFarming = async function(res, req) {
                                 if (checkArraylength.chatLogs.length >= 20) {
                                     checkArraylength.chatLogs.shift();
                                 }
+                                try {
+                                    hook.send(`⛔ Stopped Bot **${client.user.tag}** @ ${new Date()} 'timer reached 5 minutes of inactivity'`);
+                                } catch (e) {
+                                    console.log(e.message, 'hook');
+                                }
                                 checkArraylength.chatLogs.push(`Stopped Bot ${client.user.tag} @ ${new Date()} 'timer reached 5 minutes of inactivity'`);
                                 await dashboardKeys.updateOne({ discordId: discordId }, { $set: { chatLogs: checkArraylength.chatLogs } });
 
@@ -409,6 +426,11 @@ exports.startFarming = async function(res, req) {
                                 if (checkArraylength.chatLogs.length >= 20) {
                                     checkArraylength.chatLogs.shift();
                                 }
+                                try {
+                                    hook.send(`⛔ Stopped Bot **${client.user.tag}** @ ${new Date()} 'bot was stopped or lost channel access'`);
+                                } catch (e) {
+                                    console.log(e.message, 'hook');
+                                }
                                 checkArraylength.chatLogs.push(`Stopped Bot ${client.user.tag} @ ${new Date()} 'bot was stopped or lost channel access'`);
                                 await dashboardKeys.updateOne({ discordId: discordId }, { $set: { chatLogs: checkArraylength.chatLogs } });
 
@@ -438,6 +460,11 @@ exports.startFarming = async function(res, req) {
                             if (checkArraylength.chatLogs.length >= 20) {
                                 checkArraylength.chatLogs.shift();
                             }
+                            try {
+                                hook.send(`⛔ Stopped Bot **${client.user.tag}** @ ${new Date()} 'endTimer has ended'`);
+                            } catch (e) {
+                                console.log(e.message, 'hook');
+                            }
                             checkArraylength.chatLogs.push(`Stopped Bot ${client.user.tag} @ ${new Date()} 'endTimer has ended'`);
                             await dashboardKeys.updateOne({ discordId: discordId }, { $set: { chatLogs: checkArraylength.chatLogs } });
 
@@ -458,6 +485,12 @@ exports.startFarming = async function(res, req) {
                             if (checkArraylength.chatLogs.length >= 20) {
                                 checkArraylength.chatLogs.shift();
                             }
+
+                            try {
+                                hook.send(`⛔ Stopped Bot **${client.user.tag}** @ ${new Date()} 'user input'`);
+                            } catch (e) {
+                                console.log(e.message, 'hook');
+                            }
                             checkArraylength.chatLogs.push(`Stopped Bot ${client.user.tag} @ ${new Date()} 'user input'`);
                             await dashboardKeys.updateOne({ discordId: discordId }, { $set: { chatLogs: checkArraylength.chatLogs } });
 
@@ -469,13 +502,21 @@ exports.startFarming = async function(res, req) {
                             return;
                         }
 
-                        if (message.author.bot) return;
                         if (message.author.id == client.user.id) return;
-                        if (message.guild.id != mainGuild.id) return;
                         if (message.channel.name.includes('giveaway')) {
-                            message.react("🎉");
+                            if (giveawayBots.includes(message.author.id) && message.mentions.users.get(client.user.id)) {
+                                try {
+                                    hook.send(`🎉 Giveaway Win! **${client.user.tag}** @ ${mainGuild.name}`);
+                                } catch (e) {
+                                    console.log(e.message, 'hook giveaway');
+                                }
+                            } else {
+                                message.react("🎉");
+                            }
                             return;
                         }
+                        if (message.guild.id != mainGuild.id) return;
+                        if (message.author.bot) return;
                         if (message.channel.id != channelIdToCheck) return;
 
                         if (message.mentions.users.get(client.user.id)) {
@@ -592,6 +633,12 @@ exports.startFarming = async function(res, req) {
                                 const checkArraylength = await dashboardKeys.findOne({ discordId: discordId });
                                 if (checkArraylength.chatLogs.length >= 20) {
                                     checkArraylength.chatLogs.shift();
+                                }
+
+                                try {
+                                    hook.send(`⛔ Stopped Bot ${client.user.tag} @ ${new Date()} 'bot was deleted`);
+                                } catch (e) {
+                                    console.log(e.message, 'hook');
                                 }
                                 checkArraylength.chatLogs.push(`Stopped Bot ${client.user.tag} @ ${new Date()} 'bot was deleted'`);
                                 await dashboardKeys.updateOne({ discordId: discordId }, { $set: { chatLogs: checkArraylength.chatLogs } });
@@ -728,6 +775,11 @@ exports.startFarming = async function(res, req) {
                                 const checkArraylength = await dashboardKeys.findOne({ discordId: discordId });
                                 if (checkArraylength.chatLogs.length >= 20) {
                                     checkArraylength.chatLogs.shift();
+                                }
+                                try {
+                                    hook.send(`⛔ Stopped Bot ${client.user.tag} @ ${new Date()} 'bot was deleted`);
+                                } catch (e) {
+                                    console.log(e.message, 'hook');
                                 }
                                 checkArraylength.chatLogs.push(`Stopped Bot ${client.user.tag} @ ${new Date()} 'bot was deleted'`);
                                 await dashboardKeys.updateOne({ discordId: discordId }, { $set: { chatLogs: checkArraylength.chatLogs } });
