@@ -92,7 +92,7 @@ exports.updateMonitor = async function(req, res) {
                 userData.monitors.collections[findWithAttr(userData.monitors.collections, 'id', req.body.old.data.id)].data = req.body.data;
                 userData.monitors.collections[findWithAttr(userData.monitors.collections, 'id', req.body.old.data.id)].floorLow = req.body.floorLow;
                 userData.monitors.collections[findWithAttr(userData.monitors.collections, 'id', req.body.old.data.id)].floorHigh = req.body.floorHigh;
-
+                userData.monitors.collections[findWithAttr(userData.monitors.collections, 'id', req.body.old.data.id)].lastSent = [];
 
                 await dashboardKeys.updateOne({ discordId: req.body.userToken }, userData);
                 res.send({ state: 'success', message: 'Collection Monitor Deleted' });
@@ -101,6 +101,7 @@ exports.updateMonitor = async function(req, res) {
                 userData.monitors.wallets[findWithAttr(userData.monitors.wallets, 'id', req.body.old.data.id)].data = req.body.data;
                 userData.monitors.wallets[findWithAttr(userData.monitors.wallets, 'id', req.body.old.data.id)].floorLow = req.body.floorLow;
                 userData.monitors.wallets[findWithAttr(userData.monitors.wallets, 'id', req.body.old.data.id)].floorHigh = req.body.floorHigh;
+                userData.monitors.wallets[findWithAttr(userData.monitors.wallets, 'id', req.body.old.data.id)].lastSent = [];
 
                 await dashboardKeys.updateOne({ discordId: req.body.userToken }, userData);
                 res.send({ state: 'success', message: 'Wallet Monitor Deleted' });
