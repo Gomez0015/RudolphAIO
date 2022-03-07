@@ -89,7 +89,7 @@ exports.updateMonitor = async function(req, res) {
     if (userData) {
         switch (req.body.type) {
             case 'collection':
-                userData.monitors.collections[findWithAttr(userData.monitors.collections, 'id', req.body.old.data.id)].data = req.body.data;
+                userData.monitors.collections[findWithAttr(userData.monitors.collections, 'id', req.body.old.data.id)].data = req.body.data.toLowerCase();
                 userData.monitors.collections[findWithAttr(userData.monitors.collections, 'id', req.body.old.data.id)].floorLow = req.body.floorLow;
                 userData.monitors.collections[findWithAttr(userData.monitors.collections, 'id', req.body.old.data.id)].floorHigh = req.body.floorHigh;
                 userData.monitors.collections[findWithAttr(userData.monitors.collections, 'id', req.body.old.data.id)].lastSent = [];
