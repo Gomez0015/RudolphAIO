@@ -69,37 +69,44 @@ exports.saveFarmData = async function() {
     console.log(oldFarmData.length);
     console.log(allFarmData.length);
 
-    await oldFarmData.forEach(async(item) => {
-        let checkIfExists = await allFarmData.find(obj => {
-            return (obj._id.equals(item._id))
-        });
+    for (let i = 0; i < oldFarmData.length; i++) {
+        try {
+            let checkIfExists = await allFarmData.find(obj => {
+                return (obj._id.equals(oldFarmData[i]._id))
+            });
 
-        if (checkIfExists) {
-            checkIfExists.state = 0;
-            await levelFarms.findByIdAndUpdate(checkIfExists.id, checkIfExists);
-            console.log(item.botName, 'Updated');
-        } else {
-            await levelFarms.findByIdAndDelete(item.id);
-            console.log(item.botName, 'Deleted');
+            if (checkIfExists) {
+                checkIfExists.state = 0;
+                await levelFarms.findByIdAndUpdate(checkIfExists.id, checkIfExists);
+                console.log(oldFarmData[i].botName, 'Updated');
+            } else {
+                await levelFarms.findByIdAndDelete(oldFarmData[i].id);
+                console.log(oldFarmData[i].botName, 'Deleted');
+            }
+        } catch (e) {
+            console.log(oldFarmData[i].botName, e.message);
         }
-    });
+    }
 
-    await allFarmData.forEach(async(item) => {
-        console.log(item.botName, 1);
-        let checkIfExists = await oldFarmData.find(obj => {
-            return (obj._id.equals(item._id))
-        });
-        console.log(item.botName, checkIfExists.botName, 2);
+    for (let i = 0; i < allFarmData.length; i++) {
+        try {
+            console.log(allFarmData[i], 1);
+            let checkIfExists = await oldFarmData.find(obj => {
+                return (obj._id.equals(allFarmData[i]._id))
+            });
 
-        if (!checkIfExists) {
-            item.state = 0;
-            console.log(item.botName, 'Creating...');
-            await levelFarms.create(item);
-            console.log(item.botName, 'Created');
-        } else {
-            console.log(item.botName, 'Already Exists')
+            if (!checkIfExists) {
+                allFarmData[i].state = 0;
+                console.log(allFarmData[i].botName, 'Creating...');
+                await levelFarms.create(allFarmData[i]);
+                console.log(allFarmData[i].botName, 'Created');
+            } else {
+                console.log(allFarmData[i].botName, 'Already Exists')
+            }
+        } catch (e) {
+            console.log(allFarmData[i].botName, e.message);
         }
-    });
+    }
 
     await levelFarms.updateMany({ $set: { state: 0 } });
 }

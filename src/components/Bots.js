@@ -36,7 +36,7 @@ function Bots(props) {
         for (let i = 0; i < tokenArray.length; i++) {
           const token = tokenArray[i].trim();
 
-          await axios.post(process.env.REACT_APP_SERVER_URI + "/api/createBot", {userToken: props.cookies.userToken, botToken: token })
+          await axios.post(process.env.REACT_APP_SERVER_URI + "/api/createBot", {userToken: props.cookies.userToken, botToken: token.trim() })
             .then(res => {
                 console.log(res.data);
                 if(res.data.state == 'success') {
