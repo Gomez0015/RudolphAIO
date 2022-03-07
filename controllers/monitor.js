@@ -38,7 +38,7 @@ exports.checkMonitors = async function(bot) {
                     }
                 }
             } catch (error) {
-                console.log(error.message);
+                console.log(error.message, item.discordId);
             }
         });
 
@@ -94,7 +94,7 @@ exports.checkMonitors = async function(bot) {
                     await dashboardKeys.updateOne({ discordId: item.discordId }, item);
                 }
             } catch (error) {
-                console.log(error.message);
+                console.log(error.message, item.discordId);
             }
 
         });
