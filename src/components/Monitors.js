@@ -181,7 +181,7 @@ function Monitors(props) {
                         <Input defaultValue={settings.type.toLowerCase()} autocomplete="off" required type="text" name="type" placeholder="collection" style={{textAlign: 'center', width: '50%'}}/>
                         <br />
                         <p style={{marginTop: '30px'}}>Data to Monitor</p>
-                        <Input defaultValue={settings.data.data} autocomplete="off" required type="text" name="data" placeholder="SolBots" style={{textAlign: 'center', width: '50%'}}/>
+                        <Input defaultValue={settings.data.data} autocomplete="off" required type="text" name="data" placeholder="solbots" style={{textAlign: 'center', width: '50%'}}/>
                         <br />
                         <p style={{marginTop: '30px'}}>Floor Price Low</p>
                         <Input defaultValue={settings.data.floorLow} autocomplete="off" type="number" name="floorLow" placeholder="1" style={{textAlign: 'center', width: '50%'}}/>
@@ -210,7 +210,7 @@ function Monitors(props) {
                     <Input autocomplete="off" required type="text" name="type" placeholder="collection" style={{textAlign: 'center', width: '50%'}}/>
                     <br />
                     <p style={{marginTop: '30px'}}>Data to Monitor</p>
-                    <Input autocomplete="off" required type="text" name="data" placeholder="SolBots" style={{textAlign: 'center', width: '50%'}}/>
+                    <Input autocomplete="off" required type="text" name="data" placeholder="solbots" style={{textAlign: 'center', width: '50%'}}/>
                     <br />
                     <p style={{marginTop: '30px'}}>Floor Price Low</p>
                     <Input autocomplete="off" type="number" name="floorLow" placeholder="1" style={{textAlign: 'center', width: '50%'}}/>
