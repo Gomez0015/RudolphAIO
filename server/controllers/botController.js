@@ -173,13 +173,13 @@ exports.solveCaptcha = async function(res, req) {
             }
         }
     }).then(async(response) => {
+        console.log(response.data);
         if (response.data.errorId != 0) {
-            console.log(response.data);
             res.send({ state: 'error', message: response.data.error_text });
         } else {
             let done = false;
             while (!done) {
-                await sleep(1000);
+                await sleep(3000);
                 await (async() => {
                     await axios({
                         method: 'post',
@@ -190,7 +190,7 @@ exports.solveCaptcha = async function(res, req) {
                         }
                     }).then(response => {
                         if (response.data.status == 'ready') {
-                            let captchaSolved = response.data.solution.text;
+                            let captchaSolved = response.data.solution.gRecaptchaResponse;
 
                             done = true;
                             res.send({ state: 'success', captchaSolved: captchaSolved });

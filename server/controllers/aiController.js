@@ -92,7 +92,6 @@ exports.saveFarmData = async function() {
 
     for (let i = 0; i < allFarmData.length; i++) {
         try {
-            console.log(allFarmData[i], 1);
             let checkIfExists = await oldFarmData.find(obj => {
                 return (obj._id.equals(allFarmData[i]._id))
             });
