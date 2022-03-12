@@ -292,7 +292,7 @@ function Bots(props) {
       : null }
         <p style={{textAlign: 'center'}}>we are not responsible for any discord accounts being banned.</p>
         <form autocomplete="off" action='#' style={{textAlign: 'center'}} onSubmit={addBot}>
-            <TextArea autocomplete="off" required type="text" name="tokenList" placeholder="Discord User Tokens (Seperated by new line)" style={{textAlign: 'center', width: '50%', marginBottom: '10px'}}/>
+            <TextArea autocomplete="off" required type="text" name="tokenList" placeholder="Discord User Tokens (Separated by new line)" style={{textAlign: 'center', width: '50%', marginBottom: '10px'}}/>
             <br />
             <Button htmlType="submit" loading={addBotLoading}>Add Bots</Button>
         </form>
