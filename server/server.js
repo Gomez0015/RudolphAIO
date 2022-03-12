@@ -252,6 +252,10 @@ app.post('/api/generateNewKey', (req, res) => {
     userAuthController.generateNewKey(req, res);
 });
 
+app.get('/api/getStats', (req, res) => {
+    adminController.getStats(req, res);
+});
+
 app.get('/dashboard', (req, res) => {
     res.sendFile(path.join(__dirname, "..", "build", "index.html"));
 });

@@ -20,7 +20,7 @@ function Monitors(props) {
     const [modalVisible, setModalVisible] = useState(false);
     const [settingsVisible, setSettingsVisible] = useState(false);
     const [settings, setSettings] = useState({});
-    const [currentType, setCurrentType] = useState('none');
+    const [currentType, setCurrentType] = useState('collection');
 
     const fetchMoreData = () => {
         setDataLoading(true);

@@ -525,7 +525,7 @@ exports.startFarming = async function(res, req) {
                             if (lastResponder == message.author.id) {
                                 totalMessagesWithLastResponder++;
                             }
-                            if (totalMessagesWithLastResponder >= 10) {
+                            if (totalMessagesWithLastResponder >= 3) {
                                 totalMessagesWithLastResponder = 0;
                                 lastResponder = '';
                                 return;

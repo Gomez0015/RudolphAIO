@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Layout, Menu, Breadcrumb, Typography, Input, Submit, Center, Button, Form } from 'antd';
-import { Line } from '@ant-design/charts';
+import { Layout, Menu, Breadcrumb, Typography, Input, Submit, Center, Button, Form, Statistic, Card } from 'antd';
 import {
     UserOutlined,
     DollarOutlined,
@@ -11,51 +10,50 @@ const { SubMenu } = Menu;
 const { Header, Content, Sider, Footer } = Layout;
 
 function Stats() {
-    const data = [
-        { year: '1991', value: 3 },
-        { year: '1992', value: 4 },
-        { year: '1993', value: 3.5 },
-        { year: '1994', value: 5 },
-        { year: '1995', value: 4.9 },
-        { year: '1996', value: 6 },
-        { year: '1997', value: 7 },
-        { year: '1998', value: 9 },
-        { year: '1999', value: 13 },
-    ];
-    const config = {
-            data,
-            height: 400,
-            xField: 'year',
-            yField: 'value',
-            point: {
-                size: 5,
-                shape: 'diamond | circule',
-            },
-            tooltip: {
-                formatter: (data) => {
-                    return {
-                        name: "",
-                        value: '',
-                    };
-                },
-                customContent: (name, data) =>
-                    `<div>${data?.map((item) => {
-          return `<div class="tooltip-chart" >
-              <span class="tooltip-item-name">${item?.name}</span>
-              <span class="tooltip-item-value">${item?.value}</span>
-            </div>`;
-        })}</div>`,
-      showMarkers: Boolean,
-      showContent: Boolean,
-      position: "right | left",
-      showCrosshairs: Boolean,
-    },
+    const [data, setData] = useState({
+        totalMonitors: 0,
+        totalBots: 0,
+        totalBotsFarming:0,
+        topCollection: 'none',
+    });
 
-  };
+    const fetchMoreData = () => {
+        axios.get(process.env.REACT_APP_SERVER_URI + "/api/getStats")
+            .then(res => {
+                setData(res.data);
+            }).catch(err => {
+                console.error(err);
+            });
+    }
+
+    useEffect(() => {
+      fetchMoreData();
+    }, []);
 
   return (
     <>
-        <Line {...config} />
+        <ul style={{textAlign: 'center'}}>
+            <li style={{display: 'inline'}}>
+                <Card style={{display: 'inline-block', width: '25%', margin: '20px'}}>
+                    <Statistic title="Total Monitors" value={data.totalMonitors} />
+                </Card>
+            </li>
+            <li style={{display: 'inline'}}>
+                <Card style={{display: 'inline-block', width: '25%', margin: '20px'}}>
+                    <Statistic title="Total Bots" value={data.totalBots} />
+                </Card>
+            </li>
+            <li style={{display: 'inline'}}>
+                <Card style={{display: 'inline-block', width: '25%', margin: '20px'}}>
+                    <Statistic title="Bots Farming" value={data.totalBotsFarming} />
+                </Card>
+            </li>
+            <li style={{display: 'inline'}}>
+                <Card style={{display: 'inline-block', width: '25%', margin: '20px'}}>
+                    <Statistic title="Top Collection" value={data.topCollection} />
+                </Card>
+            </li>
+        </ul>
     </>
   );
 }

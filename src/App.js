@@ -34,6 +34,8 @@ import MobileLogin from './components/mobile/MobileLogin';
 import Bots from './components/Bots';
 import Monitors from './components/Monitors';
 import Upcoming from './components/Upcoming';
+import Stats from './components/Stats';
+
 
 const { Title } = Typography;
 const { SubMenu } = Menu;
@@ -87,7 +89,12 @@ function App(props) {
               <img src={rudolph} style={{width: '50%'}} />
             </div>
             <Menu theme="dark" mode="inline">
-            <Menu.Item key="1" style={{ marginTop: '0px'}} icon={<CalendarOutlined />}>
+              <Menu.Item key="0" style={{ marginTop: '0px'}} icon={<LineChartOutlined />}>
+                <Link to="/dashboard/stats">
+                  Stats
+                </Link>
+              </Menu.Item>
+              <Menu.Item key="1" style={{ marginTop: '0px'}} icon={<CalendarOutlined />}>
                 <Link to="/dashboard/upcoming">
                   Upcoming
                 </Link>
@@ -140,7 +147,7 @@ function App(props) {
           <Content style={{ margin: '0 16px' }}>
               <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
                   <Routes>
-                    <Route path="/dashboard/stats" element={<h1>Stats</h1>} />
+                    <Route path="/dashboard/stats" element={<Stats />} />
                     <Route path="/dashboard/quickmint" element={<QuickMint cookies={cookies} successMessage={successMessage} errorMessage={errorMessage}/>} />
                     <Route path="/dashboard/nftstealer" element={<NFTStealer />} />
                     <Route path="/dashboard/donate" element={<Donations successMessage={successMessage} errorMessage={errorMessage} />} />
