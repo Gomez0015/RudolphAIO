@@ -187,23 +187,18 @@ function App(props) {
     }
     </BrowserView>
     <MobileView style={{ textAlign: 'center' }}>
-    <Title>Available for mobile soon...</Title>
-    {/* <Routes>
+    {loggedIn ?
+    <MEE6Levels cookies={cookies} successMessage={successMessage} errorMessage={errorMessage}/>
+    :
+    <Routes>
       <Route
-        path="*"
+        path="/dashboard/*"
         element={
-          <Title>Available for mobile soon...</Title>
+          <LoginPage setLoggedIn={setLoggedIn} cookies={cookies} setCookie={setCookie} successMessage={successMessage} errorMessage={errorMessage}/>
         }
       />
-    </Routes> */}
-    {/* {loggedIn ?
-      <Title>Available for mobile soon...</Title>
-      :
-      <>
-        <h1> Hello! </h1>
-        <MobileLogin setLoggedIn={setLoggedIn} successMessage={successMessage} errorMessage={errorMessage}/>
-      </>
-    } */}
+    </Routes>
+    }
     </MobileView>
     </>
   );
