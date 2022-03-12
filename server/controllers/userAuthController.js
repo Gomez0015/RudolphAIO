@@ -9,12 +9,14 @@ exports.checkAuthDiscord = async function(req, res) {
         if (req.body.discordLogin && req.body.authToken == data.authToken) {
             await dashboardKeys.findOneAndUpdate({ discordId: req.body.discordId }, { lastLoginIp: req.headers['x-forwarded-for'] });
             res.send(data);
-        } else {
+        } else if (req.body.authToken == data.authToken) {
             if (data.lastLoginIp === (req.headers['x-forwarded-for'])) {
                 res.send(data);
             } else {
                 res.send({ state: 'error', message: 'You have been logged out' });
             }
+        } else {
+            res.send({ state: 'error', message: 'You have been logged out' });
         }
     } else {
         res.send({ state: 'error', message: 'No key linked with this discord account.', key: 'none' });

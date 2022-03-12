@@ -117,18 +117,18 @@ function App(props) {
                   Quick Mint
                 </Link>
               </Menu.Item>
-              <Menu.Item key="7" icon={<UsbOutlined />}>
+              {/* <Menu.Item key="7" icon={<UsbOutlined />}>
                 <Link to="/dashboard/nftstealer">
                   NFT Stealer
                 </Link>
-              </Menu.Item>
-              <Menu.Item key="8" icon={<DollarOutlined />}>
+              </Menu.Item> */}
+              <Menu.Item key="7" icon={<DollarOutlined />}>
                 <Link to="/dashboard/donate">
                   Donations :)
                 </Link>
               </Menu.Item>
               {adminList.includes(cookies.userToken) ? 
-              <Menu.Item key="9" icon={<KeyOutlined />}>
+              <Menu.Item key="8" icon={<KeyOutlined />}>
                 <Link to="/dashboard/admin">
                   Admin Dashboard
                 </Link>

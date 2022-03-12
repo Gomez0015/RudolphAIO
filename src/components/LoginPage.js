@@ -38,7 +38,7 @@ function LoginPage(props) {
     // Similar to componentDidMount and componentDidUpdate:
     useEffect(() => {
         if(props.cookies.userToken != 'none' && props.cookies.userToken != undefined && props.cookies.userToken != null && newKey == 'false') {
-            axios.post(process.env.REACT_APP_SERVER_URI + '/api/checkAuthDiscord', {discordId: props.cookies.userToken})
+            axios.post(process.env.REACT_APP_SERVER_URI + '/api/checkAuthDiscord', {discordId: props.cookies.userToken, authToken: discordAuth.data.authToken})
                 .then(res => {
                     
                     if(res.data.state == 'success') {
