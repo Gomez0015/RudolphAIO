@@ -5,7 +5,8 @@ var Schema = mongoose.Schema;
 var dashboardKeysSchema = new Schema({
     key: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     start_date: {
         type: Date,
@@ -13,7 +14,8 @@ var dashboardKeysSchema = new Schema({
     },
     discordId: {
         type: String,
-        default: 'none'
+        default: 'none',
+        unique: true
     },
     expired: {
         type: Boolean,

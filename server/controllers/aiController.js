@@ -375,7 +375,7 @@ exports.startFarming = async function(res, req) {
             client.on("message", async function(message) {
                 try {
                     if (!currentlyShuttingDown) {
-                        if (countDownDistance <= -300000) {
+                        if (countDownDistance <= -900000) {
                             currentlyShuttingDown = true;
                             console.log('Shutting bot down...', client.user.tag);
                             clearInterval(x);
@@ -386,11 +386,11 @@ exports.startFarming = async function(res, req) {
                                     checkArraylength.chatLogs.shift();
                                 }
                                 try {
-                                    hook.send(`⛔ Stopped Bot **${client.user.tag}** @ ${new Date()} 'timer reached 5 minutes of inactivity'`);
+                                    hook.send(`⛔ Stopped Bot **${client.user.tag}** @ ${new Date()} 'timer reached 15 minutes of inactivity'`);
                                 } catch (e) {
                                     console.log(e.message, 'hook');
                                 }
-                                checkArraylength.chatLogs.push(`Stopped Bot ${client.user.tag} @ ${new Date()} 'timer reached 5 minutes of inactivity'`);
+                                checkArraylength.chatLogs.push(`Stopped Bot ${client.user.tag} @ ${new Date()} 'timer reached 15 minutes of inactivity'`);
                                 await dashboardKeys.updateOne({ discordId: discordId }, { $set: { chatLogs: checkArraylength.chatLogs } });
 
                                 // await levelFarms.updateOne({ discordId: discordId, botName: client.user.tag }, { state: 0 });
