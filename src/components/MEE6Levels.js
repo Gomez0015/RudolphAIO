@@ -28,14 +28,17 @@ function MEE6Levels(props) {
     const startFarming = (e) => {
         if(e.target) e.preventDefault();
         setStartFarmingLoading(true);
+        const hide = props.loadingMessage('Starting Bot...')
         if(!e.target) {
           axios.post(process.env.REACT_APP_SERVER_URI + "/api/startFarming", {userToken: props.cookies.userToken,token: e.botToken, messageDelay: e.messageDelay, channelId: e.channelId, mintDate: e.mintDate, collectionName: e.collectionName, customPrompt: e.customPrompt, spam: e.spam,  delete: e.delete, endTimer: e.endTimer, instantDelete: e.instantDelete})
           .then(res => {
               if(res.data.state == 'success') {
                   props.successMessage(res.data.message);
                   setStartFarmingLoading(false);
+                  hide();
               } else if(res.data.state == 'error'){
                   props.errorMessage(res.data.message);
+                  hide();
                   setStartFarmingLoading(false);
               }
               setTimeout(() => {fetchMoreData();}, 3000);
@@ -48,9 +51,11 @@ function MEE6Levels(props) {
               if(res.data.state == 'success') {
                   props.successMessage(res.data.message);
                   setStartFarmingLoading(false);
+                  hide();
               } else if(res.data.state == 'error'){
                   props.errorMessage(res.data.message);
                   setStartFarmingLoading(false);
+                  hide();
               }
               setTimeout(() => {fetchMoreData();}, 3000);
           }).catch(err => { 

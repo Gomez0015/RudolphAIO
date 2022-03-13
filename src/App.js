@@ -63,6 +63,12 @@ function App(props) {
     });
   };
 
+  const loadingMessage = (text) => {
+    const hide = message.loading(text, 0);
+    // Dismiss manually and asynchronously
+    return hide;
+  };
+
   // const updateStyleMode = () => {
 
   //   if(!darkMode) {
@@ -151,7 +157,7 @@ function App(props) {
                     <Route path="/dashboard/quickmint" element={<QuickMint cookies={cookies} successMessage={successMessage} errorMessage={errorMessage}/>} />
                     <Route path="/dashboard/nftstealer" element={<NFTStealer />} />
                     <Route path="/dashboard/donate" element={<Donations successMessage={successMessage} errorMessage={errorMessage} />} />
-                    <Route path="/dashboard/whitelistfarmer" element={<MEE6Levels cookies={cookies} successMessage={successMessage} errorMessage={errorMessage}/>} />
+                    <Route path="/dashboard/whitelistfarmer" element={<MEE6Levels cookies={cookies} loadingMessage={loadingMessage} successMessage={successMessage} errorMessage={errorMessage}/>} />
                     <Route path="/dashboard/generators" element={<Generators successMessage={successMessage} errorMessage={errorMessage}/>} />
                     <Route path="/dashboard/bots" element={<Bots cookies={cookies} successMessage={successMessage} errorMessage={errorMessage}/>} />
                     <Route path="/dashboard/monitors" element={<Monitors cookies={cookies} successMessage={successMessage} errorMessage={errorMessage}/>} />

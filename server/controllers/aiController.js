@@ -347,15 +347,6 @@ exports.startFarming = async function(res, req) {
             let countDownDistance = 1;
             let currentlyShuttingDown = false;
 
-            // Update the count down every 1 second
-            var x = setInterval(function() {
-                // Get today's date and time
-                var now = new Date().getTime();
-                // Find the distance between now and the count down date
-                countDownDistance = countDownDate - now;
-                console.log(countDownDistance, client.user.tag);
-            }, 1000);
-
             let currentlyChecking = false;
             let channelIdToCheck = req.body.channelId;
 
@@ -371,6 +362,75 @@ exports.startFarming = async function(res, req) {
 
             let mainGuild = undefined;
             let discordId = req.body.userToken;
+
+            // Update the count down every 1 second
+            var x = setInterval(function() {
+                // Get today's date and time
+                var now = new Date().getTime();
+                // Find the distance between now and the count down date
+                countDownDistance = countDownDate - now;
+                console.log(countDownDistance, client.user.tag);
+
+                if (checkIfBotExists.spam && checkIfBotExists.instantDelete && countDownDistance < 0 && !currentlyChecking) {
+                    currentlyChecking = true;
+                    try {
+
+
+                        answer = randomSpam.spam[Math.floor(Math.random() * randomSpam.spam.length)];
+
+                        while (answer == lastResponse) {
+                            answer = randomSpam.spam[Math.floor(Math.random() * randomSpam.spam.length)];
+                        }
+
+                        let answerTrimmed;
+                        if (answer != undefined) {
+                            answerTrimmed = answer.toString().replace(/' '/g, '');
+                        } else {
+                            answerTrimmed = '';
+                        }
+
+                        if (answer == undefined || answerTrimmed.length <= 0) {
+                            currentlyChecking = false;
+                            return;
+                        } else {
+                            if (checkIfBotExists.delete && lastMessage.length > 0 && !checkIfBotExists.instantDelete) {
+                                lastMessage.delete();
+                            }
+                            channelExists.startTyping();
+                            sleep((answer.length * (Math.floor(Math.random() * (30 - 10 + 1)) + 10)));
+                            channelExists.send(`${answer}`).then(msg => {
+                                lastMessage = msg;
+                                if (checkIfBotExists.instantDelete) {
+                                    msg.delete();
+                                }
+                            }).catch(error => {
+                                console.log(error, 2, answer);
+                            });
+                            channelExists.stopTyping();
+                        }
+
+                        let data = checkIfBotExists.messages;
+                        data.push({ messageAuthor: 'None', message: 'none', response: answer, timeStamp: new Date() });
+                        if (data.length > 20) {
+                            data.shift();
+                        }
+
+                        // await levelFarms.findOneAndUpdate({ discordId: discordId, botName: client.user.tag }, { messages: data });
+                        let botIndex = allFarmData.findIndex((obj => obj.discordId == discordId && obj.botName == client.user.tag));
+                        allFarmData[botIndex].messages = data;
+                        serverData.updateFarmData(allFarmData);
+
+                        minutesToAdd = checkIfBotExists.messageDelay;
+                        currentDate = new Date();
+                        countDownDate = new Date(currentDate.getTime() + (minutesToAdd * 60000)).getTime();
+                        setTimeout(() => { currentlyChecking = false }, 1000);
+                        lastResponse = answer;
+                    } catch (err) {
+                        currentlyChecking = false;
+                        console.log(err);
+                    }
+                }
+            }, 1000);
 
             client.on("message", async function(message) {
                 try {
@@ -564,7 +624,8 @@ exports.startFarming = async function(res, req) {
                                     } else {
                                         botChatLogs = response.data.chatLogs;
                                         message.channel.startTyping();
-                                        await sleep((answer.length * (Math.floor(Math.random() * (30 - 10 + 1)) + 10)));
+                                        await sleep((Math.floor(Math.random() * 2) + 1) * 1000);
+                                        await sleep(answer.length * 250);
 
                                         // message.inlineReply(`${answer}`).catch(error => {
                                         //     console.log(error, 1, answer);
@@ -601,7 +662,8 @@ exports.startFarming = async function(res, req) {
                                     //         } else {
                                     //             botChatLogs = response.data.chatLogs;
                                     //             message.channel.startTyping();
-                                    //             await sleep((answer.length * (Math.floor(Math.random() * (30 - 10 + 1)) + 10)));
+                                    //             await sleep((Math.floor(Math.random() * 2) + 1) * 1000);
+                                    //             await sleep(answer.length * 250);
                                     //             messagesThatNeedReply[x].inlineReply(`${answer}`);
                                     //             message.channel.stopTyping();
                                     //         }
@@ -683,7 +745,8 @@ exports.startFarming = async function(res, req) {
                                             await lastMessage.delete();
                                         }
                                         message.channel.startTyping();
-                                        await sleep((answer.length * (Math.floor(Math.random() * (30 - 10 + 1)) + 10)));
+                                        await sleep((Math.floor(Math.random() * 2) + 1) * 1000);
+                                        await sleep(answer.length * 250);
                                         message.channel.send(`${answer}`).then(msg => {
                                             lastMessage = msg;
                                             if (checkIfBotRunning.instantDelete) {
@@ -739,7 +802,8 @@ exports.startFarming = async function(res, req) {
                                             return;
                                         } else {
                                             message.channel.startTyping();
-                                            await sleep((answer.length * (Math.floor(Math.random() * (30 - 10 + 1)) + 10)));
+                                            await sleep((Math.floor(Math.random() * 2) + 1) * 1000);
+                                            await sleep(answer.length * 250);
                                             // message.inlineReply(`${answer}`).catch(error => {
                                             //     console.log(error, 3, answer);
                                             // });

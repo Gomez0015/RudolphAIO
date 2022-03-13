@@ -58,31 +58,22 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 app.set('trust proxy', true);
 
+function myMiddleware(req, res, next) {
+    Object.keys(req.body).map(k => {
+        req.body[k] = typeof req.body[k] == 'string' ? req.body[k].trim() : req.body[k]
+    });
+
+    next()
+}
+
+app.use(myMiddleware)
+
 let magicCalendar = [];
 let howRareCalendar = [];
 
 axios.get('https://api-mainnet.magiceden.dev/v2/launchpad/collections?offset=0&limit=200').then(response => {
     magicCalendar = response.data;
 });
-
-// axios.get('https://howrare.is/api/v0.1/drops').then(response => {
-//     let result = response.data.result.data;
-//     let tempArray = [];
-
-//     Object.getOwnPropertyNames(result).forEach(key => {
-//         result[key].forEach(value => {
-//             value.size = value.nft_count;
-//             if (value.time != 'No time specified yet.' && value.time != '-') {
-//                 value.launchDatetime = new Date(value.date + " " + value.time);
-//                 magicCalendar.push(value);
-//             }
-//         });
-//     });
-
-//     magicCalendar.sort(function(a, b) {
-//         return new Date(b.launchDatetime) - new Date(a.launchDatetime);
-//     });
-// });
 
 const cron = require('node-cron');
 
