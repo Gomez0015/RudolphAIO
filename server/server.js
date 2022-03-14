@@ -16,7 +16,24 @@ const path = require("path");
 const helmet = require("helmet");
 const db = mongoose.connection;
 const dotenv = require('dotenv');
-dotenv.config()
+dotenv.config();
+
+const Sentry = require("@sentry/node");
+// Importing @sentry/tracing patches the global hub for tracing to work.
+const Tracing = require("@sentry/tracing");
+
+Sentry.init({
+    dsn: "https://d9c389aae42949dfaf284aa3aa366750@o1137397.ingest.sentry.io/6189961",
+
+    // We recommend adjusting this value in production, or using tracesSampler
+    // for finer control
+    tracesSampleRate: 1.0,
+});
+
+exports.Sentry = Sentry;
+
+// Sentry.captureMessage("Something went wrong");
+// Sentry.captureException(e);
 
 const app = express()
 const port = 3000
@@ -61,6 +78,7 @@ app.set('trust proxy', true);
 function myMiddleware(req, res, next) {
     Object.keys(req.body).map(k => {
         req.body[k] = typeof req.body[k] == 'string' ? req.body[k].trim() : req.body[k]
+
     });
 
     next()
@@ -217,7 +235,7 @@ app.post('/api/getDiscordAuthInfo', async(req, res) => {
             }
         }
     }).catch((err) => {
-        console.log(err.message, 1);
+        Sentry.captureException(err);
         res.send({ state: 'error', message: 'Error getting user info' })
     });
 });
@@ -278,8 +296,7 @@ if (process.env.NODE_ENV === 'production') {
     process.on('SIGUSR2', exitHandler.bind(null, { exit: true }));
 
     process.on('uncaughtException', function(err) {
-        console.log('Caught exception: ' + err);
-        console.error(err.stack);
+        Sentry.captureException(err);
     });
 }
 

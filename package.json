@@ -8,6 +8,8 @@
         "@nlpjs/core": "^4.22.7",
         "@nlpjs/lang-en-min": "^4.22.7",
         "@nlpjs/nlp": "^4.22.9",
+        "@sentry/node": "^6.18.2",
+        "@sentry/tracing": "^6.18.2",
         "@solana/spl-token": "^0.1.8",
         "@solana/web3.js": "^1.32.0",
         "@testing-library/jest-dom": "^5.16.1",

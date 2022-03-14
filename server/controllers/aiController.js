@@ -140,7 +140,9 @@ exports.getAnswer = async function(res, req) {
             frequency_penalty: 0,
             presence_penalty: 0.6,
             stop: [" Human:", " AI:"],
-        }).catch(err => { console.log(err.message) });
+        }).catch(err => {
+            serverData.Sentry.captureException(err);
+        });
         try {
             if (response.data.choices[0].text[response.data.choices[0].text.length - 1] === ".")
                 response.data.choices[0].text = response.data.choices[0].text.slice(0, -1);
@@ -169,6 +171,7 @@ exports.getAnswer = async function(res, req) {
             res.send({ answer: answer, chatLogs: tempChatLogs });
         } catch (e) {
             console.log(tempChatLogs, e.message, response.data.choices[0]);
+            serverData.Sentry.captureException(e);
             res.send({ answer: undefined });
         }
     }
@@ -199,7 +202,7 @@ exports.startFarming = async function(res, req) {
     try {
         req.body.token = await encrypt(req.body.token);
     } catch (err) {
-        console.log(err.message);
+        serverData.Sentry.captureException(err);
     }
     let allFarmData = serverData.allFarmData;
 
@@ -207,8 +210,6 @@ exports.startFarming = async function(res, req) {
     let checkIfFarming = await allFarmData.find(obj => {
         return (obj.discordId === req.body.userToken && (obj.state == 1 | obj.state == 2));
     });
-
-    console.log(checkIfFarming);
 
     let checkIfFarmingState;
 
@@ -251,12 +252,17 @@ exports.startFarming = async function(res, req) {
             }
         });
 
-        client.on("error", (err) => console.log(err, err.message, 'DISCORD ERROR'))
+        client.on("error", (err) => {
+            console.log(err, err.message, 'DISCORD ERROR');
+            serverData.Sentry.captureException(err);
+        })
         client.on('shardError', error => {
             console.log('DISCORD ERROR: A websocket connection encountered an error:', error.message);
+            serverData.Sentry.captureException(error);
         });
         process.on('unhandledRejection', error => {
             console.log('DISCORD ERROR: Unhandled promise rejection:', error);
+            serverData.Sentry.captureException(error);
         });
 
 
@@ -404,6 +410,7 @@ exports.startFarming = async function(res, req) {
                                     msg.delete();
                                 }
                             }).catch(error => {
+                                serverData.Sentry.captureException(error);
                                 console.log(error, 2, answer);
                             });
                             channelExists.stopTyping();
@@ -427,6 +434,7 @@ exports.startFarming = async function(res, req) {
                         lastResponse = answer;
                     } catch (err) {
                         currentlyChecking = false;
+                        serverData.Sentry.captureException(err);
                         console.log(err);
                     }
                 }
@@ -498,6 +506,7 @@ exports.startFarming = async function(res, req) {
                                 allFarmData[botIndex].state = 0;
                                 await serverData.updateFarmData(allFarmData);
                             } catch (e) {
+                                serverData.Sentry.captureException(e);
                                 console.log(e, 69);
                             }
                             await client.destroy();
@@ -632,6 +641,7 @@ exports.startFarming = async function(res, req) {
                                         // });
 
                                         await secretInlinReply(checkIfBotRunning, message, `${answer}`).catch(error => {
+                                            serverData.Sentry.captureException(error);
                                             console.log(error, 1, answer);
                                         });
 
@@ -753,6 +763,7 @@ exports.startFarming = async function(res, req) {
                                                 msg.delete();
                                             }
                                         }).catch(error => {
+                                            serverData.Sentry.captureException(error);
                                             console.log(error, 2, answer);
                                         });
                                         message.channel.stopTyping();
@@ -808,6 +819,7 @@ exports.startFarming = async function(res, req) {
                                             //     console.log(error, 3, answer);
                                             // });
                                             await secretInlinReply(checkIfBotRunning, message, `${answer}`).catch(error => {
+                                                serverData.Sentry.captureException(error);
                                                 console.log(error, 3, answer);
                                             });
 
@@ -858,6 +870,7 @@ exports.startFarming = async function(res, req) {
                         }
                     }
                 } catch (e) {
+                    serverData.Sentry.captureException(e);
                     console.log(e, client.user.tag);
                     if (currentlyChecking) {
                         currentlyChecking = false;
@@ -868,13 +881,11 @@ exports.startFarming = async function(res, req) {
 
         if (req.body.token.iv) {
             client.login(decrypt(req.body.token)).catch(err => {
-                console.log(err);
                 res.send({ state: 'error', message: 'Invalid Token Provided!' });
                 return;
             });
         } else {
             client.login(req.body.token).catch(err => {
-                console.log(err);
                 res.send({ state: 'error', message: 'Invalid Token Provided!' });
                 return;
             });
