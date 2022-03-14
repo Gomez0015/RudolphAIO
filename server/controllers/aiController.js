@@ -310,9 +310,12 @@ exports.startFarming = async function(res, req) {
                 checkIfBotExists = allFarmData[botIndex];
             }
 
-            const hook = new Webhook(checkIfBotExists.webhook);
-            hook.setUsername('Rudolph Alerts');
-            hook.setAvatar(avatar);
+            let hook;
+            if (hook != 'none') {
+                hook = new Webhook(checkIfBotExists.webhook);
+                hook.setUsername('Rudolph Alerts');
+                hook.setAvatar(avatar);
+            }
 
             await serverData.updateFarmData(allFarmData);
 
@@ -326,7 +329,7 @@ exports.startFarming = async function(res, req) {
                 }
 
                 try {
-                    hook.send(`✅ Started Bot **${client.user.tag}** @ ${new Date()}`);
+                    if (hook) hook.send(`✅ Started Bot **${client.user.tag}** @ ${new Date()}`);
                 } catch (e) {
                     console.log(e.message, 'hook');
                 }
@@ -365,6 +368,8 @@ exports.startFarming = async function(res, req) {
 
             let lastResponse = '';
             let lastMessage = '';
+
+            let messagesSinceTimer = 0;
 
             let mainGuild = undefined;
             let discordId = req.body.userToken;
@@ -454,7 +459,7 @@ exports.startFarming = async function(res, req) {
                                     checkArraylength.chatLogs.shift();
                                 }
                                 try {
-                                    hook.send(`⛔ Stopped Bot **${client.user.tag}** @ ${new Date()} 'timer reached 15 minutes of inactivity'`);
+                                    if (hook) hook.send(`⛔ Stopped Bot **${client.user.tag}** @ ${new Date()} 'timer reached 15 minutes of inactivity'`);
                                 } catch (e) {
                                     console.log(e.message, 'hook');
                                 }
@@ -494,7 +499,7 @@ exports.startFarming = async function(res, req) {
                                     checkArraylength.chatLogs.shift();
                                 }
                                 try {
-                                    hook.send(`⛔ Stopped Bot **${client.user.tag}** @ ${new Date()} 'bot was stopped or lost channel access'`);
+                                    if (hook) hook.send(`⛔ Stopped Bot **${client.user.tag}** @ ${new Date()} 'bot was stopped or lost channel access'`);
                                 } catch (e) {
                                     console.log(e.message, 'hook');
                                 }
@@ -529,7 +534,7 @@ exports.startFarming = async function(res, req) {
                                 checkArraylength.chatLogs.shift();
                             }
                             try {
-                                hook.send(`⛔ Stopped Bot **${client.user.tag}** @ ${new Date()} 'endTimer has ended'`);
+                                if (hook) hook.send(`⛔ Stopped Bot **${client.user.tag}** @ ${new Date()} 'endTimer has ended'`);
                             } catch (e) {
                                 console.log(e.message, 'hook');
                             }
@@ -555,7 +560,7 @@ exports.startFarming = async function(res, req) {
                             }
 
                             try {
-                                hook.send(`⛔ Stopped Bot **${client.user.tag}** @ ${new Date()} 'user input'`);
+                                if (hook) hook.send(`⛔ Stopped Bot **${client.user.tag}** @ ${new Date()} 'user input'`);
                             } catch (e) {
                                 console.log(e.message, 'hook');
                             }
@@ -574,7 +579,7 @@ exports.startFarming = async function(res, req) {
                         if (message.channel.name.includes('giveaway')) {
                             if (giveawayBots.includes(message.author.id) && message.mentions.users.get(client.user.id)) {
                                 try {
-                                    hook.send(`🎉 Giveaway Win! **${client.user.tag}** @ ${mainGuild.name}`);
+                                    if (hook) hook.send(`🎉 Giveaway Win! **${client.user.tag}** @ ${mainGuild.name}`);
                                 } catch (e) {
                                     console.log(e.message, 'hook giveaway');
                                 }
@@ -694,6 +699,7 @@ exports.startFarming = async function(res, req) {
                                     minutesToAdd = checkIfBotRunning.messageDelay;
                                     currentDate = new Date();
                                     countDownDate = new Date(currentDate.getTime() + (minutesToAdd * 60000)).getTime();
+                                    messagesSinceTimer = 0;
                                     setTimeout(() => { currentlyChecking = false }, 1000);
                                 });
                             } else {
@@ -707,7 +713,7 @@ exports.startFarming = async function(res, req) {
                                 }
 
                                 try {
-                                    hook.send(`⛔ Stopped Bot ${client.user.tag} @ ${new Date()} 'bot was deleted`);
+                                    if (hook) hook.send(`⛔ Stopped Bot ${client.user.tag} @ ${new Date()} 'bot was deleted`);
                                 } catch (e) {
                                     console.log(e.message, 'hook');
                                 }
@@ -785,9 +791,33 @@ exports.startFarming = async function(res, req) {
                                     countDownDate = new Date(currentDate.getTime() + (minutesToAdd * 60000)).getTime();
                                     setTimeout(() => { currentlyChecking = false }, 1000);
                                     lastResponse = answer;
+                                    messagesSinceTimer = 0;
                                 } else {
+                                    if (messagesSinceTimer >= 20) {
+                                        const greetings = ['Hello!', 'hey', 'Sup guys', 'hello', 'hello guys'];
+                                        let answer = greetings[Math.floor(Math.random() * greetings.length)];
+
+                                        message.channel.startTyping();
+                                        await sleep((Math.floor(Math.random() * 2) + 1) * 1000);
+                                        await sleep(answer.length * 250);
+
+                                        await secretInlinReply(checkIfBotRunning, message, `${answer}`).catch(error => {
+                                            serverData.Sentry.captureException(error);
+                                            console.log(error, 3, answer);
+                                        });
+
+                                        message.channel.stopTyping();
+
+                                        minutesToAdd = checkIfBotRunning.messageDelay;
+                                        currentDate = new Date();
+                                        countDownDate = new Date(currentDate.getTime() + (minutesToAdd * 60000)).getTime();
+                                        messagesSinceTimer = 0;
+                                        currentlyChecking = false;
+                                        return;
+                                    }
                                     if ((message.mentions.users.size > 0) && !(message.mentions.users.get(client.user.id))) {
                                         currentlyChecking = false;
+                                        messagesSinceTimer += 1;
                                         return;
                                     };
                                     await axios({
@@ -839,6 +869,7 @@ exports.startFarming = async function(res, req) {
                                         minutesToAdd = checkIfBotRunning.messageDelay;
                                         currentDate = new Date();
                                         countDownDate = new Date(currentDate.getTime() + (minutesToAdd * 60000)).getTime();
+                                        messagesSinceTimer = 0;
                                         setTimeout(() => { currentlyChecking = false }, 1000);
                                     });
                                 }
@@ -852,7 +883,7 @@ exports.startFarming = async function(res, req) {
                                     checkArraylength.chatLogs.shift();
                                 }
                                 try {
-                                    hook.send(`⛔ Stopped Bot ${client.user.tag} @ ${new Date()} 'bot was deleted`);
+                                    if (hook) hook.send(`⛔ Stopped Bot ${client.user.tag} @ ${new Date()} 'bot was deleted`);
                                 } catch (e) {
                                     console.log(e.message, 'hook');
                                 }
