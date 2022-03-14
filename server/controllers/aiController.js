@@ -6,7 +6,7 @@ var randomSpam = require('./spam.json');
 require('dotenv').config();
 var fs = require('fs');
 let chatLogs = '';
-var mention_pattern = /<@.?[0-9]*?>/g;
+var mention_pattern = /<[#-@].?[0-9]*?>/g;
 var emoji_pattern = /(<a?)?:\w+:(\d{18}>)?/g;
 const emoji_check = /(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])/gi;
 var Filter = require('bad-words'),
