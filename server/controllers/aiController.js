@@ -793,20 +793,30 @@ exports.startFarming = async function(res, req) {
                                     lastResponse = answer;
                                     messagesSinceTimer = 0;
                                 } else {
-                                    if (messagesSinceTimer >= 20) {
-                                        const greetings = ['Hello!', 'hey', 'Sup guys', 'hello', 'hello guys'];
+                                    if (messagesSinceTimer >= 10) {
+                                        const greetings = ['Hello!', 'hey', 'Sup guys', 'hello', 'hello guys', 'how is everyone doing?', 'what you guys wanna talk about?'];
                                         let answer = greetings[Math.floor(Math.random() * greetings.length)];
 
                                         message.channel.startTyping();
                                         await sleep((Math.floor(Math.random() * 2) + 1) * 1000);
                                         await sleep(answer.length * 250);
 
-                                        await secretInlinReply(checkIfBotRunning, message, `${answer}`).catch(error => {
+                                        message.channel.send(`${answer}`).catch(error => {
                                             serverData.Sentry.captureException(error);
                                             console.log(error, 3, answer);
                                         });
 
                                         message.channel.stopTyping();
+
+                                        let data = checkIfBotRunning.messages;
+                                        data.push({ messageAuthor: 'None', message: 'none', response: answer, timeStamp: new Date() });
+                                        if (data.length > 20) {
+                                            data.shift();
+                                        }
+
+                                        let botIndex = allFarmData.findIndex((obj => obj.discordId == discordId && obj.botName == client.user.tag));
+                                        allFarmData[botIndex].messages = data;
+                                        serverData.updateFarmData(allFarmData);
 
                                         minutesToAdd = checkIfBotRunning.messageDelay;
                                         currentDate = new Date();
