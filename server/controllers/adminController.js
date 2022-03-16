@@ -41,7 +41,7 @@ exports.getStats = async function(req, res) {
     for (let index = 0; index < farmData.length; index++) {
         stats.totalBots += 1;
         console.log(farmData[index].state);
-        if (farmData[index].state == 2) stats.totalBotsFarming += 1;
+        if (farmData[index].state == 1) stats.totalBotsFarming += 1;
         if (farmData[index].collectionName != 'none') allCollections.push(farmData[index].collectionName);
     }
 

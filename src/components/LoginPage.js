@@ -151,7 +151,7 @@ function LoginPage(props) {
     }
 
     const DiscordLogin = () => {
-        window.open(process.env.REACT_APP_SERVER_URI + `/api/discordLogin`, '_self');
+        window.open(process.env.REACT_APP_SERVER_URI + `/api/discordLogin`);
     }
 
 
