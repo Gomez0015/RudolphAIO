@@ -578,17 +578,19 @@ exports.startFarming = async function(res, req) {
                         }
 
                         if (message.author.id == client.user.id) return;
-                        if (message.channel.name.includes('giveaway')) {
-                            if (giveawayBots.includes(message.author.id) && message.mentions.users.get(client.user.id)) {
-                                try {
-                                    if (hook) hook.send(`🎉 Giveaway Win! **${client.user.tag}** @ ${mainGuild.name}`);
-                                } catch (e) {
-                                    console.log(e.message, 'hook giveaway');
+                        if (message.channel.name) {
+                            if (message.channel.name.includes('giveaway')) {
+                                if (giveawayBots.includes(message.author.id) && message.mentions.users.get(client.user.id)) {
+                                    try {
+                                        if (hook) hook.send(`🎉 Giveaway Win! **${client.user.tag}** @ ${mainGuild.name}`);
+                                    } catch (e) {
+                                        console.log(e.message, 'hook giveaway');
+                                    }
+                                } else {
+                                    message.react("🎉");
                                 }
-                            } else {
-                                message.react("🎉");
+                                return;
                             }
-                            return;
                         }
                         if (message.guild.id != mainGuild.id) return;
                         if (message.author.bot) return;
