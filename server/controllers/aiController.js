@@ -468,10 +468,12 @@ exports.startFarming = async function(res, req) {
 
                                 // await levelFarms.updateOne({ discordId: discordId, botName: client.user.tag }, { state: 0 });
                                 let botIndex = allFarmData.findIndex((obj => obj.discordId == discordId && obj.botName == client.user.tag));
+                                console.log(allFarmData[botIndex].state);
                                 allFarmData[botIndex].state = 0;
+                                console.log(allFarmData[botIndex].state);
                                 await serverData.updateFarmData(allFarmData);
                             } catch (e) {
-                                console.log(e, 'timer 5 min');
+                                console.log(e, 'timer 15 min');
                             }
                             await client.destroy();
                             return;
