@@ -8,14 +8,34 @@ exports.checkMonitors = async function(bot) {
     await dashboardKeysData.forEach(async function(item) {
         await item.monitors.collections.forEach(async function(collection) {
             try {
-                const response = await axios.get(`https://api-mainnet.magiceden.dev/v2/collections/${collection.data}/stats`)
+                let response;
+                let url;
+
+                switch (collection.sitename) {
+                    case 'ME':
+                        response = await axios.get(`https://api-mainnet.magiceden.dev/v2/collections/${collection.data}/stats`);
+                        url = `https://magiceden.io/marketplace/${collection.data}`;
+                        break;
+                    case 'OS':
+                        response = await axios.get(`https://api.opensea.io/api/v1/collection/${collection.data}`, {
+                            headers: {
+                                'X-API-KEY': process.env.OPEN_SEA_KEY
+                            }
+                        });
+                        url = `https://opensea.io/collection/${collection.data}`;
+                        response.data.floorPrice = response.data.collection.stats.floor_price;
+
+                        break;
+                    default:
+                        break;
+                }
 
                 const row = new MessageActionRow()
                     .addComponents(
                         new MessageButton()
                         .setLabel('Show Collection')
                         .setStyle('LINK')
-                        .setURL(`https://magiceden.io/marketplace/${collection.data}`)
+                        .setURL(url)
                     );
 
                 if ((response.data.floorPrice / 1000000000) <= parseFloat(collection.floorLow)) {
