@@ -47,6 +47,39 @@ exports.checkMonitors = async function(bot) {
                         }
 
                         break;
+                    case 'SA':
+                        response = await axios.get(`https://api.solanart.io/get_floor_price?collection=${collection.data}`);
+                        url = `https://solanart.io/collections/${collection.data}`;
+
+
+                        row = new MessageActionRow()
+                            .addComponents(
+                                new MessageButton()
+                                .setLabel('Show Collection')
+                                .setStyle('LINK')
+                                .setURL(url)
+                            );
+
+                        if ((response.data.floorPrice) <= parseFloat(collection.floorLow)) {
+                            if (collection.lastSent != 'floorLow') {
+                                let user = await bot.users.fetch(item.discordId);
+                                let alert = `😱 ${collection.data} floor price is 📉 to **${response.data.floorPrice}** SOL !!`;
+
+                                await user.send({ content: alert, components: [row] });
+                                collection.lastSent = 'floorLow';
+                                await dashboardKeys.updateOne({ discordId: item.discordId }, item);
+                            }
+                        } else if ((response.data.floorPrice) >= parseFloat(collection.floorHigh)) {
+                            if (collection.lastSent != 'floorHigh') {
+                                let user = await bot.users.fetch(item.discordId);
+                                let alert = `🚀 ${collection.data} floor price is 📈 to **${response.data.floorPrice}** SOL !!`
+
+                                await user.send({ content: alert, components: [row] });
+                                collection.lastSent = 'floorHigh';
+                                await dashboardKeys.updateOne({ discordId: item.discordId }, item);
+                            }
+                        }
+                        break;
                     case 'OS':
                         response = await axios.get(`https://api.opensea.io/api/v1/collection/${collection.data}/stats`, {
                             headers: {
