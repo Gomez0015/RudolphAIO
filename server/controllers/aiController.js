@@ -14,7 +14,7 @@ var Filter = require('bad-words'),
 const serverData = require('../server.js');
 const { encrypt, decrypt } = require('./encryptionController');
 const { Webhook } = require('discord-webhook-node');
-const giveawayBots = ['294882584201003009', '251754270997610497'];
+const giveawayBots = ['294882584201003009', '530082442967646230'];
 
 // Open AI
 const { Configuration, OpenAIApi } = require("openai");
@@ -149,6 +149,8 @@ exports.getAnswer = async function(res, req) {
 
             if (response.data.choices[0].text.split('Human:')[1])
                 response.data.choices[0].text = response.data.choices[0].text.split('Human:')[0];
+            if (response.data.choices[0].text.split('AI:')[1])
+                response.data.choices[0].text = response.data.choices[0].text.split('AI:')[0];
 
             response.data.choices[0].text = response.data.choices[0].text.replace(/\n|\r/g, "").replace(/(?:https?|ftp):\/\/[\n\S]+/g, 'link').replace(mention_pattern, '').replace(emoji_pattern, '')
 
@@ -579,8 +581,8 @@ exports.startFarming = async function(res, req) {
 
                         if (message.author.id == client.user.id) return;
                         if (message.channel.name) {
-                            if (message.channel.name.includes('giveaway')) {
-                                if (giveawayBots.includes(message.author.id) && message.mentions.users.get(client.user.id)) {
+                            if (giveawayBots.includes(message.author.id) && message.channel.name.includes('giveaway')) {
+                                if (message.mentions.users.get(client.user.id)) {
                                     try {
                                         if (hook) hook.send(`🎉 Giveaway Win! **${client.user.tag}** @ ${mainGuild.name}`);
                                     } catch (e) {
