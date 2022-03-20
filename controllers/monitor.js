@@ -11,7 +11,7 @@ exports.checkMonitors = async function(bot) {
                 let response;
                 let url;
 
-                switch (collection.sitename) {
+                switch (collection.siteName) {
                     case 'ME':
                         response = await axios.get(`https://api-mainnet.magiceden.dev/v2/collections/${collection.data}/stats`);
                         url = `https://magiceden.io/marketplace/${collection.data}`;
