@@ -297,25 +297,7 @@ function Monitors(props) {
               <Option value="wallet">Wallet</Option>
             </Select>
             <br />
-            {currentType === "wallet" ? (
-              <>
-                <p>Site To Monitor</p>
-                <Select
-                  onChange={(value) => {
-                    setCurrentSite(value);
-                  }}
-                  required
-                  defaultValue={settings.data.siteName}
-                  style={{ textAlign: "center", width: "50%" }}
-                >
-                  <Option value="ME">Magic Eden</Option>
-                  <Option value="OS" disabled>
-                    Open Sea
-                  </Option>
-                </Select>
-                <br />
-              </>
-            ) : (
+            {currentType === "wallet" ? null : (
               <>
                 <p>Site To Monitor</p>
                 <Select
@@ -412,25 +394,7 @@ function Monitors(props) {
             <Option value="wallet">Wallet</Option>
           </Select>
           <br />
-          {currentType === "wallet" ? (
-            <>
-              <p>Site To Monitor</p>
-              <Select
-                onChange={(value) => {
-                  setCurrentSite(value);
-                }}
-                required
-                defaultValue={"ME"}
-                style={{ textAlign: "center", width: "50%" }}
-              >
-                <Option value="ME">Magic Eden</Option>
-                <Option value="OS" disabled>
-                  Open Sea
-                </Option>
-              </Select>
-              <br />
-            </>
-          ) : (
+          {currentType === "wallet" ? null : (
             <>
               <p>Site To Monitor</p>
               <Select
