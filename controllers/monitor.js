@@ -15,6 +15,36 @@ exports.checkMonitors = async function(bot) {
                     case 'ME':
                         response = await axios.get(`https://api-mainnet.magiceden.dev/v2/collections/${collection.data}/stats`);
                         url = `https://magiceden.io/marketplace/${collection.data}`;
+
+
+                        const row = new MessageActionRow()
+                            .addComponents(
+                                new MessageButton()
+                                .setLabel('Show Collection')
+                                .setStyle('LINK')
+                                .setURL(url)
+                            );
+
+                        if ((response.data.floorPrice / 1000000000) <= parseFloat(collection.floorLow)) {
+                            if (collection.lastSent != 'floorLow') {
+                                let user = await bot.users.fetch(item.discordId);
+                                let alert = `😱 ${collection.data} floor price is 📉 to **${response.data.floorPrice / 1000000000}** SOL !!`;
+
+                                await user.send({ content: alert, components: [row] });
+                                collection.lastSent = 'floorLow';
+                                await dashboardKeys.updateOne({ discordId: item.discordId }, item);
+                            }
+                        } else if ((response.data.floorPrice / 1000000000) >= parseFloat(collection.floorHigh)) {
+                            if (collection.lastSent != 'floorHigh') {
+                                let user = await bot.users.fetch(item.discordId);
+                                let alert = `🚀 ${collection.data} floor price is 📈 to **${response.data.floorPrice / 1000000000}** SOL !!`
+
+                                await user.send({ content: alert, components: [row] });
+                                collection.lastSent = 'floorHigh';
+                                await dashboardKeys.updateOne({ discordId: item.discordId }, item);
+                            }
+                        }
+
                         break;
                     case 'OS':
                         response = await axios.get(`https://api.opensea.io/api/v1/collection/${collection.data}`, {
@@ -25,37 +55,37 @@ exports.checkMonitors = async function(bot) {
                         url = `https://opensea.io/collection/${collection.data}`;
                         response.data.floorPrice = response.data.collection.stats.floor_price;
 
+                        const row = new MessageActionRow()
+                            .addComponents(
+                                new MessageButton()
+                                .setLabel('Show Collection')
+                                .setStyle('LINK')
+                                .setURL(url)
+                            );
+
+                        if ((response.data.floorPrice) <= parseFloat(collection.floorLow)) {
+                            if (collection.lastSent != 'floorLow') {
+                                let user = await bot.users.fetch(item.discordId);
+                                let alert = `😱 ${collection.data} floor price is 📉 to **${response.data.floorPrice}** SOL !!`;
+
+                                await user.send({ content: alert, components: [row] });
+                                collection.lastSent = 'floorLow';
+                                await dashboardKeys.updateOne({ discordId: item.discordId }, item);
+                            }
+                        } else if ((response.data.floorPrice) >= parseFloat(collection.floorHigh)) {
+                            if (collection.lastSent != 'floorHigh') {
+                                let user = await bot.users.fetch(item.discordId);
+                                let alert = `🚀 ${collection.data} floor price is 📈 to **${response.data.floorPrice}** SOL !!`
+
+                                await user.send({ content: alert, components: [row] });
+                                collection.lastSent = 'floorHigh';
+                                await dashboardKeys.updateOne({ discordId: item.discordId }, item);
+                            }
+                        }
+
                         break;
                     default:
                         break;
-                }
-
-                const row = new MessageActionRow()
-                    .addComponents(
-                        new MessageButton()
-                        .setLabel('Show Collection')
-                        .setStyle('LINK')
-                        .setURL(url)
-                    );
-
-                if ((response.data.floorPrice / 1000000000) <= parseFloat(collection.floorLow)) {
-                    if (collection.lastSent != 'floorLow') {
-                        let user = await bot.users.fetch(item.discordId);
-                        let alert = `😱 ${collection.data} floor price is 📉 to **${response.data.floorPrice / 1000000000}** SOL !!`;
-
-                        await user.send({ content: alert, components: [row] });
-                        collection.lastSent = 'floorLow';
-                        await dashboardKeys.updateOne({ discordId: item.discordId }, item);
-                    }
-                } else if ((response.data.floorPrice / 1000000000) >= parseFloat(collection.floorHigh)) {
-                    if (collection.lastSent != 'floorHigh') {
-                        let user = await bot.users.fetch(item.discordId);
-                        let alert = `🚀 ${collection.data} floor price is 📈 to **${response.data.floorPrice / 1000000000}** SOL !!`
-
-                        await user.send({ content: alert, components: [row] });
-                        collection.lastSent = 'floorHigh';
-                        await dashboardKeys.updateOne({ discordId: item.discordId }, item);
-                    }
                 }
             } catch (error) {
                 console.log(error.message, item.discordId);
