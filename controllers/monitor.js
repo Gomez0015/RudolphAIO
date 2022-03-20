@@ -47,13 +47,13 @@ exports.checkMonitors = async function(bot) {
 
                         break;
                     case 'OS':
-                        response = await axios.get(`https://api.opensea.io/api/v1/collection/${collection.data}`, {
+                        response = await axios.get(`https://api.opensea.io/api/v1/collection/${collection.data}/stats`, {
                             headers: {
                                 'X-API-KEY': process.env.OPEN_SEA_KEY
                             }
                         });
                         url = `https://opensea.io/collection/${collection.data}`;
-                        response.data.floorPrice = response.data.collection.stats.floor_price;
+                        response.data.floorPrice = response.data.stats.floor_price;
 
                         const row = new MessageActionRow()
                             .addComponents(
