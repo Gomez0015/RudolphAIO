@@ -37,10 +37,12 @@ function Monitors(props) {
   const [settingsVisible, setSettingsVisible] = useState(false);
   const [settings, setSettings] = useState({
       type: 'Collection',
-      siteName: 'ME',
-      data: 'none',
-      floorLow: 0,
-      floorHigh: 0
+      data: {
+        siteName: 'ME',
+        data: 'none',
+        floorLow: 0,
+        floorHigh: 0
+      }
   });
   const [currentType, setCurrentType] = useState("collection");
   const [currentSite, setCurrentSite] = useState("ME");
@@ -222,6 +224,7 @@ function Monitors(props) {
                 actions={[
                   <SettingOutlined
                     onClick={() => {
+                      console.log(item);
                       setSettings(item);
                       setSettingsVisible(true);
                     }}
@@ -287,7 +290,7 @@ function Monitors(props) {
                 setCurrentType(value);
               }}
               required
-              defaultValue={settings.data.type.toLowerCase()}
+              defaultValue={settings.type.toLowerCase()}
               style={{ textAlign: "center", width: "50%" }}
             >
               <Option value="collection">Collection</Option>
