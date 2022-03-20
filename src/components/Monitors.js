@@ -309,6 +309,7 @@ function Monitors(props) {
                   style={{ textAlign: "center", width: "50%" }}
                 >
                   <Option value="ME">Magic Eden</Option>
+                  <Option value="SA">Solanart</Option>
                   <Option value="OS">Open Sea</Option>
                 </Select>
                 <br />
@@ -406,6 +407,7 @@ function Monitors(props) {
                 style={{ textAlign: "center", width: "50%" }}
               >
                 <Option value="ME">Magic Eden</Option>
+                <Option value="SA">Solanart</Option>
                 <Option value="OS">Open Sea</Option>
               </Select>
               <br />
