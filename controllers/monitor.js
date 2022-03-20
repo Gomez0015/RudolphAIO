@@ -10,6 +10,7 @@ exports.checkMonitors = async function(bot) {
             try {
                 let response;
                 let url;
+                let row;
 
                 switch (collection.siteName) {
                     case 'ME':
@@ -17,7 +18,7 @@ exports.checkMonitors = async function(bot) {
                         url = `https://magiceden.io/marketplace/${collection.data}`;
 
 
-                        const row = new MessageActionRow()
+                        row = new MessageActionRow()
                             .addComponents(
                                 new MessageButton()
                                 .setLabel('Show Collection')
@@ -55,7 +56,7 @@ exports.checkMonitors = async function(bot) {
                         url = `https://opensea.io/collection/${collection.data}`;
                         response.data.floorPrice = response.data.stats.floor_price;
 
-                        const row = new MessageActionRow()
+                        row = new MessageActionRow()
                             .addComponents(
                                 new MessageButton()
                                 .setLabel('Show Collection')
