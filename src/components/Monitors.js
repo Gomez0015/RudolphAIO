@@ -35,7 +35,13 @@ function Monitors(props) {
   const [dataLoading, setDataLoading] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [settingsVisible, setSettingsVisible] = useState(false);
-  const [settings, setSettings] = useState({});
+  const [settings, setSettings] = useState({
+      type: 'Collection',
+      siteName: 'ME',
+      data: 'none',
+      floorLow: 0,
+      floorHigh: 0
+  });
   const [currentType, setCurrentType] = useState("collection");
   const [currentSite, setCurrentSite] = useState("ME");
 
