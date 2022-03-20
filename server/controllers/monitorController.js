@@ -12,7 +12,7 @@ exports.addMonitor = async function(req, res) {
         } else {
             switch (type) {
                 case 'collection':
-                    await userData.monitors.collections.push({ data: data, lastSent: 'none', floorLow: req.body.floorLow, floorHigh: req.body.floorHigh, id: Math.floor(Math.random() * 1000000000) });
+                    await userData.monitors.collections.push({ data: data, lastSent: 'none', floorLow: req.body.floorLow, floorHigh: req.body.floorHigh, siteName: req.body.siteName, id: Math.floor(Math.random() * 1000000000) });
                     await dashboardKeys.updateOne({ discordId: req.body.userToken }, userData);
                     res.send({ state: 'success', message: 'Collection Monitor Created' });
                     break;
@@ -92,6 +92,7 @@ exports.updateMonitor = async function(req, res) {
                 userData.monitors.collections[findWithAttr(userData.monitors.collections, 'id', req.body.old.data.id)].data = req.body.data.toLowerCase();
                 userData.monitors.collections[findWithAttr(userData.monitors.collections, 'id', req.body.old.data.id)].floorLow = req.body.floorLow;
                 userData.monitors.collections[findWithAttr(userData.monitors.collections, 'id', req.body.old.data.id)].floorHigh = req.body.floorHigh;
+                userData.monitors.collections[findWithAttr(userData.monitors.collections, 'id', req.body.old.data.id)].siteName = req.body.siteName;
                 userData.monitors.collections[findWithAttr(userData.monitors.collections, 'id', req.body.old.data.id)].lastSent = [];
 
                 await dashboardKeys.updateOne({ discordId: req.body.userToken }, userData);
@@ -99,8 +100,6 @@ exports.updateMonitor = async function(req, res) {
                 break;
             case 'wallet':
                 userData.monitors.wallets[findWithAttr(userData.monitors.wallets, 'id', req.body.old.data.id)].data = req.body.data;
-                userData.monitors.wallets[findWithAttr(userData.monitors.wallets, 'id', req.body.old.data.id)].floorLow = req.body.floorLow;
-                userData.monitors.wallets[findWithAttr(userData.monitors.wallets, 'id', req.body.old.data.id)].floorHigh = req.body.floorHigh;
                 userData.monitors.wallets[findWithAttr(userData.monitors.wallets, 'id', req.body.old.data.id)].lastSent = [];
 
                 await dashboardKeys.updateOne({ discordId: req.body.userToken }, userData);
