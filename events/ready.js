@@ -105,7 +105,7 @@ module.exports = {
                         await member.roles.remove('936320420200722493');
                     }
                 } else if (reaction.emoji.name === 'veve') {
-                    if (!member.roles.cache.find(r => r.name === "VEVE")) {
+                    if (member.roles.cache.find(r => r.name === "VEVE")) {
                         await member.roles.remove('936320420200722493');
                     }
                 }
