@@ -60,6 +60,10 @@ module.exports = {
                     if (!member.roles.cache.find(r => r.name === "ETH")) {
                         await member.roles.add('936320420200722493');
                     }
+                } else if (reaction.emoji.name === 'veve') {
+                    if (!member.roles.cache.find(r => r.name === "VEVE")) {
+                        await member.roles.add('959089540994310186');
+                    }
                 }
             } else if (reaction.message.id === '935661832360824913') {
                 if (reaction.emoji.name === '✅') {
@@ -98,6 +102,10 @@ module.exports = {
                     }
                 } else if (reaction.emoji.name === 'eth') {
                     if (member.roles.cache.find(r => r.name === "ETH")) {
+                        await member.roles.remove('936320420200722493');
+                    }
+                } else if (reaction.emoji.name === 'veve') {
+                    if (!member.roles.cache.find(r => r.name === "VEVE")) {
                         await member.roles.remove('936320420200722493');
                     }
                 }
