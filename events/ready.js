@@ -64,6 +64,10 @@ module.exports = {
                     if (!member.roles.cache.find(r => r.name === "VEVE")) {
                         await member.roles.add('959089540994310186');
                     }
+                } else if (reaction.emoji.name === 'games') {
+                    if (!member.roles.cache.find(r => r.name === "GAMES")) {
+                        await member.roles.add('961619508064301127');
+                    }
                 }
             } else if (reaction.message.id === '935661832360824913') {
                 if (reaction.emoji.name === '✅') {
@@ -107,6 +111,10 @@ module.exports = {
                 } else if (reaction.emoji.name === 'veve') {
                     if (member.roles.cache.find(r => r.name === "VEVE")) {
                         await member.roles.remove('959089540994310186');
+                    }
+                } else if (reaction.emoji.name === 'games') {
+                    if (member.roles.cache.find(r => r.name === "GAMES")) {
+                        await member.roles.remove('961619508064301127');
                     }
                 }
             } else if (reaction.message.id === '935661832360824913') {
