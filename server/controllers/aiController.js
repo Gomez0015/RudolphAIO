@@ -384,7 +384,7 @@ exports.startFarming = async function(res, req) {
                 countDownDistance = countDownDate - now;
                 console.log(countDownDistance, client.user.tag);
 
-                if (checkIfBotExists.spam && checkIfBotExists.instantDelete && countDownDistance < 0 && !currentlyChecking) {
+                if ((checkIfBotExists.spam && checkIfBotExists.instantDelete || checkIfBotExists.spam && checkIfBotExists.delete) && countDownDistance < 0 && !currentlyChecking) {
                     currentlyChecking = true;
                     try {
                         answer = randomSpam.spam[Math.floor(Math.random() * randomSpam.spam.length)];
@@ -582,7 +582,7 @@ exports.startFarming = async function(res, req) {
                             if (giveawayBots.includes(message.author.id) && message.channel.name.includes('giveaway')) {
                                 if (message.mentions.users.get(client.user.id)) {
                                     try {
-                                        if (hook) hook.send(`🎉 Giveaway Win! **${client.user.tag}** @ ${mainGuild.name}`);
+                                        if (hook) hook.send(`🎉 Giveaway Win! **${client.user.tag}** @ ${message.guild.name}`);
                                     } catch (e) {
                                         console.log(e.message, 'hook giveaway');
                                     }

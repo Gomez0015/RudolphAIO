@@ -48,7 +48,6 @@ function App(props) {
   const [loggedIn, setLoggedIn] = useState(false);
   const [cookies, setCookie] = useCookies(["userToken", "newKey", "buyKey", "authToken"]);
   // const [darkMode, setDarkMode] = useState(true);
-
   const successMessage = (text) => {
     message.success(
     {
