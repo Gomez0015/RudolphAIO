@@ -312,8 +312,8 @@ exports.startFarming = async function(res, req) {
                 checkIfBotExists = allFarmData[botIndex];
             }
 
-            let hook;
-            if (hook != 'none') {
+            let hook = undefined;
+            if (checkIfBotExists.webhook != 'none' || checkIfBotExists.webhook.trim().length > 0) {
                 hook = new Webhook(checkIfBotExists.webhook);
                 hook.setUsername('Rudolph Alerts');
                 hook.setAvatar(avatar);
