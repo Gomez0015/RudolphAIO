@@ -40,21 +40,20 @@ const port = 3000
 
 mongoose.connect('mongodb+srv://admin:' + process.env.MONGODB_PASSWORD + '@main.dyjqy.mongodb.net/rudolphAioDB?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true });
 
-let allFarmData = [];
-async function getAllFarms() {
-    allFarmData = await levelFarms.find({});
-    exports.allFarmData = allFarmData;
-}
+// let allFarmData = [];
+// async function getAllFarms() {
+//     allFarmData = await levelFarms.find({});
+//     exports.allFarmData = allFarmData;
+// }
 
-exports.updateFarmData = async function(allFarmData) {
-    exports.allFarmData = allFarmData;
-}
+// exports.updateFarmData = async function(allFarmData) {
+//     exports.allFarmData = allFarmData;
+// }
 
-exports.allFarmData = allFarmData;
+// exports.allFarmData = allFarmData;
 
 db.once("open", async function() {
     console.log("Database Connected successfully");
-    getAllFarms();
 });
 
 app.use(helmet({
@@ -280,7 +279,7 @@ if (process.env.NODE_ENV === 'production') {
         if (options.cleanup) console.log('clean');
         if (exitCode || exitCode === 0) console.log(exitCode);
         if (options.exit) {
-            await aiController.saveFarmData();
+            await aiController.shutdownBots();
             process.exit();
         }
     }
