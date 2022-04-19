@@ -43,6 +43,7 @@ exports.createBot = async function(req, res) {
                 spam: false,
                 delete: false,
                 instantDelete: false,
+                webhook: '',
             });
             res.send({ state: 'success', message: 'Bot has been created!' });
             client.destroy();
@@ -88,7 +89,7 @@ exports.updateBotSettings = async function(res, req) {
     const data = await levelFarms.findOne({ discordId: req.body.userToken, botName: req.body.botData.botName });
 
     if (data) {
-        await levelFarms.updateOne(data, { endTimer: req.body.botData.endTimer, messageDelay: req.body.botData.messageDelay, channelId: req.body.botData.channelId, collectionName: req.body.botData.collectionName, mintDate: req.body.botData.mintDate, customPrompt: req.body.botData.customPrompt, spam: req.body.botData.spam, delete: req.body.botData.delete });
+        await levelFarms.updateOne(data, { endTimer: req.body.botData.endTimer, messageDelay: req.body.botData.messageDelay, channelId: req.body.botData.channelId, collectionName: req.body.botData.collectionName, mintDate: req.body.botData.mintDate, customPrompt: req.body.botData.customPrompt, spam: req.body.botData.spam, delete: req.body.botData.delete, webhook: req.body.botData.webhook });
 
         const checkArraylength = await dashboardKeys.findOne({ discordId: req.body.userToken });
         if (checkArraylength.chatLogs.length >= 20) {

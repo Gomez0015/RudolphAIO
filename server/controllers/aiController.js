@@ -235,6 +235,7 @@ exports.startFarming = async function(res, req) {
                     spam: req.body.spam,
                     delete: req.body.delete,
                     instantDelete: req.body.instantDelete,
+                    webhook: req.body.webhook,
                 });
                 checkIfBotExists = newBot;
             } else {
@@ -573,38 +574,6 @@ exports.startFarming = async function(res, req) {
                                         if (data.length > 20) {
                                             data.shift();
                                         }
-
-                                        // for (let x = 0; x < messagesThatNeedReply.length; x++) {
-                                        //     await sleep((3000 * Math.random()) + 1000);
-                                        //     await axios({
-                                        //         method: 'post',
-                                        //         url: process.env.SERVER_URI + "/api/askRudolph",
-                                        //         data: {
-                                        //             botData: checkIfBotRunning,
-                                        //             text: messagesThatNeedReply[x].content, // This is the body part
-                                        //             chatLogs: botChatLogs,
-                                        //         }
-                                        //     }).then(async function(response) {
-                                        //         answer = response.data.answer;
-
-                                        //         if (answer == undefined || answer.replace(/' '/g, '').length <= 0) {
-                                        //             return;
-                                        //         } else {
-                                        //             botChatLogs = response.data.chatLogs;
-                                        //             message.channel.startTyping();
-                                        //             await sleep((Math.floor(Math.random() * 2) + 1) * 1000);
-                                        //             await sleep(answer.length * 250);
-                                        //             messagesThatNeedReply[x].inlineReply(`${answer}`);
-                                        //             message.channel.stopTyping();
-                                        //         }
-
-                                        //         data.push({ messageAuthor: messagesThatNeedReply[x].author.tag, message: messagesThatNeedReply[x].content, response: answer, timeStamp: new Date() });
-                                        //         if (data.length > 20) {
-                                        //             data.shift();
-                                        //         }
-                                        //         messagesThatNeedReply.splice(x, 1);
-                                        //     });
-                                        // }
 
                                         await levelFarms.findOneAndUpdate({ discordId: discordId, botName: client.user.tag }, { messages: data });
 

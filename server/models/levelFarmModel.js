@@ -71,7 +71,7 @@ var levelFarmSchema = new Schema({
     },
     webhook: {
         type: String,
-        default: 'none'
+        default: ''
     }
 });
 
