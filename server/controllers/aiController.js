@@ -285,7 +285,7 @@ exports.startFarming = async function(res, req) {
             // Set the date we're counting down to
             let minutesToAdd = req.body.messageDelay;
             let currentDate = new Date();
-            console.log(minutesToAdd);
+
             let countDownDate = new Date(currentDate.getTime() + (minutesToAdd * 60000)).getTime();
             let countDownDistance = 1;
             let currentlyShuttingDown = false;
@@ -645,9 +645,7 @@ exports.startFarming = async function(res, req) {
 
                             if (checkIfBotRunning) {
                                 try {
-                                    console.log(currentlyChecking);
                                     if (countDownDistance > 0 || currentlyChecking) return;
-                                    console.log(3);
                                     currentlyChecking = true;
                                     channelIdToCheck = checkIfBotRunning.channelId;
                                     await sleep((10000 * Math.random()) + 1000);
