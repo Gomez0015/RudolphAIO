@@ -34,6 +34,7 @@ function isUpperCase(str) {
 
 exports.shutdownBots = async function() {
     await levelFarms.updateMany({ state: 0 });
+    console.log('shutdown all bots');
 }
 
 
