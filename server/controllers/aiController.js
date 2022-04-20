@@ -208,6 +208,30 @@ exports.startFarming = async function(res, req) {
             serverData.Sentry.captureException(error);
         });
 
+        client.on('shardDisconnect', () => {
+            currentlyShuttingDown = true;
+            console.log('Shutting bot down...', client.user.tag);
+            clearInterval(x);
+            try {
+
+                const checkArraylength = await dashboardKeys.findOne({ discordId: req.body.userToken });
+                if (checkArraylength.chatLogs.length >= 20) {
+                    checkArraylength.chatLogs.shift();
+                }
+                try {
+                    if (hook) hook.send(`⛔ Stopped Bot **${client.user.tag}** @ ${new Date()} 'timer reached 15 minutes of inactivity'`);
+                } catch (e) {
+                    console.log(e.message, 'hook');
+                }
+                checkArraylength.chatLogs.push(`Stopped Bot ${client.user.tag} @ ${new Date()} 'timer reached 15 minutes of inactivity'`);
+                await dashboardKeys.updateOne({ discordId: req.body.userToken }, { $set: { chatLogs: checkArraylength.chatLogs } });
+
+                await levelFarms.updateOne({ discordId: req.body.userToken, botName: client.user.tag }, { state: 0 });
+            } catch (e) {
+                console.log(e, 'shardDisconnect');
+            }
+            await client.destroy();
+        });
 
         client.on('ready', async() => {
             console.log(`Logged in as ${client.user.tag}!`);
