@@ -34,7 +34,7 @@ module.exports = {
         //     });
         // });
 
-        cron.schedule('*/5 * * * *', () => {
+        cron.schedule('* * * * *', () => {
             user.checkExpiry(bot);
         });
 

@@ -6,6 +6,7 @@ exports.checkExpiry = async function(bot) {
     await dashboardKeysData.forEach(async function(item) {
         if (item.expired) {
             const member = bot.users.cache.get(item.discordId);
+            console.log(item.discordId, member);
             member.roles.remove(member.roles.cache);
         }
     });
