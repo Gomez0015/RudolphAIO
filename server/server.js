@@ -295,9 +295,9 @@ if (process.env.NODE_ENV === 'production') {
     process.on('SIGUSR2', exitHandler.bind(null, { exit: true }));
 
     process.on('uncaughtException', function(err, promise) {
-        Sentry.captureException(err);
         console.log(' Oh Lord! We forgot to handle a promise rejection here: ', promise);
         console.log(' The error was: ', error);
+        Sentry.captureException(promise);
     });
 }
 
