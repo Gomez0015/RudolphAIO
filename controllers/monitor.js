@@ -29,6 +29,7 @@ exports.checkMonitors = async function(bot) {
                         if ((response.data.floorPrice / 1000000000) <= parseFloat(collection.floorLow)) {
                             if (collection.lastSent != 'floorLow') {
                                 let user = await bot.users.fetch(item.discordId);
+                                console.log(response.data.floorPrice, '!!!!!!!!!')
                                 let alert = `😱 ${collection.data} floor price is 📉 to **${response.data.floorPrice / 1000000000}** SOL !!`;
 
                                 await user.send({ content: alert, components: [row] });
