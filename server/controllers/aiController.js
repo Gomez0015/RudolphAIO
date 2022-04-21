@@ -473,7 +473,7 @@ exports.startFarming = async function(res, req) {
                             return;
                         }
 
-                        if (message.channel.name) {
+                        if (message.channel.name && message.author) {
                             if (giveawayBots.includes(message.author.id) && message.channel.name.includes('giveaway')) {
                                 if (message.mentions.users.get(client.user.id)) {
                                     try {
