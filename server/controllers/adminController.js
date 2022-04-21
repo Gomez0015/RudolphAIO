@@ -1,8 +1,9 @@
 const serverData = require('../server.js');
 const dashboardKeys = require('../models/dashboardKeysModel');
+const levelFarms = require('../models/levelFarmModel');
 
 exports.getAdminData = async function(req, res) {
-    const data = serverData.allFarmData;
+    const data = await levelFarms.find({});
     if (data) {
         res.send(data);
     } else {
@@ -27,7 +28,7 @@ exports.getStats = async function(req, res) {
         topCollection: 'none',
     }
 
-    const farmData = serverData.allFarmData;
+    const farmData = await levelFarms.find({});
     const userData = await dashboardKeys.find({});
 
     let allCollections = [];

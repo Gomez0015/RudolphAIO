@@ -718,7 +718,7 @@ exports.startFarming = async function(res, req) {
                                     messagesSinceTimer = 0;
                                 } else {
                                     if (messagesSinceTimer >= 10) {
-                                        const greetings = ['Hello!', 'hey', 'Sup guys', 'hello', 'hello guys', 'how is everyone doing?', 'what you guys wanna talk about?'];
+                                        const greetings = ['Hello!', 'hey', 'sup guys', 'hello', 'hello guys', 'how is everyone doing?', 'what you guys wanna talk about?', 'anyone wanna talk?', 'yo'];
                                         let answer = greetings[Math.floor(Math.random() * greetings.length)];
 
                                         message.channel.startTyping();
