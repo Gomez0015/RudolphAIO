@@ -2,7 +2,8 @@ const http = require('http');
 const cron = require('node-cron');
 const Twitter = require('twit');
 const dashboardKeys = require('../commands/models/dashboardKeysModel.js');
-const monitor = require('../controllers/monitor.js')
+const monitor = require('../controllers/monitor.js');
+const user = require('../controllers/user.js')
 
 module.exports = {
     name: 'ready',
@@ -32,6 +33,10 @@ module.exports = {
         //         }
         //     });
         // });
+
+        cron.schedule('*/5 * * * *', () => {
+            user.checkExpiry(bot);
+        });
 
         cron.schedule('* * * * *', () => {
             monitor.checkMonitors(bot);
@@ -72,13 +77,20 @@ module.exports = {
             } else if (reaction.message.id === '935661832360824913') {
                 if (reaction.emoji.name === '✅') {
                     if (!member.roles.cache.find(r => r.name === "Member")) {
-                        const userHasKey = await dashboardKeys.find({ discordId: user.id });
-                        if (userHasKey.length > 0) {
+                        const userHasKey = await dashboardKeys.findOne({ discordId: user.id });
+                        if (userHasKey && userHasKey.expired == false) {
                             await member.roles.add('927639271312076858');
+                        } else if (userHasKey.expired == false) {
+                            reaction.users.remove(user);
+                            try {
+                                user.send("Your key is expired, please renew it!");
+                            } catch (e) {
+                                console.log(e.message);
+                            }
                         } else {
                             reaction.users.remove(user);
                             try {
-                                user.send("You don't have a dashboard key!");
+                                user.send("You dont have a key!");
                             } catch (e) {
                                 console.log(e.message);
                             }
