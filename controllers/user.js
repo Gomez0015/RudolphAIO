@@ -29,8 +29,8 @@ exports.checkExpiry = async function(bot) {
                     member.roles.remove(member.roles.cache);
                 })
                 .catch(console.error);
-        } else if (getNumberOfDays(item.start_date, new Date()) >= 31) {
-            console.log('Expired: ' + item.discordId);
+        } else if (getNumberOfDays(item.start_date, new Date()) >= 31 && item.expired == false) {
+            // Expire Keys
         }
     });
 }
