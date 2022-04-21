@@ -16,6 +16,8 @@ const { Webhook } = require('discord-webhook-node');
 const giveawayBots = ['294882584201003009', '530082442967646230'];
 const serverData = require('../server.js');
 
+let needsShutdown = [];
+
 // Open AI
 const { Configuration, OpenAIApi } = require("openai");
 const configuration = new Configuration({
@@ -137,6 +139,8 @@ exports.stopFarming = async function(res, req) {
     if (data) {
         await levelFarms.updateOne(data, { state: 2 });
 
+        needsShutdown.push(data.botName);
+
         res.send({ state: 'success', message: 'Successfully stopped bot' });
     } else {
         res.send({ state: 'error', message: 'You have no bots currently farming' });
@@ -211,18 +215,14 @@ exports.startFarming = async function(res, req) {
         client.on('shardDisconnect', async() => {
             currentlyShuttingDown = true;
             console.log('Shutting bot down...', client.user.tag);
-            clearInterval(x);
+
             try {
 
                 const checkArraylength = await dashboardKeys.findOne({ discordId: req.body.userToken });
                 if (checkArraylength.chatLogs.length >= 20) {
                     checkArraylength.chatLogs.shift();
                 }
-                try {
-                    if (hook) hook.send(`⛔ Stopped Bot **${client.user.tag}** @ ${new Date()} 'timer reached 15 minutes of inactivity'`);
-                } catch (e) {
-                    console.log(e.message, 'hook');
-                }
+
                 checkArraylength.chatLogs.push(`Stopped Bot ${client.user.tag} @ ${new Date()} 'timer reached 15 minutes of inactivity'`);
                 await dashboardKeys.updateOne({ discordId: req.body.userToken }, { $set: { chatLogs: checkArraylength.chatLogs } });
 
@@ -341,6 +341,36 @@ exports.startFarming = async function(res, req) {
                 // Find the distance between now and the count down date
                 countDownDistance = countDownDate - now;
                 console.log(countDownDistance, client.user.tag);
+
+                if (needsShutdown.filter(item => item === client.user.tag)[0] != undefined) {
+                    (async function() {
+                        currentlyShuttingDown = true;
+                        console.log('Shutting bot down...', client.user.tag);
+
+                        const checkArraylength = await dashboardKeys.findOne({ discordId: discordId });
+                        if (checkArraylength.chatLogs.length >= 20) {
+                            checkArraylength.chatLogs.shift();
+                        }
+
+                        try {
+                            if (hook) hook.send(`⛔ Stopped Bot **${client.user.tag}** @ ${new Date()} 'user input'`);
+                        } catch (e) {
+                            console.log(e.message, 'hook');
+                        }
+                        checkArraylength.chatLogs.push(`Stopped Bot ${client.user.tag} @ ${new Date()} 'user input'`);
+                        dashboardKeys.updateOne({ discordId: discordId }, { $set: { chatLogs: checkArraylength.chatLogs } });
+
+                        levelFarms.updateOne({ discordId: discordId, botName: client.user.tag }, { state: 0 });
+
+                        needsShutdown = needsShutdown.filter(function(obj) {
+                            return obj.field !== client.user.tag;
+                        });
+
+                        await client.destroy();
+                        clearInterval(x);
+                        return;
+                    })()
+                }
 
                 if ((checkIfBotExists.spam && checkIfBotExists.instantDelete || checkIfBotExists.spam && checkIfBotExists.delete) && countDownDistance < 0 && !currentlyChecking) {
                     currentlyChecking = true;
