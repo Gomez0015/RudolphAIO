@@ -35,6 +35,21 @@ function isUpperCase(str) {
 
 
 exports.shutdownBots = async function() {
+    const runningBots = await levelFarms.find({ state: 1 });
+
+    runningBots.forEach(function(bot) {
+        try {
+            let hook = undefined;
+            if (bot.webhook != 'none' || bot.webhook.trim().length > 0) {
+                hook = new Webhook(bot.webhook);
+                hook.setUsername('Rudolph Alerts');
+            }
+            if (hook) hook.send(`⚠️ Server has been restarted @ ${new Date()}`);
+        } catch (e) {
+            console.log(e.message);
+        }
+    });
+
     await levelFarms.updateMany({ state: 0 });
     console.log('shutdown all bots');
 }
