@@ -5,7 +5,7 @@ exports.checkExpiry = async function(bot) {
 
     await dashboardKeysData.forEach(async function(item) {
         if (item.expired) {
-            const guild = client.guilds.cache.get('927639271261737010');
+            const guild = bot.guilds.cache.get('927639271261737010');
 
             guild.members.fetch(item.discordId)
                 .then(member => {
