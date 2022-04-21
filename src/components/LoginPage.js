@@ -112,7 +112,7 @@ function LoginPage(props) {
         await axios.post(process.env.REACT_APP_SERVER_URI + '/api/checkKeyAvailability', {discordId: discordAuth.data.id, userWallet: userWallet})
             .then((res) => {
                 if(res.data.state === 'success') {
-                    sendTransferInstruction(0.59, function(transactionSignature) {
+                    sendTransferInstruction(0.99, function(transactionSignature) {
                         axios.post(process.env.REACT_APP_SERVER_URI + '/api/generateNewKey', {discordId: discordAuth.data.id, signature: transactionSignature})
                             .then(res => {
                                 setBuyKeyCookie(false);
@@ -163,8 +163,8 @@ function LoginPage(props) {
         <ConnectToPhantom setUserWallet={setUserWallet}/>
         : code && buyKey == 'true' && userWallet != 'none' ? 
         <>
-            <Button loading={buyKeyLoading} onClick={GenerateKey}>Generate Key</Button>
-            <p>Please do not refresh page while generating.</p>
+            <Button loading={buyKeyLoading} onClick={GenerateKey}>Buy/Renew Key</Button>
+            <p>Please do not refresh page during this process.</p>
         </>
         : code && newKey == 'true' ?
             <form action='#' onSubmit={Register}>
@@ -183,7 +183,7 @@ function LoginPage(props) {
                 <Button htmlType="submit">Login with Discord</Button>
             </form>
             <form action='#' onSubmit={() => {setNewKeyCookie(false); setBuyKeyCookie(true); DiscordLogin();}} style={{marginBottom: '15px'}}>
-                <Button htmlType="submit">Buy a Key</Button>
+                <Button htmlType="submit">Buy/Renew a Key</Button>
             </form>
             </>
         }

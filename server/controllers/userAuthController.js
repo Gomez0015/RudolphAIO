@@ -43,17 +43,17 @@ exports.linkKeyDiscord = async function(res, req, db) {
 exports.checkKeyAvailability = async function(req, res) {
     const allKeys = await dashboardKeys.find({});
 
-    if (allKeys.length >= 60) {
-        res.send({ state: 'error', message: 'Out of stock!' });
-    } else {
-        const checkUserHasKey = await dashboardKeys.findOne({ discordId: req.body.discordId });
-        if (checkUserHasKey) {
-            res.send({ state: 'error', message: 'You already have a key!' });
-        } else {
-            awaitingPayements.push(req.body.userWallet);
-            res.send({ state: 'success', message: 'You are avialable to generate a key!' });
-        }
-    }
+    // if (allKeys.length >= 60) {
+    //     res.send({ state: 'error', message: 'Out of stock!' });
+    // } else {
+    // const checkUserHasKey = await dashboardKeys.findOne({ discordId: req.body.discordId });
+    // if (checkUserHasKey) {
+    //     res.send({ state: 'error', message: 'You already have a key!' });
+    // } else {
+    awaitingPayements.push(req.body.userWallet);
+    res.send({ state: 'success', message: 'You are available to generate a key!' });
+    // }
+    // }
 }
 
 exports.generateNewKey = async function(req, res) {
@@ -88,9 +88,15 @@ exports.generateNewKey = async function(req, res) {
                     const checkKeyExists = await dashboardKeys.findOne({ key: generatedKey });
 
                     if (!checkKeyExists) {
-                        await dashboardKeys.create({ key: generatedKey.toUpperCase(), discordId: req.body.discordId, expired: 'false', start_date: new Date() });
-                        awaitingPayements.splice(awaitingPayements.indexOf(response.data.solTransfers[0].source), 1);
-                        res.send({ state: 'success', message: 'Key has been generated, you can now login!' });
+                        if (checkUserHasKey) {
+                            await dashboardKeys.updateOne({ discordId: req.body.discordId }, { expired: 'false', start_date: new Date() });
+                            awaitingPayements.splice(awaitingPayements.indexOf(response.data.solTransfers[0].source), 1);
+                            res.send({ state: 'success', message: 'Key has been renewed, you can now login!' });
+                        } else {
+                            await dashboardKeys.create({ key: generatedKey.toUpperCase(), discordId: req.body.discordId, expired: 'false', start_date: new Date() });
+                            awaitingPayements.splice(awaitingPayements.indexOf(response.data.solTransfers[0].source), 1);
+                            res.send({ state: 'success', message: 'Key has been bought, you can now login!' });
+                        }
                     } else {
                         console.log('recall function, key already exists', req.body.discordId, req.body.signature, 6);
                         awaitingPayements.splice(awaitingPayements.indexOf(response.data.solTransfers[0].source), 1);
