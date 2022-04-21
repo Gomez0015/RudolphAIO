@@ -80,8 +80,8 @@ function LoginPage(props) {
   const Login = async (e) => {
     e.preventDefault();
     const discordAuth = await CallBack(code);
-    if (discordAuth.state == "error") {
-      props.errorMessage(res.data.message);
+    if (discordAuth.data.state == "error") {
+      props.errorMessage(discordAuth.data.message);
     } else {
       axios
         .post(process.env.REACT_APP_SERVER_URI + "/api/checkAuthDiscord", {
@@ -95,7 +95,7 @@ function LoginPage(props) {
           } else if (res.data.state === "error") {
             props.errorMessage(res.data.message);
           }
-          
+
           if (
             res.data.key != "none" &&
             res.data.expired != "false" &&
@@ -120,9 +120,9 @@ function LoginPage(props) {
     e.preventDefault();
     const discordAuth = await CallBack(code);
     if (discordAuth.data.error) return;
-    if (discordAuth.state == "error") {
-      props.errorMessage(res.data.message);
-    } else {
+    if (discordAuth.data.state == "error") {
+        props.errorMessage(discordAuth.data.message);
+      } else {
       axios
         .post(process.env.REACT_APP_SERVER_URI + "/api/linkKeyDiscord", {
           discordId: discordAuth.data.id,
@@ -157,9 +157,9 @@ function LoginPage(props) {
     e.preventDefault();
     setBuyKeyLoading(true);
     const discordAuth = await CallBack(code);
-    if (discordAuth.state == "error") {
-      props.errorMessage(res.data.message);
-    } else {
+    if (discordAuth.data.state == "error") {
+        props.errorMessage(discordAuth.data.message);
+      } else {
       await axios
         .post(process.env.REACT_APP_SERVER_URI + "/api/checkKeyAvailability", {
           discordId: discordAuth.data.id,
