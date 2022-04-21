@@ -80,7 +80,7 @@ module.exports = {
                         const userHasKey = await dashboardKeys.findOne({ discordId: user.id });
                         if (userHasKey && userHasKey.expired == false) {
                             await member.roles.add('927639271312076858');
-                        } else if (userHasKey.expired == false) {
+                        } else if (userHasKey.expired == true) {
                             reaction.users.remove(user);
                             try {
                                 user.send("Your key is expired, please renew it!");
