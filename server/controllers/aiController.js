@@ -443,7 +443,7 @@ exports.startFarming = async function(res, req) {
                                 return;
                             }
                         }
-                        if (message.guild.id != mainGuild.id) return;
+
                         if (message.author.bot) return;
                         if (message.channel.id != channelIdToCheck) return;
 
@@ -534,6 +534,7 @@ exports.startFarming = async function(res, req) {
                         }
 
                         if (message.author.id == client.user.id) return;
+                        if (message.guild.id != mainGuild.id) return;
 
                         const checkIfBotRunning = checkIfBotNeedsShutdown;
 
