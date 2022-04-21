@@ -363,10 +363,8 @@ exports.startFarming = async function(res, req) {
                         levelFarms.updateOne({ discordId: discordId, botName: client.user.tag }, { state: 0 });
 
                         needsShutdown = needsShutdown.filter(function(obj) {
-                            return obj.botName !== client.user.tag;
+                            return obj !== client.user.tag;
                         });
-
-                        console.log(needsShutdown);
 
                         await client.destroy();
                         clearInterval(x);
