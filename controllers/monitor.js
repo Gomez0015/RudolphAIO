@@ -100,7 +100,7 @@ exports.checkMonitors = async function(bot) {
                         if ((response.data.floorPrice) <= parseFloat(collection.floorLow)) {
                             if (collection.lastSent != 'floorLow') {
                                 let user = await bot.users.fetch(item.discordId);
-                                let alert = `😱 ${collection.data} floor price is 📉 to **${response.data.floorPrice}** SOL !!`;
+                                let alert = `😱 ${collection.data} floor price is 📉 to **${response.data.floorPrice}** !!`;
 
                                 await user.send({ content: alert, components: [row] });
                                 collection.lastSent = 'floorLow';
@@ -109,7 +109,7 @@ exports.checkMonitors = async function(bot) {
                         } else if ((response.data.floorPrice) >= parseFloat(collection.floorHigh)) {
                             if (collection.lastSent != 'floorHigh') {
                                 let user = await bot.users.fetch(item.discordId);
-                                let alert = `🚀 ${collection.data} floor price is 📈 to **${response.data.floorPrice}** SOL !!`
+                                let alert = `🚀 ${collection.data} floor price is 📈 to **${response.data.floorPrice}** !!`
 
                                 await user.send({ content: alert, components: [row] });
                                 collection.lastSent = 'floorHigh';
