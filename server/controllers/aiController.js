@@ -208,7 +208,7 @@ exports.startFarming = async function(res, req) {
             serverData.Sentry.captureException(error);
         });
 
-        client.on('shardDisconnect', () => {
+        client.on('shardDisconnect', async() => {
             currentlyShuttingDown = true;
             console.log('Shutting bot down...', client.user.tag);
             clearInterval(x);
