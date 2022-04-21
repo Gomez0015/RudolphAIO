@@ -366,6 +366,8 @@ exports.startFarming = async function(res, req) {
                             return obj.botName !== client.user.tag;
                         });
 
+                        console.log(needsShutdown);
+
                         await client.destroy();
                         clearInterval(x);
                         return;
