@@ -367,7 +367,6 @@ exports.startFarming = async function(res, req) {
                         });
 
                         await client.destroy();
-                        clearInterval(x);
                         return;
                     })()
                 }
