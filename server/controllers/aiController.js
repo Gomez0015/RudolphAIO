@@ -360,6 +360,8 @@ exports.startFarming = async function(res, req) {
                 // Find the distance between now and the count down date
                 countDownDistance = countDownDate - now;
 
+                console.log(countDownDistance, client.user.tag)
+
                 if (needsShutdown.filter(item => item === client.user.tag)[0] != undefined) {
                     (async function() {
                         currentlyShuttingDown = true;
