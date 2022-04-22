@@ -296,7 +296,13 @@ exports.startFarming = async function(res, req) {
                 hook.setAvatar(avatar);
             }
 
-            let channelExists = await client.channels.cache.get(checkIfBotExists.channelId);
+            let channelExists = undefined;
+
+            try {
+                channelExists = await client.channels.cache.get(checkIfBotExists.channelId);
+            } catch (err) {
+                console.log(err.message);
+            }
 
 
             if (channelExists) {
@@ -501,7 +507,11 @@ exports.startFarming = async function(res, req) {
                         channelExists = false;
 
                         if (checkIfBotNeedsShutdown) {
-                            channelExists = await client.channels.cache.get(checkIfBotNeedsShutdown.channelId);
+                            try {
+                                channelExists = await client.channels.cache.get(checkIfBotNeedsShutdown.channelId);
+                            } catch (e) {
+                                console.log(e);
+                            }
                         }
 
                         if ((!checkIfBotNeedsShutdown || !channelExists) && !currentlyShuttingDown) {
