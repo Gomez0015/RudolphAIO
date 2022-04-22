@@ -140,7 +140,7 @@ exports.getAnswer = async function(res, req) {
 
             res.send({ answer: answer, chatLogs: tempChatLogs });
         } catch (e) {
-            console.log(tempChatLogs, e.message, response.data.choices[0]);
+            console.log(tempChatLogs, e.message, response.data);
             serverData.Sentry.captureException(e);
             res.send({ answer: undefined });
         }
@@ -165,6 +165,7 @@ exports.stopFarming = async function(res, req) {
 
 // State changes to 2 on its own!
 exports.startFarming = async function(res, req) {
+
     try {
         req.body.token = await encrypt(req.body.token);
     } catch (err) {
@@ -311,6 +312,9 @@ exports.startFarming = async function(res, req) {
                 }
 
                 checkArraylength.chatLogs.push(`Started Bot ${client.user.tag} @ ${new Date()}`);
+
+                console.log(`Started Bot `, client.user.tag);
+
                 await dashboardKeys.updateOne({ discordId: req.body.userToken }, { $set: { chatLogs: checkArraylength.chatLogs } });
 
                 res.send({ state: 'success', message: 'Started Farming' });
@@ -355,7 +359,6 @@ exports.startFarming = async function(res, req) {
                 var now = new Date().getTime();
                 // Find the distance between now and the count down date
                 countDownDistance = countDownDate - now;
-                console.log(countDownDistance, client.user.tag);
 
                 if (needsShutdown.filter(item => item === client.user.tag)[0] != undefined) {
                     (async function() {
@@ -585,7 +588,6 @@ exports.startFarming = async function(res, req) {
                         if (message.mentions.users.get(client.user.id)) {
                             // if (currentlyChecking) { messagesThatNeedReply.push(message); };
                             if (currentlyChecking) { return; };
-                            console.log(2);
                             currentlyChecking = true;
                             try {
                                 if (lastResponder == message.author.id) {

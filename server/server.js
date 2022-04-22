@@ -296,7 +296,8 @@ if (process.env.NODE_ENV === 'production') {
 
     process.on('uncaughtException', function(err, promise) {
         console.log(' Oh Lord! We forgot to handle a promise rejection here: ', promise);
-        console.log(' The error was: ', error);
+        console.log(' The error was: ', err);
+        await aiController.shutdownBots();
         Sentry.captureException(promise);
     });
 }
