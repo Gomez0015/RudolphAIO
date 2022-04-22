@@ -294,7 +294,7 @@ if (process.env.NODE_ENV === 'production') {
     process.on('SIGUSR1', exitHandler.bind(null, { exit: true }));
     process.on('SIGUSR2', exitHandler.bind(null, { exit: true }));
 
-    process.on('uncaughtException', function(err, promise) {
+    process.on('uncaughtException', async function(err, promise) {
         try {
             console.log(' Oh Lord! We forgot to handle a promise rejection here: ', promise);
             console.log(' The error was: ', err);
