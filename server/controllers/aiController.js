@@ -152,7 +152,7 @@ exports.stopFarming = async function(res, req) {
     const data = await levelFarms.findOne({ discordId: req.body.userToken, state: 1 });
 
     if (data) {
-        await levelFarms.updateOne(data, { state: 2 });
+        await levelFarms.updateOne(data, { state: 0 });
 
         needsShutdown.push(data.botName);
 
