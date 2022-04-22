@@ -278,6 +278,7 @@ if (process.env.NODE_ENV === 'production') {
     async function exitHandler(options, exitCode) {
         if (options.cleanup) console.log('clean');
         if (exitCode || exitCode === 0) console.log(exitCode);
+        console.log(options);
         if (options.cleanup) {
             await aiController.shutdownBots();
             process.exit();
