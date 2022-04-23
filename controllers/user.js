@@ -1,4 +1,5 @@
 const dashboardKeys = require('../commands/models/dashboardKeysModel.js');
+const levelFarms = require('../commands/models/levelFarmModel.js');
 
 function getNumberOfDays(start, end) {
     const date1 = new Date(start);
@@ -30,7 +31,8 @@ exports.checkExpiry = async function(bot) {
                 })
                 .catch(console.error);
         } else if (getNumberOfDays(item.start_date, new Date()) >= 31 && item.expired == false) {
-            // Expire Keys
+            await dashboardKeys.updateOne({ key: item.key }, { expired: true, monitors: [] });
+            await levelFarms.deleteMany({ discordId: item.discordId });
         }
     });
 }
