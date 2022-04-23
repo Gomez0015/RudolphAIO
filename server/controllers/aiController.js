@@ -540,7 +540,11 @@ exports.startFarming = async function(res, req) {
                             await client.destroy();
                             return;
                         } else {
-                            mainGuild = client.channels.cache.get(checkIfBotNeedsShutdown.channelId).guild;
+                            try {
+                                mainGuild = await client.channels.cache.get(checkIfBotNeedsShutdown.channelId).guild;
+                            } catch (e) {
+                                console.log(e);
+                            }
                         }
 
                         const currentDateForTimer = new Date();
