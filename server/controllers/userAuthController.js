@@ -3,7 +3,7 @@ const axios = require('axios');
 let awaitingPayements = [];
 
 exports.checkAuthDiscord = async function(req, res) {
-    const data = await dashboardKeys.findOne({ discordId: req.body.discordId });
+    const data = await dashboardKeys.findOne({ discordId: req.body.discordId, expired: false });
 
     if (data) {
         if (req.body.discordLogin && req.body.authToken == data.authToken) {
